@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const testimonials = [
   {
@@ -85,7 +86,9 @@ export default function Testimonials() {
               
               <div className="mt-6 flex items-center justify-center flex-col">
                 <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mb-2">
-                  <img 
+                  <Image
+                    width={100}
+                    height={100}
                     src={testimonial.avatar} 
                     alt={testimonial.author} 
                     className="w-full h-full object-cover"

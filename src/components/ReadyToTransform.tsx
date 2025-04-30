@@ -4,6 +4,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function ReadyToTransform() {
   const containerRef = useRef(null) as any;
@@ -98,7 +99,9 @@ export default function ReadyToTransform() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <img 
+              <Image
+                width={100}
+                height={100}
                 src="/images/mockup1.png" 
                 alt="Farmer with produce" 
                 className="w-[400px] h-full object-cover"

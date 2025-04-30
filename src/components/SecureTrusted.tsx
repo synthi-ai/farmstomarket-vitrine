@@ -127,7 +127,7 @@ const SecureTrusted = () => {
           variants={itemVariants}
         >
           <p className="text-center mb-4">
-            We're not just an app - we're a movement. By cutting out exploitative middlemen, we ensure 
+            We&apos;re not just an app - we&apos;re a movement. By cutting out exploitative middlemen, we ensure 
             producers earn <span className="font-bold">100% of their worth</span>, while avoiding post-harvest losses, and buyers get <span className="font-bold">quality goods 
             on time</span>. Join thousands already thriving in a marketplace built on fairness, tech, and trust.
           </p>

@@ -109,7 +109,7 @@ export default function FAQ() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <h3 className="font-semibold text-lg">Have specific questions?</h3>
-              <p className="text-gray-600 text-sm">Can't find the answer you are looking for? Talk to our friendly team.</p>
+              <p className="text-gray-600 text-sm">Can&apos;t find the answer you are looking for? Talk to our friendly team.</p>
             </div>
             
             <motion.button

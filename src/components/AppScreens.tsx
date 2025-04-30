@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 export default function AppScreens() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -117,7 +118,9 @@ export default function AppScreens() {
                         }}
                         transition={{ duration: 0.3 }}
                       >
-                        <img 
+                        <Image
+                          width={100}
+                          height={100}
                           src={screen.image} 
                           alt={screen.alt}
                           className="w-full h-full object-cover rounded-3xl"

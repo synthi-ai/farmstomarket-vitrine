@@ -1,12 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const Stats = () => {
   const controls = useAnimation();
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, threshold: 0.2 });
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
   
   useEffect(() => {
     if (inView) {
@@ -35,8 +38,7 @@ const Stats = () => {
   };
   
   // Animation pour les chiffres qui comptent
-  const AnimatedCounter = ({ end, suffix = '', duration = 2 }) => {
-    const [count, setCount] = useState(0);
+  const AnimatedCounter = ({ end, suffix = '', duration = 2 }: { end: any; suffix?: string; duration?: number }) => {    const [count, setCount] = useState(0);
     
     useEffect(() => {
       if (!inView) return;

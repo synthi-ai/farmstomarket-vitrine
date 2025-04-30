@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function CuttingEdgeFeatures() {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -121,7 +122,9 @@ export default function CuttingEdgeFeatures() {
                     transition={{ duration: 0.5 }}
                     className="absolute top-0 left-0 w-full h-full"
                   >
-                    <img 
+                    <Image
+                      width={100}
+                      height={100}
                       src={screen} 
                       alt={`Feature ${index + 1}`}
                       className="w-full h-full object-cover" 

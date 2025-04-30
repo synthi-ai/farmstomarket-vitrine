@@ -9,7 +9,7 @@ const FarmsMarketHero = () => {
 
   useEffect(() => {
     // Animation légère du téléphone qui flotte
-    const phoneElement = phoneRef.current;
+    const phoneElement = phoneRef.current as any;
     if (phoneElement) {
       let startY = 0;
       let floating = true;
@@ -95,7 +95,7 @@ const FarmsMarketHero = () => {
           transition={{ duration: 0.5, delay: 0.8 }}
         >
           <p className="text-black mb-8">
-            At Farms to Market, we're revolutionizing how agri-food moves 
+            At Farms to Market, we&apos;re revolutionizing how agri-food moves 
             from farm to the fingertips of both market users, village residents 
             and urban dwellers alike. Empowering farmers, retailers and 
             operators to connect, identify, negotiate, trade and coordinate 
