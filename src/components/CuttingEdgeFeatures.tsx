@@ -58,8 +58,8 @@ export default function CuttingEdgeFeatures() {
   const phoneScreens = [
     "/images/iPhone.png",
     "/images/iPhone14.png",
-    "/images/iPhone.png",
-    "/images/iPhone14.png",
+    "/images/father.jpg",
+    "/images/mother.jpg",
   ];
 
   return (
