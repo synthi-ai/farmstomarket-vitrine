@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState } from 'react';
@@ -16,6 +17,32 @@ export default function Footer() {
       }, 3000);
     }
   };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2,
+      },
+    },
+  } as const;
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.5, 
+        ease: "easeOut" 
+      }
+    }
+  } as const;
 
   const socialLinks = [
     { name: 'Facebook', icon: 'facebook', href: '#' },
@@ -40,19 +67,18 @@ export default function Footer() {
   return (
     <motion.footer 
       className="w-full bg-black text-white border-t-4 border-green-500"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
     >
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Logo and Description */}
-          <div className="space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+          <motion.div 
+            className="space-y-6"
+            variants={itemVariants}
+          >
+            <div>
               <div className="mb-4">
                 <h2 className="font-bold text-base">
                   <span className="text-green-500">FARMS</span><br />
@@ -62,15 +88,10 @@ export default function Footer() {
               <p className="text-gray-400 text-sm max-w-xs">
                 Lorem ipsum dolor amet, consectetur adipiscing elit. Est est non quam et sed ipsum effectum. Cursus sed massa non est ullamcor.
               </p>
-            </motion.div>
+            </div>
             
             {/* Social Icons */}
-            <motion.div 
-              className="flex space-x-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
+            <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.name}
@@ -102,15 +123,13 @@ export default function Footer() {
                   )}
                 </motion.a>
               ))}
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
           
           {/* Sitemap Links */}
           <motion.div 
             className="lg:mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            variants={itemVariants}
           >
             <h3 className="text-lg font-medium mb-4">Sitemap</h3>
             <ul className="space-y-2">
@@ -131,9 +150,7 @@ export default function Footer() {
           
           {/* Newsletter */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            variants={itemVariants}
           >
             <h3 className="text-lg font-medium mb-4">Reach us</h3>
             <div className="mb-4">
@@ -182,9 +199,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <motion.div 
           className="pt-8 mt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          variants={itemVariants}
         >
           <div>
             © 2025 Farms to Market. All rights reserved

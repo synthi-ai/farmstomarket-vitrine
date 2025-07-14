@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Play, Menu, X } from 'lucide-react';
 
-import farmBackground from '../../public/images/home2.png';
+// Placeholder for farm background image
+const farmBackground = {
+  src:"http://20.80.106.250:9001/api/v1/download-shared-object/aHR0cDovLzEyNy4wLjAuMTo5MDAwL3ZpdHJpbmUvaG9tZTIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9UU1YVko4OVNLMVo2R1BFM09JRUclMkYyMDI1MDcxNCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTA3MTRUMTYzNTAzWiZYLUFtei1FeHBpcmVzPTQzMjAwJlgtQW16LVNlY3VyaXR5LVRva2VuPWV5SmhiR2NpT2lKSVV6VXhNaUlzSW5SNWNDSTZJa3BYVkNKOS5leUpoWTJObGMzTkxaWGtpT2lKUlRWaFdTamc1VTBzeFdqWkhVRVV6VDBsRlJ5SXNJbVY0Y0NJNk1UYzFNalUxTXpreE9Td2ljR0Z5Wlc1MElqb2liV2x1YVc4aWZRLnNpTmlDdlE5VXd4T05fWUdiOHI4NHhvYl9RbVZNQnpvT1dnUi1TZ3JtdkxRRlppOXhXOUtGRG1tamlqQTlOSjZhaEFPM3RzT25wUGJDRE5xa2liNmVnJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZ2ZXJzaW9uSWQ9bnVsbCZYLUFtei1TaWduYXR1cmU9Mjc5MzQ5ODk3MTRiODk3MzRlOWQ2MWRjZWQ1OWEyZmY0ZWNhZTU4YTM0NGI5ZjA3YzYzMWE5ZTcyZjNhYmNmOA",
+  //src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80"
+};
 
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -72,7 +76,7 @@ export default function Hero() {
     <>
       {/* Fixed Header with dynamic background on scroll */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || mobileMenuOpen ? 'bg-black' : 'bg-transparent'}`}>
-        <div className={`flex justify-between items-center px-4 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+        <div className={`flex justify-between items-center px-4 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
           {/* Logo - centered on mobile, left on desktop */}
           <div className="text-white font-bold text-xl order-2 sm:order-1 mx-auto sm:mx-0">
             <span className="text-green-400">FARMS</span>
@@ -159,8 +163,8 @@ export default function Hero() {
         </div>
       </header>
 
-      {/* Hero Section - with margin-top to account for fixed header */}
-      <div className="relative w-full h-1/2 pb-16 overflow-hidden bg-black pt-24">
+      {/* Hero Section - Extended height to 800-1200px range */}
+      <div className="relative w-full h-screen min-h-[800px] max-h-[1200px] pb-16 overflow-hidden bg-black pt-24">
         {/* Background image */}
         <div 
           className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"

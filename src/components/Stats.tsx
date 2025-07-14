@@ -1,24 +1,33 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 
 const Stats = () => {
+  const [inView, setInView] = useState(false);
   const controls = useAnimation();
-  const { ref, inView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  });
   
+  // Simple intersection observer setup
   useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          controls.start('visible');
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    const element = document.getElementById('stats-section');
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [controls]);
   
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0 
+    },
     visible: {
       opacity: 1,
       transition: {
@@ -26,19 +35,27 @@ const Stats = () => {
         delayChildren: 0.3
       }
     }
-  };
+  } as const;
   
+  // Fixed the ease property - use string format for better TypeScript compatibility
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: 20 
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { 
+        duration: 0.8, 
+        ease: "easeOut"
+      }
     }
-  };
+  } as const;
   
   // Animation pour les chiffres qui comptent
-  const AnimatedCounter = ({ end, suffix = '', duration = 2 }: { end: any; suffix?: string; duration?: number }) => {    const [count, setCount] = useState(0);
+  const AnimatedCounter = ({ end, suffix = '', duration = 2 }) => {
+    const [count, setCount] = useState(0);
     
     useEffect(() => {
       if (!inView) return;
@@ -77,9 +94,9 @@ const Stats = () => {
   
   return (
     <section 
-      ref={ref} 
+      id="stats-section"
       className="w-full py-12 px-4 rounded-lg text-center relative overflow-hidden"
-      style={{ backgroundColor: '#00ff2a' }} // Couleur verte brillante exacte
+      style={{ backgroundColor: '#00ff2a' }}
     >
       {/* Éléments décoratifs */}
       <div className="absolute inset-0 overflow-hidden">

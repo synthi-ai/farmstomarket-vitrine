@@ -10,7 +10,9 @@ const SecureTrusted = () => {
   });
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0 
+    },
     visible: {
       opacity: 1,
       transition: {
@@ -18,25 +20,35 @@ const SecureTrusted = () => {
         delayChildren: 0.3,
       },
     },
-  };
+  } as const;
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: 20 
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 }
+      transition: { 
+        duration: 0.6 
+      }
     },
-  };
+  } as const;
 
   const featureVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { 
+      opacity: 0, 
+      y: 30 
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7 }
+      transition: { 
+        duration: 0.7 
+      }
     },
-  };
+  } as const;
 
   return (
     <div className="relative w-full py-16 px-4">

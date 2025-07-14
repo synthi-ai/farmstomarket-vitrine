@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
@@ -47,42 +48,86 @@ const faqItems = [
 ];
 
 export default function FAQ() {
-  const [expandedId, setExpandedId] = useState(null);
+  const [expandedId, setExpandedId] = useState<number | null>(null);
   
-  const toggleExpand = (id:any) => {
+  const toggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id);
   };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.1,
+      },
+    },
+  } as const;
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.4, 
+        ease: "easeOut" 
+      }
+    }
+  } as const;
+
+  const titleVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: -20 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.5, 
+        ease: "easeOut" 
+      }
+    }
+  } as const;
 
   return (
     <div className="w-full bg-blue-50 py-12 px-6 rounded-lg">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           className="text-3xl font-bold text-center mb-10"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          variants={titleVariants}
+          initial="hidden"
+          animate="visible"
         >
           Frequently Asked Questions
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {faqItems.map((item) => (
             <motion.div
               key={item.id}
               className="bg-white rounded-lg shadow-sm overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: item.id * 0.1 }}
+              variants={itemVariants}
             >
               <div 
-                className="flex justify-between items-center p-4 cursor-pointer"
+                className="flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors duration-200"
                 onClick={() => toggleExpand(item.id)}
               >
-                <h3 className="text-sm font-normal text-gray-800">{item.question}</h3>
+                <h3 className="text-sm font-normal text-gray-800 pr-4">{item.question}</h3>
                 <motion.div
                   animate={{ rotate: expandedId === item.id ? 45 : 0 }}
                   transition={{ duration: 0.3 }}
-                  className="text-xl text-gray-400 font-light"
+                  className="text-xl text-gray-400 font-light flex-shrink-0"
                 >
                   +
                 </motion.div>
@@ -97,15 +142,20 @@ export default function FAQ() {
                     transition={{ duration: 0.3 }}
                     className="px-4 pb-4"
                   >
-                    <p className="text-sm text-gray-600">{item.answer}</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">{item.answer}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
         
-        <div className="bg-white rounded-lg p-6 shadow-sm">
+        <motion.div 
+          className="bg-white rounded-lg p-6 shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <h3 className="font-semibold text-lg">Have specific questions?</h3>
@@ -129,7 +179,7 @@ export default function FAQ() {
               </svg>
             </motion.button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

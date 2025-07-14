@@ -21,24 +21,36 @@ export default function BuyerSatisfactionSteps() {
         staggerChildren: 0.2,
       },
     },
-  };
+  } as const;
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: 20 
+    },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { 
+        duration: 0.5, 
+        ease: "easeOut" 
+      }
     },
-  };
+  } as const;
   
   const lineVariants = {
-    hidden: { width: 0 },
+    hidden: { 
+      width: 0 
+    },
     visible: { 
       width: "100%", 
-      transition: { duration: 1.2, ease: "easeInOut", delay: 0.3 }
+      transition: { 
+        duration: 1.2, 
+        ease: "easeInOut", 
+        delay: 0.3 
+      }
     },
-  };
+  } as const;
   
   const steps = [
     {
