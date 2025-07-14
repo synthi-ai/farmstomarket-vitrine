@@ -2,6 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
+interface AnimatedCounterProps {
+  end: string;
+  suffix?: string;
+  duration?: number;
+}
+
 const Stats = () => {
   const [inView, setInView] = useState(false);
   const controls = useAnimation();
@@ -37,7 +43,6 @@ const Stats = () => {
     }
   } as const;
   
-  // Fixed the ease property - use string format for better TypeScript compatibility
   const itemVariants = {
     hidden: { 
       opacity: 0, 
@@ -53,8 +58,8 @@ const Stats = () => {
     }
   } as const;
   
-  // Animation pour les chiffres qui comptent
-  const AnimatedCounter = ({ end, suffix = '', duration = 2 }) => {
+  // Animation pour les chiffres qui comptent avec types appropriés
+  const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ end, suffix = '', duration = 2 }) => {
     const [count, setCount] = useState(0);
     
     useEffect(() => {
