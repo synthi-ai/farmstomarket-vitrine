@@ -3,7 +3,7 @@ import { Play, Menu, X } from 'lucide-react';
 
 // Placeholder for farm background image
 const farmBackground = {
-  src: "http://20.80.106.250:9001/api/v1/download-shared-object/aHR0cDovLzEyNy4wLjAuMTo5MDAwL3ZpdHJpbmUvaG9tZTIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9UU1YVko4OVNLMVo2R1BFM09JRUclMkYyMDI1MDcxNSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTA3MTVUMDIxNTQzWiZYLUFtei1FeHBpcmVzPTQzMTk5JlgtQW16LVNlY3VyaXR5LVRva2VuPWV5SmhiR2NpT2lKSVV6VXhNaUlzSW5SNWNDSTZJa3BYVkNKOS5leUpoWTJObGMzTkxaWGtpT2lKUlRWaFdTamc1VTBzeFdqWkhVRVV6VDBsRlJ5SXNJbVY0Y0NJNk1UYzFNalUxTXpreE9Td2ljR0Z5Wlc1MElqb2liV2x1YVc4aWZRLnNpTmlDdlE5VXd4T05fWUdiOHI4NHhvYl9RbVZNQnpvT1dnUi1TZ3JtdkxRRlppOXhXOUtGRG1tamlqQTlOSjZhaEFPM3RzT25wUGJDRE5xa2liNmVnJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZ2ZXJzaW9uSWQ9bnVsbCZYLUFtei1TaWduYXR1cmU9NDY4ZWFlZjRiODBjYTUzNmMyZTc4MDYxZWFlN2YzNGIwZjQ4YWQyMGY2N2E0Yjg0OWU0MDk0MGJiNmYzOTQzOA",
+  src: '/images/home2.png'
   //src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80"
 };
 
@@ -97,6 +97,7 @@ export default function Hero() {
           <nav className="hidden sm:flex space-x-8 order-1">
             <a href="#about" className="text-white hover:text-green-400 transition-colors font-medium">About</a>
             <a href="#features" className="text-white hover:text-green-400 transition-colors font-medium">Features</a>
+            <a href="#features" className="text-white hover:text-green-400 transition-colors font-medium">Partners</a>
             <a href="#faqs" className="text-white hover:text-green-400 transition-colors font-medium">FAQs</a>
             <a href="#testimonials" className="text-white hover:text-green-400 transition-colors font-medium">Testimonials</a>
           </nav>

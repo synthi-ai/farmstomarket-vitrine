@@ -1,20 +1,26 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 /** @type {NextConfig} */
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
 
-  // Configuration des images
+  // Nouvelle configuration des images avec remotePatterns
   images: {
-    domains: ['randomuser.me'], // Autorise ce domaine pour <Image />
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+        pathname: '/**',
+      },
+    ],
   },
 
   // Activation du support des alias si tu utilises "paths" dans tsconfig.json
   webpack(config) {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      '@': require('path').resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src'),
     };
     return config;
   },
