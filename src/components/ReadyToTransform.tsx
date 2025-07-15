@@ -80,173 +80,317 @@ export default function ReadyToTransform() {
   } as const;
 
   return (
-    <div className="w-full p-2 bg-blue-50 rounded-lg">
+    <div className="w-full bg-white relative overflow-hidden" style={{ height: '685px', padding: '100px 40px 0px' }}>
+      {/* Main Container - Following Figma Design */}
       <motion.div 
         ref={containerRef}
-        className="overflow-hidden relative bg-green-500 w-full rounded-xl py-8 px-8 md:py-12 md:px-12"
+        className="relative w-full max-w-7xl mx-auto h-full"
+        style={{
+          background: '#00E834',
+          borderRadius: '40px 40px 0px 0px',
+          padding: '100px 96px',
+          height: '585px',
+          isolation: 'isolate'
+        }}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Left Side Content */}
-        <div className="flex flex-col md:flex-row justify-between items-center w-full relative z-10">
+        {/* Content Container */}
+        <div className="flex flex-col md:flex-row justify-between items-start w-full relative z-10 h-full">
+          
+          {/* Left Side Content - Exact Figma Dimensions */}
           <motion.div 
-            className="md:w-1/2 mb-8 md:mb-0"
+            className="flex flex-col justify-center items-start"
+            style={{
+              width: '591px',
+              height: '277px',
+              gap: '16px'
+            }}
             variants={itemVariants}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 leading-tight">
-              Ready to Transform<br />
-              Your Agricultural<br />
-              Business?
+            {/* Main Title */}
+            <h2 
+              className="font-bold text-black leading-tight"
+              style={{
+                width: '591px',
+                height: '201px',
+                fontFamily: 'Urbanist, sans-serif',
+                fontWeight: 700,
+                fontSize: '56px',
+                lineHeight: '120%',
+                letterSpacing: '-1px',
+                color: '#000000'
+              }}
+            >
+              Ready to Transform Your Agricultural Business?
             </h2>
-            <p className="text-sm md:text-base text-black opacity-80 mb-8 max-w-md">
+            
+            {/* Subtitle */}
+            <p 
+              className="text-black"
+              style={{
+                width: '591px',
+                height: '60px',
+                fontFamily: 'Urbanist, sans-serif',
+                fontWeight: 400,
+                fontSize: '18px',
+                lineHeight: '30px',
+                color: '#000000'
+              }}
+            >
               Join 10,000+ farmers, breeders and buyers and start trading fairly and securely.
             </p>
-            
-            <div className="flex flex-wrap gap-3">
-              <motion.a
-                href="#download-app-store"
-                className="bg-white text-black rounded-full flex items-center px-4 py-2 shadow-md hover:shadow-lg transition-shadow"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg viewBox="0 0 24 24" className="w-5 h-5 mr-2" fill="currentColor">
+          </motion.div>
+
+          {/* App Store Buttons Container */}
+          <motion.div 
+            className="flex flex-row items-center gap-5 mt-8 md:mt-0"
+            style={{
+              width: '395px',
+              height: '60px',
+              gap: '20px'
+            }}
+            variants={itemVariants}
+          >
+            {/* App Store Button */}
+            <motion.a
+              href="#download-app-store"
+              className="relative flex items-center justify-center"
+              style={{
+                width: '188px',
+                height: '60px',
+                background: '#FFFFFF',
+                borderRadius: '16px'
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {/* Apple Logo and Text */}
+              <div className="flex items-center">
+                <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                 </svg>
-                App Store
-              </motion.a>
-              
-              <motion.a
-                href="#download-google-play"
-                className="bg-white text-black rounded-full flex items-center px-4 py-2 shadow-md hover:shadow-lg transition-shadow"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg viewBox="0 0 24 24" className="w-5 h-5 mr-2" fill="currentColor">
-                  <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                <div className="text-left">
+                  <div className="text-xs text-black opacity-60">Download on the</div>
+                  <div className="font-semibold text-black">App Store</div>
+                </div>
+              </div>
+            </motion.a>
+            
+            {/* Google Play Button */}
+            <motion.a
+              href="#download-google-play"
+              className="relative flex items-center justify-center"
+              style={{
+                width: '187px',
+                height: '56px',
+                background: '#FFFFFF',
+                borderRadius: '16px'
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {/* Google Play Logo and Text */}
+              <div className="flex items-center">
+                <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none">
+                  <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5Z" fill="#32BBFF"/>
+                  <path d="M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12Z" fill="#32BBFF"/>
+                  <path d="M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81Z" fill="#32BBFF"/>
+                  <path d="M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" fill="#00F076"/>
                 </svg>
-                Google Play
-              </motion.a>
-            </div>
+                <div className="text-left">
+                  <div className="text-xs text-black opacity-60">Get it on</div>
+                  <div className="font-semibold text-black">Google Play</div>
+                </div>
+              </div>
+            </motion.a>
           </motion.div>
-          
-          {/* Phone Images */}
-          <div className="relative h-80 md:h-96 w-full md:w-1/2">
+
+          {/* Phone Mockups Container - Positioned Absolutely */}
+          <div 
+            className="absolute"
+            style={{
+              width: '496px',
+              height: '745px',
+              right: '40px',
+              top: '-140px',
+              zIndex: 2
+            }}
+          >
+            {/* Phone Mockup 1 */}
             <motion.div 
-              className="phone-1 absolute right-24 md:right-36 top-0 w-32 md:w-40 h-48 md:h-60 shadow-xl rounded-2xl overflow-hidden z-10"
+              className="phone-1 absolute"
+              style={{
+                width: '232px',
+                height: '464px',
+                left: '0px',
+                top: '0px',
+                filter: 'drop-shadow(10px 15px 30px rgba(10, 10, 34, 0.1))'
+              }}
               variants={phoneVariants}
             >
-              {/* Mockup Phone 1 - Farm Interface */}
-              <div className="w-full h-full bg-gradient-to-br from-green-100 to-green-200 relative">
-                {/* Phone Frame */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-1">
-                  <div className="w-full h-full bg-white rounded-xl overflow-hidden relative">
-                    {/* Notch */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-black rounded-b-lg z-10"></div>
-                    
-                    {/* Screen Content */}
-                    <div className="p-4 pt-8 h-full bg-gradient-to-br from-green-50 to-white">
-                      <div className="text-center space-y-3">
-                        <div className="w-12 h-12 bg-green-500 rounded-xl mx-auto flex items-center justify-center">
-                          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                          </svg>
-                        </div>
-                        <h3 className="font-bold text-green-800 text-xs">Farm Dashboard</h3>
-                        <div className="space-y-1">
-                          <div className="h-1 bg-green-200 rounded w-3/4 mx-auto"></div>
-                          <div className="h-1 bg-green-300 rounded w-1/2 mx-auto"></div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-1 mt-4">
-                          <div className="h-6 bg-green-200 rounded text-xs flex items-center justify-center">
-                            <span className="text-green-800 font-semibold">Crops</span>
-                          </div>
-                          <div className="h-6 bg-green-300 rounded text-xs flex items-center justify-center">
-                            <span className="text-green-800 font-semibold">Sales</span>
-                          </div>
-                        </div>
-                      </div>
+              {/* iPhone Frame with Figma Design */}
+              <div 
+                className="relative w-full h-full"
+                style={{
+                  background: '#262831',
+                  borderRadius: '40px'
+                }}
+              >
+                {/* Screen */}
+                <div 
+                  className="absolute"
+                  style={{
+                    left: '6.51%',
+                    right: '6.28%',
+                    top: '2.67%',
+                    bottom: '3.02%',
+                    background: '#F3F3F3',
+                    borderRadius: '35px'
+                  }}
+                >
+                  {/* Screen Content - Farm Dashboard */}
+                  <div className="w-full h-full bg-gradient-to-br from-green-50 to-white p-6 flex flex-col items-center justify-center rounded-[35px]">
+                    <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mb-4">
+                      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-green-800 mb-4">Farm Dashboard</h3>
+                    <div className="w-full space-y-2">
+                      <div className="h-2 bg-green-200 rounded w-3/4 mx-auto"></div>
+                      <div className="h-2 bg-green-300 rounded w-1/2 mx-auto"></div>
                     </div>
                   </div>
                 </div>
+
+                {/* iPhone Hardware Elements */}
+                {/* Notch */}
+                <div 
+                  className="absolute"
+                  style={{
+                    left: '38.92%',
+                    right: '59.22%',
+                    top: '3.26%',
+                    bottom: '95.81%',
+                    background: '#262831',
+                    borderRadius: '0 0 10px 10px'
+                  }}
+                />
                 
-                {/* Pagination dots */}
-                <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-                  <div className="flex space-x-1">
-                    {[...Array(3)].map((_, i) => (
-                      <div key={i} className="w-1.5 h-1.5 rounded-full bg-white opacity-70" />
-                    ))}
-                  </div>
-                </div>
+                {/* Side Buttons */}
+                <div 
+                  className="absolute"
+                  style={{
+                    left: '-2px',
+                    width: '3px',
+                    top: '13.18%',
+                    bottom: '82.79%',
+                    background: '#262831',
+                    borderRadius: '0 3px 3px 0'
+                  }}
+                />
               </div>
             </motion.div>
             
+            {/* Phone Mockup 2 */}
             <motion.div 
-              className="phone-2 absolute right-4 top-8 w-36 md:w-44 h-56 md:h-72 shadow-xl rounded-2xl overflow-hidden"
+              className="phone-2 absolute"
+              style={{
+                width: '232px',
+                height: '464px',
+                right: '0px',
+                top: '281px',
+                filter: 'drop-shadow(10px 15px 30px rgba(10, 10, 34, 0.1))'
+              }}
               variants={phoneVariants}
               transition={{ delay: 0.2 }}
             >
-              {/* Mockup Phone 2 - Market Interface */}
-              <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-1">
-                <div className="w-full h-full bg-gray-900 rounded-xl overflow-hidden relative pt-6">
-                  {/* Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-4 bg-black rounded-b-lg z-10"></div>
-                  
-                  {/* Header */}
-                  <div className="absolute top-2 left-0 right-0 text-center">
-                    <p className="text-white font-bold text-sm">MARKET</p>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="px-4 text-white text-opacity-80 text-xs mt-8">
-                    <p className="mb-2 font-semibold">Discover products</p>
-                    <p className="text-white text-opacity-50 text-xs leading-relaxed">
-                      Find the best local produce directly from farmers. All products are freshly harvested.
-                    </p>
-                  </div>
-                  
-                  {/* Product Cards */}
-                  <div className="px-4 mt-4 space-y-2">
-                    <div className="bg-white bg-opacity-10 rounded-lg p-2 flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-green-500 rounded"></div>
-                      <div className="flex-1">
-                        <div className="h-2 bg-white bg-opacity-30 rounded w-3/4 mb-1"></div>
-                        <div className="h-1 bg-white bg-opacity-20 rounded w-1/2"></div>
+              {/* iPhone Frame with Figma Design */}
+              <div 
+                className="relative w-full h-full"
+                style={{
+                  background: '#262831',
+                  borderRadius: '40px'
+                }}
+              >
+                {/* Screen */}
+                <div 
+                  className="absolute"
+                  style={{
+                    left: '6.51%',
+                    right: '6.28%',
+                    top: '2.67%',
+                    bottom: '3.02%',
+                    background: '#0B0D17',
+                    borderRadius: '35px'
+                  }}
+                >
+                  {/* Screen Content - Market Interface */}
+                  <div className="w-full h-full bg-gray-900 p-6 flex flex-col rounded-[35px]">
+                    <div className="text-center mb-6">
+                      <h3 className="text-white font-bold text-lg">MARKET</h3>
+                      <p className="text-white text-opacity-80 text-sm mt-2">Discover products</p>
+                    </div>
+                    
+                    {/* Product Cards */}
+                    <div className="space-y-3 flex-1">
+                      <div className="bg-white bg-opacity-10 rounded-lg p-3 flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-green-500 rounded"></div>
+                        <div className="flex-1">
+                          <div className="h-2 bg-white bg-opacity-40 rounded w-3/4 mb-2"></div>
+                          <div className="h-1 bg-white bg-opacity-20 rounded w-1/2"></div>
+                        </div>
+                      </div>
+                      <div className="bg-white bg-opacity-10 rounded-lg p-3 flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-orange-500 rounded"></div>
+                        <div className="flex-1">
+                          <div className="h-2 bg-white bg-opacity-40 rounded w-2/3 mb-2"></div>
+                          <div className="h-1 bg-white bg-opacity-20 rounded w-1/3"></div>
+                        </div>
                       </div>
                     </div>
-                    <div className="bg-white bg-opacity-10 rounded-lg p-2 flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-orange-500 rounded"></div>
-                      <div className="flex-1">
-                        <div className="h-2 bg-white bg-opacity-30 rounded w-2/3 mb-1"></div>
-                        <div className="h-1 bg-white bg-opacity-20 rounded w-1/3"></div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Bottom Buttons */}
-                  <div className="absolute bottom-4 left-0 right-0 px-4">
-                    <div className="bg-green-500 text-white text-xs py-2 rounded-md text-center font-semibold mb-2">
-                      Browse Products
-                    </div>
-                    <div className="bg-white bg-opacity-20 text-white text-xs py-2 rounded-md text-center">
-                      Learn More
+                    
+                    {/* Bottom Button */}
+                    <div className="mt-4">
+                      <button className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold">
+                        Browse Products
+                      </button>
                     </div>
                   </div>
                 </div>
+
+                {/* iPhone Hardware Elements */}
+                {/* Notch */}
+                <div 
+                  className="absolute"
+                  style={{
+                    left: '38.92%',
+                    right: '59.22%',
+                    top: '3.26%',
+                    bottom: '95.81%',
+                    background: '#262831',
+                    borderRadius: '0 0 10px 10px'
+                  }}
+                />
               </div>
             </motion.div>
           </div>
         </div>
-        
-        {/* Background Elements */}
-        <motion.div 
-          className="absolute top-0 right-0 w-1/2 h-full bg-green-400 opacity-20 rounded-l-full"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 0.2, x: 0 }}
-          transition={{ duration: 1.2 }}
+
+        {/* Divider */}
+        <div 
+          className="absolute"
+          style={{
+            width: '1160px',
+            height: '2px',
+            left: 'calc(50% - 580px)',
+            bottom: '254px',
+            border: '2px solid rgba(194, 194, 194, 0.1)',
+            zIndex: 1
+          }}
         />
-        
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-green-400 opacity-20 rounded-full transform translate-x-1/4 translate-y-1/4" />
       </motion.div>
     </div>
   );
