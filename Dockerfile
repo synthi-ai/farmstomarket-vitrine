@@ -9,6 +9,10 @@ RUN apt-get update && \
     apt-get install -y curl ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
+RUN yarn config set network-timeout 300000 && \
+    yarn config set network-retry 3 && \
+    yarn install --frozen-lockfile
+
 COPY package.json yarn.lock ./
 
 RUN yarn add -D @tailwindcss/postcss
