@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { Play, Menu, X, ChevronDown, Globe, User, Settings } from 'lucide-react';
 
 const farmBackground = {
   src: '/images/home2.png'
 };
+
+interface DotStyle {
+  left: string;
+  top: string;
+  animation: string;
+  animationDelay: string;
+}
 
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -12,10 +20,23 @@ export default function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  
+   const [dotStyles, setDotStyles] = useState<DotStyle[]>([]); 
+
+ 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  useEffect(() => {
+    // Generate dot styles only on the client
+    const newDotStyles = Array.from({ length: 15 }).map((_, i) => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animation: `float ${8 + i * 0.5}s infinite ease-in-out`,
+      animationDelay: `${i * 0.4}s`
+    }));
+    setDotStyles(newDotStyles);
+  }, []); // Empty dependency array ensures this runs once after initial render on client
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -449,17 +470,13 @@ export default function Hero() {
           ))}
         </div>
 
+        {/* UPDATED: Render dots using state, populated in useEffect */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(15)].map((_, i) => (
+          {dotStyles.map((style, i) => (
             <div
               key={i}
               className="absolute w-1.5 h-1.5 bg-[#00E834] rounded-full opacity-30"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animation: `float ${8 + i * 0.5}s infinite ease-in-out`,
-                animationDelay: `${i * 0.4}s`
-              }}
+              style={style} // Apply the styles from state
             />
           ))}
         </div>

@@ -2,11 +2,12 @@ import Footer from '@/components/Footer';
 import './globals.css';
 import { Inter } from 'next/font/google';
 import React from 'react';
-
+import type { Metadata, Viewport } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL('https://farmstomarket.com'),
   title: 'Farms to Market - Direct Agricultural Trade Platform in Cameroon',
   description: 'Connect farmers, buyers, and transporters in one secure platform. Sell directly, get fair prices, and ensure transparent delivery with AI-powered pricing and escrow payments.',
   keywords: 'agriculture, farming, direct trade, Cameroon, fair pricing, secure payments, transportation, agricultural products, farmers market, farm to table, agricultural marketplace',
@@ -17,7 +18,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://farmstomarket.cm',
+    url: 'https://farmstomarket.com',
     siteName: 'Farms to Market',
     title: 'Farms to Market - Direct Agricultural Trade Platform',
     description: 'Revolutionary platform connecting farmers directly with buyers. Fair pricing, secure payments, and transparent delivery for agricultural products in Cameroon.',
@@ -54,25 +55,26 @@ export const metadata = {
     ],
   },
   manifest: '/site.webmanifest',
-  themeColor: '#00E834',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   verification: {
     google: '<GOOGLE_SITE_VERIFICATION_CODE>',
     yandex: '<YANDEX_VERIFICATION_CODE>',
     yahoo: '<YAHOO_VERIFICATION_CODE>',
   },
   alternates: {
-    canonical: 'https://farmstomarket.cm',
+    canonical: 'https://farmstomarket.com',
     languages: {
-      'en-US': 'https://farmstomarket.cm/en',
-      'fr-CM': 'https://farmstomarket.cm/fr',
+      'en-US': 'https://farmstomarket.com/en',
+      'fr-CM': 'https://farmstomarket.com/fr',
     },
   },
   category: 'agricultural marketplace',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#00E834',
 };
 
 export default function RootLayout({
@@ -83,11 +85,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Additional meta tags for mobile and PWA */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Farms to Market" />
@@ -95,7 +95,6 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#00E834" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
-        {/* Structured Data for Agricultural Marketplace */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -104,8 +103,8 @@ export default function RootLayout({
               "@type": "WebApplication",
               "name": "Farms to Market",
               "description": "Direct agricultural trade platform connecting farmers, buyers, and transporters",
-              "url": "https://farmstomarket.cm",
-              "logo": "https://farmstomarket.cm/logo.png",
+              "url": "https://farmstomarket.com",
+              "logo": "https://farmstomarket.com/logo.png",
               "applicationCategory": "BusinessApplication",
               "operatingSystem": "All",
               "address": {
@@ -114,8 +113,8 @@ export default function RootLayout({
                 "addressLocality": ["Douala", "Yaoundé", "Bamenda", "Garoua"],
                 "addressRegion": "Littoral"
               },
-              "telephone": "+237-6XX-XXX-XXX",
-              "email": "hello@farmstomarket.cm",
+              "telephone": "+237-620-207-980",
+              "email": "hello@farmstomarket.com",
               "offers": {
                 "@type": "Offer",
                 "description": "Agricultural marketplace services",
@@ -158,7 +157,6 @@ export default function RootLayout({
           backgroundAttachment: 'fixed'
         }}
       >
-        {/* Skip to main content for accessibility */}
         <a 
           href="#main-content" 
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-gradient-to-r from-[#00E834] to-green-600 text-white px-4 py-2 rounded-lg z-50 font-semibold"
@@ -166,7 +164,6 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        {/* Progressive Web App Installation Prompt */}
         <div id="pwa-install-prompt" className="hidden fixed bottom-4 left-4 right-4 z-50 bg-gradient-to-r from-[#00E834] to-green-600 text-white p-4 rounded-2xl shadow-lg backdrop-blur-xl border border-[#00E834]/30">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -193,33 +190,12 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Loading Spinner for route transitions */}
         <div id="route-loading" className="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-gradient-to-r from-[#00E834] to-green-600 rounded-full p-4 animate-pulse">
             <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
           </div>
         </div>
 
-        {/* Agricultural Season Alert Banner */}
-        <div id="season-alert" className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-green-600 to-[#00E834] text-white p-3 transform -translate-y-full transition-transform duration-500">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="text-xl">🌱</div>
-              <p className="text-sm font-medium">
-                Rainy Season Alert: High demand for preserved foods. 
-                <span className="font-bold ml-1">List your products now!</span>
-              </p>
-            </div>
-            <button 
-              id="season-alert-close" 
-              className="text-white/70 hover:text-white px-2 transition-colors duration-300"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-
-        {/* Cookie Consent Banner */}
         <div id="cookie-banner" className="fixed bottom-0 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-xl border-t border-gray-800 p-4 transform translate-y-full transition-transform duration-500">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
@@ -246,36 +222,12 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Market Price Alert */}
-        <div id="price-alert" className="hidden fixed top-20 right-4 z-30 bg-gradient-to-r from-[#00E834] to-green-600 text-white p-4 rounded-2xl shadow-lg backdrop-blur-xl border border-[#00E834]/30 max-w-sm">
-          <div className="flex items-start space-x-3">
-            <div className="text-xl">📈</div>
-            <div>
-              <h4 className="font-bold text-sm">Price Alert</h4>
-              <p className="text-xs opacity-90">Tomato prices increased by 15% in your area</p>
-              <button className="text-xs underline mt-1">View Details</button>
-            </div>
-            <button 
-              id="price-alert-close" 
-              className="text-white/70 hover:text-white text-sm"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-
-        {/* App Header <Header /> */}
-       
-
-        {/* Main Content */}
         <main id="main-content" className="min-h-screen">
           {children}
         </main>
 
-        {/* App Footer */}
         <Footer />
 
-        {/* Back to Top Button */}
         <button 
           id="back-to-top"
           className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-[#00E834] to-green-600 hover:from-green-600 hover:to-[#00E834] text-white rounded-full shadow-lg hover:shadow-[#00E834]/30 transition-all duration-300 transform hover:scale-110 opacity-0 invisible z-30 flex items-center justify-center"
@@ -286,7 +238,6 @@ export default function RootLayout({
           </svg>
         </button>
 
-        {/* Quick Action FAB */}
         <div className="fixed bottom-24 right-8 z-30">
           <button 
             id="quick-action-fab"
@@ -298,7 +249,6 @@ export default function RootLayout({
             </svg>
           </button>
           
-          {/* Quick Action Menu */}
           <div id="quick-action-menu" className="absolute bottom-20 right-0 space-y-3 opacity-0 invisible transition-all duration-300">
             <button className="w-12 h-12 bg-white text-[#00E834] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group" title="List Product">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,11 +268,9 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Service Worker Registration and PWA Script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Service Worker Registration
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                   navigator.serviceWorker.register('/sw.js')
@@ -335,7 +283,6 @@ export default function RootLayout({
                 });
               }
 
-              // PWA Install Prompt
               let deferredPrompt;
               window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
@@ -357,7 +304,6 @@ export default function RootLayout({
                 document.getElementById('pwa-install-prompt').classList.add('hidden');
               });
 
-              // Back to Top Button
               const backToTopBtn = document.getElementById('back-to-top');
               window.addEventListener('scroll', () => {
                 if (window.pageYOffset > 300) {
@@ -371,7 +317,6 @@ export default function RootLayout({
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               });
 
-              // Quick Action FAB
               const quickActionFab = document.getElementById('quick-action-fab');
               const quickActionMenu = document.getElementById('quick-action-menu');
               let fabMenuOpen = false;
@@ -386,7 +331,6 @@ export default function RootLayout({
                 }
               });
 
-              // Close FAB menu when clicking outside
               document.addEventListener('click', (e) => {
                 if (!quickActionFab?.contains(e.target) && !quickActionMenu?.contains(e.target)) {
                   quickActionMenu?.classList.add('opacity-0', 'invisible');
@@ -394,10 +338,8 @@ export default function RootLayout({
                 }
               });
 
-              // Seasonal Alert Banner
               const seasonAlert = document.getElementById('season-alert');
               const currentMonth = new Date().getMonth();
-              // Show during rainy season (June-September)
               if (currentMonth >= 5 && currentMonth <= 8 && !localStorage.getItem('seasonAlertDismissed')) {
                 setTimeout(() => {
                   seasonAlert.classList.remove('-translate-y-full');
@@ -409,7 +351,6 @@ export default function RootLayout({
                 localStorage.setItem('seasonAlertDismissed', 'true');
               });
 
-              // Price Alert (simulate with random trigger)
               setTimeout(() => {
                 if (Math.random() > 0.7) {
                   document.getElementById('price-alert').classList.remove('hidden');
@@ -420,7 +361,6 @@ export default function RootLayout({
                 document.getElementById('price-alert').classList.add('hidden');
               });
 
-              // Cookie Banner
               const cookieBanner = document.getElementById('cookie-banner');
               if (!localStorage.getItem('cookiesAccepted')) {
                 setTimeout(() => {
@@ -438,7 +378,6 @@ export default function RootLayout({
                 cookieBanner.classList.add('translate-y-full');
               });
 
-              // Preload critical resources
               const link = document.createElement('link');
               link.rel = 'preload';
               link.href = '/fonts/inter-var.woff2';
@@ -447,10 +386,8 @@ export default function RootLayout({
               link.crossOrigin = 'anonymous';
               document.head.appendChild(link);
 
-              // Market data WebSocket connection (mock)
               function connectMarketData() {
                 console.log('Connecting to market data feed...');
-                // In a real app, this would connect to a WebSocket for live price updates
               }
 
               setTimeout(connectMarketData, 5000);

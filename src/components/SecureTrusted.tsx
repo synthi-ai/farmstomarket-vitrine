@@ -2,12 +2,30 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import React, { useState, useEffect } from 'react'; 
+
+interface ParticleStyle {
+  left: string;
+  top: string;
+}
 
 const SecureTrusted = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
+
+  // State to hold the dynamically generated particle styles
+  const [particleStyles, setParticleStyles] = useState<ParticleStyle[]>([]);
+
+  useEffect(() => {
+    // This code runs ONLY on the client after the component mounts
+    const generatedStyles: ParticleStyle[] = Array.from({ length: 12 }).map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    }));
+    setParticleStyles(generatedStyles);
+  }, []); 
 
   const containerVariants = {
     hidden: { 
@@ -153,7 +171,6 @@ const SecureTrusted = () => {
               Get real-time market insights to set prices that actually reflect demand, not guesswork.
             </p>
             
-            {/* Ligne de scan */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
           </motion.div>
           
@@ -186,7 +203,6 @@ const SecureTrusted = () => {
               Buyers pay 40% upfront, sellers receive funds only after delivery confirmation. No scams, no delays.
             </p>
             
-            {/* Ligne de scan */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
           </motion.div>
           
@@ -221,7 +237,6 @@ const SecureTrusted = () => {
               Track shipments live, split delivery costs fairly, and hold transporters accountable.
             </p>
             
-            {/* Ligne de scan */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
           </motion.div>
         </div>
@@ -238,7 +253,6 @@ const SecureTrusted = () => {
             on time</span>. Join thousands already thriving in a marketplace built on fairness, tech, and trust.
           </p>
           
-          {/* Lignes de scan */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
         </motion.div>
@@ -301,16 +315,13 @@ const SecureTrusted = () => {
         </motion.div>
       </motion.div>
 
-      {/* Particules flottantes */}
+      {/* Particules flottantes - now client-side rendered */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {particleStyles.map((style, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-green-500 rounded-full opacity-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
+            style={style} // Apply the client-generated left/top
             animate={{
               y: [0, -50, 0],
               x: [0, Math.sin(i) * 30, 0],

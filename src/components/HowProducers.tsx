@@ -1,18 +1,35 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react'; // Import useState
 import { motion, useAnimation, useInView } from 'framer-motion';
+
+interface ParticleStyle {
+  left: string;
+  top: string;
+}
 
 export default function HowProducers() {
   const controls = useAnimation();
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+
+  // State to hold the dynamically generated particle styles
+  const [particleStyles, setParticleStyles] = useState<ParticleStyle[]>([]);
   
   useEffect(() => {
     if (isInView) {
       controls.start('visible');
     }
   }, [isInView, controls]);
+
+  useEffect(() => {
+    // This code runs ONLY on the client after the component mounts
+    const generatedStyles: ParticleStyle[] = Array.from({ length: 15 }).map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    }));
+    setParticleStyles(generatedStyles);
+  }, []); // Empty dependency array ensures this runs once on mount
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -343,14 +360,11 @@ export default function HowProducers() {
 
       {/* Particules flottantes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {particleStyles.map((style, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-[#00E834] rounded-full opacity-40"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
+            style={style} // Apply the client-generated left/top
             animate={{
               y: [0, -100, 0],
               x: [0, Math.sin(i) * 50, 0],
