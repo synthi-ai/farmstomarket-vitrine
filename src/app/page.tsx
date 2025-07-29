@@ -14,7 +14,6 @@ import AppScreens from '@/components/AppScreens'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import ReadyToTransform from '@/components/ReadyToTransform'
-import Footer from '@/components/Footer'
 import FarmsMarketHero from '@/components/FarmsMarketHero'
 
 import SupplyChainComponent from '@/components/SupplyChainComponent'
@@ -65,7 +64,6 @@ export default function Home() {
       <Testimonials />
       <FAQ />
       <ReadyToTransform />
-      <Footer />
     </main>
   )
 }
