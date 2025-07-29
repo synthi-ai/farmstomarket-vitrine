@@ -1,10 +1,12 @@
 'use client'
 
+const AgroBankFintechComponent = dynamic(() => import('@/components/AgroBank'), {
+  ssr: false,
+});
 import { useEffect } from 'react'
 import Hero from '@/components/Hero'
 import Partners from '@/components/Partners'
 import SecureTrusted from '@/components/SecureTrusted'
-import Stats from '@/components/Stats'
 import CuttingEdgeFeatures from '@/components/CuttingEdgeFeatures'
 import HowProducers from '@/components/HowProducers'
 import HowBuyersGet from '@/components/HowBuyersGet'
@@ -14,6 +16,12 @@ import FAQ from '@/components/FAQ'
 import ReadyToTransform from '@/components/ReadyToTransform'
 import Footer from '@/components/Footer'
 import FarmsMarketHero from '@/components/FarmsMarketHero'
+
+import SupplyChainComponent from '@/components/SupplyChainComponent'
+import BuyersSection from '@/components/BuyersSection'
+import dynamic from 'next/dynamic';
+import TransporterProcess from '@/components/HowTransporter';
+//import BuyersSection from '@/components/BuyersSection'
 
 export default function Home() {
   useEffect(() => {
@@ -45,11 +53,15 @@ export default function Home() {
       <Partners />
       <FarmsMarketHero/>
       <SecureTrusted />
-      <Stats />
+      {/*<Stats />*/}
       <CuttingEdgeFeatures />
       <HowProducers />
       <HowBuyersGet />
+      <TransporterProcess />
       <AppScreens />
+      <AgroBankFintechComponent />
+      <SupplyChainComponent />
+      <BuyersSection />
       <Testimonials />
       <FAQ />
       <ReadyToTransform />

@@ -1,0 +1,829 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// GSAP-like 3D animations (simulated with CSS transforms)
+const useGSAP3D = (ref: React.RefObject<HTMLElement | null>, options: any) => {
+  useEffect(() => {
+    if (!ref.current || !options.enabled) return;
+
+    const element = ref.current;
+    let animationId: number;
+
+    const animate = () => {
+      const time = Date.now() * 0.001;
+      
+      // 3D rotation and floating with customizable parameters
+      const rotateX = Math.sin(time * (options.speedX || 0.5)) * (options.rangeX || 5);
+      const rotateY = Math.cos(time * (options.speedY || 0.3)) * (options.rangeY || 8);
+      const rotateZ = Math.sin(time * (options.speedZ || 0.2)) * (options.rangeZ || 3);
+      const translateY = Math.sin(time * (options.floatSpeed || 0.8)) * (options.floatRange || 10);
+      const scale = 1 + Math.sin(time * (options.scaleSpeed || 0.6)) * (options.scaleRange || 0.02);
+
+      element.style.transform = `
+        perspective(1000px) 
+        rotateX(${rotateX}deg) 
+        rotateY(${rotateY}deg) 
+        rotateZ(${rotateZ}deg)
+        translateY(${translateY}px) 
+        scale(${scale})
+      `;
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [ref, options]);
+};
+
+// Enhanced iPhone Device Frame with Real-time Demo
+interface DemoPhoneProps {
+  demoType: string;
+  className?: string;
+  animationConfig?: any;
+}
+
+const DemoPhone: React.FC<DemoPhoneProps> = ({ 
+  demoType, 
+  className = "",
+  animationConfig = {}
+}) => {
+  const phoneRef = useRef<HTMLDivElement>(null);
+  const [demoStep, setDemoStep] = useState(0);
+
+  // Apply 3D animations
+  useGSAP3D(phoneRef, { 
+    enabled: true,
+    speedX: 0.3,
+    speedY: 0.2,
+    speedZ: 0.4,
+    rangeX: 3,
+    rangeY: 6,
+    rangeZ: 2,
+    floatSpeed: 0.6,
+    floatRange: 8,
+    scaleSpeed: 0.4,
+    scaleRange: 0.015,
+    ...animationConfig 
+  });
+
+  // Demo step progression
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDemoStep(prev => (prev + 1) % 4);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getDemoContent = () => {
+    switch (demoType) {
+      case 'farm':
+        return (
+          <div className="h-full bg-gradient-to-br from-green-50 via-white to-green-100 p-6 pt-12">
+            <div className="space-y-4">
+              {/* Header */}
+              <div className="text-center">
+                <h3 className="font-bold text-green-800 text-lg mb-2">Farm Dashboard</h3>
+                <div className="flex justify-center space-x-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <div className="text-xs text-green-600">Live Updates</div>
+                </div>
+              </div>
+
+              {/* Animated Stats */}
+              <motion.div 
+                className="grid grid-cols-2 gap-3"
+                animate={{ scale: demoStep === 0 ? 1.05 : 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="bg-white rounded-xl p-3 shadow-sm">
+                  <div className="text-center">
+                    <motion.div 
+                      className="text-xl font-bold text-green-600"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      {demoStep === 0 ? '127' : demoStep === 1 ? '132' : demoStep === 2 ? '145' : '158'}
+                    </motion.div>
+                    <div className="text-xs text-gray-600">Today&apos;s Sales</div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl p-3 shadow-sm">
+                  <div className="text-center">
+                    <motion.div 
+                      className="text-xl font-bold text-orange-600"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
+                    >
+                      {demoStep <= 1 ? '23' : demoStep === 2 ? '28' : '31'}
+                    </motion.div>
+                    <div className="text-xs text-gray-600">New Orders</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Live Chart Simulation */}
+              <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="text-xs text-gray-600 mb-2">Sales Today</div>
+                <div className="flex items-end space-x-1 h-16">
+                  {[...Array(7)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="bg-green-400 rounded-t"
+                      style={{ width: '100%' }}
+                      animate={{ 
+                        height: `${Math.sin(Date.now() * 0.002 + i) * 30 + 40}%` 
+                      }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Recent Activity */}
+              <div className="space-y-2">
+                <div className="text-xs text-gray-600">Recent Activity</div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={demoStep}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="bg-white rounded-lg p-3 shadow-sm flex items-center space-x-3"
+                  >
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                      {demoStep === 0 && '🌾'}
+                      {demoStep === 1 && '🥕'}
+                      {demoStep === 2 && '🍅'}
+                      {demoStep === 3 && '🌽'}
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs font-medium">
+                        {demoStep === 0 && 'New order: 50kg Rice'}
+                        {demoStep === 1 && 'Sold: 30kg Carrots'}
+                        {demoStep === 2 && 'Order: 25kg Tomatoes'}
+                        {demoStep === 3 && 'Sold: 40kg Corn'}
+                      </div>
+                      <div className="text-xs text-gray-500">Just now</div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'market':
+        return (
+          <div className="h-full bg-gradient-to-br from-blue-50 via-white to-blue-100 p-6 pt-12">
+            <div className="space-y-4">
+              {/* Header */}
+              <div className="text-center">
+                <h3 className="font-bold text-blue-800 text-lg mb-2">Marketplace</h3>
+                <div className="flex justify-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                  <div className="text-xs text-blue-600">Live Market</div>
+                </div>
+              </div>
+
+              {/* Search Bar Animation */}
+              <motion.div 
+                className="bg-white rounded-xl p-3 shadow-sm"
+                animate={{ scale: demoStep === 1 ? 1.02 : 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-center space-x-2">
+                  <div className="text-gray-400">🔍</div>
+                  <motion.div 
+                    className="text-xs text-gray-600"
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    {demoStep === 0 && 'Search for fresh produce...'}
+                    {demoStep === 1 && 'Searching: tomatoes'}
+                    {demoStep === 2 && 'Found 24 results'}
+                    {demoStep === 3 && 'Filter: nearby farms'}
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Product Grid */}
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { emoji: '🍅', name: 'Tomatoes', price: '$3.50', farmer: 'John\'s Farm' },
+                  { emoji: '🥕', name: 'Carrots', price: '$2.80', farmer: 'Green Valley' },
+                  { emoji: '🌽', name: 'Corn', price: '$4.20', farmer: 'Sunny Acres' },
+                  { emoji: '🥬', name: 'Lettuce', price: '$2.10', farmer: 'Fresh Fields' }
+                ].map((product, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white rounded-xl p-3 shadow-sm"
+                    animate={{ 
+                      scale: demoStep === index ? 1.05 : 1,
+                      boxShadow: demoStep === index ? 
+                        '0 8px 25px rgba(59, 130, 246, 0.15)' : 
+                        '0 1px 3px rgba(0, 0, 0, 0.1)'
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="text-center">
+                      <div className="text-2xl mb-1">{product.emoji}</div>
+                      <div className="text-xs font-medium">{product.name}</div>
+                      <div className="text-xs text-blue-600 font-bold">{product.price}</div>
+                      <div className="text-xs text-gray-500">{product.farmer}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Live Notifications */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={demoStep}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="bg-blue-500 text-white rounded-lg p-3 text-center"
+                >
+                  <div className="text-xs">
+                    {demoStep === 0 && '🔥 Flash Sale: 20% off all vegetables!'}
+                    {demoStep === 1 && '📍 3 farms within 5km radius'}
+                    {demoStep === 2 && '⭐ New 5-star rated farmer joined!'}
+                    {demoStep === 3 && '🚚 Free delivery for orders over $25'}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        );
+
+      case 'delivery':
+        return (
+          <div className="h-full bg-gradient-to-br from-orange-50 via-white to-orange-100 p-6 pt-12">
+            <div className="space-y-4">
+              {/* Header */}
+              <div className="text-center">
+                <h3 className="font-bold text-orange-800 text-lg mb-2">Live Delivery</h3>
+                <div className="flex justify-center space-x-2">
+                  <motion.div 
+                    className="w-2 h-2 bg-orange-400 rounded-full"
+                    animate={{ scale: [1, 1.5, 1] }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  />
+                  <div className="text-xs text-orange-600">Tracking Active</div>
+                </div>
+              </div>
+
+              {/* Map Simulation */}
+              <div className="bg-white rounded-xl p-4 shadow-sm h-32 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 opacity-50"></div>
+                
+                {/* Animated Route */}
+                <svg className="absolute inset-0 w-full h-full">
+                  <motion.path
+                    d="M20,80 Q60,20 120,60 T200,80"
+                    stroke="#f97316"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeDasharray="5,5"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: (demoStep + 1) * 0.25 }}
+                    transition={{ duration: 0.8 }}
+                  />
+                </svg>
+
+                {/* Moving Truck */}
+                <motion.div
+                  className="absolute w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs"
+                  animate={{
+                    x: [20, 60, 120, 200][demoStep] || 20,
+                    y: [80, 20, 60, 80][demoStep] || 80
+                  }}
+                  transition={{ duration: 0.8 }}
+                >
+                  🚚
+                </motion.div>
+
+                {/* Origin and Destination */}
+                <div className="absolute left-4 bottom-4 w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="absolute right-4 bottom-4 w-3 h-3 bg-red-500 rounded-full"></div>
+              </div>
+
+              {/* Delivery Status */}
+              <div className="space-y-2">
+                <div className="text-xs text-gray-600">Delivery Status</div>
+                <div className="space-y-2">
+                  {[
+                    { step: 'Order Confirmed', time: '2:30 PM', completed: true },
+                    { step: 'Picked Up', time: '3:15 PM', completed: demoStep >= 1 },
+                    { step: 'In Transit', time: '3:45 PM', completed: demoStep >= 2 },
+                    { step: 'Delivered', time: '4:20 PM', completed: demoStep >= 3 }
+                  ].map((status, index) => (
+                    <motion.div
+                      key={index}
+                      className={`flex items-center space-x-3 p-2 rounded-lg ${
+                        status.completed ? 'bg-green-100' : 'bg-gray-100'
+                      }`}
+                      animate={{ 
+                        backgroundColor: status.completed ? '#dcfce7' : '#f3f4f6',
+                        scale: demoStep === index ? 1.02 : 1
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className={`w-4 h-4 rounded-full ${
+                        status.completed ? 'bg-green-500' : 'bg-gray-400'
+                      } flex items-center justify-center`}>
+                        {status.completed && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-xs font-medium">{status.step}</div>
+                        <div className="text-xs text-gray-500">{status.time}</div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+        return <div className="h-full bg-gray-100"></div>;
+    }
+  };
+
+  return (
+    <div 
+      ref={phoneRef}
+      className={`w-full h-full bg-gradient-to-br from-gray-900 to-gray-700 rounded-[3rem] p-2 shadow-2xl ${className}`}
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      {/* Phone Frame */}
+      <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+        {/* Dynamic Island */}
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-10"></div>
+        
+        {/* Screen Content */}
+        {getDemoContent()}
+      </div>
+    </div>
+  );
+};
+
+export default function AppScreens() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  
+  // App demo types
+  const demos = [
+    {
+      id: 1,
+      type: 'farm',
+      title: 'Farm Dashboard',
+      description: 'Real-time sales tracking and inventory management'
+    },
+    {
+      id: 2,
+      type: 'market',
+      title: 'Marketplace',
+      description: 'Browse and discover fresh produce from local farms'
+    },
+    {
+      id: 3,
+      type: 'delivery',
+      title: 'Live Delivery Tracking',
+      description: 'Track your orders in real-time from farm to door'
+    }
+  ];
+
+  // Check for mobile screens
+  useEffect(() => {
+    const checkForMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkForMobile();
+    window.addEventListener('resize', checkForMobile);
+    return () => window.removeEventListener('resize', checkForMobile);
+  }, []);
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  // Handle auto-play and timer resets
+  useEffect(() => {
+    resetTimeout();
+    
+    if (isAutoPlaying) {
+      timeoutRef.current = setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % demos.length);
+      }, 5000);
+    }
+    
+    return () => resetTimeout();
+  }, [currentIndex, isAutoPlaying, demos.length]);
+
+  // Add touch swipe functionality
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+    };
+    
+    const handleTouchMove = (e: TouchEvent) => {
+      touchEndX = e.touches[0].clientX;
+    };
+    
+    const handleTouchEnd = () => {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance > 0) {
+          goToPrevious();
+        } else {
+          goToNext();
+        }
+      }
+    };
+    
+    carousel.addEventListener('touchstart', handleTouchStart);
+    carousel.addEventListener('touchmove', handleTouchMove);
+    carousel.addEventListener('touchend', handleTouchEnd);
+    
+    return () => {
+      carousel.removeEventListener('touchstart', handleTouchStart);
+      carousel.removeEventListener('touchmove', handleTouchMove);
+      carousel.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
+  const goToPrevious = () => {
+    setIsAutoPlaying(false);
+    const newIndex = currentIndex === 0 ? demos.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  };
+
+  const goToNext = () => {
+    setIsAutoPlaying(false);
+    const newIndex = (currentIndex + 1) % demos.length;
+    setCurrentIndex(newIndex);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  };
+
+  const goToSlide = (index: number) => {
+    setIsAutoPlaying(false);
+    setCurrentIndex(index);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.2,
+      },
+    },
+  } as const;
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.7, 
+        ease: "easeOut" 
+      }
+    }
+  } as const;
+
+  return (
+    <motion.div 
+      className="w-full rounded-xl py-8 sm:py-12 px-4 sm:px-6 max-w-6xl mx-auto relative"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.h2 
+        variants={itemVariants}
+        className="text-2xl sm:text-3xl font-bold text-center mb-4"
+      >
+        Live App Demo
+      </motion.h2>
+      
+      <motion.p 
+        variants={itemVariants}
+        className="text-gray-600 text-center mb-8 sm:mb-12 max-w-2xl mx-auto"
+      >
+        Experience our app features with real-time interactive demonstrations
+      </motion.p>
+      
+      <div className="relative" ref={carouselRef}>
+        {/* Carousel Container */}
+        <div className="flex justify-center items-center">
+          {/* Left arrow navigation */}
+          <motion.button
+            onClick={goToPrevious}
+            className="absolute left-0 z-20 transform -translate-y-1/2 top-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Previous demo"
+            variants={itemVariants}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+              <path d="M15 18l-6-6 6-6" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.button>
+          
+          {/* Phones Container */}
+          <motion.div 
+            className="flex justify-center items-center relative w-full overflow-hidden px-16"
+            variants={itemVariants}
+          >
+            <div className="flex gap-8 justify-center items-center">
+              {/* Main Center Phone */}
+              <motion.div
+                className="w-64 h-[512px] relative z-10"
+                key={currentIndex}
+                initial={{ scale: 0.8, opacity: 0, rotateY: 90 }}
+                animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+                exit={{ scale: 0.8, opacity: 0, rotateY: -90 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <DemoPhone 
+                  demoType={demos[currentIndex].type}
+                  animationConfig={{
+                    speedX: 0.3,
+                    speedY: 0.4,
+                    rangeX: 4,
+                    rangeY: 8,
+                    floatRange: 12
+                  }}
+                />
+                
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-blue-500 rounded-[3rem] blur-2xl opacity-20 scale-110 -z-10"></div>
+              </motion.div>
+
+              {/* Side Phones (Desktop only) */}
+              {!isMobile && (
+                <>
+                  {/* Left Side Phone */}
+                  <motion.div
+                    className="w-48 h-96 relative z-5 opacity-60"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 0.6 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <DemoPhone 
+                      demoType={demos[(currentIndex - 1 + demos.length) % demos.length].type}
+                      className="transform scale-75 -rotate-12"
+                      animationConfig={{
+                        speedX: 0.2,
+                        speedY: 0.3,
+                        rangeX: 2,
+                        rangeY: 4,
+                        floatRange: 6
+                      }}
+                    />
+                  </motion.div>
+
+                  {/* Right Side Phone */}
+                  <motion.div
+                    className="w-48 h-96 relative z-5 opacity-60"
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 0.6 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <DemoPhone 
+                      demoType={demos[(currentIndex + 1) % demos.length].type}
+                      className="transform scale-75 rotate-12"
+                      animationConfig={{
+                        speedX: 0.25,
+                        speedY: 0.35,
+                        rangeX: 3,
+                        rangeY: 5,
+                        floatRange: 8
+                      }}
+                    />
+                  </motion.div>
+                </>
+              )}
+            </div>
+          </motion.div>
+          
+          {/* Right arrow navigation */}
+          <motion.button
+            onClick={goToNext}
+            className="absolute right-0 z-20 transform -translate-y-1/2 top-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Next demo"
+            variants={itemVariants}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+              <path d="M9 18l6-6-6-6" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.button>
+        </div>
+        
+        {/* Demo Info */}
+        <motion.div 
+          className="text-center mt-8"
+          variants={itemVariants}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="space-y-2"
+            >
+              <h3 className="text-xl font-semibold text-gray-900">
+                {demos[currentIndex].title}
+              </h3>
+              <p className="text-gray-600 max-w-md mx-auto">
+                {demos[currentIndex].description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+        
+        {/* Pagination dots */}
+        <motion.div 
+          className="flex justify-center mt-6 space-x-2"
+          variants={itemVariants}
+        >
+          {demos.map((_, idx) => (
+            <motion.button
+              key={idx}
+              onClick={() => goToSlide(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? "bg-green-500 scale-125" : "bg-gray-300"
+              }`}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={`Go to demo ${idx + 1}`}
+            />
+          ))}
+        </motion.div>
+
+        {/* Auto-play indicator */}
+        <motion.div 
+          className="flex justify-center mt-4"
+          variants={itemVariants}
+        >
+          <motion.button
+            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              isAutoPlaying 
+                ? 'bg-green-100 text-green-700 hover:bg-green-200' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isAutoPlaying ? '⏸️ Pause Auto-Play' : '▶️ Resume Auto-Play'}
+          </motion.button>
+        </motion.div>
+        
+        {/* Mobile swipe indicator */}
+        {isMobile && (
+          <motion.div 
+            className="text-center mt-4 text-xs text-gray-500"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: [1, 0.5, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            variants={itemVariants}
+          >
+            👆 Swipe left or right to navigate demos
+          </motion.div>
+        )}
+
+        {/* Feature highlights */}
+        <motion.div 
+          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+          variants={containerVariants}
+        >
+          {[
+            {
+              icon: '📊',
+              title: 'Real-time Analytics',
+              description: 'Live dashboard with sales tracking and performance metrics'
+            },
+            {
+              icon: '🛒',
+              title: 'Smart Marketplace',
+              description: 'AI-powered product discovery and intelligent recommendations'
+            },
+            {
+              icon: '🚚',
+              title: 'Live Tracking',
+              description: 'GPS tracking with real-time delivery updates and notifications'
+            }
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -5 }}
+            >
+              <div className="text-center">
+                <div className="text-3xl mb-3">{feature.icon}</div>
+                <h4 className="font-semibold text-gray-900 mb-2">{feature.title}</h4>
+                <p className="text-gray-600 text-sm">{feature.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Call to action */}
+        <motion.div 
+          className="text-center mt-12"
+          variants={itemVariants}
+        >
+          <motion.button
+            className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Download App & Start Trading
+          </motion.button>
+          <p className="text-gray-500 text-sm mt-3">
+            Join 15,000+ farmers and buyers already using our platform
+          </p>
+        </motion.div>
+
+        {/* Floating particles animation */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-green-400 rounded-full opacity-30"
+              style={{
+                left: `${20 + i * 15}%`,
+                top: `${30 + (i % 2) * 40}%`
+              }}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, Math.sin(i) * 20, 0],
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                delay: i * 0.5,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Background gradient animation */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-blue-50/20 to-orange-50/20 rounded-3xl -z-10"
+          animate={{
+            background: [
+              'linear-gradient(135deg, rgba(240, 253, 244, 0.2) 0%, rgba(219, 234, 254, 0.2) 50%, rgba(255, 237, 213, 0.2) 100%)',
+              'linear-gradient(135deg, rgba(219, 234, 254, 0.2) 0%, rgba(255, 237, 213, 0.2) 50%, rgba(240, 253, 244, 0.2) 100%)',
+              'linear-gradient(135deg, rgba(255, 237, 213, 0.2) 0%, rgba(240, 253, 244, 0.2) 50%, rgba(219, 234, 254, 0.2) 100%)'
+            ]
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+}
