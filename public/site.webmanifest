@@ -1,0 +1,60 @@
+{
+  "name": "Farms to Market",
+  "short_name": "F2M",
+  "description": "Direct agricultural trade platform connecting farmers, buyers, and transporters in Cameroon. Fair prices, secure escrow payments, and AI-powered transparency.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00E834",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "agriculture", "marketplace"],
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.jpg",
+      "type": "image/jpeg",
+      "sizes": "750x1334",
+      "label": "Home screen"
+    },
+    {
+      "src": "/screenshots/product-list.jpg",
+      "type": "image/jpeg",
+      "sizes": "750x1334",
+      "label": "Product listing"
+    },
+    {
+      "src": "/screenshots/checkout.jpg",
+      "type": "image/jpeg",
+      "sizes": "750x1334",
+      "label": "Checkout flow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

@@ -481,7 +481,7 @@ export default function CuttingEdgeFeatures() {
             </h3>
             <p className="text-gray-400 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
               Join the neural network of farmers revolutionizing the agri-food industry through 
-              <span className="text-[#00E834] font-bold"> quantum-powered technology</span> and 
+              <span className="text-[#00E834] font-bold"> powered technology</span> and 
               AI-driven insights.
             </p>
             <motion.button
@@ -489,7 +489,7 @@ export default function CuttingEdgeFeatures() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              ACTIVATE NEURAL LINK
+              ACTIVATE  LINK
             </motion.button>
             
             {/* Lignes de scan */}

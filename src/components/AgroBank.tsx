@@ -838,18 +838,18 @@ const AgroBankFintechComponent = () => {
                 ))}
             </div>
 
-            {/* Badge AgroBank */}
+            {/* Badge AgroBank 
             <motion.div
                 className="fixed bottom-6 right-6 bg-gradient-to-r from-[#00E834] to-green-600 text-black rounded-2xl px-6 py-3 font-black opacity-90 z-30 border border-green-400 backdrop-blur-sm"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 0.9, y: 0 }}
                 transition={{ duration: 0.8, delay: 2 }}
             >
-                <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-black rounded-full animate-pulse"></div>
+                <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
                     <span className="tracking-wider">AGROBANK CUSTOMER</span>
                 </div>
-            </motion.div>
+            </motion.div> */}
         </div>
     );
 };

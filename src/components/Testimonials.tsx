@@ -10,7 +10,7 @@ const testimonials = [
     description: "I optimized my crop yield by 85% in just 3 weeks using advanced data analytics - exceptional results",
     author: "Ngozi Mbeki",
     role: "Cassava Producer",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
+    avatar: "/farmers/cassava1.jpeg"
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const testimonials = [
     description: "Finally discovered a platform where supply chain operations function with precision timing and complete transparency",
     author: "Aminatou Bello",
     role: "Agricultural Distributor",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b332c1f6?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
+    avatar: "/farmers/images1.jpeg"
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const testimonials = [
     description: "Farm-to-market delivery time reduced by 75% with complete digital tracking and automated processing systems",
     author: "Kwame Asante",
     role: "Livestock Farmer",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
+    avatar: "/farmers/farms2.jpeg"
   },
   {
     id: 4,

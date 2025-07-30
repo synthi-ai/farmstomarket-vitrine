@@ -199,7 +199,7 @@ export default function RootLayout({
         <div id="cookie-banner" className="fixed bottom-0 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-xl border-t border-gray-800 p-4 transform translate-y-full transition-transform duration-500">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
-              <div className="text-2xl">🍪</div>
+              <div className="text-2xl"> </div>
               <p className="text-white text-sm">
                 We use cookies to enhance your trading experience and provide market insights. 
                 <a href="/privacy" className="text-[#00E834] hover:underline ml-1">Learn more</a>

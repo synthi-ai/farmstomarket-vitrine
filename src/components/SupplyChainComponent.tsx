@@ -16,7 +16,7 @@ const SupplyChainComponent = () => {
     {
       title: "FARM",
       description: "Our supply chain begins at the source - connecting directly with local farmers and agricultural producers. We ensure quality control from the very beginning of the process.",
-      image: "https://images.unsplash.com/photo-1574180045827-681f8a1a9622?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+      image: "/farmes/poivrons.jpeg",
       color: "linear-gradient(135deg, #000000 0%, #00E834 50%, #000000 100%)",
       features: [
         "Direct farmer partnerships",
@@ -29,7 +29,7 @@ const SupplyChainComponent = () => {
     {
       title: "PROCESS",
       description: "Advanced processing facilities ensure optimal handling, packaging, and preparation of agricultural products while maintaining nutritional value and freshness.",
-      image: "https://images.unsplash.com/photo-1558603668-6570496b66f8?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+      image: "/farmers/7.jpeg",
       color: "linear-gradient(135deg, #000000 0%, #FFFFFF 50%, #000000 100%)",
       features: [
         "State-of-the-art facilities",
@@ -42,7 +42,7 @@ const SupplyChainComponent = () => {
     {
       title: "LOGISTICS",
       description: "Efficient distribution network with real-time tracking, temperature control, and optimized routing to ensure products reach markets in perfect condition.",
-      image: "https://images.unsplash.com/photo-1537165924986-cc3568f5d454?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+      image: "/farmers/6.jpeg",
       color: "linear-gradient(135deg, #000000 0%, #00E834 50%, #FFFFFF 100%)",
       features: [
         "GPS tracking system",
@@ -55,7 +55,7 @@ const SupplyChainComponent = () => {
     {
       title: "MARKET",
       description: "Final destination where consumers access fresh, high-quality agricultural products through our comprehensive marketplace platform and retail network.",
-      image: "https://images.unsplash.com/photo-1589271243958-d61e12b61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+      image: "/farmers/5.jpeg",
       color: "linear-gradient(135deg, #FFFFFF 0%, #00E834 50%, #000000 100%)",
       features: [
         "Multi-channel distribution",
@@ -68,10 +68,10 @@ const SupplyChainComponent = () => {
   ];
 
   const overlayImages = [
-    "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
-    "https://images.unsplash.com/photo-1594666757003-3ee20de41568?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
-    "https://images.unsplash.com/photo-1579830341096-05f2f31b8259?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
-    "https://images.unsplash.com/photo-1603771628302-c32c88e568e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    "/farmers/8.jpeg",
+    "/farmers/4.jpeg",
+    "/farmers/3.jpeg",
+    "/farmers/2.jpeg"
   ];
 
   useEffect(() => {
