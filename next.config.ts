@@ -13,6 +13,21 @@ const nextConfig: NextConfig = {
         hostname: 'randomuser.me',
         pathname: '/**',
       },
+      {
+        protocol: "https",
+        hostname: "www.figma.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ndinga237.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.ndinga237.com",
+        pathname: "/**",
+      },
     ],
   },
 
