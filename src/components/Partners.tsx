@@ -3,6 +3,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+
+
+
+
 const Partners = () => {
   const [inView, setInView] = useState(false);
   const [scanlinePosition, setScanlinePosition] = useState(0);
@@ -289,47 +293,6 @@ const Partners = () => {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Partnership Stats
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          {[
-            { value: '150+', label: 'ACTIVE PARTNERS', metric: 'GLOBAL REACH' },
-            { value: '99.9%', label: 'UPTIME', metric: 'RELIABILITY' },
-            { value: '2.5M+', label: 'TRANSACTIONS', metric: 'DAILY VOLUME' }
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              className="bg-white/95 border border-gray-200 rounded-2xl p-6 backdrop-blur-md relative overflow-hidden group hover:border-green-500 hover:shadow-lg transition-all duration-500"
-              whileHover={{ scale: 1.02, y: -2 }}
-            >
-              <div className="text-center">
-                <div className="text-3xl font-black text-green-500 mb-2">{stat.value}</div>
-                <div className="text-black font-bold text-sm mb-1">{stat.label}</div>
-                <div className="text-green-500/60 text-xs font-mono">{stat.metric}</div>
-              </div>
-              
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent"></div>
-              
-              <motion.div 
-                className="absolute top-3 right-3 w-2 h-2 bg-green-500 rounded-full opacity-0 group-hover:opacity-60"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.3, 0.6, 0.3]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: index * 0.3
-                }}
-              />
-            </motion.div>
-          ))}
-        </motion.div >  */}
       </div>
 
       {/* Bottom glow */}

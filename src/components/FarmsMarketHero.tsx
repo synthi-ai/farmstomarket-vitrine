@@ -467,7 +467,7 @@ const FarmsMarketHero = () => {
     }
   } as const;
 
-  const figmaPrototypeUrl = "https://www.figma.com/proto/ryMIF0M5pmKd387senLzYX/Farms-to-Market-UX-UI-Design?node-id=1862-25144&starting-point-node-id=1575%3A25790";
+  const figmaPrototypeUrl = "https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/ryMIF0M5pmKd387senLzYX/Farms-to-Market-UX-UI-Design?node-id=1862-25144&starting-point-node-id=1575%3A25790";
 
   return (
     <section className="relative w-full bg-white overflow-hidden">
