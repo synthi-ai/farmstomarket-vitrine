@@ -49,17 +49,16 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen">
       <Hero />
-      <Partners />
       <FarmsMarketHero/>
+      <Partners />
       <SecureTrusted />
-      {/*<Stats />*/}
       <CuttingEdgeFeatures />
+      <AppScreens />
       <HowProducers />
       <HowBuyersGet />
       <TransporterProcess />
-      <AppScreens />
-      <AgroBankFintechComponent />
       <SupplyChainComponent />
+      <AgroBankFintechComponent />
       <BuyersSection />
       <Testimonials />
       <FAQ />

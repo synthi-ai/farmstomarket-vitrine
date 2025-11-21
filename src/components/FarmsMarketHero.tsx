@@ -8,11 +8,11 @@ const MockupImage = ({ src, alt, className }: { src: string; alt: string; classN
     <Image
       src={src}
       alt={alt}
-      width={280}
-      height={500}
+      width={400}
+      height={700}
       priority
       className={`object-contain ${className}`}
-      sizes="(max-width: 768px) 90vw, 280px"
+      sizes="(max-width: 768px) 95vw, 400px"
     />
   );
 };
@@ -98,7 +98,7 @@ const FarmsMarketHero = () => {
               <MockupImage
                 src="/Mockups/mockup 01.png"
                 alt="Application mobile FarmsToMarket"
-                className="max-w-[280px] w-full"
+                className="max-w-[400px] w-full mx-auto"
               />
             </motion.div>
 
@@ -212,7 +212,7 @@ const FarmsMarketHero = () => {
                 <MockupImage
                   src="/Mockups/mockup 02.png"
                   alt="Interface principale FarmsToMarket"
-                  className="w-full max-w-[350px] mx-auto"
+                  className="w-full max-w-[450px] mx-auto"
                 />
               </motion.div>
 
@@ -225,7 +225,7 @@ const FarmsMarketHero = () => {
                 <MockupImage
                   src="/Mockups/mockup 03.png"
                   alt="Fonctionnalités FarmsToMarket"
-                  className="w-full max-w-[250px]"
+                  className="w-full max-w-[350px]"
                 />
               </motion.div>
 

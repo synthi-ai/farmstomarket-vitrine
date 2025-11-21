@@ -11,11 +11,11 @@ const MockupImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
     <Image
       src={src}
       alt={alt}
-      width={320}
-      height={500}
+      width={400}
+      height={700}
       priority
       className="object-contain"
-      sizes="(max-width: 768px) 90vw, 320px"
+      sizes="(max-width: 768px) 95vw, 400px"
     />
   );
 };
