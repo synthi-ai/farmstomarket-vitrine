@@ -86,7 +86,7 @@ export default function ReadyToTransform() {
         ref={containerRef}
         className="relative w-full max-w-7xl mx-auto h-full"
         style={{
-          background: '#00E834',
+          background: '#10b981',
           borderRadius: '40px 40px 0px 0px',
           padding: '100px 96px',
           height: '585px',

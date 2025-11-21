@@ -1,22 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = () => {
-    if (email) {
-      setIsSubscribed(true);
-      setTimeout(() => {
-        setIsSubscribed(false);
-        setEmail('');
-      }, 3000);
-    }
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -53,73 +39,67 @@ export default function Footer() {
 
   const productLinks = [
     { name: 'Marketplace', href: '#' },
-    { name: 'For Farmers', href: '#' },
-    { name: 'For Buyers', href: '#' },
-    { name: 'Analytics Platform', href: '#' },
-    { name: 'Mobile Application', href: '#' },
+    { name: 'Pour agriculteurs', href: '#' },
+    { name: 'Pour acheteurs', href: '#' },
+    { name: 'Plateforme analytics', href: '#' },
+    { name: 'Application mobile', href: '#' },
   ];
 
   const companyLinks = [
-    { name: 'About Us', href: '#' },
-    { name: 'Our Mission', href: '#' },
-    { name: 'Leadership Team', href: '#' },
-    { name: 'Careers', href: '#' },
-    { name: 'Press & Media', href: '#' },
+    { name: 'À propos', href: '#' },
+    { name: 'Notre mission', href: '#' },
+    { name: 'Équipe dirigeante', href: '#' },
+    { name: 'Carrières', href: '#' },
+    { name: 'Presse & média', href: '#' },
   ];
 
   const supportLinks = [
-    { name: 'Help Center', href: '#' },
+    { name: 'Centre d&apos;aide', href: '#' },
     { name: 'Documentation', href: '#' },
-    { name: 'API Reference', href: '#' },
-    { name: 'Community Forum', href: '#' },
-    { name: 'Contact Support', href: '#' },
+    { name: 'Référence API', href: '#' },
+    { name: 'Forum communautaire', href: '#' },
+    { name: 'Support technique', href: '#' },
   ];
 
   const legalLinks = [
-    { name: 'Terms & Conditions', href: '#' },
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Cookie Policy', href: '#' },
-    { name: 'Data Protection', href: '#' },
+    { name: 'Conditions générales', href: '#' },
+    { name: 'Politique de confidentialité', href: '#' },
+    { name: 'Politique de cookies', href: '#' },
+    { name: 'Protection des données', href: '#' },
   ];
 
   return (
-    <motion.footer 
-      className="w-full bg-black text-white border-t-4 border-green-500"
+    <motion.footer
+      className="w-full bg-gray-900 text-white"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Logo and Description */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-2 space-y-6"
             variants={itemVariants}
           >
             <div>
-              <div className="mb-4">
-                <h2 className="font-black text-2xl tracking-wide">
-                  <span className="text-green-500">FARMS</span>
-                  <span className="text-white">TO</span>
-                  <br />
-                  <span className="text-white">MARKET</span>
-                </h2>
-              </div>
-              <p className="text-gray-400 text-sm max-w-md leading-relaxed">
-                Revolutionizing agriculture through AI-powered technology, connecting farmers directly with global markets while ensuring fair pricing and sustainable prosperity across Africa.
+              <h2 className="font-bold text-2xl mb-4">
+                <span className="text-emerald-500">Farms</span>
+                <span className="text-white">ToMarket</span>
+              </h2>
+              <p className="text-gray-300 text-sm max-w-md leading-relaxed">
+                Révolutionnons l&apos;agriculture grâce à la technologie, en connectant les agriculteurs directement aux marchés tout en assurant une tarification équitable et une prospérité durable.
               </p>
             </div>
-            
-            {/* Social Icons */}
+
             <div>
-              <h4 className="text-white font-bold mb-4 text-sm tracking-wider">FOLLOW US</h4>
+              <h4 className="text-white font-semibold mb-4 text-sm">Suivez-nous</h4>
               <div className="flex space-x-3">
-                {socialLinks.map((social, index) => (
+                {socialLinks.map((social) => (
                   <motion.a
                     key={social.name}
                     href={social.href}
-                    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-colors duration-300"
-                    whileHover={{ scale: 1.1 }}
+                    className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-emerald-600 hover:text-white transition-colors duration-300"
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label={social.name}
                   >
@@ -148,59 +128,50 @@ export default function Footer() {
               </div>
             </div>
           </motion.div>
-          
-          {/* Product Links */}
+
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-bold mb-4 text-green-500 tracking-wider">PRODUCTS</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-4 text-white">Produits</h3>
+            <ul className="space-y-3">
               {productLinks.map((link) => (
                 <li key={link.name}>
-                  <motion.a 
+                  <a
                     href={link.href}
-                    className="text-gray-400 hover:text-green-500 transition-colors duration-300 text-sm"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm"
                   >
                     {link.name}
-                  </motion.a>
+                  </a>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Company Links */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-bold mb-4 text-green-500 tracking-wider">COMPANY</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-4 text-white">Entreprise</h3>
+            <ul className="space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.name}>
-                  <motion.a 
+                  <a
                     href={link.href}
-                    className="text-gray-400 hover:text-green-500 transition-colors duration-300 text-sm"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm"
                   >
                     {link.name}
-                  </motion.a>
+                  </a>
                 </li>
               ))}
             </ul>
           </motion.div>
-          
-          {/* Support Links */}
+
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-bold mb-4 text-green-500 tracking-wider">SUPPORT</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-4 text-white">Support</h3>
+            <ul className="space-y-3">
               {supportLinks.map((link) => (
                 <li key={link.name}>
-                  <motion.a 
+                  <a
                     href={link.href}
-                    className="text-gray-400 hover:text-green-500 transition-colors duration-300 text-sm"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 text-sm"
                   >
                     {link.name}
-                  </motion.a>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -209,66 +180,64 @@ export default function Footer() {
 
        
 
-        {/* Contact Information */}
-        <motion.div 
-          className="mt-8 pt-8 border-t border-gray-800"
+        <motion.div
+          className="mt-12 pt-8 border-t border-gray-800"
           variants={itemVariants}
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-start space-x-4">
+              <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </div>
               <div>
-                <p className="text-gray-400 text-xs uppercase tracking-wider">EMAIL</p>
-                <p className="text-white text-sm font-medium">contact@farmstomarket.com</p>
+                <p className="text-gray-400 text-xs font-medium mb-1">Email</p>
+                <p className="text-white text-sm">contact@farmstomarket.com</p>
               </div>
             </div>
-            
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="flex items-start space-x-4">
+              <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
               </div>
               <div>
-                <p className="text-gray-400 text-xs uppercase tracking-wider">PHONE</p>
-                <p className="text-white text-sm font-medium">+237 620207980</p>
+                <p className="text-gray-400 text-xs font-medium mb-1">Téléphone</p>
+                <p className="text-white text-sm">+237 620207980</p>
               </div>
             </div>
-            
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="flex items-start space-x-4">
+              <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </div>
               <div>
-                <p className="text-gray-400 text-xs uppercase tracking-wider">LOCATION</p>
-                <p className="text-white text-sm font-medium">Douala, Cameroon</p>
+                <p className="text-gray-400 text-xs font-medium mb-1">Localisation</p>
+                <p className="text-white text-sm">Douala, Cameroun</p>
               </div>
             </div>
           </div>
         </motion.div>
-        
-        {/* Footer Bottom */}
-        <motion.div 
-          className="pt-8 mt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400"
+
+        <motion.div
+          className="pt-8 mt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center"
           variants={itemVariants}
         >
-          <div>
-            © 2025 Farms to Market. All rights reserved. Empowering farmers across Africa.
+          <div className="text-gray-400 text-sm mb-4 md:mb-0">
+            © 2025 FarmsToMarket. Tous droits réservés. Autonomisation des agriculteurs africains.
           </div>
-          
-          <div className="flex space-x-4 mt-4 md:mt-0">
+
+          <div className="flex flex-wrap gap-4">
             {legalLinks.map((link) => (
-              <a 
+              <a
                 key={link.name}
-                href={link.href} 
-                className="hover:text-green-500 transition-colors duration-300"
+                href={link.href}
+                className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 text-sm"
               >
                 {link.name}
               </a>

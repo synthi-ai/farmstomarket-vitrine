@@ -3,494 +3,380 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-    BarChart3,
-    PieChart,
-    TrendingUp,
-    Activity,
-    Maximize2,
-    Minimize2,
-    Download,
-    Share
+  BarChart3,
+  PieChart,
+  TrendingUp,
+  Activity,
+  Maximize2,
+  Minimize2,
+  Download,
+  Share
 } from 'lucide-react';
 
 interface ChartData {
-    timestamp: string;
-    price: number;
-    volume: number;
-    high: number;
-    low: number;
-    open: number;
-    close: number;
+  timestamp: string;
+  price: number;
+  volume: number;
+  high: number;
+  low: number;
+  open: number;
+  close: number;
 }
 
 interface MarketChartsProps {
-    selectedCommodity: {
-        name: string;
-        symbol: string;
-        price: number;
-        change: number;
-        changePercent: number;
-    };
-    timeframe: string;
+  selectedCommodity?: {
+    name: string;
+    symbol: string;
+    price: number;
+    change: number;
+    changePercent: number;
+  };
+  timeframe?: string;
 }
 
-interface IndicatorsState {
-    sma: boolean;
-    ema: boolean;
-    rsi: boolean;
-    macd: boolean;
-    bollinger: boolean;
-}
+export default function MarketCharts({
+  selectedCommodity = {
+    name: 'Wheat',
+    symbol: 'WHT',
+    price: 7.45,
+    change: 0.23,
+    changePercent: 3.2
+  },
+  timeframe = '24h'
+}: MarketChartsProps) {
+  const [chartType, setChartType] = useState('line');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
 
-export default function MarketCharts({ selectedCommodity, timeframe }: MarketChartsProps) {
-    const [chartType, setChartType] = useState('line');
-    const [isFullscreen, setIsFullscreen] = useState(false);
-    const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [indicators, setIndicators] = useState({
+    sma: false,
+    ema: false,
+    rsi: false,
+    macd: false,
+    bollinger: false
+  });
 
-    const [indicators, setIndicators] = useState<IndicatorsState>({
-        sma: true,
-        ema: false,
-        rsi: true,
-        macd: false,
-        bollinger: false
-    });
+  useEffect(() => {
+    const generateChartData = () => {
+      const data: ChartData[] = [];
+      const now = new Date();
+      const basePrice = selectedCommodity.price;
 
-    // Génération de données simulées
-    useEffect(() => {
-        const generateData = () => {
-            const data: ChartData[] = [];
-            const now = new Date();
-            const intervals = timeframe === '1h' ? 60 : timeframe === '24h' ? 24 : timeframe === '7d' ? 7 * 24 : 30 * 24;
+      for (let i = 0; i < 30; i++) {
+        const timestamp = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000);
+        const randomVariation = (Math.random() - 0.5) * 0.5;
+        const price = basePrice + randomVariation;
 
-            let basePrice = selectedCommodity.price;
+        data.push({
+          timestamp: timestamp.toISOString(),
+          price: price,
+          volume: Math.floor(Math.random() * 100000) + 50000,
+          high: price + Math.random() * 0.2,
+          low: price - Math.random() * 0.2,
+          open: price - (Math.random() - 0.5) * 0.1,
+          close: price + (Math.random() - 0.5) * 0.1
+        });
+      }
 
-            for (let i = intervals; i >= 0; i--) {
-                const timestamp = new Date(now.getTime() - i * (timeframe === '1h' ? 60000 : 3600000));
-                const variation = (Math.random() - 0.5) * 0.1;
-                const open = basePrice;
-                const close = basePrice + variation;
-                const high = Math.max(open, close) + Math.random() * 0.05;
-                const low = Math.min(open, close) - Math.random() * 0.05;
-                const volume = Math.random() * 1000000 + 500000;
-
-                data.push({
-                    timestamp: timestamp.toISOString(),
-                    price: close,
-                    volume,
-                    high,
-                    low,
-                    open,
-                    close
-                });
-
-                basePrice = close;
-            }
-
-            return data;
-        };
-
-        setChartData(generateData());
-    }, [selectedCommodity, timeframe]);
-
-    // Mise à jour en temps réel
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setChartData(prev => {
-                const newData = [...prev];
-                const lastPoint = newData[newData.length - 1];
-                const now = new Date();
-
-                // Ajouter un nouveau point
-                const variation = (Math.random() - 0.5) * 0.1;
-                const newPoint: ChartData = {
-                    timestamp: now.toISOString(),
-                    price: lastPoint.price + variation,
-                    volume: Math.random() * 1000000 + 500000,
-                    high: lastPoint.price + variation + Math.random() * 0.05,
-                    low: lastPoint.price + variation - Math.random() * 0.05,
-                    open: lastPoint.price,
-                    close: lastPoint.price + variation
-                };
-
-                // Garder seulement les derniers points selon le timeframe
-                const maxPoints = timeframe === '1h' ? 60 : timeframe === '24h' ? 24 : 168;
-                if (newData.length >= maxPoints) {
-                    newData.shift();
-                }
-
-                newData.push(newPoint);
-                return newData;
-            });
-        }, timeframe === '1h' ? 1000 : 5000);
-
-        return () => clearInterval(interval);
-    }, [timeframe]);
-
-    const chartTypes = [
-        { id: 'line', name: 'LINE', icon: TrendingUp },
-        { id: 'candlestick', name: 'CANDLES', icon: BarChart3 },
-        { id: 'area', name: 'AREA', icon: Activity },
-        { id: 'volume', name: 'VOLUME', icon: PieChart }
-    ];
-
-    const renderLineChart = () => {
-        if (chartData.length === 0) return null;
-
-        const minPrice = Math.min(...chartData.map(d => d.low));
-        const maxPrice = Math.max(...chartData.map(d => d.high));
-        const priceRange = maxPrice - minPrice;
-        const width = 800;
-        const height = 300;
-
-        const points = chartData.map((point, index) => {
-            const x = (index / (chartData.length - 1)) * width;
-            const y = height - ((point.price - minPrice) / priceRange) * height;
-            return `${x},${y}`;
-        }).join(' ');
-
-        const areaPoints = `0,${height} ${points} ${width},${height}`;
-
-        return (
-            <div className="relative w-full h-80 bg-gradient-to-br from-black/50 to-gray-900/30 rounded-xl border border-[#00E834]/20 overflow-hidden">
-                {/* Grid Lines */}
-                <svg className="absolute inset-0 w-full h-full opacity-20">
-                    {/* Horizontal grid lines */}
-                    {[0, 1, 2, 3, 4, 5].map(i => (
-                        <line
-                            key={`h-${i}`}
-                            x1="0"
-                            y1={i * (height / 5)}
-                            x2={width}
-                            y2={i * (height / 5)}
-                            stroke="#00E834"
-                            strokeWidth="1"
-                            opacity="0.3"
-                        />
-                    ))}
-                    {/* Vertical grid lines */}
-                    {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                        <line
-                            key={`v-${i}`}
-                            x1={i * (width / 8)}
-                            y1="0"
-                            x2={i * (width / 8)}
-                            y2={height}
-                            stroke="#00E834"
-                            strokeWidth="1"
-                            opacity="0.3"
-                        />
-                    ))}
-                </svg>
-
-                {/* Main Chart */}
-                <svg className="absolute inset-0 w-full h-full" viewBox={`0 0 ${width} ${height}`}>
-                    {/* Area fill */}
-                    {chartType === 'area' && (
-                        <polygon
-                            points={areaPoints}
-                            fill="url(#areaGradient)"
-                            opacity="0.3"
-                        />
-                    )}
-
-                    {/* Main line */}
-                    <polyline
-                        points={points}
-                        fill="none"
-                        stroke="#00E834"
-                        strokeWidth="3"
-                        className="drop-shadow-lg"
-                    />
-
-                    {/* Glow effect */}
-                    <polyline
-                        points={points}
-                        fill="none"
-                        stroke="#00E834"
-                        strokeWidth="6"
-                        opacity="0.3"
-                        className="blur-sm"
-                    />
-
-                    {/* Data points */}
-                    {chartData.map((point, index) => {
-                        const x = (index / (chartData.length - 1)) * width;
-                        const y = height - ((point.price - minPrice) / priceRange) * height;
-                        return (
-                            <circle
-                                key={index}
-                                cx={x}
-                                cy={y}
-                                r="4"
-                                fill="#00E834"
-                                className="opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-                            />
-                        );
-                    })}
-
-                    {/* Gradient definition */}
-                    <defs>
-                        <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#00E834" stopOpacity="0.8" />
-                            <stop offset="100%" stopColor="#00E834" stopOpacity="0" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-
-                {/* Price labels */}
-                <div className="absolute left-2 top-2 text-[#00E834] font-black text-xs">
-                    ${maxPrice.toFixed(2)}
-                </div>
-                <div className="absolute left-2 bottom-2 text-[#00E834] font-black text-xs">
-                    ${minPrice.toFixed(2)}
-                </div>
-
-                {/* Real-time indicator */}
-                <div className="absolute top-4 right-4">
-                    <motion.div
-                        className="w-3 h-3 bg-[#00E834] rounded-full"
-                        animate={{
-                            scale: [1, 1.3, 1],
-                            opacity: [0.5, 1, 0.5]
-                        }}
-                        transition={{
-                            duration: 2,
-                            repeat: Infinity
-                        }}
-                    />
-                </div>
-            </div>
-        );
+      setChartData(data);
     };
 
-    const renderCandlestickChart = () => {
-        if (chartData.length === 0) return null;
+    generateChartData();
+  }, [selectedCommodity]);
 
-        const minPrice = Math.min(...chartData.map(d => d.low));
-        const maxPrice = Math.max(...chartData.map(d => d.high));
-        const priceRange = maxPrice - minPrice;
-        const width = 800;
-        const height = 300;
-        const candleWidth = width / chartData.length * 0.8;
+  const chartTypes = [
+    { id: 'line', name: 'Ligne', icon: Activity },
+    { id: 'candlestick', name: 'Chandelier', icon: BarChart3 },
+    { id: 'volume', name: 'Volume', icon: PieChart }
+  ];
 
-        return (
-            <div className="relative w-full h-80 bg-gradient-to-br from-black/50 to-gray-900/30 rounded-xl border border-[#00E834]/20 overflow-hidden">
-                <svg className="absolute inset-0 w-full h-full" viewBox={`0 0 ${width} ${height}`}>
-                    {chartData.map((candle, index) => {
-                        const x = (index / chartData.length) * width + candleWidth / 2;
-                        const openY = height - ((candle.open - minPrice) / priceRange) * height;
-                        const closeY = height - ((candle.close - minPrice) / priceRange) * height;
-                        const highY = height - ((candle.high - minPrice) / priceRange) * height;
-                        const lowY = height - ((candle.low - minPrice) / priceRange) * height;
+  const timeframes = [
+    { value: '1h', label: '1H' },
+    { value: '24h', label: '24H' },
+    { value: '7d', label: '7J' },
+    { value: '30d', label: '30J' },
+    { value: '1y', label: '1A' }
+  ];
 
-                        const isGreen = candle.close > candle.open;
-                        const bodyTop = Math.min(openY, closeY);
-                        const bodyHeight = Math.abs(closeY - openY);
+  const indicatorsList = [
+    { key: 'sma', name: 'SMA (20)', description: 'Moyenne mobile simple' },
+    { key: 'ema', name: 'EMA (12)', description: 'Moyenne mobile exponentielle' },
+    { key: 'rsi', name: 'RSI (14)', description: 'Index de force relative' },
+    { key: 'macd', name: 'MACD', description: 'Convergence/Divergence' },
+    { key: 'bollinger', name: 'Bollinger', description: 'Bandes de Bollinger' }
+  ];
 
-                        return (
-                            <g key={index}>
-                                {/* Wick */}
-                                <line
-                                    x1={x}
-                                    y1={highY}
-                                    x2={x}
-                                    y2={lowY}
-                                    stroke={isGreen ? "#00E834" : "#EF4444"}
-                                    strokeWidth="2"
-                                />
+  const toggleIndicator = (key: string) => {
+    setIndicators(prev => ({
+      ...prev,
+      [key]: !prev[key as keyof typeof prev]
+    }));
+  };
 
-                                {/* Body */}
-                                <rect
-                                    x={x - candleWidth / 2}
-                                    y={bodyTop}
-                                    width={candleWidth}
-                                    height={Math.max(bodyHeight, 2)}
-                                    fill={isGreen ? "#00E834" : "#EF4444"}
-                                    opacity="0.8"
-                                    rx="2"
-                                />
+  const maxPrice = Math.max(...chartData.map(d => d.high));
+  const minPrice = Math.min(...chartData.map(d => d.low));
+  const priceRange = maxPrice - minPrice;
 
-                                {/* Glow effect */}
-                                <rect
-                                    x={x - candleWidth / 2}
-                                    y={bodyTop}
-                                    width={candleWidth}
-                                    height={Math.max(bodyHeight, 2)}
-                                    fill={isGreen ? "#00E834" : "#EF4444"}
-                                    opacity="0.3"
-                                    rx="2"
-                                    className="blur-sm"
-                                />
-                            </g>
-                        );
-                    })}
-                </svg>
+  return (
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <BarChart3 className="w-4 h-4" />
+              <span>Graphiques de marché</span>
             </div>
-        );
-    };
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Analyse technique
+            </h1>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Analysez les mouvements de prix avec des graphiques avancés et des indicateurs techniques professionnels pour vos matières premières agricoles.
+            </p>
+          </div>
 
-    const renderVolumeChart = () => {
-        if (chartData.length === 0) return null;
+          {/* Market Summary */}
+          <div className="bg-white rounded-xl p-6 mb-8 shadow-sm border border-gray-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {selectedCommodity.name} ({selectedCommodity.symbol})
+                  </h2>
+                  <div className="flex items-center space-x-4 mt-2">
+                    <span className="text-2xl font-bold text-gray-900">
+                      ${selectedCommodity.price.toFixed(2)}
+                    </span>
+                    <span className={`flex items-center text-sm font-semibold ${
+                      selectedCommodity.change >= 0 ? 'text-emerald-600' : 'text-red-500'
+                    }`}>
+                      <TrendingUp className="w-4 h-4 mr-1" />
+                      {selectedCommodity.change >= 0 ? '+' : ''}
+                      {selectedCommodity.change.toFixed(2)} ({selectedCommodity.changePercent.toFixed(2)}%)
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-        const maxVolume = Math.max(...chartData.map(d => d.volume));
-        const width = 800;
-        const height = 100;
-        const barWidth = width / chartData.length * 0.8;
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  title="Plein écran"
+                >
+                  {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+                </button>
+                <button
+                  className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  title="Télécharger"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
+                <button
+                  className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  title="Partager"
+                >
+                  <Share className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
 
-        return (
-            <div className="relative w-full h-24 bg-gradient-to-br from-black/30 to-gray-900/20 rounded-xl border border-[#00E834]/10 overflow-hidden mt-4">
-                <svg className="absolute inset-0 w-full h-full" viewBox={`0 0 ${width} ${height}`}>
-                    {chartData.map((bar, index) => {
-                        const x = (index / chartData.length) * width;
-                        const barHeight = (bar.volume / maxVolume) * height;
-                        const isGreen = bar.close > bar.open;
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Chart Controls */}
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Type de graphique</h3>
+                <div className="space-y-2">
+                  {chartTypes.map((type) => (
+                    <button
+                      key={type.id}
+                      onClick={() => setChartType(type.id)}
+                      className={`w-full flex items-center space-x-3 p-3 rounded-lg text-sm font-medium transition-colors ${
+                        chartType === type.id
+                          ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <type.icon className="w-4 h-4" />
+                      <span>{type.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-                        return (
-                            <rect
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Période</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {timeframes.map((tf) => (
+                    <button
+                      key={tf.value}
+                      className={`p-2 rounded-lg text-sm font-medium transition-colors ${
+                        timeframe === tf.value
+                          ? 'bg-emerald-600 text-white'
+                          : 'text-gray-700 hover:bg-gray-100 border border-gray-200'
+                      }`}
+                    >
+                      {tf.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Indicateurs techniques</h3>
+                <div className="space-y-3">
+                  {indicatorsList.map((indicator) => (
+                    <div key={indicator.key} className="flex items-center justify-between">
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">{indicator.name}</div>
+                        <div className="text-xs text-gray-500">{indicator.description}</div>
+                      </div>
+                      <button
+                        onClick={() => toggleIndicator(indicator.key)}
+                        className={`w-10 h-6 rounded-full transition-colors ${
+                          indicators[indicator.key as keyof typeof indicators]
+                            ? 'bg-emerald-600'
+                            : 'bg-gray-300'
+                        }`}
+                      >
+                        <div
+                          className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform ${
+                            indicators[indicator.key as keyof typeof indicators]
+                              ? 'translate-x-5'
+                              : 'translate-x-1'
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Main Chart */}
+            <div className="lg:col-span-3">
+              <div className={`bg-white rounded-xl shadow-sm border border-gray-200 ${
+                isFullscreen ? 'fixed inset-4 z-50' : ''
+              }`}>
+                <div className="p-6">
+                  <div className="h-96 relative">
+                    <svg viewBox="0 0 800 400" className="w-full h-full">
+                      {/* Grid lines */}
+                      <defs>
+                        <pattern id="grid" width="40" height="20" patternUnits="userSpaceOnUse">
+                          <path d="M 40 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#grid)" />
+
+                      {/* Price line chart */}
+                      {chartType === 'line' && (
+                        <polyline
+                          fill="none"
+                          stroke="#10b981"
+                          strokeWidth="2"
+                          points={chartData.map((point, index) => {
+                            const x = (index / (chartData.length - 1)) * 800;
+                            const y = 400 - ((point.price - minPrice) / priceRange) * 400;
+                            return `${x},${y}`;
+                          }).join(' ')}
+                        />
+                      )}
+
+                      {/* Volume bars */}
+                      {chartType === 'volume' && (
+                        <g>
+                          {chartData.map((point, index) => {
+                            const x = (index / chartData.length) * 800;
+                            const height = (point.volume / Math.max(...chartData.map(d => d.volume))) * 200;
+                            return (
+                              <rect
                                 key={index}
                                 x={x}
-                                y={height - barHeight}
-                                width={barWidth}
-                                height={barHeight}
-                                fill={isGreen ? "#00E834" : "#EF4444"}
-                                opacity="0.6"
-                                rx="1"
-                            />
-                        );
-                    })}
-                </svg>
+                                y={400 - height}
+                                width={800 / chartData.length - 2}
+                                height={height}
+                                fill="#10b981"
+                                opacity="0.7"
+                              />
+                            );
+                          })}
+                        </g>
+                      )}
 
-                <div className="absolute bottom-1 right-2 text-gray-400 text-xs font-bold">
-                    Volume: {(chartData[chartData.length - 1]?.volume / 1000).toFixed(0)}K
-                </div>
-            </div>
-        );
-    };
+                      {/* Candlesticks */}
+                      {chartType === 'candlestick' && (
+                        <g>
+                          {chartData.map((point, index) => {
+                            const x = (index / chartData.length) * 800 + (800 / chartData.length / 2);
+                            const openY = 400 - ((point.open - minPrice) / priceRange) * 400;
+                            const closeY = 400 - ((point.close - minPrice) / priceRange) * 400;
+                            const highY = 400 - ((point.high - minPrice) / priceRange) * 400;
+                            const lowY = 400 - ((point.low - minPrice) / priceRange) * 400;
+                            const isUp = point.close > point.open;
 
-    return (
-        <motion.div
-            className={`bg-gradient-to-br from-black/90 via-gray-900/70 to-black/90 border border-[#00E834]/30 rounded-2xl backdrop-blur-md relative overflow-hidden ${isFullscreen ? 'fixed inset-4 z-50' : 'p-6'
-                }`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-        >
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
+                            return (
+                              <g key={index}>
+                                {/* High-Low line */}
+                                <line
+                                  x1={x}
+                                  y1={highY}
+                                  x2={x}
+                                  y2={lowY}
+                                  stroke={isUp ? '#10b981' : '#ef4444'}
+                                  strokeWidth="1"
+                                />
+                                {/* Open-Close rectangle */}
+                                <rect
+                                  x={x - 8}
+                                  y={Math.min(openY, closeY)}
+                                  width="16"
+                                  height={Math.abs(openY - closeY)}
+                                  fill={isUp ? '#10b981' : '#ef4444'}
+                                />
+                              </g>
+                            );
+                          })}
+                        </g>
+                      )}
+
+                      {/* Y-axis labels */}
+                      {[minPrice, (minPrice + maxPrice) / 2, maxPrice].map((price, index) => (
+                        <text
+                          key={index}
+                          x="10"
+                          y={400 - (index * 200) + 5}
+                          fontSize="12"
+                          fill="#6b7280"
+                        >
+                          ${price.toFixed(2)}
+                        </text>
+                      ))}
+                    </svg>
+                  </div>
+
+                  {/* Chart Footer */}
+                  <div className="mt-6 flex items-center justify-between text-sm text-gray-500">
                     <div>
-                        <h3 className="text-2xl font-black text-white tracking-wide">
-                            {selectedCommodity.name} ({selectedCommodity.symbol})
-                        </h3>
-                        <div className="flex items-center space-x-3">
-                            <span className="text-3xl font-black text-white">
-                                ${selectedCommodity.price.toFixed(2)}
-                            </span>
-                            <span className={`font-black text-lg ${selectedCommodity.change >= 0 ? 'text-green-400' : 'text-red-400'
-                                }`}>
-                                {selectedCommodity.change >= 0 ? '+' : ''}{selectedCommodity.change.toFixed(2)}
-                                ({selectedCommodity.changePercent >= 0 ? '+' : ''}{selectedCommodity.changePercent.toFixed(1)}%)
-                            </span>
-                        </div>
+                      Volume moyen: {(chartData.reduce((sum, d) => sum + d.volume, 0) / chartData.length).toLocaleString()}
                     </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                    {/* Chart Type Selector */}
-                    <div className="flex rounded-xl bg-gray-900/50 border border-[#00E834]/30 overflow-hidden">
-                        {chartTypes.map((type) => (
-                            <button
-                                key={type.id}
-                                onClick={() => setChartType(type.id)}
-                                className={`flex items-center px-3 py-2 font-black text-xs transition-all ${chartType === type.id
-                                        ? 'bg-[#00E834] text-black'
-                                        : 'text-white hover:bg-[#00E834]/20'
-                                    }`}
-                            >
-                                <type.icon className="w-4 h-4 mr-1" />
-                                {type.name}
-                            </button>
-                        ))}
+                    <div>
+                      Volatilité: {((maxPrice - minPrice) / minPrice * 100).toFixed(2)}%
                     </div>
-
-                    {/* Controls */}
-                    <div className="flex space-x-2">
-                        <motion.button
-                            onClick={() => setIsFullscreen(!isFullscreen)}
-                            className="p-2 bg-gray-900/50 border border-[#00E834]/30 rounded-lg text-white hover:bg-[#00E834]/20 transition-all"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-                        </motion.button>
-
-                        <motion.button
-                            className="p-2 bg-gray-900/50 border border-[#00E834]/30 rounded-lg text-white hover:bg-[#00E834]/20 transition-all"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Download className="w-4 h-4" />
-                        </motion.button>
-
-                        <motion.button
-                            className="p-2 bg-gray-900/50 border border-[#00E834]/30 rounded-lg text-white hover:bg-[#00E834]/20 transition-all"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Share className="w-4 h-4" />
-                        </motion.button>
+                    <div>
+                      Points de données: {chartData.length}
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-
-            {/* Chart Area */}
-            <div className="mb-6">
-                {chartType === 'line' || chartType === 'area' ? renderLineChart() :
-                    chartType === 'candlestick' ? renderCandlestickChart() :
-                        renderLineChart()}
-            </div>
-
-            {/* Volume Chart */}
-            {renderVolumeChart()}
-
-            {/* Technical Indicators */}
-            <div className="mt-6 pt-6 border-t border-[#00E834]/20">
-                <h4 className="text-lg font-black text-white mb-4 tracking-wide">TECHNICAL INDICATORS</h4>
-                <div className="flex flex-wrap gap-3">
-                    {Object.entries(indicators).map(([key, value]) => (
-                        <button
-                            key={key}
-                            onClick={() => setIndicators(prev => ({
-                                ...prev,
-                                [key as keyof IndicatorsState]: !prev[key as keyof IndicatorsState] // <--- Change here
-                            }))}
-                            className={`px-4 py-2 rounded-lg font-black text-xs tracking-wider transition-all ${value
-                                    ? 'bg-[#00E834] text-black'
-                                    : 'bg-gray-900/50 text-white border border-[#00E834]/30 hover:bg-[#00E834]/20'
-                                }`}
-                        >
-                            {key.toUpperCase()}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {/* Scan lines */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E834]/50 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E834]/50 to-transparent"></div>
-
-            {/* Real-time pulse */}
-            <motion.div
-                className="absolute top-4 right-4 w-2 h-2 bg-[#00E834] rounded-full"
-                animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.5, 1, 0.5]
-                }}
-                transition={{
-                    duration: 2,
-                    repeat: Infinity
-                }}
-            />
+          </div>
         </motion.div>
-    );
+      </div>
+    </section>
+  );
 }
