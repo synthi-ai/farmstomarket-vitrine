@@ -126,12 +126,12 @@ export default function Testimonials() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-emerald-100">
+                <div className="w-16 h-16 rounded-full overflow-hidden bg-emerald-100">
                   <Image
                     src={testimonial.avatar}
                     alt={testimonial.author}
-                    width={48}
-                    height={48}
+                    width={64}
+                    height={64}
                     className="w-full h-full object-cover"
                   />
                 </div>

@@ -101,13 +101,13 @@ export default function Partners() {
               className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
               whileHover={{ y: -4 }}
             >
-              <div className="flex items-center justify-center h-16">
+              <div className="flex items-center justify-center h-24">
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={120}
-                  height={48}
-                  className="h-12 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                  width={180}
+                  height={72}
+                  className="h-18 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
             </motion.div>

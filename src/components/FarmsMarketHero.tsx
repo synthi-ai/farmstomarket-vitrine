@@ -9,11 +9,11 @@ const MockupImage = ({ src, alt, className }: { src: string; alt: string; classN
     <Image
       src={src}
       alt={alt}
-      width={400}
-      height={700}
+      width={600}
+      height={1000}
       priority
       className={`object-contain ${className}`}
-      sizes="(max-width: 768px) 95vw, 400px"
+      sizes="(max-width: 768px) 95vw, 600px"
     />
   );
 };

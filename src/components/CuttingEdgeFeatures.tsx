@@ -7,7 +7,7 @@ import Image from 'next/image';
 // Composant iPhone épuré pour afficher les mockups
 const IPhoneMockup: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
   return (
-    <div className="relative w-72 h-[580px] bg-black rounded-[3rem] overflow-hidden shadow-xl border border-gray-200 transition-all duration-300 hover:shadow-2xl">
+    <div className="relative w-80 h-[640px] bg-black rounded-[3rem] overflow-hidden shadow-xl border border-gray-200 transition-all duration-300 hover:shadow-2xl">
       {/* Dynamic Island */}
       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 bg-black z-10 rounded-2xl" />
 
@@ -20,7 +20,7 @@ const IPhoneMockup: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
             fill
             priority
             className="object-contain"
-            sizes="288px"
+            sizes="(max-width: 768px) 95vw, 500px"
           />
         </div>
       </div>

@@ -171,10 +171,10 @@ const SupplyChainComponent = () => {
                 <Image
                   src={slides[currentIndex].image}
                   alt={slides[currentIndex].title}
-                  width={320}
-                  height={500}
+                  width={480}
+                  height={750}
                   className="object-contain"
-                  sizes="320px"
+                  sizes="(max-width: 768px) 90vw, 480px"
                 />
               </div>
             </motion.div>

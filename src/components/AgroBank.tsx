@@ -9,11 +9,11 @@ const MockupImage = ({ src, alt }: { src: string; alt: string }) => {
     <Image
       src={src}
       alt={alt}
-      width={400}
-      height={700}
+      width={600}
+      height={1000}
       priority
       className="object-contain"
-      sizes="(max-width: 768px) 95vw, 400px"
+      sizes="(max-width: 768px) 95vw, 600px"
     />
   );
 };
@@ -27,16 +27,6 @@ const AgroBank = () => {
         { image: "/Mockups/mockup 03.png", title: t('agrobank.payments.title'), description: t('agrobank.payments.description') }
     ];
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                duration: 1,
-                staggerChildren: 0.2,
-            },
-        },
-    } as const;
 
     const itemVariants = {
         hidden: {
