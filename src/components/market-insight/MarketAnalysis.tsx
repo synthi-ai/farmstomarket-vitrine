@@ -9,11 +9,7 @@ import {
   Eye,
   AlertCircle,
   Globe,
-  Thermometer,
-  CloudRain,
   Sun,
-  Wind,
-  Droplets,
   Truck,
   Users,
   ArrowUp,
@@ -40,7 +36,7 @@ interface MarketFactor {
   impact: 'positive' | 'negative' | 'neutral';
   strength: number;
   description: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 interface AIInsight {
@@ -225,7 +221,7 @@ export default function MarketAnalysis() {
               Analyse de marché IA
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Analyses prédictives avancées et insights alimentés par l'intelligence artificielle pour optimiser vos décisions de trading agricole.
+              Analyses prédictives avancées et insights alimentés par l&apos;intelligence artificielle pour optimiser vos décisions de trading agricole.
             </p>
           </div>
 
@@ -254,7 +250,7 @@ export default function MarketAnalysis() {
                     {timeframes.map((timeframe) => (
                       <button
                         key={timeframe.value}
-                        onClick={() => setSelectedTimeframe(timeframe.value as any)}
+                        onClick={() => setSelectedTimeframe(timeframe.value as MarketPrediction['timeframe'])}
                         className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                           selectedTimeframe === timeframe.value
                             ? 'bg-emerald-600 text-white'

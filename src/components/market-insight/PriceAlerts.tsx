@@ -14,6 +14,7 @@ import {
   Check,
   X
 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface PriceAlert {
   id: string;
@@ -30,6 +31,7 @@ interface PriceAlert {
 }
 
 export default function PriceAlerts() {
+  const { t, language } = useLanguage();
   const [alerts, setAlerts] = useState<PriceAlert[]>([
     {
       id: '1',
@@ -107,11 +109,11 @@ export default function PriceAlerts() {
 
   const getAlertDescription = (alert: PriceAlert) => {
     if (alert.alertType === 'above') {
-      return `Alert when price goes above $${alert.targetPrice?.toFixed(2)}`;
+      return `${t('pricealerts.alert.above')}${alert.targetPrice?.toFixed(2)}`;
     } else if (alert.alertType === 'below') {
-      return `Alert when price goes below $${alert.targetPrice?.toFixed(2)}`;
+      return `${t('pricealerts.alert.below')}${alert.targetPrice?.toFixed(2)}`;
     } else {
-      return `Alert when price changes by ${alert.changePercent}%`;
+      return `${t('pricealerts.alert.changePercent')} ${alert.changePercent}%`;
     }
   };
 
@@ -142,41 +144,41 @@ export default function PriceAlerts() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
               <Bell className="w-4 h-4" />
-              <span>Alertes de prix</span>
+              <span>{t('pricealerts.badge')}</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Alertes de marché
+              {t('pricealerts.title')}
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Configurez des alertes personnalisées pour ne manquer aucune opportunité de marché sur vos matières premières agricoles préférées.
+              {t('pricealerts.description')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <div className="text-2xl font-bold text-emerald-600">{activeAlerts}</div>
-              <div className="text-sm text-gray-600">Alertes actives</div>
+              <div className="text-sm text-gray-600">{t('pricealerts.stats.active')}</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <div className="text-2xl font-bold text-orange-500">{triggeredAlerts}</div>
-              <div className="text-sm text-gray-600">Alertes déclenchées</div>
+              <div className="text-sm text-gray-600">{t('pricealerts.stats.triggered')}</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <div className="text-2xl font-bold text-gray-900">{alerts.length}</div>
-              <div className="text-sm text-gray-600">Total des alertes</div>
+              <div className="text-sm text-gray-600">{t('pricealerts.stats.total')}</div>
             </div>
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Mes alertes</h2>
+                <h2 className="text-xl font-semibold text-gray-900">{t('pricealerts.myalerts')}</h2>
                 <button
                   onClick={() => setShowCreateModal(true)}
                   className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                 >
                   <Plus className="w-4 h-4" />
-                  <span>Nouvelle alerte</span>
+                  <span>{t('pricealerts.new')}</span>
                 </button>
               </div>
             </div>
@@ -186,16 +188,16 @@ export default function PriceAlerts() {
                 <div className="text-center py-12">
                   <Bell className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Aucune alerte configurée
+                    {t('pricealerts.empty.title')}
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Créez votre première alerte pour être notifié des changements de prix importants.
+                    {t('pricealerts.empty.description')}
                   </p>
                   <button
                     onClick={() => setShowCreateModal(true)}
                     className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                   >
-                    Créer une alerte
+                    {t('pricealerts.empty.cta')}
                   </button>
                 </div>
               ) : (
@@ -226,7 +228,7 @@ export default function PriceAlerts() {
                             </p>
                             {alert.isTriggered && alert.triggeredAt && (
                               <p className="text-xs text-orange-600 mt-1">
-                                Déclenchée le {new Date(alert.triggeredAt).toLocaleDateString('fr-FR')}
+                                {t('pricealerts.triggered')} {new Date(alert.triggeredAt).toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-US')}
                               </p>
                             )}
                           </div>
@@ -234,7 +236,7 @@ export default function PriceAlerts() {
 
                         <div className="flex items-center space-x-2">
                           <div className="text-right mr-4">
-                            <div className="text-sm text-gray-500">Prix actuel</div>
+                            <div className="text-sm text-gray-500">{t('pricealerts.currentPrice')}</div>
                             <div className="font-semibold text-gray-900">
                               ${alert.currentPrice.toFixed(2)}
                             </div>
@@ -247,14 +249,14 @@ export default function PriceAlerts() {
                                 ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200'
                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}
-                            title={alert.isActive ? 'Désactiver' : 'Activer'}
+                            title={alert.isActive ? t('pricealerts.deactivate') : t('pricealerts.activate')}
                           >
                             {alert.isActive ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
                           </button>
 
                           <button
                             className="p-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
-                            title="Modifier"
+                            title={t('pricealerts.edit')}
                           >
                             <Edit3 className="w-4 h-4" />
                           </button>
@@ -262,7 +264,7 @@ export default function PriceAlerts() {
                           <button
                             onClick={() => deleteAlert(alert.id)}
                             className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
-                            title="Supprimer"
+                            title={t('pricealerts.delete')}
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -316,11 +318,11 @@ export default function PriceAlerts() {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Type d'alerte
+                      Type d&apos;alerte
                     </label>
                     <select
                       value={newAlert.alertType}
-                      onChange={(e) => setNewAlert({ ...newAlert, alertType: e.target.value as any })}
+                      onChange={(e) => setNewAlert({ ...newAlert, alertType: e.target.value as PriceAlert['alertType'] })}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
                     >
                       <option value="above">Prix au-dessus de</option>
@@ -365,7 +367,7 @@ export default function PriceAlerts() {
                     onClick={createAlert}
                     className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                   >
-                    Créer l'alerte
+                    Créer l&apos;alerte
                   </button>
                   <button
                     onClick={() => setShowCreateModal(false)}

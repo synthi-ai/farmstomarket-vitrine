@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -38,34 +40,34 @@ export default function Footer() {
   ];
 
   const productLinks = [
-    { name: 'Marketplace', href: '#' },
-    { name: 'Pour agriculteurs', href: '#' },
-    { name: 'Pour acheteurs', href: '#' },
-    { name: 'Plateforme analytics', href: '#' },
-    { name: 'Application mobile', href: '#' },
+    { name: t('footer.marketplace'), href: '#' },
+    { name: t('footer.forFarmers'), href: '#' },
+    { name: t('footer.forBuyers'), href: '#' },
+    { name: t('footer.analyticsplatform'), href: '#' },
+    { name: t('footer.mobileApp'), href: '#' },
   ];
 
   const companyLinks = [
-    { name: 'À propos', href: '#' },
-    { name: 'Notre mission', href: '#' },
-    { name: 'Équipe dirigeante', href: '#' },
-    { name: 'Carrières', href: '#' },
-    { name: 'Presse & média', href: '#' },
+    { name: t('footer.aboutUs'), href: '#' },
+    { name: t('footer.ourMission'), href: '#' },
+    { name: t('footer.leadership'), href: '#' },
+    { name: t('footer.careers'), href: '#' },
+    { name: t('footer.pressMedia'), href: '#' },
   ];
 
   const supportLinks = [
-    { name: 'Centre d&apos;aide', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Référence API', href: '#' },
-    { name: 'Forum communautaire', href: '#' },
-    { name: 'Support technique', href: '#' },
+    { name: t('footer.helpCenter'), href: '#' },
+    { name: t('footer.documentation'), href: '#' },
+    { name: t('footer.apiReference'), href: '#' },
+    { name: t('footer.communityForum'), href: '#' },
+    { name: t('footer.technicalSupport'), href: '#' },
   ];
 
   const legalLinks = [
-    { name: 'Conditions générales', href: '#' },
-    { name: 'Politique de confidentialité', href: '#' },
-    { name: 'Politique de cookies', href: '#' },
-    { name: 'Protection des données', href: '#' },
+    { name: t('footer.termsOfService'), href: '#' },
+    { name: t('footer.privacyPolicy'), href: '#' },
+    { name: t('footer.cookiePolicy'), href: '#' },
+    { name: t('footer.dataProtection'), href: '#' },
   ];
 
   return (
@@ -87,12 +89,12 @@ export default function Footer() {
                 <span className="text-white">ToMarket</span>
               </h2>
               <p className="text-gray-300 text-sm max-w-md leading-relaxed">
-                Révolutionnons l&apos;agriculture grâce à la technologie, en connectant les agriculteurs directement aux marchés tout en assurant une tarification équitable et une prospérité durable.
+                {t('footer.description')}
               </p>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4 text-sm">Suivez-nous</h4>
+              <h4 className="text-white font-semibold mb-4 text-sm">{t('footer.followUs')}</h4>
               <div className="flex space-x-3">
                 {socialLinks.map((social) => (
                   <motion.a
@@ -130,7 +132,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4 text-white">Produits</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer.products')}</h3>
             <ul className="space-y-3">
               {productLinks.map((link) => (
                 <li key={link.name}>
@@ -146,7 +148,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4 text-white">Entreprise</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer.company')}</h3>
             <ul className="space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.name}>
@@ -162,7 +164,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4 text-white">Support</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer.support')}</h3>
             <ul className="space-y-3">
               {supportLinks.map((link) => (
                 <li key={link.name}>
@@ -192,7 +194,7 @@ export default function Footer() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-400 text-xs font-medium mb-1">Email</p>
+                <p className="text-gray-400 text-xs font-medium mb-1">{t('footer.email')}</p>
                 <p className="text-white text-sm">contact@farmstomarket.com</p>
               </div>
             </div>
@@ -204,7 +206,7 @@ export default function Footer() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-400 text-xs font-medium mb-1">Téléphone</p>
+                <p className="text-gray-400 text-xs font-medium mb-1">{t('footer.phone')}</p>
                 <p className="text-white text-sm">+237 620207980</p>
               </div>
             </div>
@@ -217,8 +219,8 @@ export default function Footer() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-400 text-xs font-medium mb-1">Localisation</p>
-                <p className="text-white text-sm">Douala, Cameroun</p>
+                <p className="text-gray-400 text-xs font-medium mb-1">{t('footer.location')}</p>
+                <p className="text-white text-sm">{t('location.douala')}</p>
               </div>
             </div>
           </div>
@@ -229,7 +231,7 @@ export default function Footer() {
           variants={itemVariants}
         >
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            © 2025 FarmsToMarket. Tous droits réservés. Autonomisation des agriculteurs africains.
+{t('footer.copyright')}
           </div>
 
           <div className="flex flex-wrap gap-4">

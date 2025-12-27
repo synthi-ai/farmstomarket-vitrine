@@ -6,10 +6,8 @@ import {
   TrendingUp,
   TrendingDown,
   Globe,
-  BarChart3,
   RefreshCw,
   Search,
-  DollarSign,
   Wheat,
   Beef,
   Fish,
@@ -27,7 +25,7 @@ interface MarketData {
   volume: number;
   marketCap: number;
   category: 'cereals' | 'livestock' | 'fruits' | 'vegetables' | 'dairy' | 'seafood';
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   trend: number[];
 }
 
@@ -199,10 +197,10 @@ export default function MarketInsight() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
+        ease: [0.4, 0.0, 0.2, 1] as const
       }
     }
-  };
+  } as const;
 
   return (
     <section className="py-20 bg-gray-50">

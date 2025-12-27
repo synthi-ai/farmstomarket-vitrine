@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Partners() {
   const controls = useAnimation();
@@ -11,6 +12,7 @@ export default function Partners() {
   useEffect(() => {
     if (isInView) {
       controls.start('visible');
+
     }
   }, [isInView, controls]);
 
@@ -82,7 +84,7 @@ export default function Partners() {
             Des entreprises qui nous font confiance
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Nous collaborons avec les leaders de l'agriculture et de la technologie
+            Nous collaborons avec les leaders de l&apos;agriculture et de la technologie
           </p>
         </motion.div>
 
@@ -100,9 +102,11 @@ export default function Partners() {
               whileHover={{ y: -4 }}
             >
               <div className="flex items-center justify-center h-16">
-                <img
+                <Image
                   src={partner.logo}
                   alt={partner.name}
+                  width={120}
+                  height={48}
                   className="h-12 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
@@ -117,7 +121,7 @@ export default function Partners() {
           variants={itemVariants}
         >
           <p className="text-gray-600 mb-6">
-            Rejoignez plus de 100+ entreprises qui transforment l'agriculture
+            Rejoignez plus de 100+ entreprises qui transforment l&apos;agriculture
           </p>
           <motion.button
             className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-4 rounded-xl transition-all duration-300 inline-flex items-center gap-2 shadow-lg hover:shadow-xl"

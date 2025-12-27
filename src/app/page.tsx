@@ -20,7 +20,6 @@ import SupplyChainComponent from '@/components/SupplyChainComponent'
 import BuyersSection from '@/components/BuyersSection'
 import dynamic from 'next/dynamic';
 import TransporterProcess from '@/components/HowTransporter';
-//import BuyersSection from '@/components/BuyersSection'
 
 export default function Home() {
   useEffect(() => {

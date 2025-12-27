@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const SecureTrusted = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -46,13 +48,13 @@ const SecureTrusted = () => {
       >
         <motion.div className="text-center mb-16" variants={itemVariants}>
           <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full mb-4">
-            Sécurité & confiance
+            {t('secure.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Une plateforme sécurisée et fiable
+            {t('secure.title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Résolvez vos plus grands défis avec notre technologie de pointe
+            {t('secure.description')}
           </p>
         </motion.div>
 
@@ -68,9 +70,9 @@ const SecureTrusted = () => {
                 <path d="M7 4L12 9.5L17 4" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="font-semibold text-xl text-gray-900 mb-4">Tarification IA</h3>
+            <h3 className="font-semibold text-xl text-gray-900 mb-4">{t('secure.pricing.title')}</h3>
             <p className="text-gray-600 leading-relaxed">
-              Obtenez des informations de marché en temps réel pour fixer des prix qui reflètent réellement la demande.
+              {t('secure.pricing.description')}
             </p>
           </motion.div>
 
@@ -86,9 +88,9 @@ const SecureTrusted = () => {
                 <path d="M12 8H12.01" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="font-semibold text-xl text-gray-900 mb-4">Paiements sécurisés</h3>
+            <h3 className="font-semibold text-xl text-gray-900 mb-4">{t('secure.payments.title')}</h3>
             <p className="text-gray-600 leading-relaxed">
-              Les acheteurs paient 40% à l&apos;avance, les vendeurs reçoivent les fonds uniquement après confirmation de livraison.
+              {t('secure.payments.description')}
             </p>
           </motion.div>
 
@@ -106,9 +108,9 @@ const SecureTrusted = () => {
                 <path d="M15.41 6.51L8.59 10.49" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="font-semibold text-xl text-gray-900 mb-4">Livraisons transparentes</h3>
+            <h3 className="font-semibold text-xl text-gray-900 mb-4">{t('secure.delivery.title')}</h3>
             <p className="text-gray-600 leading-relaxed">
-              Suivez les expéditions en direct, partagez équitablement les coûts de livraison et responsabilisez les transporteurs.
+              {t('secure.delivery.description')}
             </p>
           </motion.div>
         </div>
@@ -118,10 +120,20 @@ const SecureTrusted = () => {
           variants={itemVariants}
         >
           <p className="text-lg text-gray-700 leading-relaxed mb-6">
-            Nous ne sommes pas juste une app - nous sommes un mouvement. En éliminant les intermédiaires exploiteurs, nous nous assurons que les producteurs gagnent <span className="font-semibold text-emerald-600">100% de leur valeur</span>, tout en évitant les pertes post-récolte, et que les acheteurs obtiennent des <span className="font-semibold text-emerald-600">produits de qualité à temps</span>.
+            {t('secure.movement.text')
+              .replace('{percentage}', '')
+              .replace('{quality}', '')
+              .split('100%')[0]}
+            <span className="font-semibold text-emerald-600">{t('secure.movement.percentage')}</span>
+            {t('secure.movement.text')
+              .split('100%')[1]
+              ?.split('quality products')[0]}
+            <span className="font-semibold text-emerald-600">{t('secure.movement.quality')}</span>
+            {t('secure.movement.text')
+              .split('quality products')[1]}
           </p>
           <p className="text-gray-600">
-            Rejoignez les milliers d&apos;utilisateurs qui prospèrent déjà sur une marketplace construite sur l&apos;équité, la technologie et la confiance.
+            {t('secure.join.text')}
           </p>
         </motion.div>
 
@@ -131,7 +143,7 @@ const SecureTrusted = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Rejoindre notre communauté
+            {t('secure.joinCommunity')}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
             </svg>

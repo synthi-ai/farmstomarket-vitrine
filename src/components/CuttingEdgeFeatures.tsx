@@ -4,18 +4,26 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-// Image encadrée simple pour les mockups
-const MockupImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
+// Composant iPhone épuré pour afficher les mockups
+const IPhoneMockup: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
   return (
-    <div className="relative w-80 h-[500px] bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200 transition-all duration-300 hover:shadow-2xl">
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority
-        className="object-contain p-4"
-        sizes="320px"
-      />
+    <div className="relative w-72 h-[580px] bg-black rounded-[3rem] overflow-hidden shadow-xl border border-gray-200 transition-all duration-300 hover:shadow-2xl">
+      {/* Dynamic Island */}
+      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 bg-black z-10 rounded-2xl" />
+
+      {/* Écran */}
+      <div className="relative w-full h-full p-2">
+        <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            className="object-contain"
+            sizes="288px"
+          />
+        </div>
+      </div>
     </div>
   );
 };
@@ -81,7 +89,7 @@ export default function CuttingEdgeFeatures() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [features.length]);
 
   return (
     <section className="py-20 bg-gray-50">
@@ -95,7 +103,7 @@ export default function CuttingEdgeFeatures() {
             Technologie de Pointe
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Découvrez les fonctionnalités qui révolutionnent l'agriculture moderne
+            Découvrez les fonctionnalités qui révolutionnent l&apos;agriculture moderne
           </p>
         </div>
 
@@ -179,7 +187,7 @@ export default function CuttingEdgeFeatures() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
-                  <MockupImage
+                  <IPhoneMockup
                     src={features[activeFeature].mockup}
                     alt={features[activeFeature].title}
                   />
@@ -192,10 +200,10 @@ export default function CuttingEdgeFeatures() {
         {/* Section CTA */}
         <div className="text-center mt-20 p-8 bg-white rounded-2xl border border-gray-200 shadow-lg">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            Prêt à découvrir l'agriculture de demain ?
+            Prêt à découvrir l&apos;agriculture de demain ?
           </h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Rejoignez les milliers d'agriculteurs qui révolutionnent déjà leur activité
+            Rejoignez les milliers d&apos;agriculteurs qui révolutionnent déjà leur activité
             grâce à notre plateforme intelligente.
           </p>
           <motion.button

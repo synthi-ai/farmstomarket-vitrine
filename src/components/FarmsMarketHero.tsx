@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const MockupImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
   return (
@@ -18,6 +19,8 @@ const MockupImage = ({ src, alt, className }: { src: string; alt: string; classN
 };
 
 const FarmsMarketHero = () => {
+  const { t } = useLanguage();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -74,7 +77,7 @@ const FarmsMarketHero = () => {
             <motion.div variants={itemVariants} className="space-y-6">
               <div className="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
                 <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
-                <span>Plateforme agricole innovante</span>
+                <span>{t('farmshero.badge')}</span>
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
@@ -82,12 +85,11 @@ const FarmsMarketHero = () => {
               </h1>
 
               <h2 className="text-2xl font-semibold text-gray-700">
-                Connectez. Commercialisez.<br />
-                <span className="text-emerald-600">Prospérez ensemble.</span>
+                {t('farmshero.subtitle')}
               </h2>
 
               <p className="text-lg text-gray-600 max-w-lg mx-auto leading-relaxed">
-                Révolutionnons l&apos;agriculture grâce à une plateforme moderne qui connecte directement les producteurs aux marchés.
+                {t('farmshero.description').split('garantissant')[0].trim()}
               </p>
             </motion.div>
 
@@ -109,7 +111,7 @@ const FarmsMarketHero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Commencer
+                  {t('farmshero.start').split(' ')[0]}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
                   </svg>
@@ -120,7 +122,7 @@ const FarmsMarketHero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  En savoir plus
+                  {t('farmshero.learnMore')}
                 </motion.button>
               </div>
             </motion.div>
@@ -140,7 +142,7 @@ const FarmsMarketHero = () => {
             <motion.div variants={itemVariants} className="space-y-8">
               <div className="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium">
                 <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
-                <span>Plateforme agricole innovante</span>
+                <span>{t('farmshero.badge')}</span>
               </div>
 
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
@@ -148,12 +150,11 @@ const FarmsMarketHero = () => {
               </h1>
 
               <h2 className="text-3xl font-semibold text-gray-700 leading-snug">
-                Connectez. Commercialisez.<br />
-                <span className="text-emerald-600">Prospérez ensemble.</span>
+                {t('farmshero.subtitle')}
               </h2>
 
               <p className="text-xl text-gray-600 leading-relaxed max-w-xl">
-                Révolutionnons l&apos;agriculture grâce à une plateforme moderne qui connecte directement les producteurs aux marchés, garantissant des prix équitables et une transparence totale.
+                {t('farmshero.description')}
               </p>
 
               <div className="flex gap-6">
@@ -162,7 +163,7 @@ const FarmsMarketHero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Commencer maintenant
+                  {t('farmshero.start')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
                   </svg>
@@ -173,7 +174,7 @@ const FarmsMarketHero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Découvrir
+                  {t('farmshero.discover')}
                 </motion.button>
               </div>
 
@@ -181,15 +182,15 @@ const FarmsMarketHero = () => {
               <div className="grid grid-cols-3 gap-8 pt-8">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-emerald-600">300+</div>
-                  <div className="text-sm text-gray-600 font-medium">Agriculteurs</div>
+                  <div className="text-sm text-gray-600 font-medium">{t('farmshero.farmers')}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-emerald-600">15K+</div>
-                  <div className="text-sm text-gray-600 font-medium">Utilisateurs</div>
+                  <div className="text-sm text-gray-600 font-medium">{t('farmshero.users')}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-emerald-600">50K+</div>
-                  <div className="text-sm text-gray-600 font-medium">Transactions</div>
+                  <div className="text-sm text-gray-600 font-medium">{t('farmshero.transactions')}</div>
                 </div>
               </div>
             </motion.div>

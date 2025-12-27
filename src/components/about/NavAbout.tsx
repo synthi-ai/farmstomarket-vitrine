@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home,
-  TrendingUp,
   BarChart3,
   Bell,
   Brain,
@@ -16,11 +15,12 @@ import {
   Settings,
   LogOut,
   Activity,
-  Eye,
   Shield
 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function MarketNavbar() {
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('market');
@@ -28,46 +28,46 @@ export function MarketNavbar() {
   const navigationLinks = [
     {
       id: 'market',
-      name: 'Marché',
+      name: t('navabout.market'),
       icon: Home,
       href: '/market',
-      description: 'Données de marché en temps réel'
+      description: t('navabout.market.description')
     },
     {
       id: 'analysis',
-      name: 'Analyses',
+      name: t('navabout.analysis'),
       icon: Brain,
       href: '/analysis',
-      description: 'Insights alimentés par IA'
+      description: t('navabout.analysis.description')
     },
     {
       id: 'portfolio',
-      name: 'Portefeuille',
+      name: t('navabout.portfolio'),
       icon: Wallet,
       href: '/portfolio',
-      description: 'Gestion de positions'
+      description: t('navabout.portfolio.description')
     },
     {
       id: 'charts',
-      name: 'Graphiques',
+      name: t('navabout.charts'),
       icon: BarChart3,
       href: '/charts',
-      description: 'Analyse technique avancée'
+      description: t('navabout.charts.description')
     },
     {
       id: 'alerts',
-      name: 'Alertes',
+      name: t('navabout.alerts'),
       icon: Bell,
       href: '/alerts',
-      description: 'Notifications de marché'
+      description: t('navabout.alerts.description')
     }
   ];
 
   const userMenuItems = [
-    { icon: User, label: 'Profil', action: () => {} },
-    { icon: Settings, label: 'Paramètres', action: () => {} },
-    { icon: Shield, label: 'Sécurité', action: () => {} },
-    { icon: LogOut, label: 'Déconnexion', action: () => {} }
+    { icon: User, label: t('navabout.profile'), action: () => {} },
+    { icon: Settings, label: t('navabout.settings'), action: () => {} },
+    { icon: Shield, label: t('navabout.security'), action: () => {} },
+    { icon: LogOut, label: t('navabout.logout'), action: () => {} }
   ];
 
   return (
@@ -93,7 +93,7 @@ export function MarketNavbar() {
                 <h1 className="text-xl font-bold text-gray-900">
                   <span className="text-emerald-600">Farms</span>ToMarket
                 </h1>
-                <div className="text-xs text-gray-500">Agricultural Trading Platform</div>
+                <div className="text-xs text-gray-500">{t('navabout.tradingPlatform')}</div>
               </div>
             </motion.div>
           </div>
@@ -123,7 +123,7 @@ export function MarketNavbar() {
             {/* Market Status Indicator */}
             <div className="hidden md:flex items-center space-x-2 px-3 py-1 bg-emerald-100 rounded-full">
               <div className="w-2 h-2 bg-emerald-600 rounded-full animate-pulse"></div>
-              <span className="text-xs font-medium text-emerald-700">Marché ouvert</span>
+              <span className="text-xs font-medium text-emerald-700">{t('navabout.status.open')}</span>
             </div>
 
             {/* User Profile Menu */}

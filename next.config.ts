@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         hostname: "www.ndinga237.com",
         pathname: "/**",
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
     ],
   },
 

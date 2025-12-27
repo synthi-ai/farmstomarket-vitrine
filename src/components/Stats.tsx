@@ -67,7 +67,7 @@ export default function Stats() {
       }, stepTime);
 
       return () => clearInterval(timer);
-    }, [end, duration, inViewLocal]);
+    }, [end, duration, isInView]);
     
     return (
       <span>

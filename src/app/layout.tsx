@@ -1,8 +1,10 @@
 import Footer from '@/components/Footer';
+import LanguageToggle from '@/components/LanguageToggle';
 import './globals.css';
 import { Inter } from 'next/font/google';
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -221,11 +223,17 @@ export default function RootLayout({
           </div>
         </div>
 
-        <main id="main-content" className="min-h-screen">
-          {children}
-        </main>
+        <LanguageProvider>
+          <div className="fixed top-4 right-4 z-50">
+            <LanguageToggle />
+          </div>
 
-        <Footer />
+          <main id="main-content" className="min-h-screen">
+            {children}
+          </main>
+
+          <Footer />
+        </LanguageProvider>
 
         <button 
           id="back-to-top"

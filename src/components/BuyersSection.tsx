@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface BuyerType {
   id: number;
@@ -17,100 +18,101 @@ interface BuyerType {
 
 const BuyersSection = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const { t } = useLanguage();
 
   const buyers: BuyerType[] = [
     {
       id: 1,
-      title: "Partenaires Industriels",
-      subtitle: "Transformation à grande échelle",
-      description: "Connectez-vous avec les grandes entreprises agroalimentaires, fabricants de boissons et acheteurs industriels recherchant des matières premières agricoles de qualité constante.",
-      image: "/Mockups/mockup 01.png",
+      title: t('buyers.industrial.title'),
+      subtitle: t('buyers.industrial.subtitle'),
+      description: t('buyers.industrial.description'),
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600",
       features: [
-        "Solutions d'approvisionnement en gros",
-        "Programmes d'agriculture contractuelle",
-        "Standardisation qualité",
-        "Intégration chaîne d'approvisionnement",
-        "Partenariats à long terme"
+        t('buyers.industrial.features.0'),
+        t('buyers.industrial.features.1'),
+        t('buyers.industrial.features.2'),
+        t('buyers.industrial.features.3'),
+        t('buyers.industrial.features.4')
       ],
       stats: [
-        { value: "500+", label: "Partenaires industriels" },
-        { value: "2M+", label: "Tonnes transformées" }
+        { value: "500+", label: t('buyers.industrial.stats.0') },
+        { value: "2M+", label: t('buyers.industrial.stats.1') }
       ],
       iconPath: "M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"
     },
     {
       id: 2,
-      title: "Traders Commerciaux",
-      subtitle: "Grossistes & Distribution",
-      description: "Partenariats avec des traders commerciaux, grossistes et réseaux de distribution qui acheminent efficacement les produits agricoles des fermes vers les marchés de détail.",
-      image: "/Mockups/mockup 02.png",
+      title: t('buyers.traders.title'),
+      subtitle: t('buyers.traders.subtitle'),
+      description: t('buyers.traders.description'),
+      image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600",
       features: [
-        "Découverte de prix en temps réel",
-        "Conditions de paiement flexibles",
-        "Coordination logistique",
-        "Intelligence marché",
-        "Outils de gestion des risques"
+        t('buyers.traders.features.0'),
+        t('buyers.traders.features.1'),
+        t('buyers.traders.features.2'),
+        t('buyers.traders.features.3'),
+        t('buyers.traders.features.4')
       ],
       stats: [
-        { value: "1,200+", label: "Traders actifs" },
-        { value: "50M€+", label: "Volume mensuel" }
+        { value: "1,200+", label: t('buyers.traders.stats.0') },
+        { value: "50M€+", label: t('buyers.traders.stats.1') }
       ],
       iconPath: "M16,6L18.29,8.29L13.41,13.17L9.41,9.17L2,16.59L3.41,18L9.41,12L13.41,16L19.71,9.71L22,12V6H16Z"
     },
     {
       id: 3,
-      title: "Marchés de Détail",
-      subtitle: "Supermarchés & Magasins",
-      description: "Approvisionnez directement les chaînes de supermarchés, épiceries et points de vente qui privilégient la qualité, la fraîcheur et les pratiques d'approvisionnement durable.",
-      image: "/Mockups/mockup 03.png",
+      title: t('buyers.retail.title'),
+      subtitle: t('buyers.retail.subtitle'),
+      description: t('buyers.retail.description'),
+      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600",
       features: [
-        "Approvisionnement produits frais",
-        "Disponibilité saisonnière",
-        "Systèmes de traçabilité",
-        "Solutions d'emballage",
-        "Planification des livraisons"
+        t('buyers.retail.features.0'),
+        t('buyers.retail.features.1'),
+        t('buyers.retail.features.2'),
+        t('buyers.retail.features.3'),
+        t('buyers.retail.features.4')
       ],
       stats: [
-        { value: "800+", label: "Partenaires détail" },
-        { value: "95%", label: "Livraison ponctuelle" }
+        { value: "800+", label: t('buyers.retail.stats.0') },
+        { value: "95%", label: t('buyers.retail.stats.1') }
       ],
       iconPath: "M19,7H22V9H19V12H17V9H14V7H17V4H19V7M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9H20L18,17H15L13.5,7H10.5L9,17H6L4,9H3V7H6.5L7.5,4H12.5L13.5,7H21V9Z"
     },
     {
       id: 4,
-      title: "Marchés Locaux",
-      subtitle: "Marchés de proximité",
-      description: "Connectez-vous avec les marchés fermiers locaux, programmes d'agriculture soutenue par la communauté et canaux directs au consommateur qui valorisent l'approvisionnement local.",
-      image: "/Mockups/mockup 04.png",
+      title: t('buyers.local.title'),
+      subtitle: t('buyers.local.subtitle'),
+      description: t('buyers.local.description'),
+      image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600",
       features: [
-        "Réseaux d'approvisionnement local",
-        "Partenariats communautaires",
-        "Planification saisonnière",
-        "Relations directes",
-        "Pratiques durables"
+        t('buyers.local.features.0'),
+        t('buyers.local.features.1'),
+        t('buyers.local.features.2'),
+        t('buyers.local.features.3'),
+        t('buyers.local.features.4')
       ],
       stats: [
-        { value: "300+", label: "Marchés locaux" },
-        { value: "85%", label: "Satisfaction client" }
+        { value: "300+", label: t('buyers.local.stats.0') },
+        { value: "85%", label: t('buyers.local.stats.1') }
       ],
       iconPath: "M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"
     },
     {
       id: 5,
-      title: "Partenaires Export",
-      subtitle: "Commerce international",
-      description: "Facilitez le commerce international avec des partenaires export, distributeurs mondiaux et marchés étrangers recherchant des produits agricoles premium avec certifications.",
-      image: "/Mockups/mockup 05.png",
+      title: t('buyers.export.title'),
+      subtitle: t('buyers.export.subtitle'),
+      description: t('buyers.export.description'),
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600",
       features: [
-        "Documentation export",
-        "Standards internationaux",
-        "Gestion des devises",
-        "Coordination logistique",
-        "Expansion marché"
+        t('buyers.export.features.0'),
+        t('buyers.export.features.1'),
+        t('buyers.export.features.2'),
+        t('buyers.export.features.3'),
+        t('buyers.export.features.4')
       ],
       stats: [
-        { value: "45+", label: "Pays" },
-        { value: "25M€+", label: "Valeur export" }
+        { value: "45+", label: t('buyers.export.stats.0') },
+        { value: "25M€+", label: t('buyers.export.stats.1') }
       ],
       iconPath: "M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,14.5V9.5L15,12L11,14.5Z"
     }
@@ -125,7 +127,7 @@ const BuyersSection = () => {
       <section className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">
-            Réseau d'Acheteurs
+            Réseau d&apos;Acheteurs
           </h1>
           <p className="text-lg md:text-xl text-gray-600">
             Connecter les agriculteurs aux opportunités de marché
@@ -140,8 +142,8 @@ const BuyersSection = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/home2.png"
-          alt="Réseau d'acheteurs"
+          src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+          alt={t('buyers.title')}
           fill
           priority
           className="object-cover"
@@ -156,7 +158,7 @@ const BuyersSection = () => {
             className="mb-6"
           >
             <span className="inline-block px-4 py-2 bg-emerald-100/20 backdrop-blur-sm text-emerald-300 text-sm font-medium rounded-full border border-emerald-300/30">
-              Réseau Global d'Acheteurs
+              {t('buyers.badge')}
             </span>
           </motion.div>
 
@@ -166,7 +168,7 @@ const BuyersSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Réseau d'Acheteurs
+            {t('buyers.title')}
           </motion.h1>
 
           <motion.p
@@ -175,7 +177,7 @@ const BuyersSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Connecter les agriculteurs avec des opportunités de marché avancées
+            {t('buyers.subtitle')}
           </motion.p>
 
           <motion.button
@@ -186,7 +188,7 @@ const BuyersSection = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Rejoindre le Réseau
+            {t('buyers.joinNetwork')}
           </motion.button>
         </div>
       </section>
@@ -251,7 +253,7 @@ const BuyersSection = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Se connecter avec {buyer.title.toLowerCase()}
+                  {t('buyers.connectWith')} {buyer.title.toLowerCase()}
                 </motion.button>
               </motion.div>
 
@@ -263,7 +265,7 @@ const BuyersSection = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <h4 className="text-xl font-semibold text-gray-900 mb-6">Caractéristiques clés :</h4>
+                <h4 className="text-xl font-semibold text-gray-900 mb-6">{t('buyers.keyFeatures')}</h4>
                 <div className="space-y-4">
                   {buyer.features.map((feature, featureIndex) => (
                     <motion.div
@@ -297,11 +299,10 @@ const BuyersSection = () => {
             viewport={{ once: true, amount: 0.3 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Prêt à rejoindre notre réseau ?
+              {t('buyers.readyToJoin')}
             </h2>
             <p className="text-xl mb-8 text-gray-600 max-w-3xl mx-auto">
-              Connectez-vous avec des milliers d'agriculteurs et accédez à des produits agricoles premium
-              grâce à notre plateforme marketplace complète.
+              {t('buyers.readyDescription')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -310,7 +311,7 @@ const BuyersSection = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                S'inscrire comme acheteur
+                {t('buyers.signupBuyer')}
               </motion.button>
 
               <motion.button
@@ -318,7 +319,7 @@ const BuyersSection = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                En savoir plus
+                {t('buyers.learnMore')}
               </motion.button>
             </div>
 
@@ -331,10 +332,10 @@ const BuyersSection = () => {
               viewport={{ once: true }}
             >
               {[
-                { value: '2,800+', label: 'Acheteurs totaux' },
-                { value: '100M€+', label: 'Volume échangé' },
-                { value: '50+', label: 'Pays' },
-                { value: '99%', label: 'Satisfaction' }
+                { value: '2,800+', label: t('buyers.totalBuyers') },
+                { value: '100M€+', label: t('buyers.volumeExchanged') },
+                { value: '50+', label: t('buyers.countries') },
+                { value: '99%', label: t('buyers.satisfaction') }
               ].map((stat, index) => (
                 <motion.div
                   key={index}

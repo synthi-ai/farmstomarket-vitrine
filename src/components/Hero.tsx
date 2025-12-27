@@ -4,27 +4,30 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Play, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageToggle from './LanguageToggle';
 
 export default function Hero() {
+  const { t } = useLanguage();
   const [activeSlide, setActiveSlide] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const slides = [
     {
-      title: "Vendez directement aux acheteurs",
-      highlight: "Paiement instantané",
-      description: "Farms to Market connecte les agriculteurs et les acheteurs avec une plateforme sécurisée, transparente et propulsée par l’IA."
+      title: t('hero.slide1.title'),
+      highlight: t('hero.slide1.highlight'),
+      description: t('hero.slide1.description')
     },
     {
-      title: "Développez votre exploitation",
-      highlight: "Analyses intelligentes",
-      description: "Accédez à de nouveaux marchés et maximisez votre rentabilité grâce à des données prédictives et une gestion automatisée."
+      title: t('hero.slide2.title'),
+      highlight: t('hero.slide2.highlight'),
+      description: t('hero.slide2.description')
     },
     {
-      title: "Transactions sécurisées",
-      highlight: "100 % traçables",
-      description: "Prix justes, paiements immédiats et contrats intelligents pour une confiance totale entre producteurs et acheteurs."
+      title: t('hero.slide3.title'),
+      highlight: t('hero.slide3.highlight'),
+      description: t('hero.slide3.description')
     }
   ];
 
@@ -33,7 +36,7 @@ export default function Hero() {
       setActiveSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -61,25 +64,32 @@ export default function Hero() {
 
           {/* Navigation Desktop */}
           <nav className="hidden lg:flex items-center space-x-10">
-            {['À propos', 'Fonctionnalités', 'Solutions', 'Marketplace', 'Témoignages'].map((item) => (
+            {[
+              { key: 'nav.about', href: '#' },
+              { key: 'nav.features', href: '#' },
+              { key: 'nav.solutions', href: '#' },
+              { key: 'nav.marketplace', href: '#' },
+              { key: 'nav.testimonials', href: '#' }
+            ].map((item) => (
               <a
-                key={item}
-                href="#"
+                key={item.key}
+                href={item.href}
                 className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
               >
-                {item}
+                {t(item.key)}
               </a>
             ))}
           </nav>
 
           {/* Actions Desktop */}
           <div className="hidden lg:flex items-center space-x-6">
+            <LanguageToggle />
             <button className="text-gray-700 hover:text-emerald-600 font-medium flex items-center">
               <User className="w-4 h-4 mr-2" />
-              Connexion
+              {t('nav.login')}
             </button>
             <button className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg">
-              S’inscrire gratuitement
+              {t('nav.signup')}
             </button>
           </div>
 
@@ -119,7 +129,7 @@ export default function Hero() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full border border-white/20">
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                <span className="text-sm font-medium">Plateforme agricole de nouvelle génération</span>
+                <span className="text-sm font-medium">{t('hero.badge')}</span>
               </div>
 
               {/* Titre */}
@@ -137,13 +147,13 @@ export default function Hero() {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
                 <button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-10 rounded-2xl transition-all hover:scale-105 shadow-xl">
-                  Commencer gratuitement
+                  {t('hero.startFree')}
                 </button>
                 <button className="flex items-center gap-3 text-white hover:text-emerald-300 font-medium backdrop-blur-md px-8 py-4 rounded-2xl border border-white/20 hover:border-emerald-400/50 transition-all">
                   <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-md">
                     <Play className="w-6 h-6 ml-1" fill="white" />
                   </div>
-                  Voir la démo
+                  {t('hero.watchDemo')}
                 </button>
               </div>
             </motion.div>
@@ -193,19 +203,26 @@ export default function Hero() {
               </button>
 
               <nav className="flex flex-col space-y-8 text-2xl font-medium text-gray-900 mt-20">
-                {['À propos', 'Fonctionnalités', 'Solutions', 'Marketplace', 'Témoignages'].map((item) => (
-                  <a key={item} href="#" className="hover:text-emerald-600 transition-colors">
-                    {item}
+                {[
+                  { key: 'nav.about', href: '#' },
+                  { key: 'nav.features', href: '#' },
+                  { key: 'nav.solutions', href: '#' },
+                  { key: 'nav.marketplace', href: '#' },
+                  { key: 'nav.testimonials', href: '#' }
+                ].map((item) => (
+                  <a key={item.key} href={item.href} className="hover:text-emerald-600 transition-colors">
+                    {t(item.key)}
                   </a>
                 ))}
               </nav>
 
               <div className="mt-auto space-y-4">
+                <LanguageToggle />
                 <button className="w-full bg-emerald-600 text-white font-bold py-4 rounded-2xl">
-                  S’inscrire
+                  {t('nav.signup')}
                 </button>
                 <button className="w-full border border-gray-300 text-gray-800 font-medium py-4 rounded-2xl">
-                  Se connecter
+                  {t('nav.login')}
                 </button>
               </div>
             </div>
