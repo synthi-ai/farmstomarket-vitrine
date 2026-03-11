@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const SupplyChainComponent = () => {
   const { t } = useLanguage();
@@ -95,7 +96,7 @@ const SupplyChainComponent = () => {
   }, [isMounted]);
 
   const wrap = useCallback((index: number) => {
-    return ((index % slides.length) + slides.length) % slides.length;
+    return index % slides.length;
   }, [slides.length]);
 
   const gotoSection = useCallback((index: number) => {
@@ -118,22 +119,12 @@ const SupplyChainComponent = () => {
       className="relative min-h-screen py-20 bg-white overflow-hidden"
     >
       {/* Header */}
-      <div className="text-center mb-16 px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full mb-4">
-            {t('supplychain.badge')}
-          </span>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {t('supplychain.title')}
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            {t('supplychain.description')}
-          </p>
-        </motion.div>
+      <div className="px-6">
+        <SectionHeader
+          badge={t('supplychain.badge')}
+          title={t('supplychain.title')}
+          description={t('supplychain.description')}
+        />
       </div>
 
       {/* Supply Chain Slides */}
@@ -234,7 +225,7 @@ const SupplyChainComponent = () => {
       </div>
 
       {/* Compteur */}
-      <div className="absolute top-32 right-6 md:right-12">
+      <div className="absolute top-24 right-6 md:right-12">
         <motion.div
           key={currentIndex}
           className="bg-emerald-600 text-white rounded-xl px-4 py-2"

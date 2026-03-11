@@ -1,11 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, Play, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
+
+const NAV_ITEMS = [
+  { key: 'nav.about', href: '#about' },
+  { key: 'nav.features', href: '#features' },
+  { key: 'nav.solutions', href: '#solutions' },
+  { key: 'nav.marketplace', href: '#marketplace' },
+  { key: 'nav.testimonials', href: '#testimonials' },
+] as const;
+
+const SLIDE_KEYS = [
+  { title: 'hero.slide1.title', highlight: 'hero.slide1.highlight', description: 'hero.slide1.description' },
+  { title: 'hero.slide2.title', highlight: 'hero.slide2.highlight', description: 'hero.slide2.description' },
+  { title: 'hero.slide3.title', highlight: 'hero.slide3.highlight', description: 'hero.slide3.description' },
+] as const;
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -13,68 +27,57 @@ export default function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const slides = [
-    {
-      title: t('hero.slide1.title'),
-      highlight: t('hero.slide1.highlight'),
-      description: t('hero.slide1.description')
-    },
-    {
-      title: t('hero.slide2.title'),
-      highlight: t('hero.slide2.highlight'),
-      description: t('hero.slide2.description')
-    },
-    {
-      title: t('hero.slide3.title'),
-      highlight: t('hero.slide3.highlight'),
-      description: t('hero.slide3.description')
-    }
-  ];
+  const nextSlide = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % SLIDE_KEYS.length);
+  }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [nextSlide]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
+  const currentSlide = SLIDE_KEYS[activeSlide];
+
   return (
     <>
-      {/* Header fixe */}
+      {/* ─── Header ─── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/80 backdrop-blur-lg shadow-sm border-b border-gray-100'
-            : 'bg-transparent'
+            ? 'bg-white/95 shadow-sm backdrop-blur-md'
+            : 'bg-gradient-to-b from-black/40 to-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
           {/* Logo */}
-          <div className="text-2xl font-bold">
-            <span className="text-emerald-600">FARMS</span>
-            <span className="text-gray-900">.TO</span>
-            <span className="text-gray-700">MARKET</span>
-          </div>
+          <a href="/" className="text-xl font-bold tracking-tight lg:text-2xl">
+            <span className={scrolled ? 'text-emerald-600' : 'text-emerald-400'}>FARMS</span>
+            <span className={scrolled ? 'text-gray-900' : 'text-white'}>&#8202;TO&#8202;</span>
+            <span className={scrolled ? 'text-gray-500' : 'text-white/70'}>MARKET</span>
+          </a>
 
-          {/* Navigation Desktop */}
-          <nav className="hidden lg:flex items-center space-x-10">
-            {[
-              { key: 'nav.about', href: '#' },
-              { key: 'nav.features', href: '#' },
-              { key: 'nav.solutions', href: '#' },
-              { key: 'nav.marketplace', href: '#' },
-              { key: 'nav.testimonials', href: '#' }
-            ].map((item) => (
+          {/* Nav Desktop */}
+          <nav className="hidden items-center gap-8 lg:flex">
+            {NAV_ITEMS.map((item) => (
               <a
                 key={item.key}
                 href={item.href}
-                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+                className={`text-sm font-medium transition-colors ${
+                  scrolled
+                    ? 'text-gray-600 hover:text-emerald-600'
+                    : 'text-white hover:text-emerald-300'
+                }`}
               >
                 {t(item.key)}
               </a>
@@ -82,148 +85,197 @@ export default function Hero() {
           </nav>
 
           {/* Actions Desktop */}
-          <div className="hidden lg:flex items-center space-x-6">
-            <LanguageToggle />
-            <button className="text-gray-700 hover:text-emerald-600 font-medium flex items-center">
-              <User className="w-4 h-4 mr-2" />
+          <div className="hidden items-center gap-4 lg:flex">
+            <LanguageToggle variant={scrolled ? 'light' : 'dark'} />
+            <a
+              href="#login"
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                scrolled
+                  ? 'text-gray-600 hover:text-emerald-600'
+                  : 'text-white hover:text-emerald-300'
+              }`}
+            >
+              <User className="h-4 w-4" />
               {t('nav.login')}
-            </button>
-            <button className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover:shadow-lg">
+            </a>
+            <a
+              href="#signup"
+              className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
+                scrolled
+                  ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                  : 'bg-white text-gray-900 hover:bg-white/90'
+              }`}
+            >
               {t('nav.signup')}
-            </button>
+            </a>
           </div>
 
-          {/* Bouton Mobile */}
+          {/* Hamburger Mobile */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-gray-800"
+            className="lg:hidden"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            {mobileMenuOpen ? (
+              <X className={`h-6 w-6 ${scrolled ? 'text-gray-900' : 'text-white'}`} />
+            ) : (
+              <Menu className={`h-6 w-6 ${scrolled ? 'text-gray-900' : 'text-white'}`} />
+            )}
           </button>
         </div>
       </header>
 
-      {/* Hero Principal */}
-      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        {/* Image de fond */}
+      {/* ─── Hero Section ─── */}
+      <section className="relative flex min-h-dvh items-center justify-center overflow-hidden">
+        {/* Background */}
         <Image
           src="/images/home2.png"
-          alt="Exploitation agricole moderne"
+          alt=""
           fill
           priority
           className="object-cover"
+          sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
-        {/* Contenu */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSlide}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="space-y-8"
-            >
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full border border-white/20">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                <span className="text-sm font-medium">{t('hero.badge')}</span>
-              </div>
+        {/*
+          Overlay : gradient renforce au centre (la ou le texte vit)
+          et en haut (pour le header). Plus leger en bas.
+        */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/55 to-black/40" />
 
-              {/* Titre */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                {slides[activeSlide].title}
-                <br />
-                <span className="text-emerald-400">{slides[activeSlide].highlight}</span>
-              </h1>
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-4xl px-5 pt-20 text-center">
+          <div aria-live="polite" aria-atomic="true">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -24 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="space-y-6"
+              >
+                {/* Badge */}
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm sm:text-sm">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  {t('hero.badge')}
+                </span>
 
-              {/* Description */}
-              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-                {slides[activeSlide].description}
-              </p>
+                {/* Title — primary: full white */}
+                <h1 className="text-balance text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+                  {t(currentSlide.title)}{' '}
+                  <span className="text-emerald-400">{t(currentSlide.highlight)}</span>
+                </h1>
 
-              {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
-                <button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-10 rounded-2xl transition-all hover:scale-105 shadow-xl">
-                  {t('hero.startFree')}
-                </button>
-                <button className="flex items-center gap-3 text-white hover:text-emerald-300 font-medium backdrop-blur-md px-8 py-4 rounded-2xl border border-white/20 hover:border-emerald-400/50 transition-all">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-md">
-                    <Play className="w-6 h-6 ml-1" fill="white" />
-                  </div>
-                  {t('hero.watchDemo')}
-                </button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                {/* Description — secondary: white/90 for WCAG AA on our overlay */}
+                <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg">
+                  {t(currentSlide.description)}
+                </p>
 
-          {/* Dots */}
-          <div className="flex justify-center gap-3 mt-16">
-            {slides.map((_, i) => (
+                {/* CTA */}
+                <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row sm:gap-4">
+                  {/* Primary CTA — high contrast solid button */}
+                  <a
+                    href="#signup"
+                    className="w-full rounded-xl bg-emerald-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 sm:w-auto"
+                  >
+                    {t('hero.startFree')}
+                  </a>
+                  {/* Secondary CTA — visible border, readable contrast */}
+                  <button className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-white/40 bg-white/10 px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-all hover:border-white/60 hover:bg-white/20 sm:w-auto">
+                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/20">
+                      <Play className="h-4 w-4 translate-x-px" fill="currentColor" />
+                    </span>
+                    {t('hero.watchDemo')}
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots — tertiary: white/60 inactive, emerald active */}
+          <div className="mt-12 flex items-center justify-center gap-2" role="tablist" aria-label="Slides">
+            {SLIDE_KEYS.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveSlide(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
+                role="tab"
+                aria-selected={i === activeSlide}
+                aria-label={`Slide ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
                   i === activeSlide
-                    ? 'bg-emerald-400 w-12'
-                    : 'bg-white/40 w-2 hover:bg-white/70'
-                }
-              `}
+                    ? 'w-8 bg-emerald-400'
+                    : 'w-1.5 bg-white/50 hover:bg-white/70'
+                }`}
               />
             ))}
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce" />
+        {/* Scroll indicator — decorative: white/40 tier */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2" aria-hidden="true">
+          <div className="flex h-8 w-5 justify-center rounded-full border-2 border-white/40">
+            <motion.div
+              className="mt-1.5 h-2 w-0.5 rounded-full bg-white/60"
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            />
           </div>
         </div>
       </section>
 
-      {/* Menu Mobile Overlay */}
+      {/* ─── Mobile Menu ─── */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween', duration: 0.3 }}
-            className="fixed inset-0 bg-white z-50 lg:hidden"
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-white lg:hidden"
           >
-            <div className="flex flex-col h-full px-8 py-20">
+            <div className="flex h-full flex-col px-6 pb-8 pt-20">
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="absolute top-8 right-8"
+                className="absolute right-5 top-5"
+                aria-label="Close menu"
               >
-                <X className="w-8 h-8 text-gray-800" />
+                <X className="h-6 w-6 text-gray-900" />
               </button>
 
-              <nav className="flex flex-col space-y-8 text-2xl font-medium text-gray-900 mt-20">
-                {[
-                  { key: 'nav.about', href: '#' },
-                  { key: 'nav.features', href: '#' },
-                  { key: 'nav.solutions', href: '#' },
-                  { key: 'nav.marketplace', href: '#' },
-                  { key: 'nav.testimonials', href: '#' }
-                ].map((item) => (
-                  <a key={item.key} href={item.href} className="hover:text-emerald-600 transition-colors">
+              <nav className="flex flex-col gap-6">
+                {NAV_ITEMS.map((item) => (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-lg font-medium text-gray-900 transition-colors hover:text-emerald-600"
+                  >
                     {t(item.key)}
                   </a>
                 ))}
               </nav>
 
-              <div className="mt-auto space-y-4">
-                <LanguageToggle />
-                <button className="w-full bg-emerald-600 text-white font-bold py-4 rounded-2xl">
+              <div className="mt-auto space-y-3">
+                <LanguageToggle variant="light" />
+                <a
+                  href="#signup"
+                  className="block w-full rounded-xl bg-emerald-600 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
+                >
                   {t('nav.signup')}
-                </button>
-                <button className="w-full border border-gray-300 text-gray-800 font-medium py-4 rounded-2xl">
+                </a>
+                <a
+                  href="#login"
+                  className="block w-full rounded-xl border border-gray-300 py-3.5 text-center text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                >
                   {t('nav.login')}
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>

@@ -1,40 +1,19 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-
-// Composant iPhone épuré pour afficher les mockups
-const IPhoneMockup: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
-  return (
-    <div className="relative w-80 h-[640px] bg-black rounded-[3rem] overflow-hidden shadow-xl border border-gray-200 transition-all duration-300 hover:shadow-2xl">
-      {/* Dynamic Island */}
-      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 bg-black z-10 rounded-2xl" />
-
-      {/* Écran */}
-      <div className="relative w-full h-full p-2">
-        <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden">
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            priority
-            className="object-contain"
-            sizes="(max-width: 768px) 95vw, 500px"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
+import { useLanguage } from '@/contexts/LanguageContext';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 export default function CuttingEdgeFeatures() {
+  const { t } = useLanguage();
   const [activeFeature, setActiveFeature] = useState(0);
 
   const features = [
     {
-      title: "Analyses Intelligentes IA",
-      description: "Obtenez des insights marché en temps réel et des prévisions de rendement pour fixer des prix qui reflètent vraiment la demande.",
+      title: t('features.ai.title'),
+      description: t('features.ai.description'),
       icon: (
         <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-200">
           <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,11 +21,11 @@ export default function CuttingEdgeFeatures() {
           </svg>
         </div>
       ),
-      mockup: "/Mockups/mockup 04.png"
+      mockup: '/Mockups/mockup 04.png',
     },
     {
-      title: "Paiements Sécurisés",
-      description: "45% à la commande, 55% à la livraison. Fonds bloqués en garantie jusqu'à validation. Aucune arnaque, aucun retard.",
+      title: t('features.payments.title'),
+      description: t('features.payments.description'),
       icon: (
         <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-200">
           <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,11 +33,11 @@ export default function CuttingEdgeFeatures() {
           </svg>
         </div>
       ),
-      mockup: "/Mockups/mockup 05.png"
+      mockup: '/Mockups/mockup 05.png',
     },
     {
-      title: "Livraisons Transparentes",
-      description: "Suivi en temps réel, partage équitable des coûts de transport et mises à jour instantanées des transporteurs.",
+      title: t('features.delivery.title'),
+      description: t('features.delivery.description'),
       icon: (
         <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-200">
           <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,11 +46,11 @@ export default function CuttingEdgeFeatures() {
           </svg>
         </div>
       ),
-      mockup: "/Mockups/mockup 06.png"
+      mockup: '/Mockups/mockup 06.png',
     },
     {
-      title: "Documents Légaux Intégrés",
-      description: "Modèles FAF pré-construits et contrats certifiés conformes disponibles directement dans l'application.",
+      title: t('features.legal.title'),
+      description: t('features.legal.description'),
       icon: (
         <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-200">
           <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +58,7 @@ export default function CuttingEdgeFeatures() {
           </svg>
         </div>
       ),
-      mockup: "/Mockups/mockup 07.png"
+      mockup: '/Mockups/mockup 07.png',
     },
   ];
 
@@ -87,30 +66,19 @@ export default function CuttingEdgeFeatures() {
     const interval = setInterval(() => {
       setActiveFeature((prev) => (prev + 1) % features.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [features.length]);
 
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full mb-4">
-            Fonctionnalités Avancées
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Technologie de Pointe
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Découvrez les fonctionnalités qui révolutionnent l&apos;agriculture moderne
-          </p>
-        </div>
+        <SectionHeader
+          badge={t('features.badge')}
+          title={t('features.title')}
+          description={t('features.description')}
+        />
 
-        {/* Contenu Principal */}
         <div className="flex flex-col lg:flex-row items-center gap-16">
-
-          {/* Section Features */}
           <div className="w-full lg:w-1/2 space-y-6">
             {features.map((feature, index) => (
               <motion.div
@@ -127,9 +95,7 @@ export default function CuttingEdgeFeatures() {
               >
                 <div className="flex-shrink-0">
                   <motion.div
-                    animate={{
-                      scale: activeFeature === index ? 1.05 : 1
-                    }}
+                    animate={{ scale: activeFeature === index ? 1.05 : 1 }}
                     transition={{ duration: 0.3 }}
                   >
                     {feature.icon}
@@ -145,8 +111,6 @@ export default function CuttingEdgeFeatures() {
                     {feature.description}
                   </p>
                 </div>
-
-                {/* Indicateur d'activité */}
                 {activeFeature === index && (
                   <motion.div
                     className="w-1 h-12 bg-emerald-500 rounded-full"
@@ -158,8 +122,7 @@ export default function CuttingEdgeFeatures() {
               </motion.div>
             ))}
 
-            {/* Indicateurs en points */}
-            <div className="flex justify-center lg:justify-start space-x-2 pt-6">
+            <div className="flex justify-center lg:justify-start space-x-2 pt-6" role="tablist" aria-label="Features">
               {features.map((_, index) => (
                 <button
                   key={index}
@@ -169,27 +132,29 @@ export default function CuttingEdgeFeatures() {
                       ? 'bg-emerald-600 w-8'
                       : 'bg-gray-300 w-2 hover:bg-gray-400'
                   }`}
-                  aria-label={`Aller à la fonctionnalité ${index + 1}`}
+                  aria-label={`Feature ${index + 1}`}
                 />
               ))}
             </div>
           </div>
 
-          {/* Section Device Mockup */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative">
-              {/* Téléphone avec mockup animé */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeFeature}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
                 >
-                  <IPhoneMockup
+                  <Image
                     src={features[activeFeature].mockup}
                     alt={features[activeFeature].title}
+                    width={320}
+                    height={640}
+                    className="object-contain rounded-3xl shadow-xl"
+                    sizes="(max-width: 768px) 95vw, 320px"
                   />
                 </motion.div>
               </AnimatePresence>
@@ -197,21 +162,19 @@ export default function CuttingEdgeFeatures() {
           </div>
         </div>
 
-        {/* Section CTA */}
         <div className="text-center mt-20 p-8 bg-white rounded-2xl border border-gray-200 shadow-lg">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            Prêt à découvrir l&apos;agriculture de demain ?
+            {t('features.cta.title')}
           </h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Rejoignez les milliers d&apos;agriculteurs qui révolutionnent déjà leur activité
-            grâce à notre plateforme intelligente.
+            {t('features.cta.description')}
           </p>
           <motion.button
             className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-3 rounded-xl transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Commencer gratuitement
+            {t('features.cta.button')}
           </motion.button>
         </div>
       </div>

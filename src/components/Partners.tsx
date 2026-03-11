@@ -1,20 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 export default function Partners() {
-  const controls = useAnimation();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start('visible');
-
-    }
-  }, [isInView, controls]);
+  const { t } = useLanguage();
+  const { ref, isVisible } = useAnimateOnScroll(0.2);
 
   const partners = [
     {
@@ -43,61 +38,28 @@ export default function Partners() {
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  } as const;
-
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 30
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  } as const;
-
   return (
-    <section className="py-20 bg-gray-50" ref={containerRef}>
+    <section className="py-20 bg-gray-50" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={controls}
-          variants={itemVariants}
-        >
-          <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full mb-4">
-            Nos partenaires
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Des entreprises qui nous font confiance
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Nous collaborons avec les leaders de l&apos;agriculture et de la technologie
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge={t('partners.badge')}
+          title={t('partners.title')}
+          description={t('partners.description')}
+          animated
+          isVisible={isVisible}
+          variants={fadeUpVariants}
+        />
 
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8"
-          variants={containerVariants}
+          variants={staggerChildrenVariants}
           initial="hidden"
-          animate={controls}
+          animate={isVisible ? 'visible' : 'hidden'}
         >
           {partners.map((partner, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
+              variants={fadeUpVariants}
               className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
               whileHover={{ y: -4 }}
             >
@@ -116,19 +78,19 @@ export default function Partners() {
 
         <motion.div
           className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={controls}
-          variants={itemVariants}
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={fadeUpVariants}
         >
           <p className="text-gray-600 mb-6">
-            Rejoignez plus de 100+ entreprises qui transforment l&apos;agriculture
+            {t('partners.joinText')}
           </p>
           <motion.button
             className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-4 rounded-xl transition-all duration-300 inline-flex items-center gap-2 shadow-lg hover:shadow-xl"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Devenir partenaire
+            {t('partners.becomePartner')}
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
             </svg>

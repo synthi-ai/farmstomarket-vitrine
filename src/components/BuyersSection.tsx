@@ -127,10 +127,10 @@ const BuyersSection = () => {
       <section className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">
-            Réseau d&apos;Acheteurs
+            {t('buyers.loading.title')}
           </h1>
           <p className="text-lg md:text-xl text-gray-600">
-            Connecter les agriculteurs aux opportunités de marché
+            {t('buyers.loading.subtitle')}
           </p>
         </div>
       </section>
@@ -172,7 +172,7 @@ const BuyersSection = () => {
           </motion.h1>
 
           <motion.p
-            className="text-xl md:text-2xl mb-8 text-gray-200 max-w-4xl mx-auto"
+            className="text-xl md:text-2xl mb-8 text-white/90 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -197,9 +197,7 @@ const BuyersSection = () => {
       {buyers.map((buyer, index) => (
         <section key={buyer.id} className="py-20">
           <div className="max-w-7xl mx-auto px-6">
-            <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${
-              index % 2 === 1 ? 'lg:grid-cols-2' : ''
-            }`}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
               {/* Content */}
               <motion.div

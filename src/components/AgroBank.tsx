@@ -3,20 +3,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
-
-const MockupImage = ({ src, alt }: { src: string; alt: string }) => {
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={600}
-      height={1000}
-      priority
-      className="object-contain"
-      sizes="(max-width: 768px) 95vw, 600px"
-    />
-  );
-};
+import SectionHeader from '@/components/ui/SectionHeader';
+import StatGrid from '@/components/ui/StatGrid';
 
 const AgroBank = () => {
     const { t } = useLanguage();
@@ -49,17 +37,11 @@ const AgroBank = () => {
         <section className="py-20 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6">
 
-                <motion.div className="text-center mb-16" variants={itemVariants}>
-                    <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full mb-4">
-                        {t('agrobank.badge')}
-                    </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        {t('agrobank.title')}
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                        {t('agrobank.description')}
-                    </p>
-                </motion.div>
+                <SectionHeader
+                    badge={t('agrobank.badge')}
+                    title={t('agrobank.title')}
+                    description={t('agrobank.description')}
+                />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
                     {mockups.map((mockup, index) => (
@@ -69,7 +51,15 @@ const AgroBank = () => {
                             variants={itemVariants}
                         >
                             <div className="mb-6">
-                                <MockupImage src={mockup.image} alt={mockup.title} />
+                                <Image
+                                    src={mockup.image}
+                                    alt={mockup.title}
+                                    width={600}
+                                    height={1000}
+                                    priority
+                                    className="object-contain"
+                                    sizes="(max-width: 768px) 95vw, 600px"
+                                />
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-3">{mockup.title}</h3>
                             <p className="text-gray-600 text-center leading-relaxed max-w-sm">
@@ -137,7 +127,7 @@ const AgroBank = () => {
                             variants={itemVariants}
                             whileHover={{ y: -2 }}
                         >
-                            <div className="w-12 h-12 bg-emerald-100 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                            <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl mx-auto mb-4 flex items-center justify-center">
                                 <svg className="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
                                     <path d={feature.iconPath} />
                                 </svg>
@@ -148,25 +138,15 @@ const AgroBank = () => {
                     ))}
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-                    {[
-                        { number: '50K+', label: t('agrobank.stats.farmers') },
-                        { number: '€2.8B', label: t('agrobank.stats.transactions') },
-                        { number: '95%', label: t('agrobank.stats.coverage') },
-                        { number: '24/7', label: t('agrobank.stats.support') }
-                    ].map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            className="text-center p-6 bg-white rounded-xl shadow-sm border border-gray-200"
-                            variants={itemVariants}
-                            whileHover={{ y: -2 }}
-                        >
-                            <div className="text-2xl md:text-3xl font-bold text-emerald-600 mb-2">
-                                {stat.number}
-                            </div>
-                            <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
-                        </motion.div>
-                    ))}
+                <div className="mb-16">
+                    <StatGrid
+                        stats={[
+                            { value: '50K+', label: t('agrobank.stats.farmers') },
+                            { value: '€2.8B', label: t('agrobank.stats.transactions') },
+                            { value: '95%', label: t('agrobank.stats.coverage') },
+                            { value: '24/7', label: t('agrobank.stats.support') }
+                        ]}
+                    />
                 </div>
 
                 <motion.div
@@ -176,7 +156,7 @@ const AgroBank = () => {
                     <h3 className="text-2xl md:text-3xl font-bold mb-4">
                         {t('agrobank.cta.title')}
                     </h3>
-                    <p className="text-emerald-50 mb-8 max-w-3xl mx-auto">
+                    <p className="text-emerald-100 mb-8 max-w-3xl mx-auto">
                         {t('agrobank.cta.description')}
                     </p>
 

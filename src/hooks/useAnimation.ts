@@ -37,20 +37,3 @@ export const useAnimateOnScroll = (threshold = 0.1) => {
   return { ref, isVisible };
 };
 
-// Hook pour les animations avec délai
-export const useDelayedAnimation = (delay: number, inView: boolean) => {
-  const [shouldAnimate, setShouldAnimate] = useState(false);
-  
-  useEffect(() => {
-    if (inView) {
-      const timer = setTimeout(() => {
-        setShouldAnimate(true);
-      }, delay);
-      
-      return () => clearTimeout(timer);
-    }
-    return undefined;
-  }, [inView, delay]);
-  
-  return shouldAnimate;
-};
