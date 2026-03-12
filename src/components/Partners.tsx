@@ -38,8 +38,11 @@ export default function Partners() {
     }
   ];
 
+  // Duplicate partners for seamless infinite loop
+  const duplicatedPartners = [...partners, ...partners];
+
   return (
-    <section className="py-20 bg-gray-50" ref={ref}>
+    <section className="py-20 bg-gray-950" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           badge={t('partners.badge')}
@@ -49,40 +52,49 @@ export default function Partners() {
           isVisible={isVisible}
           variants={fadeUpVariants}
         />
+      </div>
 
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8"
-          variants={staggerChildrenVariants}
-          initial="hidden"
-          animate={isVisible ? 'visible' : 'hidden'}
-        >
-          {partners.map((partner, index) => (
-            <motion.div
+      {/* Ticker / Marquee */}
+      <motion.div
+        className="relative overflow-hidden"
+        variants={fadeUpVariants}
+        initial="hidden"
+        animate={isVisible ? 'visible' : 'hidden'}
+      >
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-gray-950 to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-gray-950 to-transparent pointer-events-none" />
+
+        <div className="flex animate-marquee hover:[animation-play-state:paused]">
+          {duplicatedPartners.map((partner, index) => (
+            <div
               key={index}
-              variants={fadeUpVariants}
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
-              whileHover={{ y: -4 }}
+              className="flex-shrink-0 mx-4"
             >
-              <div className="flex items-center justify-center h-24">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={180}
-                  height={72}
-                  className="h-18 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                />
+              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6 w-48 hover:border-emerald-700/50 transition-all duration-300 group">
+                <div className="flex items-center justify-center h-24">
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    width={180}
+                    height={72}
+                    className="h-18 w-auto object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
+      </motion.div>
 
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
           className="text-center mt-16"
           initial="hidden"
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-400 mb-6">
             {t('partners.joinText')}
           </p>
           <motion.button
@@ -97,6 +109,7 @@ export default function Partners() {
           </motion.button>
         </motion.div>
       </div>
+
     </section>
   );
 }

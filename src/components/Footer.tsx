@@ -50,7 +50,7 @@ export default function Footer() {
   return (
     <motion.footer
       ref={ref}
-      className="w-full bg-gray-900 text-white"
+      className="w-full bg-gray-950 text-white border-t border-gray-800"
       variants={staggerChildrenVariants}
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}

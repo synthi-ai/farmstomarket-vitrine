@@ -146,15 +146,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} antialiased overflow-x-hidden`}
-        style={{
-          background: `
-            radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.02) 0%, transparent 50%),
-            #FFFFFF
-          `,
-          backgroundAttachment: 'fixed'
-        }}
+        className={`${inter.className} antialiased overflow-x-hidden bg-gray-950 text-white`}
       >
         <a
           href="#main-content"

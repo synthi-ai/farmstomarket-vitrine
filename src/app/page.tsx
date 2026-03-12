@@ -1,34 +1,32 @@
 import Hero from '@/components/Hero';
+import VideoShowcase from '@/components/VideoShowcase';
 import Partners from '@/components/Partners';
-import SecureTrusted from '@/components/SecureTrusted';
-import CuttingEdgeFeatures from '@/components/CuttingEdgeFeatures';
-import HowProducers from '@/components/HowProducers';
-import HowBuyersGet from '@/components/HowBuyersGet';
-import AppScreens from '@/components/AppScreens';
+import CredibilityStats from '@/components/CredibilityStats';
 import Testimonials from '@/components/Testimonials';
-import FAQ from '@/components/FAQ';
-import ReadyToTransform from '@/components/ReadyToTransform';
+import PlatformSolutions from '@/components/PlatformSolutions';
+import HowItWorks from '@/components/HowItWorks';
+import CuttingEdgeFeatures from '@/components/CuttingEdgeFeatures';
 import SupplyChainComponent from '@/components/SupplyChainComponent';
-import BuyersSection from '@/components/BuyersSection';
-import TransporterProcess from '@/components/HowTransporter';
 import AgroBank from '@/components/AgroBank';
+import FAQ from '@/components/FAQ';
+import Newsletter from '@/components/Newsletter';
+import ReadyToTransform from '@/components/ReadyToTransform';
 
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen">
       <Hero />
+      <VideoShowcase />
       <Partners />
-      <SecureTrusted />
+      <CredibilityStats />
+      <Testimonials />
+      <PlatformSolutions />
+      <HowItWorks />
       <CuttingEdgeFeatures />
-      <AppScreens />
-      <HowProducers />
-      <HowBuyersGet />
-      <TransporterProcess />
       <SupplyChainComponent />
       <AgroBank />
-      <BuyersSection />
-      <Testimonials />
       <FAQ />
+      <Newsletter />
       <ReadyToTransform />
     </main>
   );

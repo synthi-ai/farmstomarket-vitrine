@@ -25,15 +25,15 @@ export default function FAQ() {
 
   const getCategoryColor = (category: string) => {
     const key = category.toUpperCase();
-    if (key === t('faq.category.pricing')) return 'text-emerald-700 bg-emerald-50 border border-emerald-200';
-    if (key === t('faq.category.security')) return 'text-blue-700 bg-blue-50 border border-blue-200';
-    if (key === t('faq.category.delivery')) return 'text-purple-700 bg-purple-50 border border-purple-200';
-    if (key === t('faq.category.quality')) return 'text-orange-700 bg-orange-50 border border-orange-200';
-    return 'text-gray-700 bg-gray-50 border border-gray-200';
+    if (key === t('faq.category.pricing')) return 'text-emerald-400 bg-emerald-900/50 border border-emerald-700';
+    if (key === t('faq.category.security')) return 'text-blue-400 bg-blue-900/50 border border-blue-700';
+    if (key === t('faq.category.delivery')) return 'text-purple-400 bg-purple-900/50 border border-purple-700';
+    if (key === t('faq.category.quality')) return 'text-orange-400 bg-orange-900/50 border border-orange-700';
+    return 'text-gray-400 bg-gray-800 border border-gray-700';
   };
 
   return (
-    <section className="py-20 bg-gray-50" ref={ref}>
+    <section className="py-20 bg-gray-900" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           badge={t('faq.badge')}
@@ -53,7 +53,7 @@ export default function FAQ() {
           {faqItems.map((item) => (
             <motion.div
               key={item.id}
-              className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+              className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden hover:border-gray-600 transition-all duration-300"
               variants={fadeUpVariants}
             >
               <div className="p-6">
@@ -67,7 +67,7 @@ export default function FAQ() {
                   className="flex justify-between items-start cursor-pointer"
                   onClick={() => toggleExpand(item.id)}
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4 leading-tight">
+                  <h3 className="text-lg font-semibold text-white pr-4 leading-tight">
                     {item.question}
                   </h3>
                   <motion.div
@@ -88,8 +88,8 @@ export default function FAQ() {
                       transition={{ duration: 0.3, ease: 'easeOut' }}
                       className="mt-4"
                     >
-                      <div className="w-full h-px bg-gray-200 mb-4"></div>
-                      <p className="text-gray-600 leading-relaxed">
+                      <div className="w-full h-px bg-gray-700 mb-4"></div>
+                      <p className="text-gray-400 leading-relaxed">
                         {item.answer}
                       </p>
                     </motion.div>
@@ -101,23 +101,23 @@ export default function FAQ() {
         </motion.div>
 
         <motion.div
-          className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm"
+          className="bg-gray-800/50 border border-gray-700 rounded-xl p-8"
           initial="hidden"
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h3 className="font-bold text-2xl mb-2 text-gray-900">
+              <h3 className="font-bold text-2xl mb-2 text-white">
                 {t('faq.notFound.title')}
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-400">
                 {t('faq.notFound.description')}
               </p>
             </div>
 
             <motion.button
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 inline-flex items-center gap-2 shadow-lg hover:shadow-xl"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 inline-flex items-center gap-2"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

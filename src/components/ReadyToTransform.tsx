@@ -52,10 +52,10 @@ export default function ReadyToTransform() {
   } as const;
 
   return (
-    <div className="w-full bg-white relative overflow-hidden py-12 md:py-0 md:h-[685px] md:pt-[100px] md:px-10" ref={ref}>
+    <div className="w-full bg-gray-950 relative overflow-hidden py-12 md:py-0 md:h-[685px] md:pt-[100px] md:px-10" ref={ref}>
       <motion.div
         ref={containerRef}
-        className="relative w-full max-w-7xl mx-auto bg-emerald-500 rounded-t-[2rem] md:rounded-t-[2.5rem] px-6 py-12 md:px-24 md:py-[100px] md:h-[585px] isolate"
+        className="relative w-full max-w-7xl mx-auto bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-t-[2rem] md:rounded-t-[2.5rem] px-6 py-12 md:px-24 md:py-[100px] md:h-[585px] isolate"
         variants={staggerChildrenVariants}
         initial="hidden"
         animate={isVisible ? 'visible' : 'hidden'}
@@ -65,10 +65,10 @@ export default function ReadyToTransform() {
             className="flex flex-col justify-center items-start gap-4 max-w-xl"
             variants={fadeUpVariants}
           >
-            <h2 className="font-bold text-black text-3xl lg:text-5xl leading-tight tracking-tight">
+            <h2 className="font-bold text-white text-3xl lg:text-5xl leading-tight tracking-tight">
               {t('ready.title')}
             </h2>
-            <p className="text-black/80 text-base lg:text-lg leading-relaxed">
+            <p className="text-emerald-100 text-base lg:text-lg leading-relaxed">
               {t('ready.description')}
             </p>
           </motion.div>
@@ -116,7 +116,7 @@ export default function ReadyToTransform() {
             <motion.div
               ref={phone1Ref}
               className="absolute w-[232px] h-[464px] left-0 top-0"
-              style={{ filter: 'drop-shadow(10px 15px 30px rgba(10, 10, 34, 0.1))' }}
+              style={{ filter: 'drop-shadow(10px 15px 30px rgba(0, 0, 0, 0.3))' }}
               variants={phoneVariants}
             >
               <Image
@@ -132,7 +132,7 @@ export default function ReadyToTransform() {
             <motion.div
               ref={phone2Ref}
               className="absolute w-[232px] h-[464px] right-0 top-[281px]"
-              style={{ filter: 'drop-shadow(10px 15px 30px rgba(10, 10, 34, 0.1))' }}
+              style={{ filter: 'drop-shadow(10px 15px 30px rgba(0, 0, 0, 0.3))' }}
               variants={phoneVariants}
               transition={{ delay: 0.2 }}
             >
