@@ -25,9 +25,9 @@ export default function Footer() {
   ];
 
   const companyLinks = [
-    { name: t('footer.aboutUs'), href: '#' },
-    { name: t('footer.ourMission'), href: '#' },
-    { name: t('footer.leadership'), href: '#' },
+    { name: t('footer.aboutUs'), href: '/about' },
+    { name: t('footer.ourMission'), href: '/about#mission' },
+    { name: t('footer.leadership'), href: '/about#team' },
     { name: t('footer.careers'), href: '#' },
     { name: t('footer.pressMedia'), href: '#' },
   ];

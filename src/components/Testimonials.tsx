@@ -101,7 +101,7 @@ export default function Testimonials() {
           animate={isVisible ? 'visible' : 'hidden'}
         >
           <div className="relative w-full max-w-3xl mx-auto min-h-[320px] flex items-center justify-center">
-            <AnimatePresence mode="wait" custom={direction}>
+            <AnimatePresence initial={false} mode="popLayout" custom={direction}>
               <motion.div
                 key={current}
                 custom={direction}

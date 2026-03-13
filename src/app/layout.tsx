@@ -8,7 +8,7 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://farmstomarket.com'),

@@ -18,3 +18,29 @@
   animation-play-state: paused;
 }
 
+/* opencv.ai-style animated gradient hero background */
+@keyframes hero-gradient {
+  0% {
+    background-position: 0% 88%;
+  }
+  50% {
+    background-position: 100% 13%;
+  }
+  100% {
+    background-position: 0% 88%;
+  }
+}
+
+.anim-hero-gradient {
+  background: linear-gradient(
+    135deg,
+    #064e3b,
+    #1a1a2e,
+    #065f46,
+    #1a1a2e,
+    #064e3b
+  );
+  background-size: 800% 800%;
+  animation: hero-gradient 30s ease infinite;
+}
+
