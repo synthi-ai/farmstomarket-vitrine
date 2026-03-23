@@ -1,503 +1,165 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
+import SectionHeader from '@/components/ui/SectionHeader';
 
-// iPhone 15 Device Frame Component Futuriste
-interface DeviceFramesetProps {
-  device: string;
-  color: string;
-  children: React.ReactNode;
-}
-
-const DeviceFrameset: React.FC<DeviceFramesetProps> = ({ device, color, children }) => {
-  const getDeviceStyles = (): React.CSSProperties => {
-    if (device === 'iPhone 15') {
-      return {
-        width: '280px',
-        height: '560px',
-        borderRadius: '48px',
-        padding: '8px',
-        background: color === 'black' ? '#000000' : '#FFFFFF',
-        boxShadow: `
-          0 30px 100px rgba(0, 232, 52, 0.4),
-          0 15px 40px rgba(0, 0, 0, 0.6),
-          inset 0 2px 4px rgba(0, 232, 52, 0.2)
-        `,
-        position: 'relative',
-        border: '2px solid rgba(0, 232, 52, 0.3)'
-      };
-    }
-    return {};
-  };
-
-  const getScreenStyles = (): React.CSSProperties => {
-    return {
-      width: '100%',
-      height: '100%',
-      borderRadius: '40px',
-      overflow: 'hidden',
-      background: '#000000',
-      position: 'relative',
-      border: '1px solid rgba(0, 232, 52, 0.4)'
-    };
-  };
-
-  return (
-    <div style={getDeviceStyles()}>
-      {/* Dynamic Island Futuriste */}
-      <div style={{
-        position: 'absolute',
-        top: '12px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '130px',
-        height: '32px',
-        background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
-        borderRadius: '16px',
-        zIndex: 1000,
-        border: '1px solid rgba(0, 232, 52, 0.4)',
-        boxShadow: `
-          inset 0 2px 4px rgba(0, 232, 52, 0.3),
-          0 0 20px rgba(0, 232, 52, 0.2)
-        `
-      }} />
-      
-      {/* Capteur avec effet lumineux */}
-      <div style={{
-        position: 'absolute',
-        top: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '16px',
-        height: '16px',
-        background: 'radial-gradient(circle, #00E834 0%, #000000 70%)',
-        borderRadius: '50%',
-        zIndex: 1001,
-        boxShadow: '0 0 20px rgba(0, 232, 52, 1)'
-      }} />
-      
-      <div style={getScreenStyles()}>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-// Figma Prototype Viewer Component Futuriste
-interface FigmaPrototypeViewerProps {
-  figmaUrl: string;
-  device?: string;
-  color?: string;
-  activeFeature?: number;
-}
-
-const FigmaPrototypeViewer: React.FC<FigmaPrototypeViewerProps> = ({ 
-  figmaUrl,
-  device = "iPhone 15",
-  color = "black",
-  activeFeature = 0
-}) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  const handleIframeLoad = () => {
-    setIsLoading(false);
-  };
-
-  const handleIframeError = () => {
-    setError(true);
-    setIsLoading(false);
-  };
-
-  return (
-    <DeviceFrameset device={device} color={color}>
-      <div className="relative w-full h-full">
-        {/* État de chargement futuriste */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black z-10 rounded-[40px]">
-            <div className="flex flex-col items-center space-y-6">
-              <div className="relative">
-                <div className="w-20 h-20 border-2 border-gray-800 rounded-full"></div>
-                <div className="absolute top-0 left-0 w-20 h-20 border-2 border-[#00E834] border-t-transparent rounded-full animate-spin"></div>
-                <div className="absolute top-3 left-3 w-14 h-14 border border-[#00E834] border-opacity-50 rounded-full animate-ping"></div>
-              </div>
-              <div className="text-center">
-                <p className="text-[#00E834] text-sm font-bold tracking-wider">LOADING NEURAL NET</p>
-                <div className="flex space-x-1 mt-3">
-                  <div className="w-2 h-2 bg-[#00E834] rounded-full animate-pulse"></div>
-                  <div className="w-2 h-2 bg-[#00E834] rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
-                  <div className="w-2 h-2 bg-[#00E834] rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* État d'erreur futuriste */}
-        {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black via-red-950 to-black z-10 rounded-[40px]">
-            <div className="text-center px-8">
-              <div className="text-6xl mb-4 animate-pulse">⚠️</div>
-              <h3 className="text-lg font-bold text-white mb-3 tracking-wide">SYSTEM ERROR</h3>
-              <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                Neural connection failed. Attempting reconnection...
-              </p>
-              <button 
-                onClick={() => {
-                  setError(false);
-                  setIsLoading(true);
-                }}
-                className="px-8 py-3 bg-gradient-to-r from-[#00E834] to-green-600 text-black rounded-xl text-sm font-bold hover:from-green-600 hover:to-[#00E834] transition-all shadow-lg transform hover:scale-105"
-              >
-                REBOOT SYSTEM
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Figma Iframe */}
-        <iframe
-          src={figmaUrl}
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          className="w-full h-full border-0"
-          style={{
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            borderRadius: '40px'
-          }}
-          allowFullScreen
-          title="Figma Prototype"
-        />
-      </div>
-    </DeviceFrameset>
-  );
-};
-
-// Main Cutting Edge Features Component Futuriste
 export default function CuttingEdgeFeatures() {
-  const [activeFeature, setActiveFeature] = useState(0);
+  const { t } = useLanguage();
+  const { ref, isVisible } = useAnimateOnScroll(0.1);
 
   const features = [
     {
-      title: "AI-POWERED INSIGHTS",
-      description: "Get real-time market insights and yield forecasts to set prices that actually reflect demand, not guesswork.",
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-[#00E834] to-green-600 rounded-xl flex items-center justify-center shadow-lg border border-green-400">
-          <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
-        </div>
-      ),
+      title: t('features.ai.title'),
+      description: t('features.ai.description'),
+      mockup: '/Mockups/mockup 04.png',
+      iconPath: 'M13 10V3L4 14h7v7l9-11h-7z',
     },
     {
-      title: "SECURE ESCROW PAYMENTS",
-      description: "45% upfront, 55% on delivery - funds held safely until you approve. No scams, no delays.",
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-[#00E834] to-green-600 rounded-xl flex items-center justify-center shadow-lg border border-green-400">
-          <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-          </svg>
-        </div>
-      ),
+      title: t('features.payments.title'),
+      description: t('features.payments.description'),
+      mockup: '/Mockups/mockup 13.png',
+      iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
     },
     {
-      title: "TRANSPARENT DELIVERIES",
-      description: "Track delivery live, split delivery costs fairly, and get updates from transporters in real-time.",
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-[#00E834] to-green-600 rounded-xl flex items-center justify-center shadow-lg border border-green-400">
-          <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-        </div>
-      ),
+      title: t('features.delivery.title'),
+      description: t('features.delivery.description'),
+      mockup: '/Mockups/mockup 06.png',
+      iconPath: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
     },
     {
-      title: "IN-APP LEGAL DOCS",
-      description: "Pre-built FAF templates and compliance-certified contracts.",
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-[#00E834] to-green-600 rounded-xl flex items-center justify-center shadow-lg border border-green-400">
-          <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-          </svg>
-        </div>
-      ),
+      title: t('features.legal.title'),
+      description: t('features.legal.description'),
+      mockup: '/Mockups/mockup 05.png',
+      iconPath: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    },
+    {
+      title: t('secure.pricing.title'),
+      description: t('secure.pricing.description'),
+      mockup: '/Mockups/mockup 19.png',
+      iconPath: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    },
+    {
+      title: t('secure.payments.title'),
+      description: t('secure.payments.description'),
+      mockup: '/Mockups/mockup 07.png',
+      iconPath: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
     },
   ];
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % features.length);
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, [features.length]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
-      },
-    },
-  } as const;
-
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.95
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.23, 1, 0.32, 1]
-      }
-    }
-  } as const;
-
-  const figmaPrototypeUrl = "https://www.figma.com/proto/ryMIF0M5pmKd387senLzYX/Farms-to-Market-UX-UI-Design?node-id=1862-25144&starting-point-node-id=1575%3A25790";
 
   return (
-    <div 
-      className="w-full py-16 px-4"
-      style={{
-        background: `
-          radial-gradient(ellipse at top, rgba(0, 232, 52, 0.05) 0%, transparent 50%),
-          radial-gradient(ellipse at bottom, rgba(0, 232, 52, 0.03) 0%, transparent 50%),
-          linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%)
-        `
-      }}
-    >
-      {/* Grille cyberpunk en arrière-plan */}
-      <div className="absolute inset-0 opacity-5">
-        <div 
-          className="w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 232, 52, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 232, 52, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px'
-          }}
+    <section className="py-20 bg-gray-900" ref={ref} id="features">
+      <div className="max-w-7xl mx-auto px-6">
+        <SectionHeader
+          badge={t('features.badge')}
+          title={t('features.title')}
+          description={t('features.description')}
+          animated
+          isVisible={isVisible}
+          variants={fadeUpVariants}
         />
-      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div 
-          className="flex flex-col lg:flex-row items-center justify-between gap-16"
-          variants={containerVariants}
+        {/* Feature cards with zoomed mockup previews */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={staggerChildrenVariants}
           initial="hidden"
-          animate="visible"
+          animate={isVisible ? 'visible' : 'hidden'}
         >
-          {/* Section Features */}
-          <motion.div 
-            variants={itemVariants}
-            className="w-full lg:w-1/2 space-y-10"
-          >
-            <motion.div 
-              className="text-center lg:text-left"
-              variants={itemVariants}
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              variants={fadeUpVariants}
+              className="bg-gray-800/50 border border-gray-700 rounded-2xl overflow-hidden hover:border-emerald-700/50 transition-all duration-300 group"
+              whileHover={{ y: -4 }}
             >
-              <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-black via-gray-900 to-black border border-[#00E834] px-6 py-3 rounded-xl shadow-lg backdrop-blur-sm mb-6">
-                <div className="w-3 h-3 bg-[#00E834] rounded-full animate-pulse shadow-lg">
-                  <div className="w-full h-full bg-[#00E834] rounded-full animate-ping opacity-75"></div>
+              {/* Zoomed mockup preview area */}
+              <div className="relative h-52 bg-gray-900/80 overflow-hidden">
+                {/* Emerald glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative h-full flex items-center justify-center">
+                  <Image
+                    src={feature.mockup}
+                    alt={feature.title}
+                    width={320}
+                    height={640}
+                    className="object-contain h-64 w-auto transition-transform duration-500 group-hover:scale-110"
+                    sizes="320px"
+                  />
                 </div>
-                <span className="text-[#00E834] font-bold text-sm tracking-wider">NEXT-GEN TECHNOLOGY</span>
               </div>
-              
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
-                CUTTING-EDGE
-                <br />
-                <span className="text-[#00E834]">FEATURES</span>
-              </h2>
-              
-              <p className="text-gray-400 text-lg leading-relaxed">
-                Experience the future of agricultural technology with our 
-                <span className="text-[#00E834] font-bold"> advanced platform</span>
-              </p>
+
+              {/* Text content */}
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center border border-emerald-700/50 group-hover:bg-emerald-900/80 transition-colors flex-shrink-0">
+                    <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={feature.iconPath} />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">
+                    {feature.title}
+                  </h3>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
-            
-            <div className="space-y-6">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  className={`group flex items-start space-x-6 p-6 rounded-2xl cursor-pointer transition-all duration-500 border-2 ${
-                    activeFeature === index 
-                      ? 'bg-gradient-to-r from-[#00E834]/10 to-green-600/5 border-[#00E834] shadow-lg shadow-[#00E834]/20' 
-                      : 'bg-black/50 border-gray-800 hover:border-gray-700 hover:bg-black/70'
-                  }`}
-                  onClick={() => setActiveFeature(index)}
-                  variants={itemVariants}
-                  animate={{ 
-                    scale: activeFeature === index ? 1.02 : 1,
-                    opacity: activeFeature === index ? 1 : 0.8
-                  }}
-                  transition={{ duration: 0.3 }}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  <div className="flex-shrink-0 pt-1">
-                    <motion.div
-                      animate={{ 
-                        rotate: activeFeature === index ? 360 : 0,
-                        scale: activeFeature === index ? 1.1 : 1
-                      }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {feature.icon}
-                    </motion.div>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className={`font-black text-xl mb-3 transition-colors tracking-wide ${
-                      activeFeature === index ? 'text-[#00E834]' : 'text-white group-hover:text-gray-200'
-                    }`}>
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
-                      {feature.description}
-                    </p>
-                  </div>
-                  
-                  {/* Indicateur d'activité */}
-                  {activeFeature === index && (
-                    <motion.div
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 w-1 h-12 bg-[#00E834] rounded-full shadow-lg"
-                      initial={{ height: 0 }}
-                      animate={{ height: 48 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Indicateurs de features modernisés */}
-            <div className="flex justify-center lg:justify-start space-x-4 mt-10">
-              {features.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveFeature(index)}
-                  className={`relative w-4 h-4 rounded-full transition-all duration-500 ${
-                    activeFeature === index 
-                      ? 'bg-[#00E834] scale-125 shadow-lg shadow-[#00E834]/50' 
-                      : 'bg-gray-700 hover:bg-gray-600'
-                  }`}
-                  aria-label={`Go to feature ${index + 1}`}
-                >
-                  {activeFeature === index && (
-                    <div className="absolute inset-0 bg-[#00E834] rounded-full animate-ping opacity-50"></div>
-                  )}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-          
-          {/* Section Device Mockup */}
-          <motion.div 
-            variants={itemVariants}
-            className="w-full lg:w-1/2 flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Décorations d'arrière-plan futuristes */}
-              <div className="absolute -inset-8 bg-gradient-to-br from-[#00E834]/20 to-green-600/10 rounded-[4rem] opacity-50 blur-3xl"></div>
-              
-              {/* Cercles lumineux flottants */}
-              <motion.div 
-                className="absolute -top-6 -right-6 w-12 h-12 bg-[#00E834] rounded-full opacity-60 shadow-lg"
-                animate={{ y: [0, -15, 0], scale: [1, 1.1, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-              <motion.div 
-                className="absolute -bottom-6 -left-6 w-8 h-8 bg-white rounded-full opacity-40 shadow-lg"
-                animate={{ y: [0, 15, 0], scale: [1, 0.9, 1] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              />
-              
-              {/* Lignes d'énergie */}
-              <div className="absolute top-1/4 -left-4 w-20 h-px bg-gradient-to-r from-transparent via-[#00E834] to-transparent opacity-60"></div>
-              <div className="absolute bottom-1/4 -right-4 w-20 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-40"></div>
-              
-              {/* Device Frame avec Figma Prototype */}
-              <div className="relative z-10">
-                <FigmaPrototypeViewer 
-                  figmaUrl={figmaPrototypeUrl}
-                  device="iPhone 15"
-                  color="black"
-                  activeFeature={activeFeature}
-                />
-              </div>
-
-              {/* Particules flottantes */}
-              {[...Array(4)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-[#00E834] rounded-full opacity-60"
-                  style={{
-                    left: `${10 + i * 20}%`,
-                    top: `${20 + (i % 2) * 60}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.6, 1, 0.6],
-                    scale: [1, 1.3, 1]
-                  }}
-                  transition={{
-                    duration: 3 + i,
-                    repeat: Infinity,
-                    delay: i * 0.7,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
+          ))}
         </motion.div>
 
-        {/* Section CTA du bas */}
-        <motion.div 
-          className="text-center mt-20 p-12 bg-gradient-to-br from-[#00E834]/10 via-black to-gray-900 rounded-3xl border border-[#00E834]/30 shadow-2xl"
-          variants={itemVariants}
+        {/* CTA with large mockup showcase */}
+        <motion.div
+          className="relative mt-16 p-8 md:p-12 bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden"
           initial="hidden"
-          animate="visible"
-          transition={{ delay: 1.2 }}
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={fadeUpVariants}
         >
-          <div className="relative">
-            {/* Effet de lueur */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00E834]/5 to-transparent rounded-3xl"></div>
-            
-            <h3 className="text-3xl lg:text-4xl font-black text-white mb-6 leading-tight">
-              READY TO ENTER THE
-              <br />
-              <span className="text-[#00E834]">FUTURE OF AGRICULTURE?</span>
-            </h3>
-            <p className="text-gray-400 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
-              Join the neural network of farmers revolutionizing the agri-food industry through 
-              <span className="text-[#00E834] font-bold"> powered technology</span> and 
-              AI-driven insights.
-            </p>
-            <motion.button
-              className="bg-gradient-to-r from-[#00E834] to-green-600 hover:from-green-600 hover:to-[#00E834] text-black font-black px-12 py-4 rounded-2xl transition-all duration-300 shadow-xl border border-green-400 text-lg tracking-wide"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              ACTIVATE  LINK
-            </motion.button>
-            
-            {/* Lignes de scan */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E834] to-transparent opacity-50"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E834] to-transparent opacity-50"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                {t('features.cta.title')}
+              </h3>
+              <p className="text-gray-400 mb-6">
+                {t('features.cta.description')}
+              </p>
+              <motion.button
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-8 py-3 rounded-xl transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {t('features.cta.button')}
+              </motion.button>
+            </div>
+
+            {/* Large zoomed mockup cluster */}
+            <div className="relative h-72 md:h-80 hidden lg:block">
+              <div className="absolute left-0 top-0 w-48 h-full">
+                <Image
+                  src="/Mockups/mockup 20.png"
+                  alt="Marketplace Listings"
+                  fill
+                  className="object-contain object-center scale-125"
+                  sizes="200px"
+                />
+              </div>
+              <div className="absolute right-0 top-4 w-48 h-full">
+                <Image
+                  src="/Mockups/mockup 09.png"
+                  alt="Negotiation Chat"
+                  fill
+                  className="object-contain object-center scale-125"
+                  sizes="200px"
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
