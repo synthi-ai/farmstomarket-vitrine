@@ -4,11 +4,14 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import { fadeUpVariants, staggerChildrenVariants, fadeInVariants } from '@/animations/variants';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+
+/* ─── Data ─── */
 
 const HERO_IMAGES = [
   { src: '/farmers/farms2.jpeg', alt: 'FarmsToMarket team in the field' },
@@ -29,15 +32,75 @@ const TEAM = [
   { nameKey: 'about.team.coo.name', roleKey: 'about.team.coo.role', bioKey: 'about.team.coo.bio', img: '/farmers/6.jpeg' },
 ];
 
+const AI_MODULES = [
+  { titleKey: 'about.ai.crop.title', descKey: 'about.ai.crop.description', img: '/farmers/3.jpeg' },
+  { titleKey: 'about.ai.pricing.title', descKey: 'about.ai.pricing.description', img: '/farmers/4.jpeg' },
+  { titleKey: 'about.ai.quality.title', descKey: 'about.ai.quality.description', img: '/farmers/7.jpeg' },
+  { titleKey: 'about.ai.logistics.title', descKey: 'about.ai.logistics.description', img: '/farmers/imag2.jpeg' },
+  { titleKey: 'about.ai.fraud.title', descKey: 'about.ai.fraud.description', img: '/farmers/img1.jpeg' },
+  { titleKey: 'about.ai.demand.title', descKey: 'about.ai.demand.description', img: '/farmers/images1.jpeg' },
+] as const;
+
+const KEY_NUMBERS = [
+  { value: '50K+', labelKey: 'about.numbers.farmers' },
+  { value: '15+', labelKey: 'about.numbers.countries' },
+  { value: '72.9K', labelKey: 'about.numbers.transactions' },
+  { value: '35%', labelKey: 'about.numbers.waste' },
+] as const;
+
+const VALUES = [
+  { titleKey: 'about.values.v1.title', descKey: 'about.values.v1.description' },
+  { titleKey: 'about.values.v2.title', descKey: 'about.values.v2.description' },
+  { titleKey: 'about.values.v3.title', descKey: 'about.values.v3.description' },
+  { titleKey: 'about.values.v4.title', descKey: 'about.values.v4.description' },
+] as const;
+
+const TIMELINE = [
+  { year: '2022', titleKey: 'about.timeline.2022.title', descKey: 'about.timeline.2022.description' },
+  { year: '2023', titleKey: 'about.timeline.2023.title', descKey: 'about.timeline.2023.description' },
+  { year: '2024', titleKey: 'about.timeline.2024.title', descKey: 'about.timeline.2024.description' },
+  { year: '2025', titleKey: 'about.timeline.2025.title', descKey: 'about.timeline.2025.description' },
+] as const;
+
+/* ─── Reusable section wrapper ─── */
+
+function Section({
+  children,
+  className = '',
+  id,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}) {
+  const { ref, isVisible } = useAnimateOnScroll(0.08);
+  return (
+    <motion.section
+      ref={ref}
+      id={id}
+      className={`py-28 md:py-36 ${className}`}
+      initial="hidden"
+      animate={isVisible ? 'visible' : 'hidden'}
+      variants={fadeInVariants}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
+/* ─── Component ─── */
+
 export default function AboutPage() {
   const { t } = useLanguage();
   const [activeMember, setActiveMember] = useState(0);
+  const [activeModule, setActiveModule] = useState(0);
 
   const heroAnim = useAnimateOnScroll(0.05);
   const imagesAnim = useAnimateOnScroll(0.1);
   const statementAnim = useAnimateOnScroll(0.15);
   const principlesAnim = useAnimateOnScroll(0.1);
   const leadershipAnim = useAnimateOnScroll(0.1);
+  const aiModulesAnim = useAnimateOnScroll(0.1);
   const ctaAnim = useAnimateOnScroll(0.15);
 
   const goToMember = (index: number) => {
@@ -46,7 +109,14 @@ export default function AboutPage() {
     else setActiveMember(index);
   };
 
+  const goToModule = (index: number) => {
+    if (index < 0) setActiveModule(AI_MODULES.length - 1);
+    else if (index >= AI_MODULES.length) setActiveModule(0);
+    else setActiveModule(index);
+  };
+
   const member = TEAM[activeMember];
+  const aiModule = AI_MODULES[activeModule];
 
   return (
     <div className="min-h-screen bg-gray-950">
@@ -268,7 +338,231 @@ export default function AboutPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          5. CTA — "Got interested?"
+          5. MISSION — prose, narrow column
+         ═══════════════════════════════════════════ */}
+      <Section id="mission">
+        <div className="mx-auto max-w-3xl px-6">
+          <motion.h2
+            className="mb-10 text-3xl font-bold text-white sm:text-4xl md:text-5xl leading-tight"
+            variants={fadeUpVariants}
+          >
+            {t('about.mission.title')}
+          </motion.h2>
+
+          <motion.div className="space-y-6 text-lg leading-[1.8] text-gray-400" variants={fadeUpVariants}>
+            <p>{t('about.mission.p1')}</p>
+            <p>{t('about.mission.p2')}</p>
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* ═══════════════════════════════════════════
+          6. AI MODULES — carousel (image left, text right)
+         ═══════════════════════════════════════════ */}
+      <section
+        ref={aiModulesAnim.ref}
+        id="ai-modules"
+        className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800"
+      >
+        <div className="max-w-5xl mx-auto">
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={aiModulesAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, ease: EASE }}
+          >
+            {t('about.ai.title')}
+          </motion.h2>
+          <motion.p
+            className="mb-16 max-w-3xl text-lg text-gray-400 leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={aiModulesAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, delay: 0.15, ease: EASE }}
+          >
+            {t('about.ai.description')}
+          </motion.p>
+
+          {/* Active module display */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0 }}
+            animate={aiModulesAnim.isVisible ? { opacity: 1 } : {}}
+            transition={{ duration: 1, delay: 0.3, ease: EASE }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeModule}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.4, ease: EASE }}
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-800">
+                  <Image
+                    src={aiModule.img}
+                    alt={t(aiModule.titleKey)}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+
+                {/* Text */}
+                <div className="flex flex-col justify-center">
+                  <span className="text-sm font-mono text-emerald-400 mb-4">
+                    .00{activeModule + 1}
+                  </span>
+                  <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                    {t(aiModule.titleKey)}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed text-lg">
+                    {t(aiModule.descKey)}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Tab navigation (arrows + numbered tabs + progress bar) */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => goToModule(activeModule - 1)}
+              className="p-2 text-gray-500 hover:text-white transition-colors"
+              aria-label="Previous module"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-1">
+              {AI_MODULES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveModule(i)}
+                  className={`px-3 py-2 text-sm font-mono transition-colors ${
+                    i === activeModule
+                      ? 'text-emerald-400'
+                      : 'text-gray-500 hover:text-gray-300'
+                  }`}
+                >
+                  0{i + 1}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => goToModule(activeModule + 1)}
+              className="p-2 text-gray-500 hover:text-white transition-colors"
+              aria-label="Next module"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+
+            {/* Progress bar */}
+            <div className="flex-1 h-px bg-gray-800 ml-4 relative">
+              <motion.div
+                className="absolute top-0 left-0 h-px bg-emerald-500"
+                animate={{ width: `${((activeModule + 1) / AI_MODULES.length) * 100}%` }}
+                transition={{ duration: 0.4, ease: EASE }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          7. KEY NUMBERS — clean stat row
+         ═══════════════════════════════════════════ */}
+      <Section>
+        <div className="mx-auto max-w-5xl px-6">
+          <motion.h2
+            className="mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            variants={fadeUpVariants}
+          >
+            {t('about.numbers.title')}
+          </motion.h2>
+
+          <motion.div
+            className="grid grid-cols-2 gap-y-16 gap-x-8 md:grid-cols-4"
+            variants={staggerChildrenVariants}
+          >
+            {KEY_NUMBERS.map(({ value, labelKey }, i) => (
+              <motion.div key={i} variants={fadeUpVariants}>
+                <div className="text-4xl font-bold text-white sm:text-5xl md:text-6xl tracking-tight">
+                  {value}
+                </div>
+                <div className="mt-3 text-sm text-gray-500 uppercase tracking-wider">
+                  {t(labelKey)}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* ═══════════════════════════════════════════
+          8. VALUES — clean 2×2 text grid
+         ═══════════════════════════════════════════ */}
+      <Section id="values">
+        <div className="mx-auto max-w-5xl px-6">
+          <motion.h2
+            className="mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            variants={fadeUpVariants}
+          >
+            {t('about.values.title')}
+          </motion.h2>
+
+          <motion.div
+            className="grid gap-x-8 gap-y-16 sm:grid-cols-2"
+            variants={staggerChildrenVariants}
+          >
+            {VALUES.map(({ titleKey, descKey }, i) => (
+              <motion.div key={i} variants={fadeUpVariants}>
+                <h3 className="mb-3 text-xl font-semibold text-white">{t(titleKey)}</h3>
+                <p className="leading-relaxed text-gray-400">{t(descKey)}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* ═══════════════════════════════════════════
+          9. TIMELINE — minimal left-aligned
+         ═══════════════════════════════════════════ */}
+      <Section id="timeline">
+        <div className="mx-auto max-w-3xl px-6">
+          <motion.h2
+            className="mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            variants={fadeUpVariants}
+          >
+            {t('about.timeline.title')}
+          </motion.h2>
+
+          <motion.div className="relative" variants={staggerChildrenVariants}>
+            <div
+              className="absolute left-0 top-0 h-full w-px bg-gray-800"
+              aria-hidden="true"
+            />
+
+            {TIMELINE.map(({ year, titleKey, descKey }) => (
+              <motion.div
+                key={year}
+                className="relative mb-16 last:mb-0 pl-10"
+                variants={fadeUpVariants}
+              >
+                <div className="absolute left-0 top-1.5 h-2 w-2 -translate-x-[3.5px] rounded-full bg-gray-600" />
+                <span className="text-sm font-semibold text-emerald-400">{year}</span>
+                <h3 className="mt-2 text-xl font-semibold text-white">{t(titleKey)}</h3>
+                <p className="mt-2 leading-relaxed text-gray-400">{t(descKey)}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* ═══════════════════════════════════════════
+          10. INTERESTED CTA
          ═══════════════════════════════════════════ */}
       <section
         ref={ctaAnim.ref}
@@ -307,6 +601,44 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════
+          11. CTA — Join us
+         ═══════════════════════════════════════════ */}
+      <Section>
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <motion.h2
+            className="mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            variants={fadeUpVariants}
+          >
+            {t('about.cta.title')}
+          </motion.h2>
+          <motion.p
+            className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-gray-400"
+            variants={fadeUpVariants}
+          >
+            {t('about.cta.description')}
+          </motion.p>
+          <motion.div
+            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            variants={fadeUpVariants}
+          >
+            <a
+              href="#careers"
+              className="flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-gray-950 transition-opacity hover:opacity-80"
+            >
+              {t('about.cta.careers')}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              href="#contact"
+              className="rounded-full border border-gray-700 px-7 py-3.5 text-sm font-medium text-white transition-colors hover:border-gray-500"
+            >
+              {t('about.cta.contact')}
+            </a>
+          </motion.div>
+        </div>
+      </Section>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
 import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
@@ -18,9 +19,10 @@ export default function Footer() {
 
   const productLinks = [
     { name: t('footer.marketplace'), href: '#' },
-    { name: t('footer.forFarmers'), href: '#' },
-    { name: t('footer.forBuyers'), href: '#' },
-    { name: t('footer.analyticsplatform'), href: '#' },
+    { name: t('footer.forFarmers'), href: '/producer' },
+    { name: t('footer.forBuyers'), href: '/customer' },
+    { name: t('footer.forTransporters'), href: '/transporter' },
+    { name: t('footer.agrobank'), href: '/agrobank' },
     { name: t('footer.mobileApp'), href: '#' },
   ];
 
@@ -59,10 +61,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           <motion.div className="lg:col-span-2 space-y-6" variants={fadeUpVariants}>
             <div>
-              <h2 className="font-bold text-2xl mb-4">
-                <span className="text-emerald-500">Farms</span>
-                <span className="text-white">ToMarket</span>
-              </h2>
+              <a href="/" className="inline-block mb-4">
+                <Image
+                  src="/logo/logo.svg"
+                  alt="Farm's To Market"
+                  width={160}
+                  height={40}
+                  className="h-9 w-auto"
+                />
+              </a>
               <p className="text-gray-300 text-sm max-w-md leading-relaxed">
                 {t('footer.description')}
               </p>
@@ -155,7 +162,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-gray-400 text-xs font-medium mb-1">{t('footer.email')}</p>
-                <p className="text-white text-sm">contact@farmstomarket.com</p>
+                <p className="text-white text-sm">contact@farmstomarket.io</p>
               </div>
             </div>
             <div className="flex items-start space-x-4">

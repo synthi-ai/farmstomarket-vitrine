@@ -1,17 +1,24 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Play, User } from 'lucide-react';
+import { Menu, X, Play, User, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 
 const NAV_ITEMS = [
   { key: 'nav.about', href: '#about' },
   { key: 'nav.features', href: '#features' },
-  { key: 'nav.solutions', href: '#solutions' },
   { key: 'nav.marketplace', href: '#marketplace' },
   { key: 'nav.testimonials', href: '#testimonials' },
+] as const;
+
+const SOLUTIONS_LINKS = [
+  { key: 'nav.producer', href: '/producer' },
+  { key: 'nav.customer', href: '/customer' },
+  { key: 'nav.transporter', href: '/transporter' },
+  { key: 'nav.agrobank', href: '/agrobank' },
 ] as const;
 
 const SLIDE_KEYS = [
@@ -25,6 +32,8 @@ export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
 
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev + 1) % SLIDE_KEYS.length);
@@ -60,15 +69,67 @@ export default function Hero() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
           {/* Logo */}
-          <a href="/" className="text-xl font-bold tracking-tight lg:text-2xl">
-            <span className="text-emerald-400">FARMS</span>
-            <span className="text-white">&#8202;TO&#8202;</span>
-            <span className="text-white/70">MARKET</span>
+          <a href="/" className="flex-shrink-0">
+            <Image
+              src="/logo/logo.svg"
+              alt="Farm's To Market"
+              width={160}
+              height={40}
+              className="h-9 w-auto lg:h-10"
+              priority
+            />
           </a>
 
           {/* Nav Desktop */}
           <nav className="hidden items-center gap-8 lg:flex">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.slice(0, 2).map((item) => (
+              <a
+                key={item.key}
+                href={item.href}
+                className="text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
+              >
+                {t(item.key)}
+              </a>
+            ))}
+
+            {/* Solutions dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setSolutionsOpen(true)}
+              onMouseLeave={() => setSolutionsOpen(false)}
+            >
+              <button
+                className="flex items-center gap-1 text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
+                onClick={() => setSolutionsOpen((o) => !o)}
+              >
+                {t('nav.solutions')}
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {solutionsOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-xl border border-gray-800 bg-gray-950/95 py-2 shadow-xl backdrop-blur-md min-w-[200px]"
+                  >
+                    {SOLUTIONS_LINKS.map((link) => (
+                      <a
+                        key={link.key}
+                        href={link.href}
+                        className="block px-4 py-2.5 text-sm text-gray-300 transition-colors hover:bg-gray-800/60 hover:text-emerald-400"
+                      >
+                        {t(link.key)}
+                      </a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {NAV_ITEMS.slice(2).map((item) => (
               <a
                 key={item.key}
                 href={item.href}
@@ -234,7 +295,53 @@ export default function Hero() {
               </button>
 
               <nav className="flex flex-col gap-6">
-                {NAV_ITEMS.map((item) => (
+                {NAV_ITEMS.slice(0, 2).map((item) => (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
+                  >
+                    {t(item.key)}
+                  </a>
+                ))}
+
+                {/* Solutions expandable */}
+                <div>
+                  <button
+                    onClick={() => setMobileSolutionsOpen((o) => !o)}
+                    className="flex w-full items-center justify-between text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
+                  >
+                    {t('nav.solutions')}
+                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {mobileSolutionsOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-3 flex flex-col gap-3 pl-4 border-l border-gray-800">
+                          {SOLUTIONS_LINKS.map((link) => (
+                            <a
+                              key={link.key}
+                              href={link.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="text-base text-gray-400 transition-colors hover:text-emerald-400"
+                            >
+                              {t(link.key)}
+                            </a>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {NAV_ITEMS.slice(2).map((item) => (
                   <a
                     key={item.key}
                     href={item.href}

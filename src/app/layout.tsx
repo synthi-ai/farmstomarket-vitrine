@@ -3,12 +3,15 @@ import BackToTop from '@/components/BackToTop';
 import CookieBanner from '@/components/CookieBanner';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import './globals.css';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const inter = localFont({
+  src: './fonts/Inter.woff2',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://farmstomarket.com'),
