@@ -22,6 +22,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') as Language;
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'fr')) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync from localStorage; cannot read during render due to SSR
       setLanguage(savedLanguage);
     }
   }, []);

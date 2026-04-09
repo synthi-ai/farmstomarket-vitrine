@@ -95,13 +95,13 @@ export default function AboutPage() {
   const [activeMember, setActiveMember] = useState(0);
   const [activeModule, setActiveModule] = useState(0);
 
-  const heroAnim = useAnimateOnScroll(0.05);
-  const imagesAnim = useAnimateOnScroll(0.1);
-  const statementAnim = useAnimateOnScroll(0.15);
-  const principlesAnim = useAnimateOnScroll(0.1);
-  const leadershipAnim = useAnimateOnScroll(0.1);
-  const aiModulesAnim = useAnimateOnScroll(0.1);
-  const ctaAnim = useAnimateOnScroll(0.15);
+  const { ref: heroRef, isVisible: heroVisible } = useAnimateOnScroll(0.05);
+  const { ref: imagesRef, isVisible: imagesVisible } = useAnimateOnScroll(0.1);
+  const { ref: statementRef, isVisible: statementVisible } = useAnimateOnScroll(0.15);
+  const { ref: principlesRef, isVisible: principlesVisible } = useAnimateOnScroll(0.1);
+  const { ref: leadershipRef, isVisible: leadershipVisible } = useAnimateOnScroll(0.1);
+  const { ref: aiModulesRef, isVisible: aiModulesVisible } = useAnimateOnScroll(0.1);
+  const { ref: ctaRef, isVisible: ctaVisible } = useAnimateOnScroll(0.15);
 
   const goToMember = (index: number) => {
     if (index < 0) setActiveMember(TEAM.length - 1);
@@ -134,13 +134,13 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════════
           1. HERO — giant headline + CTA button
          ═══════════════════════════════════════════ */}
-      <section ref={heroAnim.ref} className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+      <section ref={heroRef} className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <div className="overflow-hidden mb-10">
             <motion.h1
               className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.05]"
               initial={{ y: '100%', opacity: 0 }}
-              animate={heroAnim.isVisible ? { y: 0, opacity: 1 } : {}}
+              animate={heroVisible ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 1, ease: EASE }}
             >
               {t('about.hero.title')}{' '}
@@ -150,7 +150,7 @@ export default function AboutPage() {
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={heroAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={heroVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
           >
             <a
@@ -166,11 +166,11 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════════
           2. THREE IMAGES ROW
          ═══════════════════════════════════════════ */}
-      <section ref={imagesAnim.ref} className="px-4 sm:px-6 lg:px-8 pb-32">
+      <section ref={imagesRef} className="px-4 sm:px-6 lg:px-8 pb-32">
         <motion.div
           className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4"
           initial={{ opacity: 0, y: 40 }}
-          animate={imagesAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+          animate={imagesVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: EASE }}
         >
           {HERO_IMAGES.map((img, i) => (
@@ -194,22 +194,22 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════════
           3. WHY US — bold statement + 3 numbered principles
          ═══════════════════════════════════════════ */}
-      <section ref={statementAnim.ref} className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+      <section ref={statementRef} className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
         <div className="max-w-5xl mx-auto">
           <motion.p
             className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-snug mb-24"
             initial={{ opacity: 0, y: 30 }}
-            animate={statementAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={statementVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
             {t('about.statement')}
           </motion.p>
 
           <motion.div
-            ref={principlesAnim.ref}
+            ref={principlesRef}
             className="grid gap-12 md:gap-8 md:grid-cols-3"
             initial={{ opacity: 0, y: 40 }}
-            animate={principlesAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={principlesVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
             {PRINCIPLES.map(({ number, titleKey, descKey }) => (
@@ -231,7 +231,7 @@ export default function AboutPage() {
           4. LEADERSHIP — carousel/tabs (photo left, bio right)
          ═══════════════════════════════════════════ */}
       <section
-        ref={leadershipAnim.ref}
+        ref={leadershipRef}
         id="team"
         className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800"
       >
@@ -239,7 +239,7 @@ export default function AboutPage() {
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
-            animate={leadershipAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={leadershipVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
             {t('about.team.badge')}
@@ -249,7 +249,7 @@ export default function AboutPage() {
           <motion.div
             className="mb-12"
             initial={{ opacity: 0 }}
-            animate={leadershipAnim.isVisible ? { opacity: 1 } : {}}
+            animate={leadershipVisible ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: EASE }}
           >
             <AnimatePresence mode="wait">
@@ -360,7 +360,7 @@ export default function AboutPage() {
           6. AI MODULES — carousel (image left, text right)
          ═══════════════════════════════════════════ */}
       <section
-        ref={aiModulesAnim.ref}
+        ref={aiModulesRef}
         id="ai-modules"
         className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800"
       >
@@ -368,7 +368,7 @@ export default function AboutPage() {
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
-            animate={aiModulesAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={aiModulesVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
             {t('about.ai.title')}
@@ -376,7 +376,7 @@ export default function AboutPage() {
           <motion.p
             className="mb-16 max-w-3xl text-lg text-gray-400 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={aiModulesAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={aiModulesVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.15, ease: EASE }}
           >
             {t('about.ai.description')}
@@ -386,7 +386,7 @@ export default function AboutPage() {
           <motion.div
             className="mb-12"
             initial={{ opacity: 0 }}
-            animate={aiModulesAnim.isVisible ? { opacity: 1 } : {}}
+            animate={aiModulesVisible ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.3, ease: EASE }}
           >
             <AnimatePresence mode="wait">
@@ -565,14 +565,14 @@ export default function AboutPage() {
           10. INTERESTED CTA
          ═══════════════════════════════════════════ */}
       <section
-        ref={ctaAnim.ref}
+        ref={ctaRef}
         className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800"
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
-            animate={ctaAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
             {t('about.interested.title')}
@@ -581,7 +581,7 @@ export default function AboutPage() {
           <motion.p
             className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={ctaAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: EASE }}
           >
             {t('about.interested.description')}
@@ -589,7 +589,7 @@ export default function AboutPage() {
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={ctaAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.4, ease: EASE }}
           >
             <a
