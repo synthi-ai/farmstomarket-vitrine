@@ -24,7 +24,6 @@ export default function PlatformSolutions() {
     <section className="py-20 bg-gray-900" ref={ref} id="platform">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          badge={t('platform.badge')}
           title={t('platform.title')}
           description={t('platform.description')}
           animated

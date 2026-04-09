@@ -97,7 +97,6 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <SectionHeader
-          badge={t('howitworks.badge')}
           title={t('howitworks.title')}
           description={t('howitworks.description')}
           variant="dark"

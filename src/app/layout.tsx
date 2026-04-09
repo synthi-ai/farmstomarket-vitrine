@@ -14,36 +14,57 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://farmstomarket.com'),
-  title: 'Farms to Market - Direct Agricultural Trade Platform in Cameroon',
+  metadataBase: new URL('https://farmstomarket.io'),
+  title: {
+    default: 'Farms to Market - Direct Agricultural Trade Platform in Cameroon',
+    template: '%s | Farms to Market',
+  },
   description: 'Connect farmers, buyers, and transporters in one secure platform. Sell directly, get fair prices, and ensure transparent delivery with AI-powered pricing and escrow payments.',
-  keywords: 'agriculture, farming, direct trade, Cameroon, fair pricing, secure payments, transportation, agricultural products, farmers market, farm to table, agricultural marketplace',
-  authors: [{ name: 'Farms to Market Team' }],
+  keywords: [
+    'agriculture', 'farming', 'direct trade', 'Cameroon', 'fair pricing',
+    'secure payments', 'transportation', 'agricultural products', 'farmers market',
+    'farm to table', 'agricultural marketplace', 'agritech', 'Africa',
+    'escrow payments', 'mobile money', 'supply chain', 'food security',
+    'plateforme agricole', 'march\u00e9 agricole', 'Cameroun',
+  ],
+  authors: [{ name: 'Farms to Market Team', url: 'https://farmstomarket.io/about' }],
   creator: 'Farms to Market',
   publisher: 'Farms to Market',
-  robots: 'index, follow',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://farmstomarket.com',
+    alternateLocale: 'fr_CM',
+    url: 'https://farmstomarket.io',
     siteName: 'Farms to Market',
     title: 'Farms to Market - Direct Agricultural Trade Platform',
     description: 'Revolutionary platform connecting farmers directly with buyers. Fair pricing, secure payments, and transparent delivery for agricultural products in Cameroon.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/images/home2.png',
         width: 1200,
         height: 630,
-        alt: 'Farms to Market - Agricultural Trade Platform',
+        alt: 'Farms to Market - Agricultural Trade Platform connecting farmers, buyers, and transporters',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Farms to Market - Agricultural Revolution',
-    description: 'Direct trade platform for farmers. Fair prices, secure payments, transparent delivery.',
-    images: ['/twitter-image.jpg'],
+    title: 'Farms to Market - Direct Agricultural Trade Platform',
+    description: 'Connect farmers, buyers, and transporters. Fair prices, secure payments, transparent delivery in Cameroon.',
+    images: ['/images/home2.png'],
     creator: '@FarmsToMarketCM',
+    site: '@FarmsToMarketCM',
   },
   icons: {
     icon: [
@@ -53,26 +74,10 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
-    other: [
-      {
-        rel: 'mask-icon',
-        url: '/safari-pinned-tab.svg',
-        color: '#10b981',
-      },
-    ],
   },
   manifest: '/site.webmanifest',
-  verification: {
-    google: '<GOOGLE_SITE_VERIFICATION_CODE>',
-    yandex: '<YANDEX_VERIFICATION_CODE>',
-    yahoo: '<YAHOO_VERIFICATION_CODE>',
-  },
   alternates: {
-    canonical: 'https://farmstomarket.com',
-    languages: {
-      'en-US': 'https://farmstomarket.com/en',
-      'fr-CM': 'https://farmstomarket.com/fr',
-    },
+    canonical: 'https://farmstomarket.io',
   },
   category: 'agricultural marketplace',
 };
@@ -83,23 +88,42 @@ export const viewport: Viewport = {
   themeColor: '#10b981',
 };
 
-const jsonLd = {
+const jsonLdOrganization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Farms to Market",
+  "url": "https://farmstomarket.io",
+  "logo": "https://farmstomarket.io/logo/farms2market.png",
+  "description": "Direct agricultural trade platform connecting farmers, buyers, and transporters in Cameroon",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Douala",
+    "addressRegion": "Littoral",
+    "addressCountry": "CM"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+237-620-207-980",
+    "email": "contact@farmstomarket.io",
+    "contactType": "customer service",
+    "availableLanguage": ["English", "French"]
+  },
+  "sameAs": [
+    "https://facebook.com/farmstomarket",
+    "https://twitter.com/farmstomarketcm",
+    "https://instagram.com/farmstomarket",
+    "https://linkedin.com/company/farmstomarket"
+  ]
+};
+
+const jsonLdWebApp = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Farms to Market",
   "description": "Direct agricultural trade platform connecting farmers, buyers, and transporters",
-  "url": "https://farmstomarket.com",
-  "logo": "https://farmstomarket.com/logo.png",
+  "url": "https://farmstomarket.io",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "All",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "CM",
-    "addressLocality": ["Douala", "Yaound\u00e9", "Bamenda", "Garoua"],
-    "addressRegion": "Littoral"
-  },
-  "telephone": "+237-620-207-980",
-  "email": "hello@farmstomarket.com",
   "offers": {
     "@type": "Offer",
     "description": "Agricultural marketplace services",
@@ -119,13 +143,7 @@ const jsonLd = {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
     "reviewCount": "15000"
-  },
-  "sameAs": [
-    "https://facebook.com/farmstomarket",
-    "https://twitter.com/farmstomarketcm",
-    "https://instagram.com/farmstomarket",
-    "https://linkedin.com/company/farmstomarket"
-  ]
+  }
 };
 
 export default function RootLayout({
@@ -145,7 +163,11 @@ export default function RootLayout({
 
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebApp) }}
         />
       </head>
       <body

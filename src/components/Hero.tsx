@@ -205,12 +205,6 @@ export default function Hero() {
                 transition={{ duration: 0.6, ease: 'easeOut' }}
                 className="space-y-6"
               >
-                {/* Badge */}
-                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-700/50 bg-emerald-900/30 px-4 py-1.5 text-xs font-medium text-emerald-400 backdrop-blur-sm sm:text-sm">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                  {t('hero.badge')}
-                </span>
-
                 {/* Title */}
                 <h1 className="text-balance text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
                   {t(currentSlide.title)}{' '}

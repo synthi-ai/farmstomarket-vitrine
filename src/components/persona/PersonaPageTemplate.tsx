@@ -160,17 +160,6 @@ function VideoHero({ data }: { data: PersonaPageData }) {
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-4xl px-5 text-center">
-        {/* Badge */}
-        <motion.span
-          className="inline-flex items-center gap-2 rounded-full border border-emerald-700/50 bg-emerald-900/30 px-4 py-1.5 text-xs font-medium text-emerald-400 backdrop-blur-sm sm:text-sm mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1 }}
-        >
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-          {t(vh.badgeKey)}
-        </motion.span>
-
         {/* Title */}
         <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] mb-6"
