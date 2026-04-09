@@ -224,11 +224,11 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
   const { t } = useLanguage();
   const [activeFeature, setActiveFeature] = useState(0);
 
-  const heroAnim = useAnimateOnScroll(0.05);
-  const benefitsAnim = useAnimateOnScroll(0.08);
-  const featuresAnim = useAnimateOnScroll(0.08);
-  const testimonialAnim = useAnimateOnScroll(0.1);
-  const ctaAnim = useAnimateOnScroll(0.15);
+  const { ref: heroRef, isVisible: heroVisible } = useAnimateOnScroll(0.05);
+  const { ref: benefitsRef, isVisible: benefitsVisible } = useAnimateOnScroll(0.08);
+  const { ref: featuresRef, isVisible: featuresVisible } = useAnimateOnScroll(0.08);
+  const { ref: testimonialRef, isVisible: testimonialVisible } = useAnimateOnScroll(0.1);
+  const { ref: ctaRef, isVisible: ctaVisible } = useAnimateOnScroll(0.15);
 
   const goToFeature = (index: number) => {
     if (index < 0) setActiveFeature(data.features.length - 1);
@@ -259,13 +259,13 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       {/* ═══════════════════════════════════════════
           1. HERO
          ═══════════════════════════════════════════ */}
-      <section ref={heroAnim.ref} className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+      <section ref={heroRef} className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <div className="overflow-hidden mb-8">
             <motion.h1
               className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05]"
               initial={{ y: '100%', opacity: 0 }}
-              animate={heroAnim.isVisible ? { y: 0, opacity: 1 } : {}}
+              animate={heroVisible ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 1, ease: EASE }}
             >
               {t(data.hero.titleKey)}{' '}
@@ -276,7 +276,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
           <motion.p
             className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={heroAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={heroVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
           >
             {t(data.hero.descKey)}
@@ -287,11 +287,11 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       {/* ═══════════════════════════════════════════
           2. KEY BENEFITS — 3 glassmorphic cards
          ═══════════════════════════════════════════ */}
-      <section ref={benefitsAnim.ref} className="py-20 px-4 sm:px-6 lg:px-8">
+      <section ref={benefitsRef} className="py-20 px-4 sm:px-6 lg:px-8">
         <motion.div
           className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6"
           initial="hidden"
-          animate={benefitsAnim.isVisible ? 'visible' : 'hidden'}
+          animate={benefitsVisible ? 'visible' : 'hidden'}
           variants={staggerChildrenVariants}
         >
           {data.benefits.map((benefit, i) => (
@@ -371,7 +371,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
           4. FEATURES SHOWCASE — carousel
          ═══════════════════════════════════════════ */}
       <section
-        ref={featuresAnim.ref}
+        ref={featuresRef}
         id="features"
         className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800"
       >
@@ -379,7 +379,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
-            animate={featuresAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={featuresVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
             {t('persona.features')}
@@ -389,7 +389,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
           <motion.div
             className="mb-12"
             initial={{ opacity: 0 }}
-            animate={featuresAnim.isVisible ? { opacity: 1 } : {}}
+            animate={featuresVisible ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: EASE }}
           >
             <AnimatePresence mode="wait">
@@ -477,11 +477,11 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       {/* ═══════════════════════════════════════════
           5. TESTIMONIAL
          ═══════════════════════════════════════════ */}
-      <section ref={testimonialAnim.ref} className="py-24 md:py-32 px-4 sm:px-6 lg:px-8">
+      <section ref={testimonialRef} className="py-24 md:py-32 px-4 sm:px-6 lg:px-8">
         <motion.div
           className="max-w-3xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-10 text-center"
           initial={{ opacity: 0, y: 30 }}
-          animate={testimonialAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+          animate={testimonialVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: EASE }}
         >
           {/* Quote icon */}
@@ -514,11 +514,11 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       {/* ═══════════════════════════════════════════
           7. FINAL CTA
          ═══════════════════════════════════════════ */}
-      <section ref={ctaAnim.ref} className="py-20 px-4 sm:px-6 lg:px-8 pb-32">
+      <section ref={ctaRef} className="py-20 px-4 sm:px-6 lg:px-8 pb-32">
         <motion.div
           className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-12 text-center"
           initial={{ opacity: 0, y: 30 }}
-          animate={ctaAnim.isVisible ? { opacity: 1, y: 0 } : {}}
+          animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: EASE }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, Play, User, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 
@@ -69,7 +70,7 @@ export default function Hero() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
           {/* Logo */}
-          <a href="/" className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0">
             <Image
               src="/logo/logo.svg"
               alt="Farm's To Market"
@@ -78,7 +79,7 @@ export default function Hero() {
               className="h-9 w-auto lg:h-10"
               priority
             />
-          </a>
+          </Link>
 
           {/* Nav Desktop */}
           <nav className="hidden items-center gap-8 lg:flex">

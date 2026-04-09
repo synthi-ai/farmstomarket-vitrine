@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
 import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
@@ -61,7 +62,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           <motion.div className="lg:col-span-2 space-y-6" variants={fadeUpVariants}>
             <div>
-              <a href="/" className="inline-block mb-4">
+              <Link href="/" className="inline-block mb-4">
                 <Image
                   src="/logo/logo.svg"
                   alt="Farm's To Market"
@@ -69,7 +70,7 @@ export default function Footer() {
                   height={40}
                   className="h-9 w-auto"
                 />
-              </a>
+              </Link>
               <p className="text-gray-300 text-sm max-w-md leading-relaxed">
                 {t('footer.description')}
               </p>
