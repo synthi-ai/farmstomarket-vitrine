@@ -18,9 +18,6 @@ export default function Newsletter() {
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
-          <span className="inline-block px-4 py-2 bg-emerald-900/50 text-emerald-400 text-sm font-medium rounded-full mb-4 border border-emerald-700">
-            {t('newsletter.badge')}
-          </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             {t('newsletter.title')}
           </h2>

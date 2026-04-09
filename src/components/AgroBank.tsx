@@ -44,7 +44,6 @@ const AgroBank = () => {
     <section className="py-20 bg-gray-900" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          badge={t('agrobank.badge')}
           title={t('agrobank.title')}
           description={t('agrobank.description')}
           animated

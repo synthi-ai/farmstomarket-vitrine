@@ -66,7 +66,6 @@ const SupplyChainComponent = () => {
     <section className="py-20 bg-gray-950" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          badge={t('supplychain.badge')}
           title={t('supplychain.title')}
           description={t('supplychain.description')}
           animated

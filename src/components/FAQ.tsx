@@ -36,7 +36,6 @@ export default function FAQ() {
     <section className="py-20 bg-gray-900" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          badge={t('faq.badge')}
           title={t('faq.title')}
           description={t('faq.description')}
           animated
