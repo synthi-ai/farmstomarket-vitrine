@@ -12,7 +12,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '*.ndinga237.com',
+        hostname: '*.farmstomarket.io',
         pathname: '/**',
       },
       {
