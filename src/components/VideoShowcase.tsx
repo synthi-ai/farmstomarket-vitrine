@@ -149,7 +149,7 @@ export default function VideoShowcase() {
           {/* Three-panel block */}
           <div className="relative flex flex-col overflow-hidden border border-gray-800/60 bg-gray-900/30 lg:flex-row" style={{ minHeight: 620 }}>
 
-            {/* LEFT — vertical tab sidebar (desktop) */}
+            {/* LEFT  vertical tab sidebar (desktop) */}
             <div className="hidden shrink-0 border-r border-gray-800/60 lg:flex lg:w-[240px] lg:flex-col">
               {SOLUTIONS.map((s, i) => (
                 <button
@@ -176,7 +176,7 @@ export default function VideoShowcase() {
               ))}
             </div>
 
-            {/* CENTER + RIGHT — animated panel */}
+            {/* CENTER + RIGHT  animated panel */}
             <div className="relative flex-1 overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -187,54 +187,55 @@ export default function VideoShowcase() {
                   transition={{ duration: 0.35, ease: EASE }}
                   className="absolute inset-0 flex flex-col lg:flex-row"
                 >
-                  {/* CENTER — text content */}
-                  <div className="flex w-full shrink-0 flex-col justify-center bg-gray-950 px-6 py-10 sm:px-10 lg:w-[560px] lg:py-14 xl:w-[640px] xl:px-14">
+                  {/* CENTER  text content */}
+                  <div className="flex w-full shrink-0 flex-col overflow-y-auto bg-gray-950 px-6 py-10 sm:px-10 lg:w-[560px] lg:px-12 lg:py-12 xl:w-[640px] xl:px-14">
+                    <div className="my-auto max-w-[480px]">
+                      <span className="mb-5 block text-[11px] font-bold uppercase tracking-[3px] text-emerald-400">
+                        {sol.sub}
+                      </span>
 
-                    <span className="mb-5 text-[11px] font-bold uppercase tracking-[3px] text-emerald-400">
-                      {sol.sub}
-                    </span>
+                      <h3 className="font-heading mb-5 text-[26px] font-bold leading-[1.15] text-white sm:text-[30px] lg:text-[34px] xl:text-[38px]">
+                        {sol.headline}
+                      </h3>
 
-                    <h3 className="font-heading mb-5 text-[26px] font-bold leading-[1.15] text-white sm:text-[30px] lg:text-[34px] xl:text-[38px]">
-                      {sol.headline}
-                    </h3>
+                      <p className="mb-7 text-[15px] leading-[1.7] text-gray-400 lg:text-[16px]">
+                        {sol.description}
+                      </p>
 
-                    <p className="mb-7 text-[15px] leading-[1.7] text-gray-400 lg:text-[16px]">
-                      {sol.description}
-                    </p>
+                      <Link
+                        href={sol.ctaHref}
+                        className="group mb-10 inline-flex w-fit items-center gap-2 text-[14px] font-semibold text-emerald-400 transition-colors hover:text-emerald-300 lg:text-[15px]"
+                      >
+                        {sol.ctaLabel}
+                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                      </Link>
 
-                    <Link
-                      href={sol.ctaHref}
-                      className="group mb-10 inline-flex w-fit items-center gap-2 text-[14px] font-semibold text-emerald-400 transition-colors hover:text-emerald-300 lg:text-[15px]"
-                    >
-                      {sol.ctaLabel}
-                      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                    </Link>
+                      <div className="border-t border-gray-800/70 pt-7">
+                        <div className="mb-5">
+                          <span className="font-heading block text-[42px] font-bold leading-none text-gradient lg:text-[48px]">
+                            {sol.metric}
+                          </span>
+                          <span className="mt-1.5 block text-[13px] leading-snug text-gray-500">
+                            {sol.metricLabel}
+                          </span>
+                        </div>
 
-                    <div className="border-t border-gray-800/70 pt-8">
-                      <div className="mb-6">
-                        <span className="font-heading block text-[42px] font-bold leading-none text-gradient lg:text-[48px]">
-                          {sol.metric}
-                        </span>
-                        <span className="mt-1.5 block text-[13px] leading-snug text-gray-500">
-                          {sol.metricLabel}
-                        </span>
+                        <ul className="space-y-3">
+                          {sol.features.map((f) => (
+                            <li key={f.title} className="flex items-start gap-3">
+                              <span className="mt-[3px] h-[6px] w-[6px] shrink-0 rounded-full bg-emerald-500" />
+                              <span className="text-[13px] leading-snug">
+                                <span className="font-semibold text-white">{f.title}</span>
+                                <span className="text-gray-500">  {f.desc}</span>
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-
-                      <ul className="space-y-3">
-                        {sol.features.map((f) => (
-                          <li key={f.title} className="flex items-start gap-3">
-                            <span className="mt-[3px] h-[6px] w-[6px] shrink-0 rounded-full bg-emerald-500" />
-                            <span className="text-[13px] leading-snug">
-                              <span className="font-semibold text-white">{f.title}</span>
-                              <span className="text-gray-500"> — {f.desc}</span>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
 
-                  {/* RIGHT — farm image panel */}
+                  {/* RIGHT  farm image panel */}
                   <div className="relative h-64 w-full flex-1 sm:h-80 lg:h-auto">
                     <AnimatePresence mode="wait">
                       <motion.div

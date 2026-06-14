@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Menu, X, User, ChevronDown } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Menu, X, ChevronDown, Wheat, ShoppingBasket, Truck, Landmark, BarChart3, Layers, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,26 +10,27 @@ import LanguageToggle from './LanguageToggle';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-const NAV_LINKS = [
-  { key: 'nav.about', href: '/about' },
-  { key: 'nav.features', href: '/#features' },
-  { key: 'nav.marketplace', href: '/#marketplace' },
-  { key: 'nav.testimonials', href: '/#testimonials' },
+const SOLUTIONS = [
+  { key: 'nav.producer', descKey: 'nav.producer.desc', href: '/producer', Icon: Wheat },
+  { key: 'nav.customer', descKey: 'nav.customer.desc', href: '/customer', Icon: ShoppingBasket },
+  { key: 'nav.transporter', descKey: 'nav.transporter.desc', href: '/transporter', Icon: Truck },
+  { key: 'nav.agrobank', descKey: 'nav.agrobank.desc', href: '/agrobank', Icon: Landmark },
 ] as const;
 
-const SOLUTIONS = [
-  { key: 'nav.producer', href: '/producer' },
-  { key: 'nav.customer', href: '/customer' },
-  { key: 'nav.transporter', href: '/transporter' },
-  { key: 'nav.agrobank', href: '/agrobank' },
+const PLATFORM = [
+  { key: 'nav.features', href: '/#features', Icon: Layers },
+  { key: 'nav.howItWorks', href: '/#onboarding', Icon: HelpCircle },
+  { key: 'nav.analytics', href: '/#solutions', Icon: BarChart3 },
 ] as const;
 
 export default function Navbar() {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<'solutions' | 'platform' | null>(null);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const [mobilePlatformOpen, setMobilePlatformOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -42,76 +43,80 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
+  const openWith = (menu: 'solutions' | 'platform') => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenMenu(menu);
+  };
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
+  };
+
   return (
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-gray-950/90 shadow-lg shadow-black/10 backdrop-blur-xl border-b border-gray-800/40'
+            ? 'bg-gray-950/92 shadow-lg shadow-black/10 backdrop-blur-xl border-b border-gray-800/40'
             : 'bg-transparent'
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/logo/logo.svg"
-              alt="Farms to Market"
-              width={160}
-              height={40}
-              className="h-9 w-auto lg:h-10"
-              priority
-            />
-          </Link>
+        <div className="mx-auto flex max-w-7xl items-center px-5 py-3.5 lg:px-8">
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            {NAV_LINKS.slice(0, 2).map((item) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
-              >
-                {t(item.key)}
-              </Link>
-            ))}
+          {/* Logo left */}
+          <div className="flex flex-1 items-center">
+            <Link href="/" className="flex-shrink-0">
+              <Image
+                src="/logo/logo.svg"
+                alt="Farms to Market"
+                width={160}
+                height={40}
+                className="h-8 w-auto lg:h-9"
+                priority
+              />
+            </Link>
+          </div>
 
-            {/* Solutions dropdown */}
+          {/* Desktop nav centered */}
+          <nav className="hidden items-center gap-1 lg:flex">
+
+            {/* Platform dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setSolutionsOpen(true)}
-              onMouseLeave={() => setSolutionsOpen(false)}
+              onMouseEnter={() => openWith('platform')}
+              onMouseLeave={scheduleClose}
             >
               <button
-                className="flex items-center gap-1 text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
-                onClick={() => setSolutionsOpen((o) => !o)}
-                aria-expanded={solutionsOpen}
-                aria-haspopup="true"
+                className={`flex items-center gap-1 rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                  openMenu === 'platform' ? 'text-white' : 'text-gray-400 hover:text-white'
+                }`}
+                onClick={() => setOpenMenu(openMenu === 'platform' ? null : 'platform')}
               >
-                {t('nav.solutions')}
-                <ChevronDown
-                  className={`h-3.5 w-3.5 transition-transform duration-300 ${solutionsOpen ? 'rotate-180' : ''}`}
-                />
+                {t('nav.platform')}
+                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${openMenu === 'platform' ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
-                {solutionsOpen && (
+                {openMenu === 'platform' && (
                   <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                    transition={{ duration: 0.2, ease: EASE }}
-                    className="absolute left-1/2 top-full mt-3 -translate-x-1/2 min-w-[220px] rounded-2xl border border-gray-800/60 bg-gray-950/95 py-2 shadow-2xl shadow-black/20 backdrop-blur-xl"
-                    role="menu"
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: EASE }}
+                    onMouseEnter={() => openWith('platform')}
+                    onMouseLeave={scheduleClose}
+                    className="absolute left-1/2 top-full mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-gray-800/60 bg-gray-950/98 py-2 shadow-2xl shadow-black/30 backdrop-blur-xl"
                   >
-                    {SOLUTIONS.map((link) => (
+                    {PLATFORM.map(({ key, href, Icon }) => (
                       <Link
-                        key={link.key}
-                        href={link.href}
-                        role="menuitem"
-                        className="block px-5 py-3 text-sm text-gray-300 transition-all hover:bg-emerald-500/10 hover:pl-6 hover:text-emerald-400"
+                        key={key}
+                        href={href}
+                        className="flex items-center gap-3 px-4 py-2.5 text-[13px] text-gray-400 transition-all hover:bg-white/[0.04] hover:text-white"
+                        onClick={() => setOpenMenu(null)}
                       >
-                        {t(link.key)}
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
+                          <Icon className="h-3.5 w-3.5 text-emerald-400" />
+                        </span>
+                        {t(key)}
                       </Link>
                     ))}
                   </motion.div>
@@ -119,149 +124,222 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {NAV_LINKS.slice(2).map((item) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
+            {/* Solutions mega-dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => openWith('solutions')}
+              onMouseLeave={scheduleClose}
+            >
+              <button
+                className={`flex items-center gap-1 rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                  openMenu === 'solutions' ? 'text-white' : 'text-gray-400 hover:text-white'
+                }`}
+                onClick={() => setOpenMenu(openMenu === 'solutions' ? null : 'solutions')}
               >
-                {t(item.key)}
-              </Link>
-            ))}
+                {t('nav.solutions')}
+                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${openMenu === 'solutions' ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {openMenu === 'solutions' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: EASE }}
+                    onMouseEnter={() => openWith('solutions')}
+                    onMouseLeave={scheduleClose}
+                    className="absolute left-1/2 top-full mt-2 w-[420px] -translate-x-1/2 rounded-2xl border border-gray-800/60 bg-gray-950/98 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl"
+                  >
+                    <div className="mb-2 px-2 pt-1 text-[10px] font-semibold uppercase tracking-[2px] text-gray-600">
+                      Who is it for
+                    </div>
+                    <div className="grid grid-cols-2 gap-1">
+                      {SOLUTIONS.map(({ key, descKey, href, Icon }) => (
+                        <Link
+                          key={key}
+                          href={href}
+                          className="group flex items-start gap-3 rounded-xl p-3 transition-all hover:bg-white/[0.04]"
+                          onClick={() => setOpenMenu(null)}
+                        >
+                          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 transition-colors group-hover:bg-emerald-500/20">
+                            <Icon className="h-4 w-4 text-emerald-400" />
+                          </span>
+                          <span>
+                            <span className="block text-[13px] font-semibold text-white">{t(key)}</span>
+                            <span className="mt-0.5 block text-[11px] leading-snug text-gray-500">{t(descKey)}</span>
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="mt-2 border-t border-gray-800/60 pt-2">
+                      <Link
+                        href="/#solutions"
+                        className="flex items-center justify-between rounded-xl px-3 py-2 text-[12px] font-medium text-emerald-400 transition-all hover:bg-emerald-500/5"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        See all solutions
+                        <ChevronDown className="-rotate-90 h-3 w-3" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Link href="/#marketplace" className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+              {t('nav.marketplace')}
+            </Link>
+
+            <Link href="/#testimonials" className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+              {t('nav.testimonials')}
+            </Link>
+
+            <Link href="/about" className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+              {t('nav.about')}
+            </Link>
           </nav>
 
-          {/* Desktop actions */}
-          <div className="hidden items-center gap-4 lg:flex">
+          {/* Actions right */}
+          <div className="hidden flex-1 items-center justify-end gap-3 lg:flex">
             <LanguageToggle variant="dark" />
-            <a
+            <Link
               href="#login"
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
+              className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white"
             >
-              <User className="h-4 w-4" />
               {t('nav.login')}
-            </a>
-            <a
+            </Link>
+            <Link
               href="#signup"
-              className="font-cta rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-bold text-black tracking-[1.5px] uppercase transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+              className="font-cta rounded-full bg-emerald-500 px-5 py-2 text-[13px] font-bold text-black tracking-[1.5px] uppercase transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20"
             >
               {t('nav.signup')}
-            </a>
+            </Link>
           </div>
 
           {/* Hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2"
+            className="ml-auto lg:hidden p-2"
             aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileOpen ? (
-              <X className="h-6 w-6 text-white" />
-            ) : (
-              <Menu className="h-6 w-6 text-white" />
-            )}
+            {mobileOpen ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
           </button>
         </div>
       </header>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            id="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-gray-950 lg:hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.3, ease: EASE }}
+            className="fixed inset-0 z-50 bg-gray-950 lg:hidden overflow-y-auto"
           >
-            <div className="flex h-full flex-col px-6 pb-8 pt-20">
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="absolute right-5 top-5 p-2"
-                aria-label="Close menu"
-              >
-                <X className="h-6 w-6 text-white" />
+            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800/50">
+              <Link href="/" onClick={() => setMobileOpen(false)}>
+                <Image src="/logo/logo.svg" alt="Farms to Market" width={140} height={36} className="h-8 w-auto" />
+              </Link>
+              <button onClick={() => setMobileOpen(false)} aria-label="Close menu">
+                <X className="h-5 w-5 text-white" />
               </button>
+            </div>
 
-              <nav className="flex flex-col gap-6">
-                {NAV_LINKS.slice(0, 2).map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
-                  >
-                    {t(item.key)}
-                  </Link>
-                ))}
+            <div className="flex flex-col px-5 pb-8 pt-4">
+              <nav className="flex flex-col gap-1">
 
-                <div>
-                  <button
-                    onClick={() => setMobileSolutionsOpen((o) => !o)}
-                    className="flex w-full items-center justify-between text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
-                  >
-                    {t('nav.solutions')}
-                    <ChevronDown
-                      className={`h-4 w-4 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {mobileSolutionsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mt-3 flex flex-col gap-3 border-l border-emerald-800/50 pl-4">
-                          {SOLUTIONS.map((link) => (
-                            <Link
-                              key={link.key}
-                              href={link.href}
-                              onClick={() => setMobileOpen(false)}
-                              className="text-base text-gray-400 transition-colors hover:text-emerald-400"
-                            >
-                              {t(link.key)}
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                {/* Platform accordion */}
+                <button
+                  onClick={() => setMobilePlatformOpen((o) => !o)}
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04]"
+                >
+                  {t('nav.platform')}
+                  <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${mobilePlatformOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {mobilePlatformOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="ml-4 flex flex-col gap-1 border-l border-gray-800 pl-4 pb-2">
+                        {PLATFORM.map(({ key, href, Icon }) => (
+                          <Link key={key} href={href} onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-2.5 rounded-lg px-2 py-2.5 text-[14px] text-gray-400 hover:text-white">
+                            <Icon className="h-4 w-4 text-emerald-400" />
+                            {t(key)}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                {NAV_LINKS.slice(2).map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
-                  >
-                    {t(item.key)}
+                {/* Solutions accordion */}
+                <button
+                  onClick={() => setMobileSolutionsOpen((o) => !o)}
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04]"
+                >
+                  {t('nav.solutions')}
+                  <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {mobileSolutionsOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="ml-4 flex flex-col gap-1 border-l border-gray-800 pl-4 pb-2">
+                        {SOLUTIONS.map(({ key, descKey, href, Icon }) => (
+                          <Link key={key} href={href} onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-2.5 rounded-lg px-2 py-2.5 hover:bg-white/[0.04]">
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
+                              <Icon className="h-3.5 w-3.5 text-emerald-400" />
+                            </span>
+                            <span>
+                              <span className="block text-[14px] font-semibold text-white">{t(key)}</span>
+                              <span className="block text-[11px] text-gray-500">{t(descKey)}</span>
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {[
+                  { key: 'nav.marketplace', href: '/#marketplace' },
+                  { key: 'nav.testimonials', href: '/#testimonials' },
+                  { key: 'nav.about', href: '/about' },
+                ].map(({ key, href }) => (
+                  <Link key={key} href={href} onClick={() => setMobileOpen(false)}
+                    className="rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04] hover:text-white">
+                    {t(key)}
                   </Link>
                 ))}
               </nav>
 
-              <div className="mt-auto space-y-3">
-                <LanguageToggle variant="dark" />
-                <a
-                  href="#signup"
-                  className="font-cta block w-full rounded-full bg-emerald-500 py-3.5 text-center text-sm font-bold text-black tracking-[1.5px] uppercase transition-colors hover:bg-emerald-400"
-                >
+              <div className="mt-8 space-y-2">
+                <Link href="#signup" onClick={() => setMobileOpen(false)}
+                  className="font-cta block w-full rounded-full bg-emerald-500 py-3.5 text-center text-[13px] font-bold text-black tracking-[1.5px] uppercase hover:bg-emerald-400">
                   {t('nav.signup')}
-                </a>
-                <a
-                  href="#login"
-                  className="block w-full rounded-full border border-gray-700 py-3.5 text-center text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800"
-                >
+                </Link>
+                <Link href="#login" onClick={() => setMobileOpen(false)}
+                  className="block w-full rounded-full border border-gray-700 py-3.5 text-center text-[13px] font-medium text-gray-300 hover:bg-gray-800/50">
                   {t('nav.login')}
-                </a>
+                </Link>
+                <div className="flex justify-center pt-2">
+                  <LanguageToggle variant="dark" />
+                </div>
               </div>
             </div>
           </motion.div>
