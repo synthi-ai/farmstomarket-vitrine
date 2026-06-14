@@ -132,7 +132,7 @@ export default function AboutPage() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          1. HERO — giant headline + CTA button
+          1. HERO giant headline + CTA button
          ═══════════════════════════════════════════ */}
       <section ref={heroRef} className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
@@ -192,7 +192,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          3. WHY US — bold statement + 3 numbered principles
+          3. WHY US bold statement + 3 numbered principles
          ═══════════════════════════════════════════ */}
       <section ref={statementRef} className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
         <div className="max-w-5xl mx-auto">
@@ -228,7 +228,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          4. LEADERSHIP — carousel/tabs (photo left, bio right)
+          4. LEADERSHIP carousel/tabs (photo left, bio right)
          ═══════════════════════════════════════════ */}
       <section
         ref={leadershipRef}
@@ -338,7 +338,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          5. MISSION — prose, narrow column
+          5. MISSION prose, narrow column
          ═══════════════════════════════════════════ */}
       <Section id="mission">
         <div className="mx-auto max-w-3xl px-6">
@@ -357,7 +357,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════
-          6. AI MODULES — carousel (image left, text right)
+          6. AI MODULES carousel (image left, text right)
          ═══════════════════════════════════════════ */}
       <section
         ref={aiModulesRef}
@@ -472,7 +472,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          7. KEY NUMBERS — clean stat row
+          7. KEY NUMBERS clean stat row
          ═══════════════════════════════════════════ */}
       <Section>
         <div className="mx-auto max-w-5xl px-6">
@@ -502,7 +502,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════
-          8. VALUES — clean 2×2 text grid
+          8. VALUES clean 2×2 text grid
          ═══════════════════════════════════════════ */}
       <Section id="values">
         <div className="mx-auto max-w-5xl px-6">
@@ -528,7 +528,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════
-          9. TIMELINE — minimal left-aligned
+          9. TIMELINE minimal left-aligned
          ═══════════════════════════════════════════ */}
       <Section id="timeline">
         <div className="mx-auto max-w-3xl px-6">
@@ -603,7 +603,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          11. CTA — Join us
+          11. CTA Join us
          ═══════════════════════════════════════════ */}
       <Section>
         <div className="mx-auto max-w-3xl px-6 text-center">

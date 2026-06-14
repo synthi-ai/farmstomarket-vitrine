@@ -117,7 +117,7 @@ export default function FinalCTA() {
                 href="#signup"
                 className="font-cta rounded-full bg-emerald-500 px-8 py-3.5 text-sm font-bold text-black tracking-[2px] uppercase shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98]"
               >
-                {t('hero.startFree')} — it&apos;s free
+                {t('hero.startFree')} it&apos;s free
               </a>
               <p className="text-xs text-gray-600">
                 {t('hero.trustLine')}

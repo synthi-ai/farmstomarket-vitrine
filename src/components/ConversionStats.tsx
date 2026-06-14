@@ -29,7 +29,7 @@ export default function ConversionStats() {
               {t('features.cta.title')}
             </h2>
 
-            {/* Big stats — Shopify checkout stats style */}
+            {/* Big stats Shopify checkout stats style */}
             <div className="grid grid-cols-2 gap-8 mb-10">
               <div>
                 <div className="font-heading text-4xl md:text-5xl font-bold text-gradient tracking-tight">50K+</div>

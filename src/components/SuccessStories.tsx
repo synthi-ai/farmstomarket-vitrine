@@ -59,7 +59,7 @@ export default function SuccessStories() {
           </p>
         </motion.div>
 
-        {/* 3-column success stories — Shopify tier style */}
+        {/* 3-column success stories Shopify tier style */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stories.map((story, i) => (
             <motion.div

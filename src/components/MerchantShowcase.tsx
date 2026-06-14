@@ -65,7 +65,7 @@ export default function MerchantShowcase() {
           </p>
         </motion.div>
 
-        {/* App screens carousel — top feature */}
+        {/* App screens carousel top feature */}
         <motion.div
           className="mb-20"
           initial={{ y: 40, opacity: 0 }}

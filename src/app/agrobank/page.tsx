@@ -5,7 +5,7 @@ import { agrobankData } from '@/data/agrobankData';
 export const metadata: Metadata = {
   title: 'AgroBank - Banking Built for African Agriculture',
   description:
-    'Digital wallets, instant payments, commodity trading and micro-loans — financial services designed for farmers, buyers and transporters.',
+    'Digital wallets, instant payments, commodity trading and micro-loans financial services designed for farmers, buyers and transporters.',
   alternates: {
     canonical: 'https://farmstomarket.io/agrobank',
   },

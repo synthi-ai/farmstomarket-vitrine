@@ -58,7 +58,7 @@ export default function CapabilitiesGrid() {
           </p>
         </motion.div>
 
-        {/* 4-column grid — Shopify capabilities style */}
+        {/* 4-column grid Shopify capabilities style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {capabilities.map((cap, i) => (
             <motion.div

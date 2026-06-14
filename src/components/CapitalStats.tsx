@@ -38,7 +38,7 @@ export default function CapitalStats() {
           </p>
         </motion.div>
 
-        {/* Big bold stats — Shopify capital section style */}
+        {/* Big bold stats Shopify capital section style */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {stats.map((stat, i) => (
             <motion.div
@@ -58,7 +58,7 @@ export default function CapitalStats() {
           ))}
         </div>
 
-        {/* Feature cards — 4 AgroBank features */}
+        {/* Feature cards 4 AgroBank features */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { titleKey: 'agrobank.features.secure.title', descKey: 'agrobank.features.secure.description', icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },

@@ -126,7 +126,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
               className="flex flex-col gap-4 sm:flex-row"
             >
-              {/* Primary CTA — Figma: bg #00E834, text black, tracking 2px, rounded-full */}
+              {/* Primary CTA Figma: bg #00E834, text black, tracking 2px, rounded-full */}
               <a
                 href="#signup"
                 className="font-cta inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-[34px] py-[14px] text-base font-bold text-black tracking-[2px] uppercase shadow-xl shadow-emerald-500/20 transition-all hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
@@ -134,7 +134,7 @@ export default function Hero() {
                 {t('hero.startFree')}
                 <ArrowRight className="h-4 w-4" />
               </a>
-              {/* Watch Demo — outlined */}
+              {/* Watch Demo outlined */}
               <a
                 href="#demo"
                 className="font-heading inline-flex items-center justify-center gap-2.5 rounded-full border border-white/30 bg-white/5 px-8 py-[14px] text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50"
@@ -247,7 +247,7 @@ export default function Hero() {
               </motion.div>
             </div>
 
-            {/* Dot indicators — active: #00E834 (emerald-500), inactive: white/30 */}
+            {/* Dot indicators active: #00E834 (emerald-500), inactive: white/30 */}
             <div className="absolute bottom-0 flex gap-2">
               {MOCKUP_SLIDES.map((_, i) => (
                 <button

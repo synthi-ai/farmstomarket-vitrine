@@ -4,18 +4,18 @@ GOOGLE PLAY CONSOLE - APP DESCRIPTIONS
 
 SHORT DESCRIPTION (80 characters max):
 --------------------------------------
-Connect farmers to markets — manage orders, producers & deliveries in one app.
+Connect farmers to markets manage orders, producers & deliveries in one app.
 
 
 FULL DESCRIPTION (4000 characters max):
 ---------------------------------------
 Farm'sToMarket Pro is the all-in-one platform that bridges the gap between agricultural producers and the marketplace.
 
-Whether you're a farmer, distributor, transporter, or retailer, Farm'sToMarket Pro gives you the tools to manage your entire supply chain — from the field to the final buyer.
+Whether you're a farmer, distributor, transporter, or retailer, Farm'sToMarket Pro gives you the tools to manage your entire supply chain from the field to the final buyer.
 
 WHY FARM'STOMARKET PRO?
 
-Running an agricultural business means juggling producers, orders, deliveries, and finances — often with scattered tools or pen and paper. Farm'sToMarket Pro brings everything together in one simple, powerful app.
+Running an agricultural business means juggling producers, orders, deliveries, and finances often with scattered tools or pen and paper. Farm'sToMarket Pro brings everything together in one simple, powerful app.
 
 KEY BENEFITS:
 
@@ -28,7 +28,7 @@ rs and breeders. See who's active, monitor their crops and livestock, and stay o
 View, verify, and follow every order in real time. Never lose sight of a delivery again.
 
 - Monitor your revenue and performance
-Access clear dashboards and reports that show how your business is performing — revenue, activity, and growth at a glance.
+Access clear dashboards and reports that show how your business is performing revenue, activity, and growth at a glance.
 
 - Stay connected with your network
 Synchronize data with producers, request permissions, and collaborate seamlessly across your supply chain.
