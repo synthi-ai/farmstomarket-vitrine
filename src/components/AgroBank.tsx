@@ -41,7 +41,7 @@ const AgroBank = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-gray-900 bg-topo-subtle" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-900 bg-geo-subtle" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('agrobank.title')}
@@ -96,7 +96,7 @@ const AgroBank = () => {
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
             {t('agrobank.advanced.title')}
           </h3>
           <p className="text-gray-400 max-w-3xl mx-auto">
@@ -153,7 +153,7 @@ const AgroBank = () => {
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
             {t('agrobank.cta.title')}
           </h3>
           <p className="text-emerald-100 mb-8 max-w-3xl mx-auto">

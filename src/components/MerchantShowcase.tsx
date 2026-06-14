@@ -46,7 +46,7 @@ export default function MerchantShowcase() {
   const [activeScreen, setActiveScreen] = useState(0);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-gray-950 bg-topo-subtle py-28 md:py-36">
+    <section ref={ref} className="relative overflow-hidden bg-gray-950 bg-geo-subtle py-28 md:py-36">
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
         {/* Heading */}
@@ -56,7 +56,7 @@ export default function MerchantShowcase() {
           animate={isVisible ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h2 className="mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          <h2 className="font-heading mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
             {t('showcase.title')}{' '}
             <span className="text-gradient">{t('showcase.highlight')}</span>
           </h2>

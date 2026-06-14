@@ -41,7 +41,7 @@ export default function CapabilitiesGrid() {
   ];
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 bg-gray-950 bg-topo-subtle overflow-hidden">
+    <section ref={ref} className="relative py-28 md:py-36 bg-gray-950 bg-geo-subtle overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -50,7 +50,7 @@ export default function CapabilitiesGrid() {
           animate={isVisible ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             {t('platform.title')}
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -76,7 +76,7 @@ export default function CapabilitiesGrid() {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-white mb-3">
+              <h3 className="font-heading text-xl font-bold text-white mb-3">
                 {t(cap.titleKey)}
               </h3>
 

@@ -12,7 +12,7 @@ export default function FeatureHighlight() {
   const { ref, isVisible } = useAnimateOnScroll(0.1);
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 bg-gray-900 bg-topo-subtle overflow-hidden">
+    <section ref={ref} className="relative py-28 md:py-36 bg-gray-900 bg-geo-subtle overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left: Text */}
@@ -24,7 +24,7 @@ export default function FeatureHighlight() {
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-6">
               {t('features.badge')}
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-6">
               {t('features.ai.title')}
             </h2>
             <p className="text-lg text-gray-400 leading-relaxed mb-8 max-w-lg">
@@ -51,7 +51,7 @@ export default function FeatureHighlight() {
 
             <a
               href="#signup"
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
+              className="font-cta inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold tracking-[2px] uppercase px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
             >
               {t('features.cta.button')}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +86,7 @@ export default function FeatureHighlight() {
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
               >
-                <div className="text-2xl font-bold text-gradient">+45%</div>
+                <div className="font-heading text-2xl font-bold text-gradient">+45%</div>
                 <div className="text-xs text-gray-400 mt-1">{t('showcase.stat.users')}</div>
               </motion.div>
               {/* Floating stat card 2 */}
@@ -96,7 +96,7 @@ export default function FeatureHighlight() {
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1, ease: EASE }}
               >
-                <div className="text-2xl font-bold text-gradient">99.8%</div>
+                <div className="font-heading text-2xl font-bold text-gradient">99.8%</div>
                 <div className="text-xs text-gray-400 mt-1">{t('credibility.uptime.label')}</div>
               </motion.div>
             </div>

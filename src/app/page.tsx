@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero';
 import Partners from '@/components/Partners';
+import VideoShowcase from '@/components/VideoShowcase';
 import MerchantShowcase from '@/components/MerchantShowcase';
 import FeatureHighlight from '@/components/FeatureHighlight';
 import CapabilitiesGrid from '@/components/CapabilitiesGrid';
@@ -19,6 +20,8 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Hero />
       <Partners />
+      <VideoShowcase />
+      <SectionDivider />
       <div id="marketplace">
         <MerchantShowcase />
       </div>

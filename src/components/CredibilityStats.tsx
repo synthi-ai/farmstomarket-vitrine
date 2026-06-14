@@ -52,7 +52,7 @@ function StatCard({ targetValue, suffix, label, isVisible, index }: {
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay: index * 0.2, ease: 'easeOut' }}
     >
-      <span className="text-4xl md:text-5xl font-bold text-emerald-400">
+      <span className="font-heading text-4xl md:text-5xl font-bold text-emerald-400">
         {count}{suffix}
       </span>
       <span className="mt-3 text-gray-400 text-sm md:text-base uppercase tracking-wider">
@@ -73,7 +73,7 @@ export default function CredibilityStats() {
   ];
 
   return (
-    <section ref={ref} className="bg-gray-900 py-20 md:py-28 bg-topo-subtle">
+    <section ref={ref} className="bg-gray-900 py-20 md:py-28 bg-geo-subtle">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4"

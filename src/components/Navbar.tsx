@@ -142,7 +142,7 @@ export default function Navbar() {
             </a>
             <a
               href="#signup"
-              className="rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+              className="font-cta rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-bold text-black tracking-[1.5px] uppercase transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
             >
               {t('nav.signup')}
             </a>
@@ -252,7 +252,7 @@ export default function Navbar() {
                 <LanguageToggle variant="dark" />
                 <a
                   href="#signup"
-                  className="block w-full rounded-full bg-emerald-600 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-emerald-500"
+                  className="font-cta block w-full rounded-full bg-emerald-500 py-3.5 text-center text-sm font-bold text-black tracking-[1.5px] uppercase transition-colors hover:bg-emerald-400"
                 >
                   {t('nav.signup')}
                 </a>

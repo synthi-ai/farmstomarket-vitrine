@@ -82,7 +82,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-gray-950 bg-topo-subtle" ref={ref} id="testimonials">
+    <section className="py-24 md:py-32 bg-gray-950 bg-geo-subtle" ref={ref} id="testimonials">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('testimonials.title')}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
@@ -46,21 +46,24 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-dvh items-center overflow-hidden pt-20">
-      {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
-        poster="/images/home2.png"
-      >
-        <source src="/videos/hero-farm.mp4" type="video/mp4" />
-      </video>
+      {/* ── Background: Hero.png ── */}
+      <div className="absolute inset-0">
+        <Image
+          src="/bg/Hero.png"
+          alt="Farmer in the field"
+          fill
+          className="object-cover object-center"
+          priority
+          quality={90}
+          sizes="100vw"
+        />
+      </div>
 
-      {/* Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-950/95 via-gray-950/75 to-gray-950/40" />
-      <div className="absolute inset-0 bg-topo opacity-[0.02]" />
+      {/* ── Geo pattern overlay (calque Figma) ── */}
+      <div className="absolute inset-0 bg-geo opacity-[0.06] mix-blend-overlay" />
+
+      {/* ── Dark overlay: rgba(0,0,0,0.48) from Figma ── */}
+      <div className="absolute inset-0 bg-black/[0.48]" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -87,7 +90,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.2, ease: EASE }}
               className="mb-8"
             >
-              <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+              <h1 className="font-heading text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[74px] xl:tracking-[-2px]">
                 {t('hero.headline')}{' '}
                 <span className="relative inline-block overflow-hidden h-[1.15em] align-bottom min-w-[180px] sm:min-w-[240px] lg:min-w-[280px]">
                   <AnimatePresence mode="wait">
@@ -111,7 +114,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-              className="mb-10 max-w-xl text-lg leading-relaxed text-gray-300/90 sm:text-xl"
+              className="font-heading mb-10 max-w-xl text-lg font-semibold leading-relaxed text-white/80 sm:text-xl"
             >
               {t('hero.subheadline')}
             </motion.p>
@@ -123,17 +126,20 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
               className="flex flex-col gap-4 sm:flex-row"
             >
+              {/* Primary CTA — Figma: bg #00E834, text black, tracking 2px, rounded-full */}
               <a
                 href="#signup"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02] hover:shadow-emerald-500/30 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+                className="font-cta inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-[34px] py-[14px] text-base font-bold text-black tracking-[2px] uppercase shadow-xl shadow-emerald-500/20 transition-all hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
               >
                 {t('hero.startFree')}
                 <ArrowRight className="h-4 w-4" />
               </a>
+              {/* Watch Demo — outlined */}
               <a
                 href="#demo"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-500/40 bg-white/5 px-8 py-4 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-gray-400/50"
+                className="font-heading inline-flex items-center justify-center gap-2.5 rounded-full border border-white/30 bg-white/5 px-8 py-[14px] text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50"
               >
+                <Play className="h-4 w-4 fill-white" />
                 {t('hero.watchDemo')}
               </a>
             </motion.div>
@@ -143,7 +149,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1, ease: EASE }}
-              className="mt-8 text-sm text-gray-500"
+              className="mt-8 text-sm text-white/50"
             >
               {t('hero.trustLine')}
             </motion.p>
@@ -164,7 +170,7 @@ export default function Hero() {
                 <a
                   key={href}
                   href={href}
-                  className="rounded-full border border-gray-700/60 bg-gray-900/50 px-4 py-1.5 text-xs font-medium text-gray-400 backdrop-blur-sm transition-colors hover:border-emerald-600/50 hover:text-emerald-400"
+                  className="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/60 backdrop-blur-sm transition-colors hover:border-emerald-500/50 hover:text-emerald-400"
                 >
                   {label} →
                 </a>
@@ -197,10 +203,10 @@ export default function Hero() {
                   <Image
                     src={MOCKUP_SLIDES[activeMockup]}
                     alt="FarmsToMarket App"
-                    width={320}
-                    height={640}
+                    width={420}
+                    height={840}
                     className="object-contain drop-shadow-2xl"
-                    sizes="320px"
+                    sizes="420px"
                     priority
                   />
                 </motion.div>
@@ -213,7 +219,7 @@ export default function Hero() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 1.2, ease: EASE }}
               >
-                <div className="text-2xl font-bold text-gradient">50K+</div>
+                <div className="font-heading text-2xl font-bold text-gradient">50K+</div>
                 <div className="mt-0.5 text-xs text-gray-400">Active farmers</div>
               </motion.div>
 
@@ -223,7 +229,7 @@ export default function Hero() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 1.4, ease: EASE }}
               >
-                <div className="text-2xl font-bold text-gradient">99.8%</div>
+                <div className="font-heading text-2xl font-bold text-gradient">99.8%</div>
                 <div className="mt-0.5 text-xs text-gray-400">Uptime</div>
               </motion.div>
 
@@ -237,18 +243,20 @@ export default function Hero() {
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
                   <div className="text-xs text-gray-300">Payment confirmed</div>
                 </div>
-                <div className="mt-1 text-sm font-bold text-white">+XAF 45,000</div>
+                <div className="mt-1 font-heading text-sm font-bold text-white">+XAF 45,000</div>
               </motion.div>
             </div>
 
-            {/* Dot indicators */}
+            {/* Dot indicators — active: #00E834 (emerald-500), inactive: white/30 */}
             <div className="absolute bottom-0 flex gap-2">
               {MOCKUP_SLIDES.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveMockup(i)}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    i === activeMockup ? 'w-6 bg-emerald-500' : 'w-1.5 bg-gray-700'
+                  className={`h-2 rounded-full transition-all duration-500 ${
+                    i === activeMockup
+                      ? 'w-6 bg-emerald-500'
+                      : 'w-2 bg-white/30 hover:bg-white/50'
                   }`}
                   aria-label={`Mockup ${i + 1}`}
                 />

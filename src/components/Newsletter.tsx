@@ -11,7 +11,7 @@ export default function Newsletter() {
   const { ref, isVisible } = useAnimateOnScroll(0.15);
 
   return (
-    <section className="py-24 md:py-32 bg-gray-950 bg-topo-subtle" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-950 bg-geo-subtle" ref={ref}>
       <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
         <motion.div
           className="text-center"
@@ -20,7 +20,7 @@ export default function Newsletter() {
           transition={{ duration: 0.9, ease: EASE }}
         >
           {/* Shopify-style: Very large centered heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
             {t('newsletter.title')}
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">

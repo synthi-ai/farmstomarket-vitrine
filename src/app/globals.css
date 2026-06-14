@@ -1,6 +1,30 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* ─── Figma brand color: override emerald palette with #00E834 ─── */
+@theme {
+  --color-emerald-50:  #e6fde8;
+  --color-emerald-100: #ccfbd1;
+  --color-emerald-200: #99f7a3;
+  --color-emerald-300: #66f275;
+  --color-emerald-400: #33ed47;
+  --color-emerald-500: #00e834;
+  --color-emerald-600: #00ba29;
+  --color-emerald-700: #008b1f;
+  --color-emerald-800: #005d15;
+  --color-emerald-900: #003a0d;
+  --color-emerald-950: #001d07;
+}
+
+/* ─── Font family utilities (next/font variables injected at runtime) ─── */
+@utility font-heading {
+  font-family: var(--font-urbanist), 'Urbanist', sans-serif;
+}
+
+@utility font-cta {
+  font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif;
+}
+
 /* ─── Topo background pattern ─── */
 .bg-topo {
   background-image: url('/bg/bg_topo.png');
@@ -20,6 +44,29 @@
   background-repeat: repeat;
   background-size: 600px auto;
   opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Geo geometric pattern (Figma calque) ─── */
+.bg-geo {
+  background-image: url('/bg/geo.png');
+  background-repeat: repeat;
+  background-size: 400px auto;
+}
+
+.bg-geo-subtle {
+  position: relative;
+}
+
+.bg-geo-subtle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/bg/geo.png');
+  background-repeat: repeat;
+  background-size: 400px auto;
+  opacity: 0.04;
   pointer-events: none;
   z-index: 0;
 }
@@ -81,11 +128,11 @@
 .anim-hero-gradient {
   background: linear-gradient(
     135deg,
-    #064e3b,
+    #003a0d,
     #1a1a2e,
-    #065f46,
+    #005d15,
     #1a1a2e,
-    #064e3b
+    #003a0d
   );
   background-size: 800% 800%;
   animation: hero-gradient 30s ease infinite;
@@ -107,9 +154,9 @@
   animation: scroll-pulse 2s ease-in-out infinite;
 }
 
-/* ─── Gradient text utility ─── */
+/* ─── Gradient text utility (uses Figma primary #00E834) ─── */
 .text-gradient {
-  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+  background: linear-gradient(135deg, #00e834 0%, #33ed47 50%, #99ff99 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -124,7 +171,7 @@
 
 .glass-card:hover {
   background: rgba(17, 24, 39, 0.8);
-  border-color: rgba(16, 185, 129, 0.3);
+  border-color: rgba(0, 232, 52, 0.3);
 }
 
 /* ─── Section divider gradient ─── */
@@ -133,7 +180,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(16, 185, 129, 0.3) 50%,
+    rgba(0, 232, 52, 0.3) 50%,
     transparent 100%
   );
 }

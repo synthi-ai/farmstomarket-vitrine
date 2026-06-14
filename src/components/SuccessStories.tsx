@@ -42,7 +42,7 @@ export default function SuccessStories() {
   ];
 
   return (
-    <section ref={ref} id="testimonials" className="relative py-28 md:py-36 bg-gray-950 bg-topo-subtle overflow-hidden">
+    <section ref={ref} id="testimonials" className="relative py-28 md:py-36 bg-gray-950 bg-geo-subtle overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -51,7 +51,7 @@ export default function SuccessStories() {
           animate={isVisible ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             {t('testimonials.title')}
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -91,7 +91,7 @@ export default function SuccessStories() {
               <div className="p-6 flex-1 flex flex-col">
                 {/* Big stat */}
                 <div className="mb-4">
-                  <span className="text-3xl font-bold text-gradient">{story.stat}</span>
+                  <span className="font-heading text-3xl font-bold text-gradient">{story.stat}</span>
                   <span className="text-gray-500 text-xs ml-2">{story.statLabel}</span>
                 </div>
 

@@ -93,7 +93,7 @@ export default function HowItWorks() {
   const currentTab = tabsData[activeTab];
 
   return (
-    <section className="py-24 md:py-32 bg-gray-950 bg-topo-subtle" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-950 bg-geo-subtle" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <SectionHeader
@@ -212,7 +212,7 @@ export default function HowItWorks() {
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 className="text-center p-4 glass-card rounded-2xl"
               >
-                <div className="text-2xl md:text-3xl font-bold text-emerald-400 mb-1">
+                <div className="font-heading text-2xl md:text-3xl font-bold text-emerald-400 mb-1">
                   {stat.value}
                 </div>
                 <div className="text-sm text-gray-400">

@@ -21,7 +21,7 @@ export default function PlatformSolutions() {
   const { ref, isVisible } = useAnimateOnScroll(0.1);
 
   return (
-    <section className="py-24 md:py-32 bg-gray-900 bg-topo-subtle" ref={ref} id="marketplace">
+    <section className="py-24 md:py-32 bg-gray-900 bg-geo-subtle" ref={ref} id="marketplace">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('platform.title')}
@@ -74,14 +74,14 @@ export default function PlatformSolutions() {
 
               {/* Title (default) */}
               <div className="absolute inset-x-0 bottom-0 p-6 transition-all duration-300 group-hover:opacity-0">
-                <h3 className="text-xl font-bold text-white">
+                <h3 className="font-heading text-xl font-bold text-white">
                   {t(card.titleKey)}
                 </h3>
               </div>
 
               {/* Hover content */}
               <div className="absolute inset-0 flex flex-col items-start justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="font-heading text-xl font-bold text-white mb-2">
                   {t(card.titleKey)}
                 </h3>
                 <p className="text-gray-300 text-sm leading-relaxed max-w-[70%]">

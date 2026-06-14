@@ -5,12 +5,27 @@ import CookieBanner from '@/components/CookieBanner';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import './globals.css';
 import localFont from 'next/font/local';
+import { Urbanist, Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const inter = localFont({
   src: './fonts/Inter.woff2',
+  display: 'swap',
+});
+
+const urbanist = Urbanist({
+  subsets: ['latin'],
+  variable: '--font-urbanist',
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-plus-jakarta',
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
 });
 
@@ -85,7 +100,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#10b981',
+  themeColor: '#00e834',
 };
 
 const jsonLdOrganization = {
@@ -150,7 +165,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Farms to Market" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#10b981" />
+        <meta name="msapplication-TileColor" content="#00e834" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <script
           type="application/ld+json"
@@ -161,10 +176,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebApp) }}
         />
       </head>
-      <body className={`${inter.className} antialiased overflow-x-hidden bg-gray-950 text-white`}>
+      <body className={`${inter.className} ${urbanist.variable} ${plusJakartaSans.variable} antialiased overflow-x-hidden bg-gray-950 text-white`}>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 z-50 rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 z-50 rounded-lg bg-emerald-500 px-4 py-2 font-bold text-black"
         >
           Skip to main content
         </a>

@@ -20,7 +20,7 @@ export default function OnboardingSteps() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 bg-gray-900 bg-topo-subtle overflow-hidden">
+    <section ref={ref} className="relative py-28 md:py-36 bg-gray-900 bg-geo-subtle overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -29,7 +29,7 @@ export default function OnboardingSteps() {
           animate={isVisible ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             {t('howitworks.title')}
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -66,7 +66,7 @@ export default function OnboardingSteps() {
                   </div>
 
                   <div>
-                    <h3 className={`text-lg font-semibold mb-1 transition-colors duration-300 ${
+                    <h3 className={`font-heading text-lg font-semibold mb-1 transition-colors duration-300 ${
                       activeStep === i ? 'text-white' : 'text-gray-400'
                     }`}>
                       {t(step.titleKey)}
@@ -85,7 +85,7 @@ export default function OnboardingSteps() {
             <div className="pt-6">
               <a
                 href="#signup"
-                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
+                className="font-cta inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold tracking-[2px] uppercase px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
               >
                 {t('hero.startFree')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

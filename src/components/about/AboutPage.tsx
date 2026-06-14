@@ -138,7 +138,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto text-center">
           <div className="overflow-hidden mb-10">
             <motion.h1
-              className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.05]"
+              className="font-heading text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.05]"
               initial={{ y: '100%', opacity: 0 }}
               animate={heroVisible ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 1, ease: EASE }}
@@ -155,7 +155,7 @@ export default function AboutPage() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-colors duration-300"
+              className="font-cta inline-flex items-center px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold tracking-[2px] uppercase rounded-full transition-colors duration-300"
             >
               {t('about.cta.contact')}
             </a>
@@ -217,7 +217,7 @@ export default function AboutPage() {
                 <span className="text-sm font-mono text-emerald-400 mb-4 block">
                   {number}
                 </span>
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <h3 className="font-heading text-xl font-semibold text-white mb-3">
                   {t(titleKey)}
                 </h3>
                 <p className="text-gray-400 leading-relaxed">{t(descKey)}</p>
@@ -237,7 +237,7 @@ export default function AboutPage() {
       >
         <div className="max-w-5xl mx-auto">
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-16"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
             animate={leadershipVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
@@ -277,7 +277,7 @@ export default function AboutPage() {
                   <span className="text-sm font-mono text-emerald-400 mb-4">
                     .00{activeMember + 1}
                   </span>
-                  <h3 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                  <h3 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-2">
                     {t(member.nameKey)}
                   </h3>
                   <p className="text-emerald-400 font-medium mb-6">
@@ -343,7 +343,7 @@ export default function AboutPage() {
       <Section id="mission">
         <div className="mx-auto max-w-3xl px-6">
           <motion.h2
-            className="mb-10 text-3xl font-bold text-white sm:text-4xl md:text-5xl leading-tight"
+            className="font-heading mb-10 text-3xl font-bold text-white sm:text-4xl md:text-5xl leading-tight"
             variants={fadeUpVariants}
           >
             {t('about.mission.title')}
@@ -366,7 +366,7 @@ export default function AboutPage() {
       >
         <div className="max-w-5xl mx-auto">
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={aiModulesVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
@@ -414,7 +414,7 @@ export default function AboutPage() {
                   <span className="text-sm font-mono text-emerald-400 mb-4">
                     .00{activeModule + 1}
                   </span>
-                  <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                  <h3 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-6">
                     {t(aiModule.titleKey)}
                   </h3>
                   <p className="text-gray-400 leading-relaxed text-lg">
@@ -477,7 +477,7 @@ export default function AboutPage() {
       <Section>
         <div className="mx-auto max-w-5xl px-6">
           <motion.h2
-            className="mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            className="font-heading mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             variants={fadeUpVariants}
           >
             {t('about.numbers.title')}
@@ -489,7 +489,7 @@ export default function AboutPage() {
           >
             {KEY_NUMBERS.map(({ value, labelKey }, i) => (
               <motion.div key={i} variants={fadeUpVariants}>
-                <div className="text-4xl font-bold text-white sm:text-5xl md:text-6xl tracking-tight">
+                <div className="font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl tracking-tight">
                   {value}
                 </div>
                 <div className="mt-3 text-sm text-gray-500 uppercase tracking-wider">
@@ -507,7 +507,7 @@ export default function AboutPage() {
       <Section id="values">
         <div className="mx-auto max-w-5xl px-6">
           <motion.h2
-            className="mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            className="font-heading mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             variants={fadeUpVariants}
           >
             {t('about.values.title')}
@@ -519,7 +519,7 @@ export default function AboutPage() {
           >
             {VALUES.map(({ titleKey, descKey }, i) => (
               <motion.div key={i} variants={fadeUpVariants}>
-                <h3 className="mb-3 text-xl font-semibold text-white">{t(titleKey)}</h3>
+                <h3 className="font-heading mb-3 text-xl font-semibold text-white">{t(titleKey)}</h3>
                 <p className="leading-relaxed text-gray-400">{t(descKey)}</p>
               </motion.div>
             ))}
@@ -533,7 +533,7 @@ export default function AboutPage() {
       <Section id="timeline">
         <div className="mx-auto max-w-3xl px-6">
           <motion.h2
-            className="mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            className="font-heading mb-20 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             variants={fadeUpVariants}
           >
             {t('about.timeline.title')}
@@ -553,7 +553,7 @@ export default function AboutPage() {
               >
                 <div className="absolute left-0 top-1.5 h-2 w-2 -translate-x-[3.5px] rounded-full bg-gray-600" />
                 <span className="text-sm font-semibold text-emerald-400">{year}</span>
-                <h3 className="mt-2 text-xl font-semibold text-white">{t(titleKey)}</h3>
+                <h3 className="font-heading mt-2 text-xl font-semibold text-white">{t(titleKey)}</h3>
                 <p className="mt-2 leading-relaxed text-gray-400">{t(descKey)}</p>
               </motion.div>
             ))}
@@ -570,7 +570,7 @@ export default function AboutPage() {
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
@@ -594,7 +594,7 @@ export default function AboutPage() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-colors duration-300"
+              className="font-cta inline-flex items-center px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold tracking-[2px] uppercase rounded-full transition-colors duration-300"
             >
               {t('about.interested.cta')}
             </a>
@@ -608,7 +608,7 @@ export default function AboutPage() {
       <Section>
         <div className="mx-auto max-w-3xl px-6 text-center">
           <motion.h2
-            className="mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            className="font-heading mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             variants={fadeUpVariants}
           >
             {t('about.cta.title')}

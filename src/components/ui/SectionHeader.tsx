@@ -35,13 +35,13 @@ export default function SectionHeader({
 
   return (
     <Wrapper className="text-center mb-20" {...wrapperProps}>
-      <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-5 tracking-tight leading-[1.1] ${
+      <h2 className={`font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-5 tracking-tight leading-[1.1] ${
         isDark ? 'text-white' : 'text-gray-900'
       }`}>
         {title}
       </h2>
       {subtitle && (
-        <h3 className={`text-2xl md:text-3xl font-bold mb-4 ${
+        <h3 className={`font-heading text-2xl md:text-3xl font-bold mb-4 ${
           isDark ? 'text-gradient' : 'text-emerald-600'
         }`}>
           {subtitle}

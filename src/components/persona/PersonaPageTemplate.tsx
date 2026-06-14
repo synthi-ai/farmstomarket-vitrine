@@ -123,8 +123,8 @@ function PersonaHero({ data }: { data: PersonaPageData }) {
           sizes="100vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/85 via-gray-950/70 to-gray-950/90" />
-        <div className="absolute inset-0 bg-topo opacity-[0.02]" />
+        <div className="absolute inset-0 bg-black/[0.52]" />
+        <div className="absolute inset-0 bg-geo opacity-[0.05]" />
       </div>
 
       {/* Emerald glow */}
@@ -149,7 +149,7 @@ function PersonaHero({ data }: { data: PersonaPageData }) {
 
         {/* Headline */}
         <motion.h1
-          className="mb-6 text-4xl font-bold leading-[1.08] text-white sm:text-5xl md:text-6xl lg:text-7xl"
+          className="font-heading mb-6 text-4xl font-bold leading-[1.08] text-white sm:text-5xl md:text-6xl lg:text-7xl"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2 }}
@@ -175,7 +175,7 @@ function PersonaHero({ data }: { data: PersonaPageData }) {
           animate={isVisible ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <span className="text-4xl font-bold text-emerald-400 sm:text-5xl">{vh.statValue}</span>
+          <span className="font-heading text-4xl font-bold text-emerald-400 sm:text-5xl">{vh.statValue}</span>
           <span className="text-sm text-gray-400">{t(vh.statLabelKey)}</span>
         </motion.div>
       </div>
@@ -221,7 +221,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
         <div className="mx-auto max-w-5xl text-center">
           <div className="mb-8 overflow-hidden">
             <motion.h1
-              className="text-5xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
+              className="font-heading text-5xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
               initial={{ y: '100%', opacity: 0 }}
               animate={heroVisible ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 1, ease: EASE }}
@@ -258,7 +258,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
               transition={{ duration: 0.3 }}
             >
               <div className="mb-5">{ICONS[benefit.iconKey]}</div>
-              <h3 className="mb-3 text-xl font-semibold text-white">{t(benefit.titleKey)}</h3>
+              <h3 className="font-heading mb-3 text-xl font-semibold text-white">{t(benefit.titleKey)}</h3>
               <p className="leading-relaxed text-gray-400">{t(benefit.descKey)}</p>
             </motion.div>
           ))}
@@ -269,7 +269,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       <Section id="how-it-works" className="border-t border-gray-800">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.h2
-            className="mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            className="font-heading mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             variants={fadeUpVariants}
           >
             {t('persona.howItWorks')}
@@ -301,7 +301,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
                   </div>
                   <div className={`flex flex-col justify-center ${!isEven ? 'md:order-1' : ''}`}>
                     <span className="mb-4 font-mono text-sm text-emerald-400">{step.number}</span>
-                    <h3 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
+                    <h3 className="font-heading mb-4 text-2xl font-bold text-white sm:text-3xl">
                       {t(step.titleKey)}
                     </h3>
                     <p className="text-lg leading-relaxed text-gray-400">{t(step.descKey)}</p>
@@ -321,7 +321,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       >
         <div className="mx-auto max-w-5xl">
           <motion.h2
-            className="mb-16 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+            className="font-heading mb-16 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             initial={{ opacity: 0, y: 30 }}
             animate={featuresVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
@@ -357,7 +357,7 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
                   <span className="mb-4 font-mono text-sm text-emerald-400">
                     .00{activeFeature + 1}
                   </span>
-                  <h3 className="mb-6 text-3xl font-bold text-white sm:text-4xl">
+                  <h3 className="font-heading mb-6 text-3xl font-bold text-white sm:text-4xl">
                     {t(feature.titleKey)}
                   </h3>
                   <p className="text-lg leading-relaxed text-gray-400">{t(feature.descKey)}</p>
@@ -446,19 +446,19 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
       {/* ═══ 6. FINAL CTA ═══ */}
       <section ref={ctaRef} className="px-4 pb-32 pt-8 sm:px-6 lg:px-8">
         <motion.div
-          className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-12 text-center"
+          className="mx-auto max-w-4xl rounded-2xl bg-emerald-500 p-12 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: EASE }}
         >
-          <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">{t(data.cta.titleKey)}</h2>
+          <h2 className="font-heading mb-4 text-3xl font-bold text-white sm:text-4xl">{t(data.cta.titleKey)}</h2>
           <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-emerald-100">
             {t(data.cta.descKey)}
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href={data.cta.primaryHref}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-emerald-700 transition-opacity hover:opacity-90"
+              className="font-cta inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-emerald-700 tracking-[1.5px] uppercase transition-opacity hover:opacity-90"
             >
               {t(data.cta.primaryKey)}
               <ArrowRight className="h-4 w-4" />

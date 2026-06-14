@@ -40,7 +40,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="bg-gray-900 bg-topo-subtle py-24 md:py-32" ref={ref}>
+    <section className="bg-gray-900 bg-geo-subtle py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader
           title={t('faq.title')}
@@ -78,7 +78,7 @@ export default function FAQ() {
                     onClick={() => toggle(item.id)}
                     aria-expanded={expandedId === item.id}
                   >
-                    <h3 className="text-lg font-semibold leading-tight text-white">
+                    <h3 className="font-heading text-lg font-semibold leading-tight text-white">
                       {t(item.questionKey)}
                     </h3>
                     <motion.span
@@ -121,7 +121,7 @@ export default function FAQ() {
         >
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
-              <h3 className="mb-2 text-2xl font-bold text-white">
+              <h3 className="font-heading mb-2 text-2xl font-bold text-white">
                 {t('faq.notFound.title')}
               </h3>
               <p className="text-gray-400">{t('faq.notFound.description')}</p>
@@ -129,7 +129,7 @@ export default function FAQ() {
 
             <motion.a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/25 whitespace-nowrap"
+              className="font-cta inline-flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-4 font-bold text-black tracking-[2px] uppercase transition-all duration-300 hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 whitespace-nowrap"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

@@ -14,7 +14,7 @@ export default function FinalCTA() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-gray-950 bg-topo-subtle py-28 md:py-36"
+      className="relative overflow-hidden bg-gray-950 bg-geo-subtle py-28 md:py-36"
     >
       {/* Glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
@@ -62,7 +62,7 @@ export default function FinalCTA() {
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
           >
-            <h2 className="mb-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h2 className="font-heading mb-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
               {t('ready.title')}
             </h2>
             <p className="mb-12 max-w-2xl text-lg leading-relaxed text-gray-400 sm:text-xl lg:mx-0 mx-auto">
@@ -115,7 +115,7 @@ export default function FinalCTA() {
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
               <a
                 href="#signup"
-                className="rounded-full bg-emerald-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02] hover:shadow-emerald-500/30 active:scale-[0.98]"
+                className="font-cta rounded-full bg-emerald-500 px-8 py-3.5 text-sm font-bold text-black tracking-[2px] uppercase shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98]"
               >
                 {t('hero.startFree')} — it&apos;s free
               </a>
