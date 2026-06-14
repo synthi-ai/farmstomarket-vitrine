@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,14 +16,7 @@ import {
 } from '@/animations/variants';
 import type { PersonaPageData } from '@/types/persona';
 
-const DESKTOP_MP4 = 'https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655382c93a7499c677d6e2ad_RENDER-site-HEVC-HEVC-transcode.mp4';
-const DESKTOP_WEBM = 'https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655382c93a7499c677d6e2ad_RENDER-site-HEVC-HEVC-transcode.webm';
-const MOBILE_MP4 = 'https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655386615d413a08b225a6c0_mobile render-HEVC-transcode.mp4';
-const MOBILE_WEBM = 'https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655386615d413a08b225a6c0_mobile render-HEVC-transcode.webm';
-
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
-
-/* ─── SVG icon map ─── */
 
 const ICONS: Record<string, React.ReactNode> = {
   chart: (
@@ -86,8 +79,6 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-/* ─── Reusable animated section ─── */
-
 function Section({
   children,
   className = '',
@@ -112,68 +103,64 @@ function Section({
   );
 }
 
-/* ─── Video Hero ─── */
-
-function VideoHero({ data }: { data: PersonaPageData }) {
+function PersonaHero({ data }: { data: PersonaPageData }) {
   const { t } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
+  const { ref, isVisible } = useAnimateOnScroll(0.1);
   const vh = data.videoHero;
 
   return (
     <section
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      ref={ref}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
     >
-      {/* Desktop video */}
-      <video
-        autoPlay muted loop playsInline
-        className="absolute inset-0 h-full w-full object-cover hidden md:block"
-      >
-        <source src={DESKTOP_WEBM} type="video/webm" />
-        <source src={DESKTOP_MP4} type="video/mp4" />
-      </video>
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/home2.png"
+          alt="FarmsToMarket"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/85 via-gray-950/70 to-gray-950/90" />
+        <div className="absolute inset-0 bg-topo opacity-[0.02]" />
+      </div>
 
-      {/* Mobile video */}
-      <video
-        autoPlay muted loop playsInline
-        className="absolute inset-0 h-full w-full object-cover md:hidden"
-      >
-        <source src={MOBILE_WEBM} type="video/webm" />
-        <source src={MOBILE_MP4} type="video/mp4" />
-      </video>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50" />
+      {/* Emerald glow */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="h-[600px] w-[600px] rounded-full bg-emerald-600/10 blur-[160px]" />
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-4xl px-5 text-center">
-        {/* Title */}
+      <div className="relative z-10 mx-auto max-w-4xl px-5 py-20 text-center">
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mb-8"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2 text-sm font-medium text-emerald-400 backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            {t(vh.badgeKey)}
+          </span>
+        </motion.div>
+
+        {/* Headline */}
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] mb-6"
+          className="mb-6 text-4xl font-bold leading-[1.08] text-white sm:text-5xl md:text-6xl lg:text-7xl"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2 }}
         >
           {t(vh.titleKey)}{' '}
-          <span className="text-emerald-400">{t(vh.highlightKey)}</span>
+          <span className="text-gradient">{t(vh.highlightKey)}</span>
         </motion.h1>
 
         {/* Description */}
         <motion.p
-          className="mx-auto max-w-2xl text-base sm:text-lg text-gray-300 leading-relaxed mb-10"
+          className="mx-auto mb-12 max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -181,14 +168,14 @@ function VideoHero({ data }: { data: PersonaPageData }) {
           {t(vh.descKey)}
         </motion.p>
 
-        {/* Stat */}
+        {/* Stat chip */}
         <motion.div
           className="inline-flex flex-col items-center gap-1"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isVisible ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <span className="text-4xl sm:text-5xl font-bold text-emerald-400">{vh.statValue}</span>
+          <span className="text-4xl font-bold text-emerald-400 sm:text-5xl">{vh.statValue}</span>
           <span className="text-sm text-gray-400">{t(vh.statLabelKey)}</span>
         </motion.div>
       </div>
@@ -207,8 +194,6 @@ function VideoHero({ data }: { data: PersonaPageData }) {
   );
 }
 
-/* ─── Main template ─── */
-
 export default function PersonaPageTemplate({ data }: { data: PersonaPageData }) {
   const { t } = useLanguage();
   const [activeFeature, setActiveFeature] = useState(0);
@@ -219,51 +204,34 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
   const { ref: testimonialRef, isVisible: testimonialVisible } = useAnimateOnScroll(0.1);
   const { ref: ctaRef, isVisible: ctaVisible } = useAnimateOnScroll(0.15);
 
-  const goToFeature = (index: number) => {
-    if (index < 0) setActiveFeature(data.features.length - 1);
-    else if (index >= data.features.length) setActiveFeature(0);
-    else setActiveFeature(index);
-  };
-
   const feature = data.features[activeFeature];
+
+  const goToFeature = (index: number) => {
+    const len = data.features.length;
+    setActiveFeature(((index % len) + len) % len);
+  };
 
   return (
     <div className="min-h-screen bg-gray-950">
-      {/* Sticky back link */}
-      <div className="fixed top-6 left-6 z-50">
-        <Link
-          href="/"
-          className="flex items-center gap-2 rounded-full border border-gray-700 bg-gray-900/80 px-4 py-2 text-sm text-gray-300 backdrop-blur-md transition-colors hover:border-emerald-600 hover:text-emerald-400"
-        >
-          <ChevronLeft className="h-4 w-4" />
-          {t('persona.backHome')}
-        </Link>
-      </div>
+      {/* ═══ 0. HERO ═══ */}
+      <PersonaHero data={data} />
 
-      {/* ═══════════════════════════════════════════
-          0. VIDEO HERO
-         ═══════════════════════════════════════════ */}
-      <VideoHero data={data} />
-
-      {/* ═══════════════════════════════════════════
-          1. HERO
-         ═══════════════════════════════════════════ */}
-      <section ref={heroRef} className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="overflow-hidden mb-8">
+      {/* ═══ 1. TITLE ═══ */}
+      <section ref={heroRef} className="px-4 pb-16 pt-32 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="mb-8 overflow-hidden">
             <motion.h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05]"
+              className="text-5xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
               initial={{ y: '100%', opacity: 0 }}
               animate={heroVisible ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 1, ease: EASE }}
             >
               {t(data.hero.titleKey)}{' '}
-              <span className="text-emerald-400">{t(data.hero.highlightKey)}</span>
+              <span className="text-gradient">{t(data.hero.highlightKey)}</span>
             </motion.h1>
           </div>
-
           <motion.p
-            className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-400"
             initial={{ opacity: 0, y: 20 }}
             animate={heroVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
@@ -273,12 +241,10 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          2. KEY BENEFITS — 3 glassmorphic cards
-         ═══════════════════════════════════════════ */}
-      <section ref={benefitsRef} className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* ═══ 2. BENEFITS ═══ */}
+      <section ref={benefitsRef} className="px-4 py-20 sm:px-6 lg:px-8">
         <motion.div
-          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3"
           initial="hidden"
           animate={benefitsVisible ? 'visible' : 'hidden'}
           variants={staggerChildrenVariants}
@@ -286,28 +252,24 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
           {data.benefits.map((benefit, i) => (
             <motion.div
               key={i}
-              className="bg-gray-900/80 border border-gray-800 rounded-2xl p-8 backdrop-blur-sm"
+              className="rounded-2xl border border-gray-800 bg-gray-900/80 p-8 backdrop-blur-sm"
               variants={fadeUpVariants}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3 }}
             >
               <div className="mb-5">{ICONS[benefit.iconKey]}</div>
-              <h3 className="text-xl font-semibold text-white mb-3">
-                {t(benefit.titleKey)}
-              </h3>
-              <p className="text-gray-400 leading-relaxed">{t(benefit.descKey)}</p>
+              <h3 className="mb-3 text-xl font-semibold text-white">{t(benefit.titleKey)}</h3>
+              <p className="leading-relaxed text-gray-400">{t(benefit.descKey)}</p>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          3. HOW IT WORKS — 4 alternating steps
-         ═══════════════════════════════════════════ */}
+      {/* ═══ 3. HOW IT WORKS ═══ */}
       <Section id="how-it-works" className="border-t border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6"
+            className="mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             variants={fadeUpVariants}
           >
             {t('persona.howItWorks')}
@@ -315,39 +277,34 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
 
           <div className="mt-16 space-y-24">
             {data.steps.map((step, i) => {
-              const isOdd = i % 2 === 0;
+              const isEven = i % 2 === 0;
               return (
                 <motion.div
                   key={i}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+                  className="grid grid-cols-1 items-center gap-8 md:grid-cols-2"
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
-                  variants={isOdd ? fadeRightVariants : fadeLeftVariants}
+                  variants={isEven ? fadeRightVariants : fadeLeftVariants}
                 >
-                  {/* Image */}
-                  <div className={`relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-800 ${!isOdd ? 'md:order-2' : ''}`}>
-                    <div className="absolute inset-0 bg-emerald-500/10 rounded-2xl blur-2xl -z-10" />
+                  <div
+                    className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-gray-900 ${!isEven ? 'md:order-2' : ''}`}
+                  >
+                    <div className="-z-10 absolute inset-0 rounded-2xl bg-emerald-500/10 blur-2xl" />
                     <Image
                       src={step.img}
                       alt={t(step.titleKey)}
                       fill
-                      className="object-cover"
+                      className={step.img.includes('/Mockups/') ? 'object-contain' : 'object-cover'}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
-
-                  {/* Text */}
-                  <div className={`flex flex-col justify-center ${!isOdd ? 'md:order-1' : ''}`}>
-                    <span className="text-sm font-mono text-emerald-400 mb-4">
-                      {step.number}
-                    </span>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                  <div className={`flex flex-col justify-center ${!isEven ? 'md:order-1' : ''}`}>
+                    <span className="mb-4 font-mono text-sm text-emerald-400">{step.number}</span>
+                    <h3 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
                       {t(step.titleKey)}
                     </h3>
-                    <p className="text-gray-400 leading-relaxed text-lg">
-                      {t(step.descKey)}
-                    </p>
+                    <p className="text-lg leading-relaxed text-gray-400">{t(step.descKey)}</p>
                   </div>
                 </motion.div>
               );
@@ -356,17 +313,15 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
         </div>
       </Section>
 
-      {/* ═══════════════════════════════════════════
-          4. FEATURES SHOWCASE — carousel
-         ═══════════════════════════════════════════ */}
+      {/* ═══ 4. FEATURES ═══ */}
       <section
         ref={featuresRef}
         id="features"
-        className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 border-t border-gray-800"
+        className="border-t border-gray-800 px-4 py-24 sm:px-6 lg:px-8 md:py-32"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="mx-auto max-w-5xl">
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-16"
+            className="mb-16 text-3xl font-bold text-white sm:text-4xl md:text-5xl"
             initial={{ opacity: 0, y: 30 }}
             animate={featuresVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: EASE }}
@@ -374,7 +329,6 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
             {t('persona.features')}
           </motion.h2>
 
-          {/* Active feature display */}
           <motion.div
             className="mb-12"
             initial={{ opacity: 0 }}
@@ -384,44 +338,39 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeFeature}
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+                className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.4, ease: EASE }}
               >
-                {/* Image */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-800">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gray-900">
                   <Image
                     src={feature.img}
                     alt={t(feature.titleKey)}
                     fill
-                    className="object-cover"
+                    className={feature.img.includes('/Mockups/') ? 'object-contain' : 'object-cover'}
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
-
-                {/* Text */}
                 <div className="flex flex-col justify-center">
-                  <span className="text-sm font-mono text-emerald-400 mb-4">
+                  <span className="mb-4 font-mono text-sm text-emerald-400">
                     .00{activeFeature + 1}
                   </span>
-                  <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                  <h3 className="mb-6 text-3xl font-bold text-white sm:text-4xl">
                     {t(feature.titleKey)}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed text-lg">
-                    {t(feature.descKey)}
-                  </p>
+                  <p className="text-lg leading-relaxed text-gray-400">{t(feature.descKey)}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
           </motion.div>
 
-          {/* Tab navigation */}
+          {/* Feature navigation */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => goToFeature(activeFeature - 1)}
-              className="p-2 text-gray-500 hover:text-white transition-colors"
+              className="p-2 text-gray-500 transition-colors hover:text-white"
               aria-label="Previous feature"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -432,10 +381,8 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
                 <button
                   key={i}
                   onClick={() => setActiveFeature(i)}
-                  className={`px-3 py-2 text-sm font-mono transition-colors ${
-                    i === activeFeature
-                      ? 'text-emerald-400'
-                      : 'text-gray-500 hover:text-gray-300'
+                  className={`px-3 py-2 font-mono text-sm transition-colors ${
+                    i === activeFeature ? 'text-emerald-400' : 'text-gray-500 hover:text-gray-300'
                   }`}
                 >
                   0{i + 1}
@@ -445,16 +392,15 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
 
             <button
               onClick={() => goToFeature(activeFeature + 1)}
-              className="p-2 text-gray-500 hover:text-white transition-colors"
+              className="p-2 text-gray-500 transition-colors hover:text-white"
               aria-label="Next feature"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
 
-            {/* Progress bar */}
-            <div className="flex-1 h-px bg-gray-800 ml-4 relative">
+            <div className="relative ml-4 h-px flex-1 bg-gray-800">
               <motion.div
-                className="absolute top-0 left-0 h-px bg-emerald-500"
+                className="absolute left-0 top-0 h-px bg-emerald-500"
                 animate={{ width: `${((activeFeature + 1) / data.features.length) * 100}%` }}
                 transition={{ duration: 0.4, ease: EASE }}
               />
@@ -463,22 +409,19 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          5. TESTIMONIAL
-         ═══════════════════════════════════════════ */}
-      <section ref={testimonialRef} className="py-24 md:py-32 px-4 sm:px-6 lg:px-8">
+      {/* ═══ 5. TESTIMONIAL ═══ */}
+      <section ref={testimonialRef} className="px-4 py-24 sm:px-6 lg:px-8 md:py-32">
         <motion.div
-          className="max-w-3xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-10 text-center"
+          className="mx-auto max-w-3xl rounded-2xl border border-gray-800 bg-gray-900 p-10 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={testimonialVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: EASE }}
         >
-          {/* Quote icon */}
-          <svg className="h-10 w-10 text-emerald-400 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="mx-auto mb-6 h-10 w-10 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10H0z" />
           </svg>
 
-          <p className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-8 italic">
+          <p className="mb-8 text-lg italic leading-relaxed text-gray-300 sm:text-xl">
             &ldquo;{t(data.testimonial.quoteKey)}&rdquo;
           </p>
 
@@ -500,39 +443,46 @@ export default function PersonaPageTemplate({ data }: { data: PersonaPageData })
         </motion.div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          7. FINAL CTA
-         ═══════════════════════════════════════════ */}
-      <section ref={ctaRef} className="py-20 px-4 sm:px-6 lg:px-8 pb-32">
+      {/* ═══ 6. FINAL CTA ═══ */}
+      <section ref={ctaRef} className="px-4 pb-32 pt-8 sm:px-6 lg:px-8">
         <motion.div
-          className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-12 text-center"
+          className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-12 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: EASE }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            {t(data.cta.titleKey)}
-          </h2>
-          <p className="text-emerald-100 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+          <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">{t(data.cta.titleKey)}</h2>
+          <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-emerald-100">
             {t(data.cta.descKey)}
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href={data.cta.primaryHref}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-700 font-semibold rounded-full transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-emerald-700 transition-opacity hover:opacity-90"
             >
               {t(data.cta.primaryKey)}
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
               href={data.cta.secondaryHref}
-              className="inline-flex items-center px-8 py-4 border border-white/30 text-white font-medium rounded-full transition-colors hover:bg-white/10"
+              className="inline-flex items-center rounded-full border border-white/30 px-8 py-4 font-medium text-white transition-colors hover:bg-white/10"
             >
               {t(data.cta.secondaryKey)}
             </a>
           </div>
         </motion.div>
       </section>
+
+      {/* Back to home link */}
+      <div className="pb-8 text-center">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-emerald-400"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          {t('persona.backHome')}
+        </Link>
+      </div>
     </div>
   );
 }

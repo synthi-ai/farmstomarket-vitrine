@@ -73,7 +73,7 @@ export default function CredibilityStats() {
   ];
 
   return (
-    <section ref={ref} className="bg-gray-900 py-16 md:py-20">
+    <section ref={ref} className="bg-gray-900 py-20 md:py-28 bg-topo-subtle">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4"

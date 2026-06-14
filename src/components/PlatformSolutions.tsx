@@ -21,7 +21,7 @@ export default function PlatformSolutions() {
   const { ref, isVisible } = useAnimateOnScroll(0.1);
 
   return (
-    <section className="py-20 bg-gray-900" ref={ref} id="platform">
+    <section className="py-24 md:py-32 bg-gray-900 bg-topo-subtle" ref={ref} id="marketplace">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('platform.title')}
@@ -41,7 +41,7 @@ export default function PlatformSolutions() {
             <motion.div
               key={index}
               variants={fadeUpVariants}
-              className="relative h-96 rounded-2xl overflow-hidden group cursor-pointer"
+              className="relative h-96 rounded-3xl overflow-hidden group cursor-pointer"
             >
               {/* Background image */}
               <Image
@@ -66,7 +66,7 @@ export default function PlatformSolutions() {
                     alt="App preview"
                     width={140}
                     height={280}
-                    className="object-contain drop-shadow-2xl scale-125"
+                    className="object-contain drop-shadow-2xl"
                     sizes="140px"
                   />
                 </div>

@@ -41,7 +41,7 @@ const AgroBank = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-900" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-900 bg-topo-subtle" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('agrobank.title')}
@@ -61,7 +61,7 @@ const AgroBank = () => {
           {mockups.map((mockup, index) => (
             <motion.div
               key={index}
-              className="flex flex-col items-center bg-gray-800/30 border border-gray-700 rounded-2xl overflow-hidden group hover:border-emerald-700/50 transition-all"
+              className="flex flex-col items-center glass-card rounded-3xl overflow-hidden group transition-all duration-500"
               variants={fadeUpVariants}
               whileHover={{ y: -4 }}
             >
@@ -74,8 +74,8 @@ const AgroBank = () => {
                     alt={mockup.title}
                     width={600}
                     height={1000}
-                    className="object-contain h-[28rem] w-auto transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 768px) 95vw, 600px"
+                    className="object-contain h-full w-auto transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 500px"
                   />
                 </div>
               </div>
@@ -114,7 +114,7 @@ const AgroBank = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 text-center hover:border-emerald-700/50 transition-all"
+              className="glass-card rounded-2xl p-6 text-center transition-all duration-500"
               variants={fadeUpVariants}
               whileHover={{ y: -2 }}
             >
@@ -148,7 +148,7 @@ const AgroBank = () => {
 
         {/* CTA */}
         <motion.div
-          className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-xl p-12 text-center"
+          className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-3xl p-12 text-center"
           initial="hidden"
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
@@ -161,14 +161,14 @@ const AgroBank = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.button
-              className="bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              className="bg-white text-emerald-600 px-8 py-3.5 rounded-full font-semibold hover:bg-gray-50 transition-all hover:shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {t('agrobank.cta.open')}
             </motion.button>
             <motion.button
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-emerald-600 transition-colors"
+              className="border-2 border-white/50 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-white hover:text-emerald-600 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

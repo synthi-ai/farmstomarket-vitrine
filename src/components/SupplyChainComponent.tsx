@@ -63,7 +63,7 @@ const SupplyChainComponent = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-950" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-950 bg-topo-subtle" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('supplychain.title')}
@@ -83,7 +83,7 @@ const SupplyChainComponent = () => {
             <motion.div
               key={index}
               variants={fadeUpVariants}
-              className="bg-gray-800/50 border border-gray-700 rounded-2xl overflow-hidden group hover:border-emerald-700/50 transition-all duration-300"
+              className="glass-card rounded-3xl overflow-hidden group transition-all duration-500"
               whileHover={{ y: -4 }}
             >
               {/* Number + Zoomed Image */}
@@ -97,8 +97,8 @@ const SupplyChainComponent = () => {
                     alt={card.title}
                     width={350}
                     height={700}
-                    className="object-contain h-72 w-auto transition-transform duration-500 group-hover:scale-110"
-                    sizes="350px"
+                    className="object-contain h-full max-h-56 w-auto transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 280px"
                   />
                 </div>
               </div>

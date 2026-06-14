@@ -14,6 +14,16 @@ export const en: Record<string, string> = {
 
   // Hero
   'hero.badge': 'Next-generation agricultural platform',
+  'hero.headline': 'Trade agriculture',
+  'hero.rotate.fair': 'fairly.',
+  'hero.rotate.secure': 'securely.',
+  'hero.rotate.direct': 'directly.',
+  'hero.rotate.smart': 'smartly.',
+  'hero.rotate.fast': 'instantly.',
+  'hero.subheadline': 'Connect farmers, buyers and transporters on one secure platform. Fair pricing, instant payments and full traceability.',
+  'hero.startFree': 'Start for free',
+  'hero.watchDemo': 'Watch demo',
+  'hero.trustLine': 'Trusted by 50,000+ farmers across 15+ African countries',
   'hero.slide1.title': 'Sell directly to buyers',
   'hero.slide1.highlight': 'Instant payment',
   'hero.slide1.description': 'Farms to Market connects farmers and buyers with a secure, transparent AI-powered platform.',
@@ -23,8 +33,6 @@ export const en: Record<string, string> = {
   'hero.slide3.title': 'Secure transactions',
   'hero.slide3.highlight': '100% traceable',
   'hero.slide3.description': 'Fair prices, immediate payments and smart contracts for total trust between producers and buyers.',
-  'hero.startFree': 'Start for free',
-  'hero.watchDemo': 'Watch demo',
 
   // VideoShowcase (expertise section)
   'showcase.badge.agriculture': 'AgriTech',

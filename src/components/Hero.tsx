@@ -1,372 +1,269 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Play, User, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageToggle from './LanguageToggle';
 
-const NAV_ITEMS = [
-  { key: 'nav.about', href: '#about' },
-  { key: 'nav.features', href: '#features' },
-  { key: 'nav.marketplace', href: '#marketplace' },
-  { key: 'nav.testimonials', href: '#testimonials' },
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+
+const ROTATING_WORDS_KEYS = [
+  'hero.rotate.fair',
+  'hero.rotate.secure',
+  'hero.rotate.direct',
+  'hero.rotate.smart',
+  'hero.rotate.fast',
 ] as const;
 
-const SOLUTIONS_LINKS = [
-  { key: 'nav.producer', href: '/producer' },
-  { key: 'nav.customer', href: '/customer' },
-  { key: 'nav.transporter', href: '/transporter' },
-  { key: 'nav.agrobank', href: '/agrobank' },
-] as const;
-
-const SLIDE_KEYS = [
-  { title: 'hero.slide1.title', highlight: 'hero.slide1.highlight', description: 'hero.slide1.description' },
-  { title: 'hero.slide2.title', highlight: 'hero.slide2.highlight', description: 'hero.slide2.description' },
-  { title: 'hero.slide3.title', highlight: 'hero.slide3.highlight', description: 'hero.slide3.description' },
-] as const;
+const MOCKUP_SLIDES = [
+  '/Mockups/mockup 01.png',
+  '/Mockups/mockup 02.png',
+  '/Mockups/mockup 03.png',
+  '/Mockups/mockup 04.png',
+];
 
 export default function Hero() {
   const { t } = useLanguage();
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const [activeWord, setActiveWord] = useState(0);
+  const [activeMockup, setActiveMockup] = useState(0);
 
-  const nextSlide = useCallback(() => {
-    setActiveSlide((prev) => (prev + 1) % SLIDE_KEYS.length);
+  const nextWord = useCallback(() => {
+    setActiveWord((prev) => (prev + 1) % ROTATING_WORDS_KEYS.length);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextWord, 2500);
     return () => clearInterval(interval);
-  }, [nextSlide]);
+  }, [nextWord]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const interval = setInterval(() => {
+      setActiveMockup((prev) => (prev + 1) % MOCKUP_SLIDES.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileMenuOpen]);
-
-  const currentSlide = SLIDE_KEYS[activeSlide];
 
   return (
-    <>
-      {/* ─── Header ─── */}
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-gray-950/95 shadow-sm backdrop-blur-md border-b border-gray-800/50'
-            : 'bg-gradient-to-b from-black/40 to-transparent'
-        }`}
+    <section className="relative flex min-h-dvh items-center overflow-hidden pt-20">
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        poster="/images/home2.png"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/logo/logo.svg"
-              alt="Farm's To Market"
-              width={160}
-              height={40}
-              className="h-9 w-auto lg:h-10"
-              priority
-            />
-          </Link>
+        <source src="/videos/hero-farm.mp4" type="video/mp4" />
+      </video>
 
-          {/* Nav Desktop */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            {NAV_ITEMS.slice(0, 2).map((item) => (
-              <a
-                key={item.key}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
-              >
-                {t(item.key)}
-              </a>
-            ))}
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-r from-gray-950/95 via-gray-950/75 to-gray-950/40" />
+      <div className="absolute inset-0 bg-topo opacity-[0.02]" />
 
-            {/* Solutions dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setSolutionsOpen(true)}
-              onMouseLeave={() => setSolutionsOpen(false)}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+
+          {/* ─── Left: Text ─── */}
+          <div className="flex flex-col">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+              className="mb-8"
             >
-              <button
-                className="flex items-center gap-1 text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
-                onClick={() => setSolutionsOpen((o) => !o)}
-              >
-                {t('nav.solutions')}
-                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} />
-              </button>
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2 text-sm font-medium text-emerald-400 backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                {t('hero.badge')}
+              </span>
+            </motion.div>
 
-              <AnimatePresence>
-                {solutionsOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-xl border border-gray-800 bg-gray-950/95 py-2 shadow-xl backdrop-blur-md min-w-[200px]"
-                  >
-                    {SOLUTIONS_LINKS.map((link) => (
-                      <a
-                        key={link.key}
-                        href={link.href}
-                        className="block px-4 py-2.5 text-sm text-gray-300 transition-colors hover:bg-gray-800/60 hover:text-emerald-400"
-                      >
-                        {t(link.key)}
-                      </a>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            {/* Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: EASE }}
+              className="mb-8"
+            >
+              <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+                {t('hero.headline')}{' '}
+                <span className="relative inline-block overflow-hidden h-[1.15em] align-bottom min-w-[180px] sm:min-w-[240px] lg:min-w-[280px]">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={activeWord}
+                      initial={{ y: '100%', opacity: 0 }}
+                      animate={{ y: '0%', opacity: 1 }}
+                      exit={{ y: '-100%', opacity: 0 }}
+                      transition={{ duration: 0.5, ease: EASE }}
+                      className="absolute left-0 right-0 text-gradient"
+                    >
+                      {t(ROTATING_WORDS_KEYS[activeWord])}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Subheadline */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
+              className="mb-10 max-w-xl text-lg leading-relaxed text-gray-300/90 sm:text-xl"
+            >
+              {t('hero.subheadline')}
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
+              className="flex flex-col gap-4 sm:flex-row"
+            >
+              <a
+                href="#signup"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02] hover:shadow-emerald-500/30 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+              >
+                {t('hero.startFree')}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="#demo"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-500/40 bg-white/5 px-8 py-4 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-gray-400/50"
+              >
+                {t('hero.watchDemo')}
+              </a>
+            </motion.div>
+
+            {/* Trust line */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1, ease: EASE }}
+              className="mt-8 text-sm text-gray-500"
+            >
+              {t('hero.trustLine')}
+            </motion.p>
+
+            {/* Actor quick links */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
+              className="mt-10 flex flex-wrap gap-3"
+            >
+              {[
+                { href: '/producer', label: t('nav.producer') },
+                { href: '/customer', label: t('nav.customer') },
+                { href: '/transporter', label: t('nav.transporter') },
+                { href: '/agrobank', label: t('nav.agrobank') },
+              ].map(({ href, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  className="rounded-full border border-gray-700/60 bg-gray-900/50 px-4 py-1.5 text-xs font-medium text-gray-400 backdrop-blur-sm transition-colors hover:border-emerald-600/50 hover:text-emerald-400"
+                >
+                  {label} →
+                </a>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* ─── Right: App mockup ─── */}
+          <motion.div
+            className="relative hidden lg:flex justify-center items-center"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.1, delay: 0.3, ease: EASE }}
+          >
+            {/* Glow */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]" />
             </div>
 
-            {NAV_ITEMS.slice(2).map((item) => (
-              <a
-                key={item.key}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
-              >
-                {t(item.key)}
-              </a>
-            ))}
-          </nav>
+            {/* Main mockup */}
+            <div className="relative z-10">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeMockup}
+                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: -12 }}
+                  transition={{ duration: 0.55, ease: EASE }}
+                >
+                  <Image
+                    src={MOCKUP_SLIDES[activeMockup]}
+                    alt="FarmsToMarket App"
+                    width={320}
+                    height={640}
+                    className="object-contain drop-shadow-2xl"
+                    sizes="320px"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
 
-          {/* Actions Desktop */}
-          <div className="hidden items-center gap-4 lg:flex">
-            <LanguageToggle variant="dark" />
-            <a
-              href="#login"
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
-            >
-              <User className="h-4 w-4" />
-              {t('nav.login')}
-            </a>
-            <a
-              href="#signup"
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-            >
-              {t('nav.signup')}
-            </a>
-          </div>
-
-          {/* Hamburger Mobile */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden"
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6 text-white" />
-            ) : (
-              <Menu className="h-6 w-6 text-white" />
-            )}
-          </button>
-        </div>
-      </header>
-
-      {/* ─── Hero Section ─── */}
-      <section className="relative flex min-h-dvh items-center justify-center overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          poster="/images/home2.png"
-        >
-          <source src="/videos/hero-farm.mp4" type="video/mp4" />
-        </video>
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/70 via-gray-950/60 to-gray-950/80" />
-
-        {/* Content */}
-        <div className="relative z-10 mx-auto max-w-4xl px-5 pt-20 text-center">
-          <div aria-live="polite" aria-atomic="true">
-            <AnimatePresence mode="wait">
+              {/* Floating stat cards */}
               <motion.div
-                key={activeSlide}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -24 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="space-y-6"
+                className="absolute -left-16 top-1/4 glass-card rounded-2xl px-5 py-4 shadow-xl"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 1.2, ease: EASE }}
               >
-                {/* Title */}
-                <h1 className="text-balance text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                  {t(currentSlide.title)}{' '}
-                  <span className="text-emerald-400">{t(currentSlide.highlight)}</span>
-                </h1>
-
-                {/* Description */}
-                <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">
-                  {t(currentSlide.description)}
-                </p>
-
-                {/* CTA */}
-                <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row sm:gap-4">
-                  <a
-                    href="#signup"
-                    className="w-full rounded-xl bg-emerald-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 sm:w-auto"
-                  >
-                    {t('hero.startFree')}
-                  </a>
-                  <button className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-gray-600 bg-gray-800/50 px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-all hover:border-gray-500 hover:bg-gray-700/50 sm:w-auto">
-                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-emerald-600/30">
-                      <Play className="h-4 w-4 translate-x-px text-emerald-400" fill="currentColor" />
-                    </span>
-                    {t('hero.watchDemo')}
-                  </button>
-                </div>
+                <div className="text-2xl font-bold text-gradient">50K+</div>
+                <div className="mt-0.5 text-xs text-gray-400">Active farmers</div>
               </motion.div>
-            </AnimatePresence>
-          </div>
 
-          {/* Dots */}
-          <div className="mt-12 flex items-center justify-center gap-2" role="tablist" aria-label="Slides">
-            {SLIDE_KEYS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveSlide(i)}
-                role="tab"
-                aria-selected={i === activeSlide}
-                aria-label={`Slide ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === activeSlide
-                    ? 'w-8 bg-emerald-400'
-                    : 'w-1.5 bg-white/30 hover:bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2" aria-hidden="true">
-          <div className="flex h-8 w-5 justify-center rounded-full border-2 border-gray-600">
-            <motion.div
-              className="mt-1.5 h-2 w-0.5 rounded-full bg-gray-400"
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Mobile Menu ─── */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-gray-950 lg:hidden"
-          >
-            <div className="flex h-full flex-col px-6 pb-8 pt-20">
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="absolute right-5 top-5"
-                aria-label="Close menu"
+              <motion.div
+                className="absolute -right-12 bottom-1/3 glass-card rounded-2xl px-5 py-4 shadow-xl"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 1.4, ease: EASE }}
               >
-                <X className="h-6 w-6 text-white" />
-              </button>
+                <div className="text-2xl font-bold text-gradient">99.8%</div>
+                <div className="mt-0.5 text-xs text-gray-400">Uptime</div>
+              </motion.div>
 
-              <nav className="flex flex-col gap-6">
-                {NAV_ITEMS.slice(0, 2).map((item) => (
-                  <a
-                    key={item.key}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
-                  >
-                    {t(item.key)}
-                  </a>
-                ))}
-
-                {/* Solutions expandable */}
-                <div>
-                  <button
-                    onClick={() => setMobileSolutionsOpen((o) => !o)}
-                    className="flex w-full items-center justify-between text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
-                  >
-                    {t('nav.solutions')}
-                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`} />
-                  </button>
-                  <AnimatePresence>
-                    {mobileSolutionsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mt-3 flex flex-col gap-3 pl-4 border-l border-gray-800">
-                          {SOLUTIONS_LINKS.map((link) => (
-                            <a
-                              key={link.key}
-                              href={link.href}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="text-base text-gray-400 transition-colors hover:text-emerald-400"
-                            >
-                              {t(link.key)}
-                            </a>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+              <motion.div
+                className="absolute -right-14 top-1/4 glass-card rounded-2xl px-4 py-3 shadow-xl"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 1.6, ease: EASE }}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="text-xs text-gray-300">Payment confirmed</div>
                 </div>
+                <div className="mt-1 text-sm font-bold text-white">+XAF 45,000</div>
+              </motion.div>
+            </div>
 
-                {NAV_ITEMS.slice(2).map((item) => (
-                  <a
-                    key={item.key}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-200 transition-colors hover:text-emerald-400"
-                  >
-                    {t(item.key)}
-                  </a>
-                ))}
-              </nav>
-
-              <div className="mt-auto space-y-3">
-                <LanguageToggle variant="dark" />
-                <a
-                  href="#signup"
-                  className="block w-full rounded-xl bg-emerald-600 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-emerald-500"
-                >
-                  {t('nav.signup')}
-                </a>
-                <a
-                  href="#login"
-                  className="block w-full rounded-xl border border-gray-700 py-3.5 text-center text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800"
-                >
-                  {t('nav.login')}
-                </a>
-              </div>
+            {/* Dot indicators */}
+            <div className="absolute bottom-0 flex gap-2">
+              {MOCKUP_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveMockup(i)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    i === activeMockup ? 'w-6 bg-emerald-500' : 'w-1.5 bg-gray-700'
+                  }`}
+                  aria-label={`Mockup ${i + 1}`}
+                />
+              ))}
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2" aria-hidden="true">
+        <div className="flex h-9 w-5 justify-center rounded-full border-2 border-white/20">
+          <div className="mt-2 h-2 w-0.5 rounded-full bg-white/40 animate-scroll-pulse" />
+        </div>
+      </div>
+    </section>
   );
 }

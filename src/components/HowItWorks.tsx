@@ -93,7 +93,7 @@ export default function HowItWorks() {
   const currentTab = tabsData[activeTab];
 
   return (
-    <section className="py-20 bg-gray-950" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-950 bg-topo-subtle" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <SectionHeader
@@ -112,15 +112,15 @@ export default function HowItWorks() {
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
-          <div className="inline-flex rounded-xl overflow-hidden border border-gray-700">
+          <div className="inline-flex rounded-full overflow-hidden border border-gray-700 bg-gray-900/50 p-1">
             {tabOrder.map((tabKey) => (
               <button
                 key={tabKey}
                 onClick={() => setActiveTab(tabKey)}
-                className={`px-6 py-3 text-sm font-medium transition-all duration-300 ${
+                className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   activeTab === tabKey
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
+                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25'
+                    : 'text-gray-400 hover:text-white'
                 }`}
               >
                 {t(tabsData[tabKey].labelKey)}
@@ -147,7 +147,7 @@ export default function HowItWorks() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex gap-4 p-5 bg-gray-800/50 border border-gray-700 rounded-xl hover:border-emerald-600/50 transition-all duration-300"
+                  className="flex gap-4 p-5 glass-card rounded-2xl transition-all duration-500"
                 >
                   {/* Step Number Badge */}
                   <div className="flex-shrink-0 w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
@@ -185,9 +185,9 @@ export default function HowItWorks() {
                     alt={`${activeTab} mockup`}
                     width={600}
                     height={1200}
-                    className="mx-auto drop-shadow-2xl scale-110"
+                    className="mx-auto drop-shadow-2xl"
                     priority
-                    sizes="(max-width: 1024px) 90vw, 600px"
+                    sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 500px"
                   />
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function HowItWorks() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="text-center p-4 bg-gray-800/50 border border-gray-700 rounded-xl"
+                className="text-center p-4 glass-card rounded-2xl"
               >
                 <div className="text-2xl md:text-3xl font-bold text-emerald-400 mb-1">
                   {stat.value}

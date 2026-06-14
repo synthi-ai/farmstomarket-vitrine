@@ -14,6 +14,16 @@ export const fr: Record<string, string> = {
 
   // Hero
   'hero.badge': 'Plateforme agricole de nouvelle g\u00e9n\u00e9ration',
+  'hero.headline': 'Commercez l\'agriculture',
+  'hero.rotate.fair': '\u00e9quitablement.',
+  'hero.rotate.secure': 'en s\u00e9curit\u00e9.',
+  'hero.rotate.direct': 'directement.',
+  'hero.rotate.smart': 'intelligemment.',
+  'hero.rotate.fast': 'instantan\u00e9ment.',
+  'hero.subheadline': 'Connectez agriculteurs, acheteurs et transporteurs sur une plateforme s\u00e9curis\u00e9e. Prix justes, paiements instantan\u00e9s et tra\u00e7abilit\u00e9 compl\u00e8te.',
+  'hero.startFree': 'Commencer gratuitement',
+  'hero.watchDemo': 'Voir la d\u00e9mo',
+  'hero.trustLine': 'Approuv\u00e9 par 50 000+ agriculteurs dans 15+ pays africains',
   'hero.slide1.title': 'Vendez directement aux acheteurs',
   'hero.slide1.highlight': 'Paiement instantan\u00e9',
   'hero.slide1.description': 'Farms to Market connecte les agriculteurs et les acheteurs avec une plateforme s\u00e9curis\u00e9e, transparente et propuls\u00e9e par l\'IA.',
@@ -23,8 +33,6 @@ export const fr: Record<string, string> = {
   'hero.slide3.title': 'Transactions s\u00e9curis\u00e9es',
   'hero.slide3.highlight': '100 % tra\u00e7ables',
   'hero.slide3.description': 'Prix justes, paiements imm\u00e9diats et contrats intelligents pour une confiance totale entre producteurs et acheteurs.',
-  'hero.startFree': 'Commencer gratuitement',
-  'hero.watchDemo': 'Voir la d\u00e9mo',
 
   // VideoShowcase (section expertise)
   'showcase.badge.agriculture': 'AgriTech',

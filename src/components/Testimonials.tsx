@@ -13,8 +13,8 @@ const avatars = [
   '/farmers/cassava1.jpeg',
   '/farmers/images1.jpeg',
   '/farmers/farms2.jpeg',
-  '/farmers/cassava1.jpeg',
-  '/farmers/images1.jpeg',
+  '/farmers/cassava.jpeg',
+  '/farmers/poivrons.jpeg',
 ];
 
 const DRAG_THRESHOLD = 50;
@@ -82,7 +82,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-20 bg-gray-950" ref={ref}>
+    <section className="py-24 md:py-32 bg-gray-950 bg-topo-subtle" ref={ref} id="testimonials">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('testimonials.title')}
@@ -115,7 +115,7 @@ export default function Testimonials() {
                 onDragEnd={handleDragEnd}
                 className="absolute w-full cursor-grab active:cursor-grabbing"
               >
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-10 md:p-12 shadow-2xl">
+                <div className="glass-card rounded-3xl p-10 md:p-12 shadow-2xl">
                   <div className="mb-8">
                     <svg
                       className="w-10 h-10 text-emerald-500 mb-4 opacity-60"
@@ -140,6 +140,7 @@ export default function Testimonials() {
                         width={64}
                         height={64}
                         className="w-full h-full object-cover"
+                        sizes="64px"
                       />
                     </div>
                     <div>

@@ -55,7 +55,7 @@ export default function ReadyToTransform() {
     <div className="w-full bg-gray-950 relative overflow-hidden py-12 md:py-0 md:h-[685px] md:pt-[100px] md:px-10" ref={ref}>
       <motion.div
         ref={containerRef}
-        className="relative w-full max-w-7xl mx-auto bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-t-[2rem] md:rounded-t-[2.5rem] px-6 py-12 md:px-24 md:py-[100px] md:h-[585px] isolate"
+        className="relative w-full max-w-7xl mx-auto bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-t-[2.5rem] md:rounded-t-[3rem] px-6 py-12 md:px-24 md:py-[100px] md:h-[585px] isolate shadow-2xl shadow-emerald-600/20"
         variants={staggerChildrenVariants}
         initial="hidden"
         animate={isVisible ? 'visible' : 'hidden'}
@@ -79,7 +79,7 @@ export default function ReadyToTransform() {
           >
             <motion.a
               href="#download-app-store"
-              className="flex items-center justify-center bg-white rounded-2xl px-5 py-3"
+              className="flex items-center justify-center bg-white rounded-full px-6 py-3.5 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -94,7 +94,7 @@ export default function ReadyToTransform() {
 
             <motion.a
               href="#download-google-play"
-              className="flex items-center justify-center bg-white rounded-2xl px-5 py-3"
+              className="flex items-center justify-center bg-white rounded-full px-6 py-3.5 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

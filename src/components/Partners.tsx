@@ -2,28 +2,54 @@
 
 import Image from 'next/image';
 
-const LOGOS = [
-  { name: 'Airbnb', src: '/images/airbnb.png' },
-  { name: 'Amazon', src: '/images/amazon.png' },
-  { name: 'Canon', src: '/images/canon.png' },
-  { name: 'Facebook', src: '/images/facebook.png' },
-  { name: 'HubSpot', src: '/images/hubspot.png' },
+const PARTNERS = [
+  { name: 'SYNTHI', src: '/farmers/LogoSYNTHI.png', useImage: true },
+  { name: 'Orange Money', useImage: false },
+  { name: 'MTN MoMo', useImage: false },
+  { name: 'FAO Cameroun', useImage: false },
+  { name: 'AfDB', useImage: false },
+  { name: 'GIZ', useImage: false },
+  { name: 'MINADER', useImage: false },
+  { name: 'WFP Africa', useImage: false },
 ];
+
+const ALL = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS];
 
 export default function Partners() {
   return (
-    <section className="py-14 bg-gray-950 border-t border-gray-800/40">
-      <div className="mx-auto max-w-5xl px-6 flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
-        {LOGOS.map((logo) => (
-          <Image
-            key={logo.name}
-            src={logo.src}
-            alt={logo.name}
-            width={120}
-            height={40}
-            className="h-7 w-auto object-contain opacity-40 grayscale hover:opacity-70 hover:grayscale-0 transition-all duration-300"
-          />
-        ))}
+    <section className="border-t border-gray-800/30 bg-gray-950 py-12 overflow-hidden">
+      <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-gray-600">
+        Trusted by leading agricultural organisations
+      </p>
+
+      <div className="relative">
+        {/* Fade edges */}
+        <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-24 bg-gradient-to-r from-gray-950 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-24 bg-gradient-to-l from-gray-950 to-transparent" />
+
+        <div className="flex animate-marquee w-max items-center">
+          {ALL.map((partner, i) => (
+            <div
+              key={`${partner.name}-${i}`}
+              className="flex-shrink-0 px-10 flex items-center justify-center"
+            >
+              {partner.useImage && partner.src ? (
+                <Image
+                  src={partner.src}
+                  alt={partner.name}
+                  width={120}
+                  height={40}
+                  className="h-7 w-auto object-contain opacity-30 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-500"
+                  sizes="120px"
+                />
+              ) : (
+                <span className="text-sm font-bold tracking-wide text-gray-600 hover:text-gray-400 transition-colors duration-300 whitespace-nowrap select-none">
+                  {partner.name}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

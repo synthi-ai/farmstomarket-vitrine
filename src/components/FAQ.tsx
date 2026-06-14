@@ -1,40 +1,47 @@
 'use client';
 
 import { useState } from 'react';
+import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
 import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
 import SectionHeader from '@/components/ui/SectionHeader';
 
+type Category = 'PRICING' | 'SECURITY' | 'DELIVERY' | 'QUALITY';
+
+const CATEGORY_STYLES: Record<Category, string> = {
+  PRICING: 'text-emerald-400 bg-emerald-900/50 border border-emerald-700',
+  SECURITY: 'text-blue-400 bg-blue-900/50 border border-blue-700',
+  DELIVERY: 'text-purple-400 bg-purple-900/50 border border-purple-700',
+  QUALITY: 'text-orange-400 bg-orange-900/50 border border-orange-700',
+};
+
+const DEFAULT_STYLE = 'text-gray-400 bg-gray-800 border border-gray-700';
+
+function getCategoryStyle(categoryKey: string): string {
+  return CATEGORY_STYLES[categoryKey as Category] ?? DEFAULT_STYLE;
+}
+
+const FAQ_ITEMS = Array.from({ length: 8 }, (_, i) => ({
+  id: i + 1,
+  questionKey: `faq.${i + 1}.question`,
+  answerKey: `faq.${i + 1}.answer`,
+  categoryKey: `faq.${i + 1}.category`,
+}));
+
 export default function FAQ() {
   const { t } = useLanguage();
   const { ref, isVisible } = useAnimateOnScroll(0.2);
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
-  const faqItems = Array.from({ length: 8 }, (_, i) => ({
-    id: i + 1,
-    question: t(`faq.${i + 1}.question`),
-    answer: t(`faq.${i + 1}.answer`),
-    category: t(`faq.${i + 1}.category`),
-  }));
-
-  const toggleExpand = (id: number) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
-
-  const getCategoryColor = (category: string) => {
-    const key = category.toUpperCase();
-    if (key === t('faq.category.pricing')) return 'text-emerald-400 bg-emerald-900/50 border border-emerald-700';
-    if (key === t('faq.category.security')) return 'text-blue-400 bg-blue-900/50 border border-blue-700';
-    if (key === t('faq.category.delivery')) return 'text-purple-400 bg-purple-900/50 border border-purple-700';
-    if (key === t('faq.category.quality')) return 'text-orange-400 bg-orange-900/50 border border-orange-700';
-    return 'text-gray-400 bg-gray-800 border border-gray-700';
+  const toggle = (id: number) => {
+    setExpandedId((prev) => (prev === id ? null : id));
   };
 
   return (
-    <section className="py-20 bg-gray-900" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="bg-gray-900 bg-topo-subtle py-24 md:py-32" ref={ref}>
+      <div className="mx-auto max-w-7xl px-6">
         <SectionHeader
           title={t('faq.title')}
           description={t('faq.description')}
@@ -44,87 +51,93 @@ export default function FAQ() {
         />
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"
+          className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2"
           variants={staggerChildrenVariants}
           initial="hidden"
           animate={isVisible ? 'visible' : 'hidden'}
         >
-          {faqItems.map((item) => (
-            <motion.div
-              key={item.id}
-              className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden hover:border-gray-600 transition-all duration-300"
-              variants={fadeUpVariants}
-            >
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(item.category)}`}>
-                    {item.category}
-                  </span>
-                </div>
+          {FAQ_ITEMS.map((item) => {
+            const rawCategory = t(item.categoryKey);
+            const style = getCategoryStyle(rawCategory);
 
-                <div
-                  className="flex justify-between items-start cursor-pointer"
-                  onClick={() => toggleExpand(item.id)}
-                >
-                  <h3 className="text-lg font-semibold text-white pr-4 leading-tight">
-                    {item.question}
-                  </h3>
-                  <motion.div
-                    animate={{ rotate: expandedId === item.id ? 45 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0"
+            return (
+              <motion.div
+                key={item.id}
+                className="glass-card overflow-hidden rounded-2xl transition-all duration-500"
+                variants={fadeUpVariants}
+              >
+                <div className="p-6">
+                  <div className="mb-4">
+                    <span className={`rounded-full px-3 py-1 text-xs font-medium ${style}`}>
+                      {rawCategory}
+                    </span>
+                  </div>
+
+                  <button
+                    className="flex w-full items-start justify-between gap-4 text-left"
+                    onClick={() => toggle(item.id)}
+                    aria-expanded={expandedId === item.id}
                   >
-                    +
-                  </motion.div>
-                </div>
-
-                <AnimatePresence>
-                  {expandedId === item.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeOut' }}
-                      className="mt-4"
+                    <h3 className="text-lg font-semibold leading-tight text-white">
+                      {t(item.questionKey)}
+                    </h3>
+                    <motion.span
+                      animate={{ rotate: expandedId === item.id ? 45 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white"
                     >
-                      <div className="w-full h-px bg-gray-700 mb-4"></div>
-                      <p className="text-gray-400 leading-relaxed">
-                        {item.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          ))}
+                      <Plus className="h-4 w-4" />
+                    </motion.span>
+                  </button>
+
+                  <AnimatePresence>
+                    {expandedId === item.id && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        className="mt-4"
+                      >
+                        <div className="mb-4 h-px w-full bg-gray-700" />
+                        <p className="leading-relaxed text-gray-400">
+                          {t(item.answerKey)}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
+        {/* CTA card */}
         <motion.div
-          className="bg-gray-800/50 border border-gray-700 rounded-xl p-8"
+          className="glass-card rounded-3xl p-8"
           initial="hidden"
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
         >
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0">
-              <h3 className="font-bold text-2xl mb-2 text-white">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+            <div>
+              <h3 className="mb-2 text-2xl font-bold text-white">
                 {t('faq.notFound.title')}
               </h3>
-              <p className="text-gray-400">
-                {t('faq.notFound.description')}
-              </p>
+              <p className="text-gray-400">{t('faq.notFound.description')}</p>
             </div>
 
-            <motion.button
-              className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 inline-flex items-center gap-2"
+            <motion.a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/25 whitespace-nowrap"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {t('faq.contactSupport')}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
               </svg>
-            </motion.button>
+            </motion.a>
           </div>
         </motion.div>
       </div>

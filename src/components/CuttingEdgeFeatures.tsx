@@ -51,7 +51,7 @@ export default function CuttingEdgeFeatures() {
   ];
 
   return (
-    <section className="py-20 bg-gray-900" ref={ref} id="features">
+    <section className="py-24 md:py-32 bg-gray-900 bg-topo-subtle" ref={ref} id="features">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title={t('features.title')}
@@ -72,7 +72,7 @@ export default function CuttingEdgeFeatures() {
             <motion.div
               key={index}
               variants={fadeUpVariants}
-              className="bg-gray-800/50 border border-gray-700 rounded-2xl overflow-hidden hover:border-emerald-700/50 transition-all duration-300 group"
+              className="glass-card rounded-3xl overflow-hidden transition-all duration-500 group"
               whileHover={{ y: -4 }}
             >
               {/* Zoomed mockup preview area */}
@@ -85,8 +85,8 @@ export default function CuttingEdgeFeatures() {
                     alt={feature.title}
                     width={320}
                     height={640}
-                    className="object-contain h-64 w-auto transition-transform duration-500 group-hover:scale-110"
-                    sizes="320px"
+                    className="object-contain h-full max-h-52 w-auto transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 80vw, 320px"
                   />
                 </div>
               </div>
@@ -113,7 +113,7 @@ export default function CuttingEdgeFeatures() {
 
         {/* CTA with large mockup showcase */}
         <motion.div
-          className="relative mt-16 p-8 md:p-12 bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden"
+          className="relative mt-16 p-8 md:p-12 glass-card rounded-3xl overflow-hidden"
           initial="hidden"
           animate={isVisible ? 'visible' : 'hidden'}
           variants={fadeUpVariants}
@@ -127,7 +127,7 @@ export default function CuttingEdgeFeatures() {
                 {t('features.cta.description')}
               </p>
               <motion.button
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-8 py-3 rounded-xl transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -142,7 +142,7 @@ export default function CuttingEdgeFeatures() {
                   src="/Mockups/mockup 20.png"
                   alt="Marketplace Listings"
                   fill
-                  className="object-contain object-center scale-125"
+                  className="object-contain object-center"
                   sizes="200px"
                 />
               </div>
@@ -151,7 +151,7 @@ export default function CuttingEdgeFeatures() {
                   src="/Mockups/mockup 09.png"
                   alt="Negotiation Chat"
                   fill
-                  className="object-contain object-center scale-125"
+                  className="object-contain object-center"
                   sizes="200px"
                 />
               </div>

@@ -1,128 +1,131 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAnimateOnScroll } from '@/hooks/useAnimation';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
+const SHOWCASE_ITEMS = [
+  '/Mockups/mockup 01.png',
+  '/Mockups/mockup 02.png',
+  '/Mockups/mockup 03.png',
+  '/Mockups/mockup 04.png',
+  '/Mockups/mockup 05.png',
+];
+
 export default function VideoShowcase() {
   const { t } = useLanguage();
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const { ref, isVisible } = useAnimateOnScroll(0.1);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.15 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % SHOWCASE_ITEMS.length);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Background Video — Desktop */}
-      <div className="absolute inset-0 hidden md:block">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/images/home2.png"
-          className="w-full h-full object-cover"
-        >
-          <source
-            src="https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655382c93a7499c677d6e2ad_RENDER-site-HEVC-HEVC-transcode.mp4"
-            type="video/mp4"
-          />
-          <source
-            src="https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655382c93a7499c677d6e2ad_RENDER-site-HEVC-HEVC-transcode.webm"
-            type="video/webm"
-          />
-        </video>
-      </div>
+    <section ref={ref} id="about" className="relative py-28 md:py-36 bg-gray-950 bg-topo-subtle overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
-      {/* Background Video — Mobile */}
-      <div className="absolute inset-0 md:hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/images/home2.png"
-          className="w-full h-full object-cover"
-        >
-          <source
-            src="https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655386615d413a08b225a6c0_mobile render-HEVC-transcode.mp4"
-            type="video/mp4"
-          />
-          <source
-            src="https://cdn.prod.website-files.com/63c52559b778cc3f23684b69/655386615d413a08b225a6c0_mobile render-HEVC-transcode.webm"
-            type="video/webm"
-          />
-        </video>
-      </div>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50" />
-
-      {/* ─── Content ─── */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-32">
-        {/* Headline — opencv.ai slide-up entrance */}
-        <div className="overflow-hidden mb-6">
+        {/* Large centered headline (Shopify-style) */}
+        <div className="text-center mb-20">
           <motion.h2
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1]"
-            initial={{ y: '100%', opacity: 0 }}
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-6"
+            initial={{ y: 60, opacity: 0 }}
             animate={isVisible ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 1, ease: EASE }}
+            transition={{ duration: 0.9, ease: EASE }}
           >
             {t('showcase.title')}{' '}
-            <span className="text-emerald-400">{t('showcase.highlight')}</span>
+            <span className="text-gradient">{t('showcase.highlight')}</span>
           </motion.h2>
+          <motion.p
+            className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
+            initial={{ y: 40, opacity: 0 }}
+            animate={isVisible ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
+          >
+            {t('showcase.description')}
+          </motion.p>
         </div>
 
-        {/* Description */}
-        <motion.p
-          className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-14 leading-relaxed"
-          initial={{ y: 40, opacity: 0 }}
-          animate={isVisible ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.2, ease: EASE }}
-        >
-          {t('showcase.description')}
-        </motion.p>
-
-        {/* Single stat */}
+        {/* Showcase carousel — centered phone with glow (Shopify brand showcase style) */}
         <motion.div
-          className="text-center"
-          initial={{ y: 40, opacity: 0 }}
+          className="relative"
+          initial={{ y: 60, opacity: 0 }}
           animate={isVisible ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.4, ease: EASE }}
+          transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
         >
-          <div className="text-5xl md:text-6xl font-bold text-emerald-400 tracking-tight">
-            50K+
+          <div className="relative flex justify-center items-end mb-12">
+            {/* Glow */}
+            <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+              <div className="w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[100px]" />
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.6, ease: EASE }}
+                className="relative"
+              >
+                <Image
+                  src={SHOWCASE_ITEMS[active]}
+                  alt="FarmsToMarket App"
+                  width={320}
+                  height={640}
+                  className="object-contain drop-shadow-2xl"
+                  sizes="320px"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
-          <div className="text-gray-300/60 text-sm mt-2 uppercase tracking-wider">
-            {t('showcase.stat.users')}
+
+          {/* Dot indicator */}
+          <div className="flex justify-center gap-2 mb-16">
+            {SHOWCASE_ITEMS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`h-2 rounded-full transition-all duration-500 ${
+                  i === active ? 'w-8 bg-emerald-500' : 'w-2 bg-gray-700 hover:bg-gray-600'
+                }`}
+                aria-label={`Showcase ${i + 1}`}
+              />
+            ))}
           </div>
         </motion.div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-2 bg-white/60 rounded-full" />
-        </div>
-      </motion.div>
+        {/* Stats row — Shopify-style large numbers */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4 max-w-4xl mx-auto"
+          initial={{ y: 40, opacity: 0 }}
+          animate={isVisible ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.9, delay: 0.5, ease: EASE }}
+        >
+          {[
+            { value: '50K+', label: t('showcase.stat.users') },
+            { value: '72.9K+', label: t('showcase.stat.transactions') },
+            { value: '15+', label: t('credibility.countries.label') },
+          ].map((stat, i) => (
+            <div key={i} className="text-center">
+              <div className="text-5xl md:text-6xl font-bold text-gradient tracking-tight mb-2">
+                {stat.value}
+              </div>
+              <div className="text-gray-500 text-sm uppercase tracking-widest">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,0 +1,89 @@
+# Audit & Stratégie Marketing — Farm'sToMarket
+
+Merci pour cette présentation. Avant de vous livrer mes recommandations, laissez-moi vous donner mon analyse franche — celle que vous auriez d'une directrice marketing senior, pas d'un consultant qui cherche à vous faire plaisir.
+
+---
+
+## 1. CE QUI FONCTIONNE BIEN ✅
+
+**Le positionnement est clair et le problème bien identifié.** "Traditional agricultural supply chains are broken" — c'est une accroche honnête, le pain point est réel et universel. La segmentation en trois personas (Producteurs / Acheteurs / Transporteurs) est structurée et logique.
+
+**L'écosystème produit est ambitieux.** AgroBank, la bourse agricole en temps réel, le tracking GPS, l'escrow payment — sur le papier, c'est une proposition de valeur différenciante et complète.
+
+---
+
+## 2. CE QUI POSE PROBLÈME — Mon diagnostic direct ⚠️
+
+### a) Un seul message, trois audiences : le piège classique
+Vos métadonnées essaient de parler **simultanément** aux agriculteurs, aux retailers ET aux transporteurs. En marketing, cibler tout le monde, c'est ne cibler personne. Sur le Play Store / App Store, vous avez **3 secondes** pour convaincre. Un agriculteur au Sénégal et un acheteur pour une chaîne de supermarchés ne lisent pas la même chose.
+
+> **Recommandation :** Créer des landing pages distinctes par persona, et sur les stores, choisir un persona principal (le producteur — c'est l'angle le plus émotionnel et différenciant).
+
+### b) "Join thousands of producers and buyers" — Attention à la crédibilité
+C'est une startup. Si vous n'avez pas réellement des milliers d'utilisateurs actifs vérifiables, cette formule peut **détruire la confiance** dès le premier contact. Les acheteurs professionnels (retailers, restaurants) vont vérifier.
+
+> **Recommandation :** Soyez précis ou restez vagues mais authentiques. "Rejoignez une communauté grandissante de producteurs" vaut mieux qu'un chiffre non vérifiable.
+
+### c) Le nom "AgroBank" crée une friction réglementaire perçue
+Le mot "Bank" dans un produit fintech agricole va immédiatement déclencher des questions de conformité, de licence bancaire, de régulation. Ça peut freiner l'adoption — surtout chez les retailers institutionnels.
+
+> **Recommandation :** Renommer en **"AgroWallet"**, **"FarmPay"** ou **"AgriSafe"** — même fonctionnalité, sans la charge réglementaire perçue.
+
+### d) Zéro preuve sociale, zéro ancrage géographique
+Où opérez-vous ? Afrique de l'Ouest ? Europe ? Asie du Sud-Est ? Le marché agricole est **hyper-local**. Sans ancrage géo, la proposition semble générique et le téléchargement ne se justifie pas.
+
+> **Recommandation :** Ajouter impérativement un ancrage géographique dans les métadonnées et les visuels stores (screenshots, pays ciblés).
+
+---
+
+## 3. STRATÉGIE MARKETING RECOMMANDÉE — Les 90 premiers jours
+
+### Phase 1 — Semaines 1 à 4 : Credibility First
+- Obtenir **5 à 10 témoignages vidéo** d'agriculteurs réels (même petits)
+- Créer une **page presse** simple avec les chiffres clés vérifiables
+- Optimiser les screenshots Play Store / App Store : montrer les **résultats** (ex. *"Prix fixé en 2 minutes"*, *"Paiement reçu en 48h"*), pas les features
+
+### Phase 2 — Semaines 5 à 8 : Activation du persona prioritaire
+- **L'agriculteur est votre cheval de Troie.** Sans producteurs, pas d'acheteurs. Sans acheteurs, pas de transporteurs. Concentrez 80% de vos efforts marketing sur ce persona.
+- Canaux prioritaires : **WhatsApp Business, radio locale, partenariats coopératives agricoles, ONG agraires**. Pas LinkedIn, pas Instagram dans un premier temps.
+- Message central unique : ***"Vendez votre récolte. Fixez votre prix. Soyez payé."***
+
+### Phase 3 — Semaines 9 à 12 : Growth & Retention
+- Programme de **parrainage agriculteur → agriculteur** (le bouche-à-oreille est le canal #1 dans ce secteur)
+- Intégration avec des **associations professionnelles** pour la distribution B2B
+- Mise en place de **métriques de rétention** : taux de renouvellement de commandes, volume de transactions par producteur actif
+
+---
+
+## 4. LES 3 KPIs À SUIVRE ABSOLUMENT
+
+| KPI | Cible 90 jours | Pourquoi |
+|---|---|---|
+| Producteurs actifs (min. 1 vente/mois) | 500+ | Indicateur de viabilité du supply |
+| Taux de complétion transaction | >70% | Valide la confiance dans le système |
+| Retention D30 | >40% | Valide l'utilité réelle du produit |
+
+---
+
+## 5. MOT DE FIN — Ce que je dirais en board meeting
+
+> Farm'sToMarket résout un vrai problème avec une vraie solution. Mais en l'état, votre communication ressemble à une **démonstration technique** plutôt qu'à un **mouvement.** Les meilleures agri-techs (Twiga Foods, WeFarm, Anka) ont gagné parce qu'elles ont vendu une **transformation humaine**, pas une liste de features.
+
+**Votre tagline actuelle :** *"Trade smarter. Deliver faster. Grow together."*
+**Ce qu'elle devrait être :** Quelque chose qui fait lever un agriculteur à 5h du matin en se disant que c'est grâce à vous qu'il a pu payer l'école de ses enfants.
+
+C'est là que réside votre vrai différenciateur. Et ça, aucun concurrent ne peut vous le voler.
+
+---
+
+*Souhaitez-vous que j'approfondisse un aspect spécifique — stratégie de lancement, refonte des métadonnées stores, plan de contenu, ou stratégie de partenariats ?*en te
+
+
+
+Compris — tu parles du site web marketing de Farm'sToMarket, celui qui présente la solution, les apps mobiles, Farm'sToMarket Pro, etc. Et tu veux tout améliorer maintenant.7 onglets cliquables — parcours l'outil. Voici ce qu'il faut retenir en priorité absolue :
+
+**Cette semaine, sans développeur :** réécrire le titre hero, réécrire les 3 premières lignes des stores, et remplacer tous les CTAs "Télécharger" par des CTAs résultats. Ces 3 changements prennent 3–4 heures et ont l'impact le plus rapide.
+
+**La semaine suivante, avec un dev :** formulaire d'inscription à 3 champs maximum, et navigation par persona (Producteur / Acheteur / Transporteur / Coopérative) — c'est là où tu récupères la majorité des visiteurs qui partent aujourd'hui sans télécharger.
+
+Tu veux qu'on aille plus loin sur un point spécifique — la structure d'une page persona, le script de l'onboarding in-app, ou le copy exact pour les stores ?
