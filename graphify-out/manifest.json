@@ -1,0 +1,967 @@
+{
+  "components.json": {
+    "mtime": 1752506595.0138712,
+    "ast_hash": "44a51b28bb75baa05a3557e6a612c0ed",
+    "semantic_hash": ""
+  },
+  "eslint.config.mjs": {
+    "mtime": 1775798138.111678,
+    "ast_hash": "170e8f1ee39a7a99bdac6c4110b0a429",
+    "semantic_hash": ""
+  },
+  "graphify.sh": {
+    "mtime": 1781960041.0175545,
+    "ast_hash": "c67b7773fb7cee92924bcaf0ef5c5883",
+    "semantic_hash": ""
+  },
+  "next.config.mjs": {
+    "mtime": 1781459245.7091298,
+    "ast_hash": "db34811790aa11b7c09876c20819b2b2",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1781437453.0376372,
+    "ast_hash": "41549b38daee62b2339371bf14f09a0c",
+    "semantic_hash": ""
+  },
+  "postcss.config.mjs": {
+    "mtime": 1752506595.0157743,
+    "ast_hash": "675899342e765a4d16acd75a53389101",
+    "semantic_hash": ""
+  },
+  "public/sw.js": {
+    "mtime": 1775798138.2999735,
+    "ast_hash": "bc86080d55b0f6544650cd05254bdf23",
+    "semantic_hash": ""
+  },
+  "src/animations/variants.ts": {
+    "mtime": 1781437623.7593129,
+    "ast_hash": "46d8ad422a595e894e9f65c4d49a4455",
+    "semantic_hash": ""
+  },
+  "src/app/about/page.tsx": {
+    "mtime": 1781445061.8925817,
+    "ast_hash": "2fcb0ddb7d7bf2cbf62f148ad469561c",
+    "semantic_hash": ""
+  },
+  "src/app/agrobank/page.tsx": {
+    "mtime": 1781450286.4741855,
+    "ast_hash": "dfc500e1b32e7a3634c72079d6b9a637",
+    "semantic_hash": ""
+  },
+  "src/app/customer/page.tsx": {
+    "mtime": 1775798138.303444,
+    "ast_hash": "4dfe27ef7b856d8ca1bb4eb423ae2c86",
+    "semantic_hash": ""
+  },
+  "src/app/layout.tsx": {
+    "mtime": 1781438762.856018,
+    "ast_hash": "ff08752babdc7c334e2b34deed386b8d",
+    "semantic_hash": ""
+  },
+  "src/app/not-found.tsx": {
+    "mtime": 1775798138.3086967,
+    "ast_hash": "3aadac777dd40a16d37dbe891f0a4ae9",
+    "semantic_hash": ""
+  },
+  "src/app/page.tsx": {
+    "mtime": 1781443152.3497906,
+    "ast_hash": "e0ada3a0023c0df144e1d551672af57c",
+    "semantic_hash": ""
+  },
+  "src/app/producer/page.tsx": {
+    "mtime": 1781468440.7851386,
+    "ast_hash": "107faa7c1ebc87ca8ce3b27dae317c48",
+    "semantic_hash": ""
+  },
+  "src/app/robots.ts": {
+    "mtime": 1775798138.3109825,
+    "ast_hash": "8480883ba454ff75817d4480bcd9b530",
+    "semantic_hash": ""
+  },
+  "src/app/sitemap.ts": {
+    "mtime": 1775798138.3115747,
+    "ast_hash": "561157e6e916418e5622778dec8b09af",
+    "semantic_hash": ""
+  },
+  "src/app/transporter/page.tsx": {
+    "mtime": 1780343431.7005603,
+    "ast_hash": "2fb64ccc1710ab007e613c2a0eec489f",
+    "semantic_hash": ""
+  },
+  "src/components/AgroBank.tsx": {
+    "mtime": 1781442852.430521,
+    "ast_hash": "14816a4b7997ef93b5d26f5ef6c6492f",
+    "semantic_hash": ""
+  },
+  "src/components/AgrobankPage.tsx": {
+    "mtime": 1781467790.0896783,
+    "ast_hash": "56377ae83fa0de4d13887d32191d225a",
+    "semantic_hash": ""
+  },
+  "src/components/BackToTop.tsx": {
+    "mtime": 1775798138.313757,
+    "ast_hash": "9b7f056c55de6f1c6c4b53fde26af5c4",
+    "semantic_hash": ""
+  },
+  "src/components/CapabilitiesGrid.tsx": {
+    "mtime": 1781445061.8924015,
+    "ast_hash": "03f66aaf983499b608059b53bfdbad35",
+    "semantic_hash": ""
+  },
+  "src/components/CapitalStats.tsx": {
+    "mtime": 1781445061.8632574,
+    "ast_hash": "f9f380f833b076652c27607ed69f8b21",
+    "semantic_hash": ""
+  },
+  "src/components/ConversionStats.tsx": {
+    "mtime": 1781445061.878566,
+    "ast_hash": "edc76eedfcdc6730bb87b838399ab55a",
+    "semantic_hash": ""
+  },
+  "src/components/CookieBanner.tsx": {
+    "mtime": 1775798138.314221,
+    "ast_hash": "3d3633eb796f343faf5f465434b6e319",
+    "semantic_hash": ""
+  },
+  "src/components/CredibilityStats.tsx": {
+    "mtime": 1781442852.4255075,
+    "ast_hash": "0ac8103c5ece4ff831f8449c7e3aa8e3",
+    "semantic_hash": ""
+  },
+  "src/components/CuttingEdgeFeatures.tsx": {
+    "mtime": 1781442852.4408484,
+    "ast_hash": "32118382c113bf85a3003a05c2d932e3",
+    "semantic_hash": ""
+  },
+  "src/components/FAQ.tsx": {
+    "mtime": 1781439261.0138276,
+    "ast_hash": "d24d2a2d8cb75fd6fe0a321b563b7aac",
+    "semantic_hash": ""
+  },
+  "src/components/FeatureHighlight.tsx": {
+    "mtime": 1781439035.7253695,
+    "ast_hash": "4fc31890006dc31a1fae23fcb5db1ca6",
+    "semantic_hash": ""
+  },
+  "src/components/FinalCTA.tsx": {
+    "mtime": 1781445061.8781621,
+    "ast_hash": "12d3dc6de9632158430c305d75f80b54",
+    "semantic_hash": ""
+  },
+  "src/components/Footer.tsx": {
+    "mtime": 1781437223.6669254,
+    "ast_hash": "9851b434f40b0c80b449564c86949882",
+    "semantic_hash": ""
+  },
+  "src/components/Hero.tsx": {
+    "mtime": 1781449156.0725262,
+    "ast_hash": "91293ef38a5837acb7683d2e7bc04c32",
+    "semantic_hash": ""
+  },
+  "src/components/HowItWorks.tsx": {
+    "mtime": 1781442852.435855,
+    "ast_hash": "51964388a665bc93ce01671d3a6d4b9f",
+    "semantic_hash": ""
+  },
+  "src/components/LanguageToggle.tsx": {
+    "mtime": 1775798138.323611,
+    "ast_hash": "dd2657e0a13b1da85323bb4e72c858e4",
+    "semantic_hash": ""
+  },
+  "src/components/MerchantShowcase.tsx": {
+    "mtime": 1781445061.8607035,
+    "ast_hash": "7821e6e177d0f664789bca2515914ffc",
+    "semantic_hash": ""
+  },
+  "src/components/Navbar.tsx": {
+    "mtime": 1781450286.4835312,
+    "ast_hash": "275323623a77d6663795342f405dd41b",
+    "semantic_hash": ""
+  },
+  "src/components/Newsletter.tsx": {
+    "mtime": 1781442852.4458766,
+    "ast_hash": "6e6d95142de43d8733ea0b5bc79ff142",
+    "semantic_hash": ""
+  },
+  "src/components/OnboardingSteps.tsx": {
+    "mtime": 1781439117.3588114,
+    "ast_hash": "31fdae638e141289f319a60460c4ed57",
+    "semantic_hash": ""
+  },
+  "src/components/PWAInstallPrompt.tsx": {
+    "mtime": 1775798138.3249156,
+    "ast_hash": "ec4862cc65ade7acca17f2b2a137e21c",
+    "semantic_hash": ""
+  },
+  "src/components/Partners.tsx": {
+    "mtime": 1781436972.7637038,
+    "ast_hash": "49f3e1b7efff697168ce6f8218d9ec84",
+    "semantic_hash": ""
+  },
+  "src/components/PlatformSolutions.tsx": {
+    "mtime": 1781442895.501205,
+    "ast_hash": "843b1551cc18722aab8855d7335cc062",
+    "semantic_hash": ""
+  },
+  "src/components/ProducerPage.tsx": {
+    "mtime": 1781468860.2619126,
+    "ast_hash": "d3c1d10c2b43e8d452bf069e6d05aa74",
+    "semantic_hash": ""
+  },
+  "src/components/ReadyToTransform.tsx": {
+    "mtime": 1779230203.8524156,
+    "ast_hash": "512c997815dd8dd7efb6dbbfed5d69d5",
+    "semantic_hash": ""
+  },
+  "src/components/SuccessStories.tsx": {
+    "mtime": 1781445061.901168,
+    "ast_hash": "dcf72e00191efcada6c02fc02c01368d",
+    "semantic_hash": ""
+  },
+  "src/components/SupplyChainComponent.tsx": {
+    "mtime": 1781442610.8602796,
+    "ast_hash": "34a3cd7e520cf8c5d906e64114258fe0",
+    "semantic_hash": ""
+  },
+  "src/components/Testimonials.tsx": {
+    "mtime": 1781442610.8667426,
+    "ast_hash": "81f92761589722d0ffc8e536238367c8",
+    "semantic_hash": ""
+  },
+  "src/components/VideoShowcase.tsx": {
+    "mtime": 1781446827.7702103,
+    "ast_hash": "05cbcd6fea079a819ef00350386dd5d4",
+    "semantic_hash": ""
+  },
+  "src/components/about/AboutPage.tsx": {
+    "mtime": 1781558295.5799031,
+    "ast_hash": "cff82a5538a900f022d633b0a306a91a",
+    "semantic_hash": ""
+  },
+  "src/components/persona/PersonaPageTemplate.tsx": {
+    "mtime": 1781441806.0655496,
+    "ast_hash": "4070023f0fd544055a867880c1a14593",
+    "semantic_hash": ""
+  },
+  "src/components/transporter/TransporterPage.tsx": {
+    "mtime": 1779104095.5697162,
+    "ast_hash": "4f261721b1259989df0a4808f96372cf",
+    "semantic_hash": ""
+  },
+  "src/components/ui/SectionHeader.tsx": {
+    "mtime": 1781438820.035057,
+    "ast_hash": "7f89e364047cd073925573f91167140a",
+    "semantic_hash": ""
+  },
+  "src/components/ui/StatGrid.tsx": {
+    "mtime": 1779230676.1612144,
+    "ast_hash": "740d7540a438def564c0d5f2c4e2fce8",
+    "semantic_hash": ""
+  },
+  "src/components/ui/button.tsx": {
+    "mtime": 1752506595.0331821,
+    "ast_hash": "7cf5063b66e3ea629115772120bc57e7",
+    "semantic_hash": ""
+  },
+  "src/contexts/LanguageContext.tsx": {
+    "mtime": 1775798138.3374863,
+    "ast_hash": "157d4795f33aa3d8ddb518d5ec23842b",
+    "semantic_hash": ""
+  },
+  "src/data/agrobankData.ts": {
+    "mtime": 1775798138.3384736,
+    "ast_hash": "42d6ed61b2797de8092772a401f87512",
+    "semantic_hash": ""
+  },
+  "src/data/customerData.ts": {
+    "mtime": 1775798138.3390532,
+    "ast_hash": "746bb1021a99bd81406d61968fb8eccd",
+    "semantic_hash": ""
+  },
+  "src/data/producerData.ts": {
+    "mtime": 1775798138.339583,
+    "ast_hash": "89330296e2fb0286a67b794eb1213a8b",
+    "semantic_hash": ""
+  },
+  "src/data/transporterData.ts": {
+    "mtime": 1775798138.3405476,
+    "ast_hash": "ceae36945e3501152092d06ff798fdbd",
+    "semantic_hash": ""
+  },
+  "src/hooks/useAnimation.ts": {
+    "mtime": 1775798138.341875,
+    "ast_hash": "d82425b601d38d6d2fdbdc9854b33632",
+    "semantic_hash": ""
+  },
+  "src/i18n/en.ts": {
+    "mtime": 1781448595.1219678,
+    "ast_hash": "904c59581252a92d7abc34bfe53fe95f",
+    "semantic_hash": ""
+  },
+  "src/i18n/fr.ts": {
+    "mtime": 1781448674.6274393,
+    "ast_hash": "7ad0ab6c70eaa640392b91f04e1024b1",
+    "semantic_hash": ""
+  },
+  "src/lib/utils.ts": {
+    "mtime": 1752506595.033921,
+    "ast_hash": "5a6fd53fdcf2be529e9cc0b718fde352",
+    "semantic_hash": ""
+  },
+  "src/types/persona.ts": {
+    "mtime": 1775798138.3477979,
+    "ast_hash": "0ce9071450c8f5c135bbb8f8b0a1f153",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1775798138.3488202,
+    "ast_hash": "5e49db522a28d85375107507cf94f738",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ci-cd.yml": {
+    "mtime": 1752506595.0128596,
+    "ast_hash": "f76466f74cdb6ebaa8926356565dcc3a",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1752506595.0136445,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": ""
+  },
+  "des-farmstomarket/farmstomarket.pro.txt": {
+    "mtime": 1781445061.8607175,
+    "ast_hash": "93328d536ddf93226e8f462b331ab889",
+    "semantic_hash": ""
+  },
+  "des-farmstomarket/farmstomarket.txt": {
+    "mtime": 1781445061.8084304,
+    "ast_hash": "879f6eaf43e95bbc560ea86712277cc0",
+    "semantic_hash": ""
+  },
+  "des-farmstomarket/vitrine detail.txt": {
+    "mtime": 1781445061.8606822,
+    "ast_hash": "7371808154081baac39a6a04f6b7e07c",
+    "semantic_hash": ""
+  },
+  "docker-compose.yml": {
+    "mtime": 1775798138.1103265,
+    "ast_hash": "cfef06b5bd2f99c14c64a57d89c562d5",
+    "semantic_hash": ""
+  },
+  "public/offline.html": {
+    "mtime": 1775798138.298632,
+    "ast_hash": "2980a08c2b5d68046e9dc5ecc44a6b12",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/A1.jpg": {
+    "mtime": 1779086122.5745535,
+    "ast_hash": "e597973372184f6fd8ce5b07cd915219",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/A2.jpg": {
+    "mtime": 1779086122.5783343,
+    "ast_hash": "d735a9e49767128c9ea2597350d2eb5d",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/A3.jpg": {
+    "mtime": 1779086122.5813353,
+    "ast_hash": "472ede8064a562220e0c75e630f4aaa1",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/A4.jpg": {
+    "mtime": 1779086122.5840392,
+    "ast_hash": "92bb1e2174319d3c6550ae3521dc0860",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/A5.jpg": {
+    "mtime": 1779086122.5867436,
+    "ast_hash": "f91a76df8c65a2b5fc9016cc5df2d7f0",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/B1.jpg": {
+    "mtime": 1779086122.588902,
+    "ast_hash": "bd63cc148a628014424dc7a8e7aed854",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/B2.jpg": {
+    "mtime": 1779086122.590691,
+    "ast_hash": "3cd8da486d8ea0c6c167db3ba0e7f8aa",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/B3.jpg": {
+    "mtime": 1779086122.5930877,
+    "ast_hash": "e9f39d61e93a00f20d5170476703ecfd",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/B4.jpg": {
+    "mtime": 1779086122.594801,
+    "ast_hash": "74a3d23bf411b978e223452c9db8ebf7",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/JPEG/B5.jpg": {
+    "mtime": 1779086122.5974214,
+    "ast_hash": "33acd0b72aac8fcbaced56801ee5d0f3",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/A1.png": {
+    "mtime": 1779086122.6003551,
+    "ast_hash": "8df3a2d4f225a693e1ed14bc049b51e1",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/A2.png": {
+    "mtime": 1779086122.603693,
+    "ast_hash": "305ae550efc264919b14dec6090bf319",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/A3.png": {
+    "mtime": 1779086122.6075587,
+    "ast_hash": "a406652760d773cb35f8805d6ab7ec6c",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/A4.png": {
+    "mtime": 1779086122.6125658,
+    "ast_hash": "8d773828dfafcd362b6943365fe52c72",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/A5.png": {
+    "mtime": 1779086122.6141822,
+    "ast_hash": "46fdb7a4c037f5142f3d9bd565e5b4e4",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/B1.png": {
+    "mtime": 1779086122.618147,
+    "ast_hash": "3f8d369d8b2ef34390257b12d5b90e3b",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/B2.png": {
+    "mtime": 1779086122.6212616,
+    "ast_hash": "2e78444edf1d1cc57a43c617027624bd",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/B3.png": {
+    "mtime": 1779086122.6235836,
+    "ast_hash": "9a0b481ebdeddf1b64bb941261cf8d9e",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/B4.png": {
+    "mtime": 1779086122.6253078,
+    "ast_hash": "3831aa77c46b3168900fe5e7076a3b63",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/EN/PNG/B5.png": {
+    "mtime": 1779086122.6271737,
+    "ast_hash": "232aa6be64a7632805ede2084390208d",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/A1.jpg": {
+    "mtime": 1779086122.6312397,
+    "ast_hash": "50641579fc0465e20a47d8d8a2d3ba1b",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/A2.jpg": {
+    "mtime": 1779086122.6342862,
+    "ast_hash": "8b9adc1372b5aa514d073a2c26840450",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/A3.jpg": {
+    "mtime": 1779086122.6378617,
+    "ast_hash": "73919b7cf8a00a5547dac65ed9a761d7",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/A4.jpg": {
+    "mtime": 1779086122.6394835,
+    "ast_hash": "2b460791b5cd8401956f81f9bd35dab4",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/A5.jpg": {
+    "mtime": 1779086122.6421123,
+    "ast_hash": "eb9de713b1140f943df5a0183bdd9434",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/B1.jpg": {
+    "mtime": 1779086122.6447127,
+    "ast_hash": "21cbcf8990fa9a454211b7e89628659b",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/B2.jpg": {
+    "mtime": 1779086122.6530807,
+    "ast_hash": "72c1797d6fe6f092c1728ab01234c919",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/B3.jpg": {
+    "mtime": 1779086122.6574233,
+    "ast_hash": "e336d2e2987cc171ae376d5d205c463f",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/B4.jpg": {
+    "mtime": 1779086122.6608567,
+    "ast_hash": "d381b2935724c23e2a33858a4c1ebd26",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/JPEG/B5.jpg": {
+    "mtime": 1779086122.6640823,
+    "ast_hash": "f9ed33b788e3cca07edc61b3d35fee6a",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/A1.png": {
+    "mtime": 1779086122.6672626,
+    "ast_hash": "8d7588cf8953592604ded609c9fd673b",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/A2.png": {
+    "mtime": 1779086122.6701698,
+    "ast_hash": "fe592bfe55d9ff222b9a45a5b61f8929",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/A3.png": {
+    "mtime": 1779086122.672883,
+    "ast_hash": "7911bfb3cfee330cb6e2e6e912686e3f",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/A4.png": {
+    "mtime": 1779086122.6759684,
+    "ast_hash": "9cfee1dd7ff13845ad5a669895178451",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/A5.png": {
+    "mtime": 1779086122.6790257,
+    "ast_hash": "cc0f10ead2cf75ef528c8d5f6526e9e9",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/B1.png": {
+    "mtime": 1779086122.682463,
+    "ast_hash": "960e4c5f34a7d3641b4d3b56a1a792b5",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/B2.png": {
+    "mtime": 1779086122.686196,
+    "ast_hash": "7b06009f56ab2f235285f3817a8fb2b7",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/B3.png": {
+    "mtime": 1779086122.6885827,
+    "ast_hash": "840bdfad690dbd1f66b3ef6727209ee7",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/B4.png": {
+    "mtime": 1779086122.6901925,
+    "ast_hash": "13e34c8706b0c76c8f0aeef9d454393d",
+    "semantic_hash": ""
+  },
+  "public/F2M - Store App Listing/FR/PNG/B5.png": {
+    "mtime": 1779086122.6927693,
+    "ast_hash": "cbbb0c24385bbaf303f37455d17c1c56",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 01.png": {
+    "mtime": 1775798138.1213624,
+    "ast_hash": "89f067aa7ca69a8283b285fdc9165bd2",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 02.png": {
+    "mtime": 1775798138.127577,
+    "ast_hash": "9eb21860fbb7d617764acd9cd3568f3b",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 03.png": {
+    "mtime": 1775798138.1330762,
+    "ast_hash": "b572117509900d318644dac87d160a18",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 04.png": {
+    "mtime": 1775798138.1442204,
+    "ast_hash": "cecac00a24181691579e2b92cb4ba4f5",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 05.png": {
+    "mtime": 1775798138.154585,
+    "ast_hash": "afaa4296de4492c376c6db56904306c6",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 06.png": {
+    "mtime": 1775798138.172201,
+    "ast_hash": "3f11fc9dfbc76687e4436f17a2547b67",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 07.png": {
+    "mtime": 1775798138.1835065,
+    "ast_hash": "eb668708c14c2edf27169e2d11068c8e",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 09.png": {
+    "mtime": 1775798138.1916652,
+    "ast_hash": "24c252794c571326accc84b9f6d94b9c",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 10.png": {
+    "mtime": 1775798138.2035584,
+    "ast_hash": "2e4e9c5dc989d91f99cda617a8018003",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 11.png": {
+    "mtime": 1775798138.2064626,
+    "ast_hash": "7cb280faf69d44d32d55d4a123c5376b",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 12.png": {
+    "mtime": 1775798138.2107515,
+    "ast_hash": "2ed582194e3cc401e57fbe4db5808a7b",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 13.png": {
+    "mtime": 1775798138.2133777,
+    "ast_hash": "d3b5c87b1a545a60d19a2e3849d555de",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 14.png": {
+    "mtime": 1775798138.2177517,
+    "ast_hash": "80583ae60c3448e447b915ba17c31791",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 15.png": {
+    "mtime": 1775798138.226601,
+    "ast_hash": "d0330961793f9a2850d7924de4c3dc08",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 16.png": {
+    "mtime": 1775798138.2332864,
+    "ast_hash": "7fae0b88f90d9bbf8e37b451fa1691fe",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 17.png": {
+    "mtime": 1775798138.2411716,
+    "ast_hash": "61d7f5fe653ca1b7cc258c8767a2fdfe",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 18.png": {
+    "mtime": 1775798138.2456455,
+    "ast_hash": "5d872d31a6e9ede46073ef3839097a77",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 19.png": {
+    "mtime": 1775798138.2568555,
+    "ast_hash": "e610d31b8ec56cc943cd6c17452e8915",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 20.png": {
+    "mtime": 1775798138.263107,
+    "ast_hash": "ba3ac4dbb0d29dd1b3b441db189d4a0a",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 21.png": {
+    "mtime": 1775798138.272218,
+    "ast_hash": "e6716f03f6cc361ec5f90a9fb4017ed3",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 22.png": {
+    "mtime": 1781467468.0,
+    "ast_hash": "c5b37b983af0c59239d226ca33c13bb1",
+    "semantic_hash": ""
+  },
+  "public/Mockups/mockup 23.png": {
+    "mtime": 1781467468.0,
+    "ast_hash": "2624a442640cc0e9f472346bbdbb03a3",
+    "semantic_hash": ""
+  },
+  "public/android-chrome-192x192.png": {
+    "mtime": 1775798138.290629,
+    "ast_hash": "640e71f4bdafe8c81ff82fa003a88a79",
+    "semantic_hash": ""
+  },
+  "public/android-chrome-512x512.png": {
+    "mtime": 1775798138.291877,
+    "ast_hash": "ed02e42e86780e02770d43a8ead64235",
+    "semantic_hash": ""
+  },
+  "public/apple-touch-icon.png": {
+    "mtime": 1775798138.2923958,
+    "ast_hash": "797f727e22eead57fe9fbdfb4b222a91",
+    "semantic_hash": ""
+  },
+  "public/bg/Hero.png": {
+    "mtime": 1781437911.8289871,
+    "ast_hash": "baab253175fab03c16237b4135039a3f",
+    "semantic_hash": ""
+  },
+  "public/bg/bg_topo.png": {
+    "mtime": 1779224861.841688,
+    "ast_hash": "b8b95d3caedb7f4164201d5b61515cdd",
+    "semantic_hash": ""
+  },
+  "public/bg/geo.png": {
+    "mtime": 1781437911.810968,
+    "ast_hash": "17300979e2bc2f6d3ec8838a169f9892",
+    "semantic_hash": ""
+  },
+  "public/farmers/2.jpeg": {
+    "mtime": 1725473648.974134,
+    "ast_hash": "2216d55b1f1ae4aa5b6b65d692d4f9c3",
+    "semantic_hash": ""
+  },
+  "public/farmers/3.jpeg": {
+    "mtime": 1725473645.6585534,
+    "ast_hash": "f97aa786d5493bd41e2dba84e6c109ae",
+    "semantic_hash": ""
+  },
+  "public/farmers/4.jpeg": {
+    "mtime": 1725473642.404459,
+    "ast_hash": "891399bf2b48189fdfceefa47f77b485",
+    "semantic_hash": ""
+  },
+  "public/farmers/5.jpeg": {
+    "mtime": 1725473613.3818326,
+    "ast_hash": "52b71a26a246f493f5a753b62b22283e",
+    "semantic_hash": ""
+  },
+  "public/farmers/6.jpeg": {
+    "mtime": 1725473661.7987823,
+    "ast_hash": "d1bdd703d712b8040d752c61a0228207",
+    "semantic_hash": ""
+  },
+  "public/farmers/7.jpeg": {
+    "mtime": 1725473647.4457126,
+    "ast_hash": "6bf4fb33a0f89f6da7e850f67e9a157c",
+    "semantic_hash": ""
+  },
+  "public/farmers/8.jpg": {
+    "mtime": 1725513619.0465634,
+    "ast_hash": "16d75129d0e74f640d86a808890fbae3",
+    "semantic_hash": ""
+  },
+  "public/farmers/LogoSYNTHI.png": {
+    "mtime": 1728646707.8816996,
+    "ast_hash": "e8a6b0328eae2003c7b9bc02773f0120",
+    "semantic_hash": ""
+  },
+  "public/farmers/cassava.jpeg": {
+    "mtime": 1753863378.4681163,
+    "ast_hash": "c3065cd6b5372ef8e436db0ea10128be",
+    "semantic_hash": ""
+  },
+  "public/farmers/cassava1.jpeg": {
+    "mtime": 1753863393.6981807,
+    "ast_hash": "2b674daa33609f792a5bc0d73441c7fe",
+    "semantic_hash": ""
+  },
+  "public/farmers/farms2.jpeg": {
+    "mtime": 1753753649.3872118,
+    "ast_hash": "857b4c068109f4ff41a5a7e1b696d8a0",
+    "semantic_hash": ""
+  },
+  "public/farmers/gettyimages-123345006-612x612.jpg": {
+    "mtime": 1725513398.2396154,
+    "ast_hash": "f523253931e592a5608b2dff3f27de87",
+    "semantic_hash": ""
+  },
+  "public/farmers/imag2.jpeg": {
+    "mtime": 1753863240.3680234,
+    "ast_hash": "7d9e89e0801b34b9fe048c2a160ed77b",
+    "semantic_hash": ""
+  },
+  "public/farmers/images1.jpeg": {
+    "mtime": 1753829284.9153152,
+    "ast_hash": "0a8e5cd4e9d13eb24071de6d25d9206a",
+    "semantic_hash": ""
+  },
+  "public/farmers/img1.jpeg": {
+    "mtime": 1753863232.782831,
+    "ast_hash": "668f68aae325f28d9d25d66148d683fa",
+    "semantic_hash": ""
+  },
+  "public/farmers/poivrons.jpeg": {
+    "mtime": 1725473941.004781,
+    "ast_hash": "35485b07664bb38967a4ec5cf0f9af49",
+    "semantic_hash": ""
+  },
+  "public/favicon-16x16.png": {
+    "mtime": 1775798138.293694,
+    "ast_hash": "a177b67d45decc7b936136fab3464db6",
+    "semantic_hash": ""
+  },
+  "public/favicon-32x32.png": {
+    "mtime": 1775798138.294395,
+    "ast_hash": "81c761c2fdc09db3dab995838f2aa658",
+    "semantic_hash": ""
+  },
+  "public/favicon_io/android-chrome-192x192.png": {
+    "mtime": 1752755412.0,
+    "ast_hash": "640e71f4bdafe8c81ff82fa003a88a79",
+    "semantic_hash": ""
+  },
+  "public/favicon_io/android-chrome-512x512.png": {
+    "mtime": 1752755412.0,
+    "ast_hash": "ed02e42e86780e02770d43a8ead64235",
+    "semantic_hash": ""
+  },
+  "public/favicon_io/apple-touch-icon.png": {
+    "mtime": 1752755412.0,
+    "ast_hash": "797f727e22eead57fe9fbdfb4b222a91",
+    "semantic_hash": ""
+  },
+  "public/favicon_io/favicon-16x16.png": {
+    "mtime": 1752755412.0,
+    "ast_hash": "a177b67d45decc7b936136fab3464db6",
+    "semantic_hash": ""
+  },
+  "public/favicon_io/favicon-32x32.png": {
+    "mtime": 1752755412.0,
+    "ast_hash": "81c761c2fdc09db3dab995838f2aa658",
+    "semantic_hash": ""
+  },
+  "public/file.svg": {
+    "mtime": 1752506595.016,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "public/globe.svg": {
+    "mtime": 1752506595.0161576,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
+  },
+  "public/images/airbnb.png": {
+    "mtime": 1752506595.0163803,
+    "ast_hash": "228849d3f2e9d80777582ff3196e6dbc",
+    "semantic_hash": ""
+  },
+  "public/images/amazon.png": {
+    "mtime": 1752506595.0165203,
+    "ast_hash": "a4c7c335d0a4a9930c28661867537e3e",
+    "semantic_hash": ""
+  },
+  "public/images/cannon.png": {
+    "mtime": 1752506595.0166614,
+    "ast_hash": "8f14b1df7c40b930383fd9a229e1eaef",
+    "semantic_hash": ""
+  },
+  "public/images/canon.png": {
+    "mtime": 1752506595.016786,
+    "ast_hash": "a497c06142c89bc8db4e173b7384ca4c",
+    "semantic_hash": ""
+  },
+  "public/images/facebook.png": {
+    "mtime": 1752506595.017034,
+    "ast_hash": "d1fc7f3fa021c126feca6597c3be332e",
+    "semantic_hash": ""
+  },
+  "public/images/father.jpg": {
+    "mtime": 1752506595.0174272,
+    "ast_hash": "a5d4a72ff8baa07a8eb16140ff69330a",
+    "semantic_hash": ""
+  },
+  "public/images/home2.png": {
+    "mtime": 1753828309.303165,
+    "ast_hash": "89343275189f89ea2e257adc9ef4de44",
+    "semantic_hash": ""
+  },
+  "public/images/home21.png": {
+    "mtime": 1752506595.0218835,
+    "ast_hash": "5838a742fc116994e806a214310eca74",
+    "semantic_hash": ""
+  },
+  "public/images/hubspot.png": {
+    "mtime": 1752506595.0221941,
+    "ast_hash": "47a6c6f21ef9ffd8bad436fd8a0ecb3d",
+    "semantic_hash": ""
+  },
+  "public/images/iPhone.png": {
+    "mtime": 1752506595.0232828,
+    "ast_hash": "76bb17b358f548a13a64cb01b5c6b8c6",
+    "semantic_hash": ""
+  },
+  "public/images/iPhone14.png": {
+    "mtime": 1752506595.0240724,
+    "ast_hash": "a99d6ab4f10e207e610e358a6c63208f",
+    "semantic_hash": ""
+  },
+  "public/images/mockup1.png": {
+    "mtime": 1752506595.0245845,
+    "ast_hash": "d6ac5adba2a5297eb72596a27ac1f723",
+    "semantic_hash": ""
+  },
+  "public/images/mockup2.png": {
+    "mtime": 1752506595.0250607,
+    "ast_hash": "c89b8c07544856ccdce7b9309c7e35b5",
+    "semantic_hash": ""
+  },
+  "public/images/mother.jpg": {
+    "mtime": 1752506595.0253732,
+    "ast_hash": "58a95deee1c4f3d1a54e8aacad73952e",
+    "semantic_hash": ""
+  },
+  "public/images/photo-1.png": {
+    "mtime": 1752506595.025548,
+    "ast_hash": "47ba9f6516545ce985f604aa8100b4cc",
+    "semantic_hash": ""
+  },
+  "public/images/photo-2.png": {
+    "mtime": 1752506595.0257008,
+    "ast_hash": "1a94c32a46943a1e8424da07a745aad5",
+    "semantic_hash": ""
+  },
+  "public/images/photo.png": {
+    "mtime": 1752506595.025863,
+    "ast_hash": "8555fe8cbc02df0b4c7f0d7359f34b8e",
+    "semantic_hash": ""
+  },
+  "public/images/splash1.png": {
+    "mtime": 1752506595.0264802,
+    "ast_hash": "9596fd2ae55a6fe79adfd88dd3eb9232",
+    "semantic_hash": ""
+  },
+  "public/images/splash4.png": {
+    "mtime": 1752506595.0269332,
+    "ast_hash": "d011a038d3c349a8fde8b0d8b7436b29",
+    "semantic_hash": ""
+  },
+  "public/images/splash5.png": {
+    "mtime": 1752506595.0274699,
+    "ast_hash": "f3fb0ba11c0966b57f1851a404e3f298",
+    "semantic_hash": ""
+  },
+  "public/images/splash6.png": {
+    "mtime": 1752506595.028005,
+    "ast_hash": "1a3db805148f16ad95eb528f9129e158",
+    "semantic_hash": ""
+  },
+  "public/logo/farms2market.png": {
+    "mtime": 1775798138.2973082,
+    "ast_hash": "e403458f43684ac11ac425c4ab6aeb3d",
+    "semantic_hash": ""
+  },
+  "public/logo/logo.svg": {
+    "mtime": 1775798138.2981808,
+    "ast_hash": "e9048820699866a8c2bfe8c5b139f7b1",
+    "semantic_hash": ""
+  },
+  "public/next.svg": {
+    "mtime": 1752506595.0282712,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "public/partners/mtn-momo.jpg": {
+    "mtime": 1781466477.5616965,
+    "ast_hash": "d08334c5b1ed000255b0d08db6de25a5",
+    "semantic_hash": ""
+  },
+  "public/partners/mtn-momo.png": {
+    "mtime": 1781466338.3284955,
+    "ast_hash": "de9219e425cc35b85e0fa0222f625269",
+    "semantic_hash": ""
+  },
+  "public/partners/orange-money.png": {
+    "mtime": 1781466197.2742245,
+    "ast_hash": "f3bb985b9fa0a12a624912525e8630f4",
+    "semantic_hash": ""
+  },
+  "public/vercel.svg": {
+    "mtime": 1752506595.0285184,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "public/window.svg": {
+    "mtime": 1752506595.028657,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  }
+}

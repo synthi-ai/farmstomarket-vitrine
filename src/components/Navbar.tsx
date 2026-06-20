@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, Wheat, ShoppingBasket, Truck, Landmark, BarChart3, Layers, HelpCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, Wheat, ShoppingBasket, Truck, Landmark, BarChart3, Layers, HelpCircle, Smartphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,6 +21,7 @@ const PLATFORM = [
   { key: 'nav.features', href: '/#features', Icon: Layers },
   { key: 'nav.howItWorks', href: '/#onboarding', Icon: HelpCircle },
   { key: 'nav.analytics', href: '/#solutions', Icon: BarChart3 },
+  { key: 'nav.mobileApp', href: '/apps', Icon: Smartphone },
 ] as const;
 
 export default function Navbar() {

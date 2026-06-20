@@ -17,6 +17,7 @@ export const en: Record<string, string> = {
   'nav.transporter.desc': 'Find loads and get paid on every delivery',
   'nav.agrobank': 'AgroBank',
   'nav.agrobank.desc': 'Credit, insurance and savings for farmers',
+  'nav.mobileApp': 'Mobile App',
   'nav.login': 'Login',
   'nav.signup': 'Get started',
 

@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero';
+import ScrollExpansionHero from '@/components/ScrollExpansionHero';
 import Partners from '@/components/Partners';
 import VideoShowcase from '@/components/VideoShowcase';
 import MerchantShowcase from '@/components/MerchantShowcase';
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
+      <ScrollExpansionHero />
       <Partners />
       <VideoShowcase />
       <SectionDivider />

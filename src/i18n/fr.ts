@@ -17,6 +17,7 @@ export const fr: Record<string, string> = {
   'nav.transporter.desc': 'Trouvez des chargements et soyez pay\u00e9 \u00e0 chaque livraison',
   'nav.agrobank': 'AgroBank',
   'nav.agrobank.desc': 'Cr\u00e9dit, assurance et \u00e9pargne pour les agriculteurs',
+  'nav.mobileApp': 'Application Mobile',
   'nav.login': 'Connexion',
   'nav.signup': 'Commencer',
 
