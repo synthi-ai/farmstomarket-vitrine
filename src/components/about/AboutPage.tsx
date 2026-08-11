@@ -17,11 +17,11 @@ function useReveal(threshold = 0.1) {
    1. HERO
    Headline + CTA on clean bg,
    then 3 static images side-by-side below
-   — exact opencv.ai structure
+    exact opencv.ai structure
 ───────────────────────────────────────── */
 const HERO_IMAGES = [
   { src: '/farmers/farms2.jpeg',   alt: 'FarmsToMarket team in the field' },
-  { src: '/farmers/cassava.jpeg',  alt: 'Harvest season — Cameroon' },
+  { src: '/farmers/cassava.jpeg',  alt: 'Harvest season  Cameroon' },
   { src: '/farmers/poivrons.jpeg', alt: 'African agricultural markets' },
 ];
 
@@ -29,7 +29,7 @@ function Hero() {
   const { ref, inView } = useReveal(0.05);
   return (
     <>
-      {/* Headline block — geo mask only */}
+      {/* Headline block  geo mask only */}
       <section ref={ref} className="relative overflow-hidden pt-32 pb-16 px-6">
         <div className="absolute inset-0 bg-gray-950 bg-geo-subtle" />
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/6 blur-[140px]" />
@@ -98,17 +98,17 @@ const WHY_CARDS = [
   {
     Icon: Target,
     title: 'We will find a way.',
-    desc: "Every farmer, every cooperative, every link in the agro-pastoral chain deserves fair market access. We build until the problem is solved — not until it's good enough.",
+    desc: "Every farmer, every cooperative, every link in the agro-pastoral chain deserves fair market access. We build until the problem is solved  not until it's good enough.",
   },
   {
     Icon: Users,
     title: 'Empathy for producers.',
-    desc: "Our tools are designed in the field with real producers. We build for Aminata, Ibrahim and Jean-Pierre — not for an imagined user sitting in a startup office.",
+    desc: "Our tools are designed in the field with real producers. We build for Aminata, Ibrahim and Jean-Pierre  not for an imagined user sitting in a startup office.",
   },
   {
     Icon: Leaf,
-    title: 'We will do it right — always.',
-    desc: 'Fair pricing, transparent transactions, zero hidden fees. We protect producers from exploitation by building systems that serve their interests — legally and ethically.',
+    title: 'We will do it right  always.',
+    desc: 'Fair pricing, transparent transactions, zero hidden fees. We protect producers from exploitation by building systems that serve their interests  legally and ethically.',
   },
 ];
 
@@ -126,7 +126,7 @@ function WhyUs() {
           transition={{ duration: 0.9, ease: EASE }}
         >
           We are experts in agri-tech and financial inclusion for Africa. FarmsToMarket is built by the
-          team behind <span className="text-emerald-400">SYNTHI-AI</span> — with{' '}
+          team behind <span className="text-emerald-400">SYNTHI-AI</span>  with{' '}
           <span className="text-white font-bold">50,000+ producers</span> and{' '}
           <span className="text-white font-bold">XAF 2 billion+</span> in transactions processed.
         </motion.p>
@@ -155,7 +155,7 @@ function WhyUs() {
 
 /* ─────────────────────────────────────────
    3. LEADERSHIP
-   One profile at a time — large photo +
+   One profile at a time  large photo +
    name + role + bio, with numbered
    tabs + arrows + progress bar
 ───────────────────────────────────────── */
@@ -181,7 +181,7 @@ const TEAM = [
   {
     name: 'Chief Operating Officer',
     role: 'COO',
-    bio: 'Operations specialist with experience scaling agri-businesses across Sub-Saharan Africa. Oversees logistics partnerships, cooperative onboarding, regulatory compliance in 15 markets, and the continent-wide rollout of AgroBank — the first natively agro-pastoral digital bank.',
+    bio: 'Operations specialist with experience scaling agri-businesses across Sub-Saharan Africa. Oversees logistics partnerships, cooperative onboarding, regulatory compliance in 15 markets, and the continent-wide rollout of AgroBank  the first natively agro-pastoral digital bank.',
     img: '/farmers/6.jpeg',
   },
 ];

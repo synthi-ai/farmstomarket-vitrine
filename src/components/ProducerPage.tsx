@@ -14,7 +14,7 @@ function useReveal(threshold = 0.1) {
 }
 
 /* ─────────────────────────────────────────
-   HERO  — centered, no background image
+   HERO   centered, no background image
 ───────────────────────────────────────── */
 function Hero() {
   return (
@@ -40,7 +40,7 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
         >
           List your harvest, connect directly with verified buyers across Africa,
-          and receive instant mobile payment — all from your phone.
+          and receive instant mobile payment  all from your phone.
           Built for every producer in the agro-pastoral chain.
         </motion.p>
 
@@ -112,7 +112,7 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────
-   INTRO — "We are the platform…"
+   INTRO  "We are the platform…"
    Centered narrow, 3 badges, 2 stats
 ───────────────────────────────────────── */
 function Intro() {
@@ -137,8 +137,8 @@ function Intro() {
           className="mb-10 text-[17px] leading-[1.8] text-gray-400"
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.7, delay: 0.2 }}
         >
-          From smallholder farmers to large cooperatives — whether you grow crops,
-          raise livestock, fish, process food or transport goods — FarmsToMarket
+          From smallholder farmers to large cooperatives  whether you grow crops,
+          raise livestock, fish, process food or transport goods  FarmsToMarket
           gives you the tools to sell at fair prices and get paid the same day.
           No intermediary. No branch visit. No paperwork.
         </motion.p>
@@ -180,7 +180,7 @@ function Intro() {
 }
 
 /* ─────────────────────────────────────────
-   TESTIMONIAL CAROUSEL — centered single card
+   TESTIMONIAL CAROUSEL  centered single card
 ───────────────────────────────────────── */
 const TESTIMONIALS = [
   {
@@ -202,7 +202,7 @@ const TESTIMONIALS = [
     avatar: '/farmers/3.jpeg',
   },
   {
-    quote: "AgroCredit gave me a loan based on my sales history — no branch visit, no guarantor. I bought seeds and fertiliser for the whole season and repaid in 4 months.",
+    quote: "AgroCredit gave me a loan based on my sales history  no branch visit, no guarantor. I bought seeds and fertiliser for the whole season and repaid in 4 months.",
     author: 'Aïssatou D.',
     role: 'Livestock Breeder · Ngaoundéré',
     avatar: '/farmers/4.jpeg',
@@ -291,7 +291,7 @@ function TestimonialCarousel() {
 }
 
 /* ─────────────────────────────────────────
-   ACTIVITY GRID — image cards 2–3 cols
+   ACTIVITY GRID  image cards 2–3 cols
    Like opencv's industry showcase
 ───────────────────────────────────────── */
 const ACTIVITIES = [
@@ -320,7 +320,7 @@ function ActivityGrid() {
         </motion.h2>
         <motion.p className="mb-14 max-w-xl text-[17px] leading-[1.75] text-gray-400"
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.7, delay: 0.2 }}>
-          Farming, livestock, fishing, processing, transport, export — FarmsToMarket
+          Farming, livestock, fishing, processing, transport, export  FarmsToMarket
           connects every link in the chain to buyers and markets.
         </motion.p>
 
@@ -359,7 +359,7 @@ function ActivityGrid() {
 }
 
 /* ─────────────────────────────────────────
-   STATS — 3 numbers, centered
+   STATS  3 numbers, centered
 ───────────────────────────────────────── */
 function Stats() {
   const { ref, inView } = useReveal();
@@ -403,7 +403,7 @@ function SoloQuote() {
         </svg>
         <p className="font-heading mb-8 text-[22px] font-semibold italic leading-[1.6] text-white lg:text-[26px]">
           &ldquo;FarmsToMarket is the most important tool a modern African producer can have.
-          It gives us access to buyers we could never reach before — and pays us in minutes, not weeks.&rdquo;
+          It gives us access to buyers we could never reach before  and pays us in minutes, not weeks.&rdquo;
         </p>
         <div className="flex items-center justify-center gap-4">
           <div className="relative h-13 w-13 overflow-hidden rounded-full bg-gray-800">
@@ -423,15 +423,15 @@ function SoloQuote() {
 }
 
 /* ─────────────────────────────────────────
-   SOLUTIONS CARDS  — 6 cards, 3 cols
+   SOLUTIONS CARDS   6 cards, 3 cols
    Each: mockup image top, number, title, desc
 ───────────────────────────────────────── */
 const SOLUTION_CARDS = [
-  { num: '01', title: 'Object Detection', label: 'Market Access', desc: 'Connect directly with verified buyers — wholesalers, retailers, exporters — across 15 African countries. No broker, no commission lost.', img: '/Mockups/mockup 01.png' },
+  { num: '01', title: 'Object Detection', label: 'Market Access', desc: 'Connect directly with verified buyers  wholesalers, retailers, exporters  across 15 African countries. No broker, no commission lost.', img: '/Mockups/mockup 01.png' },
   { num: '02', title: 'Smart Pricing', label: 'AI Pricing', desc: 'AI-powered price suggestions based on real-time market data. Know what your harvest is worth before you negotiate.', img: '/Mockups/mockup 02.png' },
   { num: '03', title: 'Instant Payment', label: 'Mobile Money', desc: 'Get paid via Orange Money or MTN MoMo the moment your buyer confirms delivery. Zero waiting. Zero branch.', img: '/Mockups/mockup 03.png' },
   { num: '04', title: 'Analytics', label: 'Sales Dashboard', desc: 'Full transaction history, price trends, best buyers. Use data from your past sales to plan your next season.', img: '/Mockups/mockup 04.png' },
-  { num: '05', title: 'AgroCredit', label: 'Financing', desc: 'Flexible loans for seeds, fertiliser and equipment — based on your sales history. Approved in under 24 hours.', img: '/Mockups/mockup 11.png' },
+  { num: '05', title: 'AgroCredit', label: 'Financing', desc: 'Flexible loans for seeds, fertiliser and equipment  based on your sales history. Approved in under 24 hours.', img: '/Mockups/mockup 11.png' },
   { num: '06', title: 'Cooperatives', label: 'Group Selling', desc: 'Pool your harvest with fellow producers, negotiate bulk orders and access buyers that would be unreachable alone.', img: '/Mockups/mockup 15.png' },
 ];
 
@@ -476,14 +476,14 @@ function SolutionCards() {
 }
 
 /* ─────────────────────────────────────────
-   STORYTELLING — "Our solutions help producers succeed"
-   Alternating numbered sections — the HEART of the page
+   STORYTELLING  "Our solutions help producers succeed"
+   Alternating numbered sections  the HEART of the page
 ───────────────────────────────────────── */
 const STORY_STEPS = [
   {
     num: '01',
     title: 'Aminata lists her maize in 30 seconds.',
-    desc: "It's harvest morning in the North. Aminata opens FarmsToMarket, takes a photo of her grain bags, enters the quantity. The app suggests XAF 285/kg — the real market price. She taps confirm. Her listing is live, visible to 4,000 verified buyers across Cameroon. She goes back to loading her truck.",
+    desc: "It's harvest morning in the North. Aminata opens FarmsToMarket, takes a photo of her grain bags, enters the quantity. The app suggests XAF 285/kg  the real market price. She taps confirm. Her listing is live, visible to 4,000 verified buyers across Cameroon. She goes back to loading her truck.",
     img: '/Mockups/mockup 01.png',
     reverse: false,
   },
@@ -497,28 +497,28 @@ const STORY_STEPS = [
   {
     num: '03',
     title: 'Payment arrives before the truck does.',
-    desc: "The buyer confirms receipt via the escrow system. Within seconds, XAF 1,172,000 lands in Aminata's AgroWallet — accessible via Orange Money. She sees the notification before the truck driver calls her. She screenshots it and sends it to her husband. This is the first time in twelve years she's been paid on delivery.",
+    desc: "The buyer confirms receipt via the escrow system. Within seconds, XAF 1,172,000 lands in Aminata's AgroWallet  accessible via Orange Money. She sees the notification before the truck driver calls her. She screenshots it and sends it to her husband. This is the first time in twelve years she's been paid on delivery.",
     img: '/Mockups/mockup 03.png',
     reverse: false,
   },
   {
     num: '04',
     title: 'Her transaction history becomes her credit score.',
-    desc: "Six months later, Aminata has 23 completed transactions logged in her dashboard. Revenue, buyers, price trends — it's all there. The app tells her: based on her history, she's eligible for an AgroCredit loan of up to XAF 850,000. She applies for XAF 500,000 to buy certified seeds for the next season. Approved in 18 hours.",
+    desc: "Six months later, Aminata has 23 completed transactions logged in her dashboard. Revenue, buyers, price trends  it's all there. The app tells her: based on her history, she's eligible for an AgroCredit loan of up to XAF 850,000. She applies for XAF 500,000 to buy certified seeds for the next season. Approved in 18 hours.",
     img: '/Mockups/mockup 11.png',
     reverse: true,
   },
   {
     num: '05',
     title: 'She insures her harvest for the first time.',
-    desc: "The rainy season is unpredictable. Aminata activates AgroInsure for her 3-hectare field — XAF 12,000 for the season. It's linked to satellite weather data. If rainfall drops below threshold, the payout is automatic. No claims form. No adjuster. No waiting. She plants knowing the risk is covered.",
+    desc: "The rainy season is unpredictable. Aminata activates AgroInsure for her 3-hectare field  XAF 12,000 for the season. It's linked to satellite weather data. If rainfall drops below threshold, the payout is automatic. No claims form. No adjuster. No waiting. She plants knowing the risk is covered.",
     img: '/Mockups/mockup 12.png',
     reverse: false,
   },
   {
     num: '06',
     title: 'Twelve farmers join. A cooperative is born.',
-    desc: "Aminata tells her neighbours. Twelve producers from the same village join FarmsToMarket. They create a cooperative on the app, pool their next harvest — 48 tonnes of maize — and negotiate as a single entity. A buyer in Yaoundé offers a contract. They accept. Each farmer sees their share in their wallet by Friday.",
+    desc: "Aminata tells her neighbours. Twelve producers from the same village join FarmsToMarket. They create a cooperative on the app, pool their next harvest  48 tonnes of maize  and negotiate as a single entity. A buyer in Yaoundé offers a contract. They accept. Each farmer sees their share in their wallet by Friday.",
     img: '/Mockups/mockup 15.png',
     reverse: true,
   },
@@ -580,7 +580,7 @@ function Storytelling() {
           </motion.h2>
           <motion.p className="text-[17px] leading-[1.8] text-gray-400"
             initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.7, delay: 0.2 }}>
-            Follow Aminata — a maize producer from North Cameroon — through her first full season on FarmsToMarket.
+            Follow Aminata  a maize producer from North Cameroon  through her first full season on FarmsToMarket.
             From first listing to financed cooperative, this is what the platform does for every producer.
           </motion.p>
         </div>
@@ -596,7 +596,7 @@ function Storytelling() {
 }
 
 /* ─────────────────────────────────────────
-   APP DOWNLOAD — form-style centered CTA
+   APP DOWNLOAD  form-style centered CTA
 ───────────────────────────────────────── */
 const PLAY_ICON = (
   <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24">

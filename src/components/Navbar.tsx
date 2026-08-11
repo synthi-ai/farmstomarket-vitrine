@@ -57,28 +57,27 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-gray-950/92 shadow-lg shadow-black/10 backdrop-blur-xl border-b border-gray-800/40'
+            ? 'bg-gray-950/95 shadow-lg shadow-black/10 backdrop-blur-xl border-b border-gray-800/40'
             : 'bg-transparent'
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center px-5 py-3.5 lg:px-8">
+        {/* ── desktop ── */}
+        <div className="relative mx-auto flex max-w-7xl items-center px-5 py-3.5 lg:px-8">
 
-          {/* Logo left */}
-          <div className="flex flex-1 items-center">
-            <Link href="/" className="flex-shrink-0">
-              <Image
-                src="/logo/logo.svg"
-                alt="Farms to Market"
-                width={160}
-                height={40}
-                className="h-8 w-auto lg:h-9"
-                priority
-              />
-            </Link>
-          </div>
+          {/* Logo — left */}
+          <Link href="/" className="flex-shrink-0 z-10">
+            <Image
+              src="/logo/logo.svg"
+              alt="Farms to Market"
+              width={160}
+              height={40}
+              className="h-8 w-auto lg:h-9"
+              priority
+            />
+          </Link>
 
-          {/* Desktop nav centered */}
-          <nav className="hidden items-center gap-1 lg:flex">
+          {/* Nav — truly centered via absolute */}
+          <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-0.5 lg:flex">
 
             {/* Platform dropdown */}
             <div
@@ -87,10 +86,12 @@ export default function Navbar() {
               onMouseLeave={scheduleClose}
             >
               <button
-                className={`flex items-center gap-1 rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                className={`flex items-center gap-1 rounded-md px-3.5 py-2 text-[13px] font-medium transition-colors ${
                   openMenu === 'platform' ? 'text-white' : 'text-gray-400 hover:text-white'
                 }`}
                 onClick={() => setOpenMenu(openMenu === 'platform' ? null : 'platform')}
+                aria-expanded={openMenu === 'platform'}
+                aria-haspopup="true"
               >
                 {t('nav.platform')}
                 <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${openMenu === 'platform' ? 'rotate-180' : ''}`} />
@@ -102,10 +103,11 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: 6, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                    transition={{ duration: 0.18, ease: EASE }}
+                    transition={{ duration: 0.15, ease: EASE }}
                     onMouseEnter={() => openWith('platform')}
                     onMouseLeave={scheduleClose}
                     className="absolute left-1/2 top-full mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-gray-800/60 bg-gray-950/98 py-2 shadow-2xl shadow-black/30 backdrop-blur-xl"
+                    role="menu"
                   >
                     {PLATFORM.map(({ key, href, Icon }) => (
                       <Link
@@ -113,6 +115,7 @@ export default function Navbar() {
                         href={href}
                         className="flex items-center gap-3 px-4 py-2.5 text-[13px] text-gray-400 transition-all hover:bg-white/[0.04] hover:text-white"
                         onClick={() => setOpenMenu(null)}
+                        role="menuitem"
                       >
                         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
                           <Icon className="h-3.5 w-3.5 text-emerald-400" />
@@ -125,17 +128,19 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Solutions mega-dropdown */}
+            {/* Solutions dropdown */}
             <div
               className="relative"
               onMouseEnter={() => openWith('solutions')}
               onMouseLeave={scheduleClose}
             >
               <button
-                className={`flex items-center gap-1 rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                className={`flex items-center gap-1 rounded-md px-3.5 py-2 text-[13px] font-medium transition-colors ${
                   openMenu === 'solutions' ? 'text-white' : 'text-gray-400 hover:text-white'
                 }`}
                 onClick={() => setOpenMenu(openMenu === 'solutions' ? null : 'solutions')}
+                aria-expanded={openMenu === 'solutions'}
+                aria-haspopup="true"
               >
                 {t('nav.solutions')}
                 <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${openMenu === 'solutions' ? 'rotate-180' : ''}`} />
@@ -147,14 +152,15 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: 6, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                    transition={{ duration: 0.18, ease: EASE }}
+                    transition={{ duration: 0.15, ease: EASE }}
                     onMouseEnter={() => openWith('solutions')}
                     onMouseLeave={scheduleClose}
                     className="absolute left-1/2 top-full mt-2 w-[420px] -translate-x-1/2 rounded-2xl border border-gray-800/60 bg-gray-950/98 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl"
+                    role="menu"
                   >
-                    <div className="mb-2 px-2 pt-1 text-[10px] font-semibold uppercase tracking-[2px] text-gray-600">
+                    <p className="mb-2 px-2 pt-1 text-[10px] font-semibold uppercase tracking-[2px] text-gray-600">
                       Who is it for
-                    </div>
+                    </p>
                     <div className="grid grid-cols-2 gap-1">
                       {SOLUTIONS.map(({ key, descKey, href, Icon }) => (
                         <Link
@@ -162,6 +168,7 @@ export default function Navbar() {
                           href={href}
                           className="group flex items-start gap-3 rounded-xl p-3 transition-all hover:bg-white/[0.04]"
                           onClick={() => setOpenMenu(null)}
+                          role="menuitem"
                         >
                           <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 transition-colors group-hover:bg-emerald-500/20">
                             <Icon className="h-4 w-4 text-emerald-400" />
@@ -188,37 +195,37 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <Link href="/#marketplace" className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+            <Link href="/#marketplace" className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
               {t('nav.marketplace')}
             </Link>
 
-            <Link href="/#testimonials" className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+            <Link href="/#testimonials" className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
               {t('nav.testimonials')}
             </Link>
 
-            <Link href="/about" className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+            <Link href="/about" className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
               {t('nav.about')}
             </Link>
           </nav>
 
-          {/* Actions right */}
-          <div className="hidden flex-1 items-center justify-end gap-3 lg:flex">
+          {/* Actions — right */}
+          <div className="ml-auto hidden items-center gap-2 lg:flex z-10">
             <LanguageToggle variant="dark" />
             <Link
               href="#login"
-              className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white"
+              className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white"
             >
               {t('nav.login')}
             </Link>
             <Link
               href="#signup"
-              className="font-cta rounded-full bg-emerald-500 px-5 py-2 text-[13px] font-bold text-black tracking-[1.5px] uppercase transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20"
+              className="font-cta rounded-full bg-emerald-500 px-5 py-2 text-[13px] font-bold text-black tracking-[1.5px] uppercase transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             >
               {t('nav.signup')}
             </Link>
           </div>
 
-          {/* Hamburger */}
+          {/* Hamburger — mobile */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="ml-auto lg:hidden p-2"
@@ -230,14 +237,14 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile menu */}
+      {/* ── Mobile menu ── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.3, ease: EASE }}
+            transition={{ duration: 0.28, ease: EASE }}
             className="fixed inset-0 z-50 bg-gray-950 lg:hidden overflow-y-auto"
           >
             <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800/50">

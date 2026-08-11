@@ -15,10 +15,8 @@ const ROTATING_PHRASES = [
 ] as const;
 
 const MOCKUP_SLIDES = [
-  '/Mockups/mockup 01.png',
-  '/Mockups/mockup 02.png',
-  '/Mockups/mockup 03.png',
-  '/Mockups/mockup 04.png',
+  '/bg/1pmem.png',
+  '/Mockups/mockup 11.png'
 ];
 
 export default function Hero() {
@@ -44,7 +42,7 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-dvh items-center overflow-hidden pt-20">
-      {/* ── Background: Hero.png ── */}
+      {/* Background */}
       <div className="absolute inset-0">
         <Image
           src="/bg/Hero.png"
@@ -56,12 +54,8 @@ export default function Hero() {
           sizes="100vw"
         />
       </div>
-
-      {/* ── Geo pattern overlay (calque Figma) ── */}
       <div className="absolute inset-0 bg-geo opacity-[0.06] mix-blend-overlay" />
-
-      {/* ── Dark overlay: rgba(0,0,0,0.48) from Figma ── */}
-      <div className="absolute inset-0 bg-black/[0.48]" />
+      <div className="absolute inset-0 bg-black/[0.52]" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -71,19 +65,19 @@ export default function Hero() {
 
             {/* Headline */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: EASE }}
-              className="mb-8"
+              transition={{ duration: 0.4, delay: 0.08, ease: EASE }}
+              className="mb-6"
             >
-              <h1 className="font-heading text-3xl font-semibold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-[52px] xl:tracking-[-0.5px]">
+              <h1 className="font-heading text-3xl font-semibold leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-[54px] xl:tracking-[-0.5px]">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={activeWord}
-                    initial={{ opacity: 0, y: 32 }}
+                    initial={{ opacity: 0, y: 28 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -24 }}
-                    transition={{ duration: 0.55, ease: EASE }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3, ease: EASE }}
                     className="block text-gradient"
                   >
                     {t(ROTATING_PHRASES[activeWord])}
@@ -94,23 +88,24 @@ export default function Hero() {
 
             {/* Subheadline */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-              className="font-heading mb-10 max-w-xl text-lg font-semibold leading-relaxed text-white/80 sm:text-xl"
+              transition={{ duration: 0.35, delay: 0.18, ease: EASE }}
+              className="font-heading mb-10 max-w-xl text-lg font-medium leading-relaxed text-white/75 sm:text-xl"
             >
               {t('hero.subheadline')}
             </motion.p>
 
             {/* CTA */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
+              transition={{ duration: 0.35, delay: 0.28, ease: EASE }}
+              className="flex flex-wrap items-center gap-3"
             >
               <a
                 href="#demo"
-                className="font-heading inline-flex items-center justify-center gap-2.5 rounded-full border border-white/30 bg-white/5 px-8 py-[14px] text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50"
+                className="font-heading inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-medium text-white/80 backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
               >
                 <ArrowRight className="h-4 w-4" />
                 {t('hero.watchDemo')}
@@ -120,54 +115,56 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.9, ease: EASE }}
-              className="mt-6 text-sm text-white/50"
+              transition={{ duration: 0.35, delay: 0.45, ease: EASE }}
+              className="mt-6 text-xs text-white/40"
             >
               {t('hero.trustLine')}
             </motion.p>
           </div>
 
-          {/* ─── Right: App mockup ─── */}
+          {/* ─── Right: App mockup (crossfade stack — no blank frame) ─── */}
           <motion.div
             className="relative hidden lg:flex items-center justify-end overflow-visible"
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.1, delay: 0.3, ease: EASE }}
+            transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
           >
             <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full bg-emerald-500/8 blur-[140px]" />
 
-            <div className="relative z-10 translate-x-32">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeMockup}
-                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.96, y: -12 }}
-                  transition={{ duration: 0.55, ease: EASE }}
-                >
-                  <Image
-                    src={MOCKUP_SLIDES[activeMockup]}
-                    alt="FarmsToMarket App"
-                    width={1000}
-                    height={2000}
-                    className="object-contain drop-shadow-2xl"
-                    sizes="1000px"
-                    priority
-                  />
-                </motion.div>
-              </AnimatePresence>
+            <div className="relative z-10 translate-x-28">
+              {/* All images stacked — crossfade, no blank frame */}
+              <div className="relative w-[560px] h-[700px] rounded-3xl overflow-hidden">
+                {MOCKUP_SLIDES.map((src, i) => (
+                  <motion.div
+                    key={src}
+                    className="absolute inset-0"
+                    animate={{ opacity: i === activeMockup ? 1 : 0 }}
+                    transition={{ duration: 0.6, ease: EASE }}
+                  >
+                    <Image
+                      src={src}
+                      alt={`FarmsToMarket ${i + 1}`}
+                      fill
+                      className="object-cover object-center"
+                      sizes="560px"
+                      priority={i === 0}
+                    />
+                  </motion.div>
+                ))}
+              </div>
 
-              <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 flex gap-2">
+              {/* Dots */}
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
                 {MOCKUP_SLIDES.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveMockup(i)}
-                    className={`h-2 rounded-full transition-all duration-500 ${
+                    aria-label={`Mockup ${i + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
                       i === activeMockup
                         ? 'w-6 bg-emerald-500'
                         : 'w-2 bg-white/30 hover:bg-white/50'
                     }`}
-                    aria-label={`Mockup ${i + 1}`}
                   />
                 ))}
               </div>

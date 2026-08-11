@@ -207,7 +207,7 @@ export default function AppsPage() {
         : ['AI Checks Quality.', 'Before You Pay.'],
       description: isFr
         ? 'Notre vision par ordinateur note chaque produit sur la maturité, le taux de défaut et la distribution de taille. Sachez exactement ce que vous obtenez avant tout achat.'
-        : 'Computer vision grades every listing for maturity, defect rate and size distribution. Know exactly what you\'re getting — before you commit.',
+        : 'Computer vision grades every listing for maturity, defect rate and size distribution. Know exactly what you\'re getting  before you commit.',
       pill: isFr ? 'Score Qualité IA' : 'AI Quality Score',
       PillIcon: Eye,
     },
@@ -218,8 +218,8 @@ export default function AppsPage() {
         ? ['Payez en Sécurité.', 'Libérez à la Livraison.']
         : ['Pay Safe.', 'Release On Delivery.'],
       description: isFr
-        ? 'Vos fonds sont protégés par escrow jusqu\'à confirmation de la livraison. Pas d\'arnaques, pas de litiges — juste un commerce équitable et transparent.'
-        : 'Your funds are held in escrow until delivery is confirmed. No scams, no disputes — just fair, fully protected commerce every time.',
+        ? 'Vos fonds sont protégés par escrow jusqu\'à confirmation de la livraison. Pas d\'arnaques, pas de litiges  juste un commerce équitable et transparent.'
+        : 'Your funds are held in escrow until delivery is confirmed. No scams, no disputes  just fair, fully protected commerce every time.',
       pill: isFr ? 'Protégé par Escrow' : 'Escrow Protected',
       PillIcon: Shield,
     },
@@ -231,7 +231,7 @@ export default function AppsPage() {
         : ['Track Your Order.', 'Farm To Your Door.'],
       description: isFr
         ? 'Suivi GPS en temps réel, ETA en direct et mises à jour du statut de livraison à chaque étape. Du portail de la ferme jusqu\'à votre entrepôt.'
-        : 'Real-time GPS tracking, live ETA and delivery status updates at every step — from the farm gate straight to your warehouse.',
+        : 'Real-time GPS tracking, live ETA and delivery status updates at every step  from the farm gate straight to your warehouse.',
       pill: isFr ? 'Suivi en Direct' : 'Live Tracking',
       PillIcon: MapPin,
     },
@@ -270,7 +270,7 @@ export default function AppsPage() {
         : ['Map Your Fields.', 'Build Your Credibility.'],
       description: isFr
         ? 'Délimitez les contours GPS de vos plantations, calculez la superficie exacte et obtenez la vérification de localisation pour inspirer confiance aux acheteurs.'
-        : 'Draw GPS boundaries around your plantations, compute exact surface area and get location verification — building instant trust with buyers.',
+        : 'Draw GPS boundaries around your plantations, compute exact surface area and get location verification  building instant trust with buyers.',
       pill: isFr ? 'Vérifié GPS' : 'GPS Verified',
       PillIcon: MapPin,
     },
@@ -281,8 +281,8 @@ export default function AppsPage() {
         ? ['Listez Votre Récolte', 'En 3 Étapes.']
         : ['List Your Harvest', 'In 3 Steps.'],
       description: isFr
-        ? 'Quantité, prix, photo — votre produit est en ligne en quelques minutes. Notre IA suggère le meilleur prix selon les données de marché en temps réel.'
-        : 'Quantity, price, photo — your product goes live in minutes. The AI suggests the optimal price based on live market intelligence.',
+        ? 'Quantité, prix, photo  votre produit est en ligne en quelques minutes. Notre IA suggère le meilleur prix selon les données de marché en temps réel.'
+        : 'Quantity, price, photo  your product goes live in minutes. The AI suggests the optimal price based on live market intelligence.',
       pill: isFr ? '3 Étapes Seulement' : '3 Steps Only',
       PillIcon: Zap,
     },
@@ -293,8 +293,8 @@ export default function AppsPage() {
         ? ['Obtenez de Meilleurs Prix', 'Grâce à la Qualité IA.']
         : ['Get Better Prices With', 'AI-Verified Quality.'],
       description: isFr
-        ? 'Un score de qualité automatisé rassure les acheteurs instantanément. Taux de défaut, maturité, distribution de taille — tout est objectif et vérifiable.'
-        : 'An automated quality score reassures buyers instantly. Defect rate, maturity, size distribution — all objective, all verifiable, all driving better prices.',
+        ? 'Un score de qualité automatisé rassure les acheteurs instantanément. Taux de défaut, maturité, distribution de taille  tout est objectif et vérifiable.'
+        : 'An automated quality score reassures buyers instantly. Defect rate, maturity, size distribution  all objective, all verifiable, all driving better prices.',
       pill: isFr ? 'Propulsé par IA' : 'AI-Powered',
       PillIcon: Eye,
     },
@@ -305,8 +305,8 @@ export default function AppsPage() {
         ? ['Soyez Payé.', 'À Chaque Fois.', 'À Temps.']
         : ['Get Paid.', 'Every Time.', 'On Time.'],
       description: isFr
-        ? "L'escrow garantit votre paiement dès confirmation de la livraison. Solde actif, dépôt, retrait — contrôle financier complet dans votre poche."
-        : 'Escrow guarantees your payment the moment delivery is confirmed. Active balance, deposits, withdrawals — full financial control in your pocket.',
+        ? "L'escrow garantit votre paiement dès confirmation de la livraison. Solde actif, dépôt, retrait  contrôle financier complet dans votre poche."
+        : 'Escrow guarantees your payment the moment delivery is confirmed. Active balance, deposits, withdrawals  full financial control in your pocket.',
       pill: isFr ? 'Paiement Garanti' : 'Payment Guaranteed',
       PillIcon: DollarSign,
     },
@@ -391,7 +391,7 @@ export default function AppsPage() {
               >
                 {isFr
                   ? 'Connectez-vous directement avec des agriculteurs vérifiés. Qualité certifiée par IA, paiement sécurisé par escrow et suivi GPS en temps réel.'
-                  : 'Connect directly with verified farmers. AI-certified quality, escrow-secured payments, and real-time GPS tracking — all in one app.'}
+                  : 'Connect directly with verified farmers. AI-certified quality, escrow-secured payments, and real-time GPS tracking  all in one app.'}
               </motion.p>
 
               {/* App store badges */}
@@ -444,33 +444,33 @@ export default function AppsPage() {
             >
               <div className="absolute inset-0 rounded-full bg-emerald-500/6 blur-[80px]" />
 
-              {/* Phone 1 — tilted left */}
+              {/* Phone 1  tilted left */}
               <div className="relative z-10 -mr-16 w-[215px] rotate-[-6deg] overflow-hidden rounded-[2.2rem] ring-1 ring-white/10 shadow-2xl shadow-black/70">
                 <Image
                   src="/F2M - Store App Listing/EN/PNG/A1.png"
-                  alt="FarmsToMarket — Buyer app"
+                  alt="FarmsToMarket  Buyer app"
                   width={430} height={860}
                   className="w-full object-cover"
                   priority
                 />
               </div>
 
-              {/* Phone 2 — upright, on top */}
+              {/* Phone 2  upright, on top */}
               <div className="relative z-20 mt-14 w-[235px] overflow-hidden rounded-[2.2rem] ring-1 ring-emerald-500/20 shadow-2xl shadow-emerald-500/10">
                 <Image
                   src="/F2M - Store App Listing/EN/PNG/B1.png"
-                  alt="FarmsToMarket — Producer app"
+                  alt="FarmsToMarket  Producer app"
                   width={470} height={940}
                   className="w-full object-cover"
                   priority
                 />
               </div>
 
-              {/* Phone 3 — tilted right */}
+              {/* Phone 3  tilted right */}
               <div className="relative z-10 -ml-16 mt-24 w-[200px] rotate-[6deg] overflow-hidden rounded-[2.2rem] ring-1 ring-white/8 shadow-2xl shadow-black/60 opacity-70">
                 <Image
                   src="/F2M - Store App Listing/EN/PNG/A5.png"
-                  alt="FarmsToMarket — Prices"
+                  alt="FarmsToMarket  Prices"
                   width={400} height={800}
                   className="w-full object-cover"
                   priority
@@ -533,7 +533,7 @@ export default function AppsPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          FEATURES — FOR BUYERS
+          FEATURES  FOR BUYERS
       ════════════════════════════════════════════════════ */}
       <section className="mx-auto max-w-7xl px-5 py-28 lg:px-8" id="buyers">
         {/* Section heading */}
@@ -566,7 +566,7 @@ export default function AppsPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          FEATURES — FOR PRODUCERS
+          FEATURES  FOR PRODUCERS
       ════════════════════════════════════════════════════ */}
       <section className="bg-white/[0.015] py-28" id="producers">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -588,7 +588,7 @@ export default function AppsPage() {
             <p className="mx-auto mt-4 max-w-xl text-white/50">
               {isFr
                 ? 'Tous les outils dont vous avez besoin pour gérer votre ferme, lister vos récoltes et être payé instantanément.'
-                : 'Every tool you need to manage your farm, list your harvest and get paid — instantly.'}
+                : 'Every tool you need to manage your farm, list your harvest and get paid  instantly.'}
             </p>
           </motion.div>
 

@@ -1,15 +1,16 @@
-# Graph Report - .  (2026-06-20)
+# Graph Report - farmstomarket-vitrine  (2026-06-20)
 
 ## Corpus Check
-- cluster-only mode — file stats not available
+- 67 files · ~1,264,859 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 332 nodes · 554 edges · 21 communities (15 shown, 6 thin omitted)
+- 345 nodes · 568 edges · 22 communities (16 shown, 6 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `38029410`
+- Built from commit: `7a4bf549`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,26 +34,27 @@
 - [[_COMMUNITY_Community 18|Community 18]]
 - [[_COMMUNITY_Community 19|Community 19]]
 - [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 21|Community 21]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `useLanguage()` - 66 edges
+1. `useLanguage()` - 68 edges
 2. `useAnimateOnScroll()` - 54 edges
 3. `compilerOptions` - 17 edges
 4. `fadeUpVariants` - 12 edges
 5. `staggerChildrenVariants` - 11 edges
 6. `useReveal()` - 10 edges
-7. `tailwind` - 6 edges
-8. `aliases` - 6 edges
-9. `useReveal()` - 6 edges
+7. `useReveal()` - 6 edges
+8. `tailwind` - 6 edges
+9. `aliases` - 6 edges
 10. `PersonaPageData` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `Navbar()` --calls--> `useLanguage()`  [EXTRACTED]
+  src/components/Navbar.tsx → src/contexts/LanguageContext.tsx
 - `CookieBanner()` --calls--> `useLanguage()`  [EXTRACTED]
   src/components/CookieBanner.tsx → src/contexts/LanguageContext.tsx
 - `Hero()` --calls--> `useLanguage()`  [EXTRACTED]
   src/components/Hero.tsx → src/contexts/LanguageContext.tsx
-- `Navbar()` --calls--> `useLanguage()`  [EXTRACTED]
-  src/components/Navbar.tsx → src/contexts/LanguageContext.tsx
 - `PWAInstallPrompt()` --calls--> `useLanguage()`  [EXTRACTED]
   src/components/PWAInstallPrompt.tsx → src/contexts/LanguageContext.tsx
 - `VideoShowcase()` --calls--> `useAnimateOnScroll()`  [EXTRACTED]
@@ -61,31 +63,31 @@
 ## Import Cycles
 - None detected.
 
-## Communities (21 total, 6 thin omitted)
+## Communities (22 total, 6 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.08
-Nodes (46): AgroBank(), CapabilitiesGrid(), CapitalStats(), EASE, ConversionStats(), EASE, CredibilityStats(), CuttingEdgeFeatures() (+38 more)
+Cohesion: 0.07
+Nodes (50): fadeUpVariants, staggerChildrenVariants, zoomInVariants, AgroBank(), CapitalStats(), EASE, ConversionStats(), EASE (+42 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.09
-Nodes (23): fadeInVariants, fadeLeftVariants, fadeRightVariants, fadeUpVariants, staggerChildrenVariants, zoomInVariants, Category, CATEGORY_STYLES (+15 more)
+Cohesion: 0.25
+Nodes (7): contentVariants, HowItWorks(), Step, TabData, TabKey, tabOrder, tabsData
 
 ### Community 2 - "Community 2"
 Cohesion: 0.06
-Nodes (28): inter, jsonLdOrganization, jsonLdWebApp, metadata, plusJakartaSans, urbanist, viewport, BackToTop() (+20 more)
+Nodes (31): inter, jsonLdOrganization, jsonLdWebApp, metadata, plusJakartaSans, urbanist, viewport, BackToTop() (+23 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.07
 Nodes (29): dependencies, class-variance-authority, clsx, framer-motion, lucide-react, next, @radix-ui/react-slot, react (+21 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.08
-Nodes (16): EASE, ICON_PATHS, EASE, Hero(), MOCKUP_SLIDES, ROTATING_PHRASES, APP_SCREENS, EASE (+8 more)
+Cohesion: 0.07
+Nodes (18): CapabilitiesGrid(), EASE, ICON_PATHS, EASE, Hero(), MOCKUP_SLIDES, ROTATING_PHRASES, EASE (+10 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.12
-Nodes (13): metadata, agrobankData, customerData, producerData, transporterData, metadata, PersonaBenefit, PersonaCta (+5 more)
+Cohesion: 0.08
+Nodes (21): fadeInVariants, fadeLeftVariants, fadeRightVariants, metadata, agrobankData, customerData, producerData, transporterData (+13 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.12
@@ -115,25 +117,29 @@ Nodes (3): cn(), Button(), buttonVariants
 Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
+### Community 21 - "Community 21"
+Cohesion: 0.22
+Nodes (4): EASE, FeatureRowProps, GALLERY_MOCKUPS, TestimonialProps
+
 ## Knowledge Gaps
-- **154 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+149 more)
+- **159 isolated node(s):** `graphify.sh script`, `nextConfig`, `EASE`, `FeatureRowProps`, `TestimonialProps` (+154 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **6 thin communities (<3 nodes) omitted from report**  run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useLanguage()` connect `Community 0` to `Community 1`, `Community 2`, `Community 4`, `Community 6`?**
-  _High betweenness centrality (0.127) - this node is a cross-community bridge._
-- **Why does `useAnimateOnScroll()` connect `Community 0` to `Community 1`, `Community 2`, `Community 4`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
-- **Why does `PersonaPageData` connect `Community 5` to `Community 1`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _154 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `useLanguage()` connect `Community 0` to `Community 1`, `Community 2`, `Community 4`, `Community 5`, `Community 6`, `Community 21`?**
+  _High betweenness centrality (0.161) - this node is a cross-community bridge._
+- **Why does `useAnimateOnScroll()` connect `Community 0` to `Community 1`, `Community 2`, `Community 4`, `Community 5`?**
+  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+- **What connects `graphify.sh script`, `nextConfig`, `EASE` to the rest of the system?**
+  _159 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.07547169811320754 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.08859357696567 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06702702702702702 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.06282051282051282 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05758582502768549 - nodes in this community are weakly interconnected._
+- **Should `Community 3` be split into smaller, more focused modules?**
+  _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
+- **Should `Community 4` be split into smaller, more focused modules?**
+  _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._

@@ -1,27 +1,31 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useAnimateOnScroll } from '@/hooks/useAnimation';
-
-const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+import { BlurFade } from '@/components/ui/magicui/blur-fade';
+import { NumberTicker } from '@/components/ui/magicui/number-ticker';
 
 export default function ConversionStats() {
   const { t } = useLanguage();
-  const { ref, isVisible } = useAnimateOnScroll(0.1);
+
+  const stats = [
+    { value: 50, suffix: 'K+', label: t('showcase.stat.users') },
+    { value: 72.9, suffix: 'K+', label: t('showcase.stat.transactions'), decimalPlaces: 1 },
+    { value: 15, suffix: '+', label: t('credibility.countries.label') },
+    { value: 99.8, suffix: '%', label: t('credibility.uptime.label'), decimalPlaces: 1 },
+  ];
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 bg-gray-900 bg-geo-subtle overflow-hidden">
+    <section className="relative py-28 md:py-36 bg-gray-900 bg-geo-subtle overflow-hidden">
+      {/* Accent glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full bg-emerald-500/5 blur-[100px]" aria-hidden="true" />
+
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Stats and text */}
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={isVisible ? { x: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.9, ease: EASE }}
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-6">
+
+          {/* Left: Stats */}
+          <BlurFade inView direction="left" delay={0}>
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-6 block w-fit">
               {t('secure.payments.title')}
             </span>
 
@@ -29,50 +33,45 @@ export default function ConversionStats() {
               {t('features.cta.title')}
             </h2>
 
-            {/* Big stats Shopify checkout stats style */}
+            {/* Animated counters */}
             <div className="grid grid-cols-2 gap-8 mb-10">
-              <div>
-                <div className="font-heading text-4xl md:text-5xl font-bold text-gradient tracking-tight">50K+</div>
-                <div className="text-gray-400 text-sm mt-2">{t('showcase.stat.users')}</div>
-              </div>
-              <div>
-                <div className="font-heading text-4xl md:text-5xl font-bold text-gradient tracking-tight">72.9K+</div>
-                <div className="text-gray-400 text-sm mt-2">{t('showcase.stat.transactions')}</div>
-              </div>
-              <div>
-                <div className="font-heading text-4xl md:text-5xl font-bold text-gradient tracking-tight">15+</div>
-                <div className="text-gray-400 text-sm mt-2">{t('credibility.countries.label')}</div>
-              </div>
-              <div>
-                <div className="font-heading text-4xl md:text-5xl font-bold text-gradient tracking-tight">99.8%</div>
-                <div className="text-gray-400 text-sm mt-2">{t('credibility.uptime.label')}</div>
-              </div>
+              {stats.map((stat, i) => (
+                <div key={i}>
+                  <div className="font-heading text-4xl md:text-5xl font-bold text-gradient tracking-tight flex items-baseline gap-0.5">
+                    <NumberTicker
+                      value={stat.value}
+                      decimalPlaces={stat.decimalPlaces ?? 0}
+                      className="text-gradient font-heading text-4xl md:text-5xl font-bold"
+                    />
+                    <span className="text-gradient font-heading text-3xl md:text-4xl font-bold">{stat.suffix}</span>
+                  </div>
+                  <div className="text-gray-400 text-sm mt-1.5">{stat.label}</div>
+                </div>
+              ))}
             </div>
 
-            <p className="text-gray-500 text-xs italic">
+            <p className="text-gray-500 text-sm italic leading-relaxed max-w-md">
               {t('features.cta.description')}
             </p>
-          </motion.div>
+          </BlurFade>
 
           {/* Right: Mockup */}
-          <motion.div
-            className="relative flex justify-center"
-            initial={{ x: 50, opacity: 0 }}
-            animate={isVisible ? { x: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[350px] h-[350px] bg-emerald-500/8 rounded-full blur-[80px]" />
+          <BlurFade inView direction="right" delay={0.08}>
+            <div className="relative flex justify-center">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                <div className="w-[350px] h-[350px] bg-emerald-500/8 rounded-full blur-[80px]" />
+              </div>
+              <Image
+                src="/Mockups/mockup 13.png"
+                alt="Secure Payment Interface"
+                width={350}
+                height={700}
+                className="object-contain drop-shadow-2xl relative z-10"
+                sizes="(max-width: 1024px) 80vw, 350px"
+                loading="lazy"
+              />
             </div>
-            <Image
-              src="/Mockups/mockup 13.png"
-              alt="Secure Payment Interface"
-              width={350}
-              height={700}
-              className="object-contain drop-shadow-2xl relative z-10"
-              sizes="(max-width: 1024px) 80vw, 350px"
-            />
-          </motion.div>
+          </BlurFade>
         </div>
       </div>
     </section>

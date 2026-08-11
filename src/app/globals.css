@@ -184,3 +184,47 @@
     transparent 100%
   );
 }
+
+/* ─── Magic UI: shimmer sweep ─── */
+@keyframes shimmer {
+  from { transform: translateX(-200%); }
+  to   { transform: translateX(200%);  }
+}
+
+/* ─── Magic UI: animated gradient text ─── */
+@keyframes gradient {
+  to { background-position: var(--bg-size, 300%) 0; }
+}
+.animate-gradient {
+  animation: gradient 8s linear infinite;
+}
+
+/* ─── Magic UI: meteor effect ─── */
+@keyframes meteor-effect {
+  0%   { transform: rotate(var(--meteor-angle, 215deg)) translateX(0); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: rotate(var(--meteor-angle, 215deg)) translateX(-600px); opacity: 0; }
+}
+.animate-meteor {
+  animation: meteor-effect linear infinite;
+  animation-duration: inherit;
+  animation-delay: inherit;
+}
+
+/* ─── Marquee: pause on hover OR keyboard focus ─── */
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+  animation-play-state: paused;
+}
+
+/* ─── prefers-reduced-motion: cut all motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

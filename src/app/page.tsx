@@ -11,6 +11,7 @@ import OnboardingSteps from '@/components/OnboardingSteps';
 import CapitalStats from '@/components/CapitalStats';
 import FAQ from '@/components/FAQ';
 import FinalCTA from '@/components/FinalCTA';
+import { Feature108 } from '@/components/ui/shadcnblocks-com-feature108';
 
 function SectionDivider() {
   return <div className="section-divider mx-auto max-w-7xl" />;
@@ -20,7 +21,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
-      <ScrollExpansionHero />
+    {/* <ScrollExpansionHero /> */} 
       <Partners />
       <VideoShowcase />
       <SectionDivider />
@@ -41,7 +42,9 @@ export default function Home() {
       <OnboardingSteps />
       <SectionDivider />
       <CapitalStats />
-      <SectionDivider />
+
+
+
       <FAQ />
       <SectionDivider />
       <FinalCTA />

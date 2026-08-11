@@ -32,7 +32,7 @@ export const en: Record<string, string> = {
   'hero.rotate.1': 'Sell directly to buyers & get paid instantly.',
   'hero.rotate.2': 'Transparent & secure digital transactions.',
   'hero.rotate.3': 'Grow your farm business with advanced analytics.',
-  'hero.subheadline': 'Connect farmers, buyers and transporters on one secure platform. Fair pricing, instant payments and full traceability.',
+  'hero.subheadline': 'Every harvest deserves a fair price. Every payment deserves to arrive. Join the platform connecting 50,000+ African farmers directly to their buyers  no middlemen, no delays.',
   'hero.startFree': 'Start for free',
   'hero.watchDemo': 'Watch demo',
   'hero.trustLine': 'Trusted by 50,000+ farmers across 15+ African countries',
@@ -55,7 +55,7 @@ export const en: Record<string, string> = {
   'showcase.description': 'FarmsToMarket combines artificial intelligence, mobile banking and real-time logistics to connect every farmer directly to the market eliminating middlemen, guaranteeing fair prices and accelerating payments.',
   'showcase.stat.users': 'Active farmers & buyers',
   'showcase.stat.transactions': 'Transactions processed',
-  'showcase.expertise': 'Built by a team of agronomists, engineers and fintech specialists in Douala, our platform is live across 15+ African countries. We process thousands of daily trades from cassava and cocoa to livestock and palm oil.',
+  'showcase.expertise': 'Born in Douala, deployed across 15+ African countries. A team of agronomists, engineers and fintech experts who designed every feature for the realities on the ground  from cassava fields to cocoa markets, livestock to palm oil.',
   'showcase.poweredBy': 'The platform behind',
 
   // CredibilityStats
@@ -178,7 +178,7 @@ export const en: Record<string, string> = {
   'features.delivery.description': 'Real-time tracking, fair sharing of transport costs and instant carrier updates.',
   'features.legal.title': 'Integrated Legal Documents',
   'features.legal.description': 'Pre-built FAF templates and certified compliant contracts available directly in the app.',
-  'features.cta.title': 'Ready to discover the agriculture of tomorrow?',
+  'features.cta.title': 'Your next agricultural trade should put more money in your pocket.',
   'features.cta.description': 'Join thousands of farmers already revolutionizing their business with our intelligent platform.',
   'features.cta.button': 'Start for free',
   'secure.pricing.title': 'AI Pricing',
@@ -245,7 +245,7 @@ export const en: Record<string, string> = {
   'agrobank.cta.description': 'Join thousands of agricultural professionals who trust AgroBank for their agricultural financial operations. From seed capital to harvest revenue, we provide comprehensive financial technology solutions for every step of your agricultural journey.',
   'agrobank.cta.open': 'Open AgroBank account',
   'agrobank.cta.consult': 'Schedule consultation',
-  'agrobank.cta.footer': 'FDIC Insured \u2022 Agricultural specialized support \u2022 No hidden fees',
+  'agrobank.cta.footer': 'CEMAC Compliant \u2022 Agricultural specialized support \u2022 No hidden fees',
 
   // FAQ
   'faq.badge': 'Frequently Asked Questions',
@@ -293,7 +293,7 @@ export const en: Record<string, string> = {
 
   // ReadyToTransform
   'ready.title': 'Ready to Transform Your Agricultural Business?',
-  'ready.description': 'Join 10,000+ farmers, breeders and buyers and start trading fairly and securely.',
+  'ready.description': 'Join 50,000+ farmers, breeders and buyers and start trading fairly and securely.',
   'ready.appstore.label': 'Download on the',
   'ready.appstore.name': 'App Store',
   'ready.googleplay.label': 'Get it on',

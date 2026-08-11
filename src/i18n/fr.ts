@@ -32,7 +32,7 @@ export const fr: Record<string, string> = {
   'hero.rotate.1': 'Vendez directement \u00e0 vos acheteurs & soyez pay\u00e9 instantan\u00e9ment.',
   'hero.rotate.2': 'Transactions num\u00e9riques transparentes & s\u00e9curis\u00e9es.',
   'hero.rotate.3': 'D\u00e9veloppez votre exploitation avec des analyses avanc\u00e9es.',
-  'hero.subheadline': 'Connectez agriculteurs, acheteurs et transporteurs sur une plateforme s\u00e9curis\u00e9e. Prix justes, paiements instantan\u00e9s et tra\u00e7abilit\u00e9 compl\u00e8te.',
+  'hero.subheadline': 'Chaque r\u00e9colte m\u00e9rite un prix juste. Chaque paiement m\u00e9rite d\'arriver. Rejoignez la plateforme qui connecte 50 000+ agriculteurs africains directement \u00e0 leurs acheteurs \u2014 sans interm\u00e9diaires, sans d\u00e9lais.',
   'hero.startFree': 'Commencer gratuitement',
   'hero.watchDemo': 'Voir la d\u00e9mo',
   'hero.trustLine': 'Approuv\u00e9 par 50 000+ agriculteurs dans 15+ pays africains',
@@ -55,7 +55,7 @@ export const fr: Record<string, string> = {
   'showcase.description': "FarmsToMarket combine intelligence artificielle, banque mobile et logistique en temps r\u00e9el pour connecter chaque agriculteur directement au march\u00e9 \u2014 en \u00e9liminant les interm\u00e9diaires, en garantissant des prix justes et en acc\u00e9l\u00e9rant les paiements.",
   'showcase.stat.users': 'Agriculteurs & acheteurs actifs',
   'showcase.stat.transactions': 'Transactions trait\u00e9es',
-  'showcase.expertise': "Cr\u00e9\u00e9e par une \u00e9quipe d'agronomes, d'ing\u00e9nieurs et de sp\u00e9cialistes fintech \u00e0 Douala, notre plateforme est active dans plus de 15 pays africains. Nous traitons des milliers de transactions quotidiennes \u2014 du manioc et cacao au b\u00e9tail et \u00e0 l'huile de palme.",
+  'showcase.expertise': "N\u00e9e \u00e0 Douala, d\u00e9ploy\u00e9e sur 15+ pays africains. Une \u00e9quipe d'agronomes, d'ing\u00e9nieurs et d'experts fintech qui a con\u00e7u chaque fonctionnalit\u00e9 pour les r\u00e9alit\u00e9s du terrain \u2014 des champs de manioc aux march\u00e9s de cacao, du b\u00e9tail \u00e0 l'huile de palme.",
   'showcase.poweredBy': 'La plateforme derri\u00e8re',
 
   // CredibilityStats
@@ -178,7 +178,7 @@ export const fr: Record<string, string> = {
   'features.delivery.description': 'Suivi en temps r\u00e9el, partage \u00e9quitable des co\u00fbts de transport et mises \u00e0 jour instantan\u00e9es des transporteurs.',
   'features.legal.title': 'Documents L\u00e9gaux Int\u00e9gr\u00e9s',
   'features.legal.description': 'Mod\u00e8les FAF pr\u00e9-construits et contrats certifi\u00e9s conformes disponibles directement dans l\'application.',
-  'features.cta.title': 'Pr\u00eat \u00e0 d\u00e9couvrir l\'agriculture de demain ?',
+  'features.cta.title': 'Votre prochaine transaction agricole devrait vous rapporter plus.',
   'features.cta.description': 'Rejoignez les milliers d\'agriculteurs qui r\u00e9volutionnent d\u00e9j\u00e0 leur activit\u00e9 gr\u00e2ce \u00e0 notre plateforme intelligente.',
   'features.cta.button': 'Commencer gratuitement',
   'secure.pricing.title': 'Tarification IA',
@@ -245,7 +245,7 @@ export const fr: Record<string, string> = {
   'agrobank.cta.description': 'Rejoignez des milliers de professionnels agricoles qui font confiance \u00e0 AgroBank pour leurs op\u00e9rations financi\u00e8res agricoles.',
   'agrobank.cta.open': 'Ouvrir un compte AgroBank',
   'agrobank.cta.consult': 'Planifier une consultation',
-  'agrobank.cta.footer': 'Assur\u00e9 FDIC \u2022 Support sp\u00e9cialis\u00e9 agricole \u2022 Aucun frais cach\u00e9',
+  'agrobank.cta.footer': 'Conforme CEMAC \u2022 Support agricole sp\u00e9cialis\u00e9 \u2022 Aucun frais cach\u00e9',
 
   // FAQ
   'faq.badge': 'Questions fr\u00e9quentes',
@@ -293,7 +293,7 @@ export const fr: Record<string, string> = {
 
   // ReadyToTransform
   'ready.title': 'Pr\u00eat \u00e0 transformer votre activit\u00e9 agricole ?',
-  'ready.description': 'Rejoignez 10 000+ agriculteurs, \u00e9leveurs et acheteurs et commencez \u00e0 commercer \u00e9quitablement et en toute s\u00e9curit\u00e9.',
+  'ready.description': 'Rejoignez 50 000+ agriculteurs, \u00e9leveurs et acheteurs et commencez \u00e0 commercer \u00e9quitablement et en toute s\u00e9curit\u00e9.',
   'ready.appstore.label': 'T\u00e9l\u00e9charger sur',
   'ready.appstore.name': 'App Store',
   'ready.googleplay.label': 'Disponible sur',

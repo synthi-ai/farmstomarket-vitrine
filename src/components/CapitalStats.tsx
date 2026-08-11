@@ -1,88 +1,185 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import { BlurFade } from '@/components/ui/magicui/blur-fade';
+import { Meteors } from '@/components/ui/magicui/meteors';
+import { AnimatedGradientText } from '@/components/ui/magicui/animated-gradient-text';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 
-const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+const SLIDES = [
+  {
+    id: 'secure',
+    titleKey: 'agrobank.features.secure.title',
+    descKey: 'agrobank.features.secure.description',
+    href: '/agrobank',
+    image: '/farmers/4.jpeg',
+  },
+  {
+    id: 'analytics',
+    titleKey: 'agrobank.features.analytics.title',
+    descKey: 'agrobank.features.analytics.description',
+    href: '/agrobank',
+    image: '/farmers/farms2.jpeg',
+  },
+  {
+    id: 'mobile',
+    titleKey: 'agrobank.features.mobile.title',
+    descKey: 'agrobank.features.mobile.description',
+    href: '/agrobank',
+    image: '/farmers/cassava.jpeg',
+  },
+  {
+    id: 'contracts',
+    titleKey: 'agrobank.features.contracts.title',
+    descKey: 'agrobank.features.contracts.description',
+    href: '/agrobank',
+    image: '/farmers/7.jpeg',
+  },
+  {
+    id: 'payments',
+    titleKey: 'features.payments.title',
+    descKey: 'features.payments.description',
+    href: '/agrobank',
+    image: '/farmers/5.jpeg',
+  },
+];
 
 export default function CapitalStats() {
   const { t } = useLanguage();
-  const { ref, isVisible } = useAnimateOnScroll(0.1);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
 
-  const stats = [
-    { value: '50K+', label: t('agrobank.stats.farmers') },
-    { value: '72.9K+', label: t('agrobank.stats.transactions') },
-    { value: '97%', label: t('agrobank.stats.coverage') },
-    { value: '24/7', label: t('agrobank.stats.support') },
-  ];
+  useEffect(() => {
+    if (!carouselApi) return;
+    const update = () => {
+      setCanScrollPrev(carouselApi.canScrollPrev());
+      setCanScrollNext(carouselApi.canScrollNext());
+    };
+    update();
+    carouselApi.on('select', update);
+    return () => { carouselApi.off('select', update); };
+  }, [carouselApi]);
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 bg-gray-950 bg-geo-subtle overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <motion.div
-          className="text-center mb-20"
-          initial={{ y: 50, opacity: 0 }}
-          animate={isVisible ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.9, ease: EASE }}
+    <section className="relative py-28 md:py-36 bg-gray-950 overflow-hidden">
+      {/* Meteors */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <Meteors number={10} />
+      </div>
+      {/* Glow */}
+      <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[500px] w-[700px] rounded-full bg-emerald-500/5 blur-[120px]" aria-hidden="true" />
+
+      {/* ── Header ── */}
+      <BlurFade inView>
+        <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+          <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end md:mb-14">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-4 block w-fit">
+                {t('agrobank.badge')}
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+                <AnimatedGradientText colorFrom="#00e834" colorTo="#99ff99" speed={0.5}>
+                  {t('agrobank.title')}
+                </AnimatedGradientText>
+              </h2>
+              <Link
+                href="/agrobank"
+                className="group inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                {t('agrobank.cta.open')}
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </div>
+
+            {/* Nav arrows */}
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                onClick={() => carouselApi?.scrollPrev()}
+                disabled={!canScrollPrev}
+                aria-label="Slide précédent"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-700 bg-gray-900/80 text-gray-400 transition-all hover:border-emerald-500/50 hover:text-emerald-400 disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => carouselApi?.scrollNext()}
+                disabled={!canScrollNext}
+                aria-label="Slide suivant"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-700 bg-gray-900/80 text-gray-400 transition-all hover:border-emerald-500/50 hover:text-emerald-400 disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </BlurFade>
+
+      {/* ── Carousel ── */}
+      <div className="w-full">
+        <Carousel
+          setApi={setCarouselApi}
+          opts={{
+            align: 'start',
+            breakpoints: { '(max-width: 768px)': { dragFree: true } },
+          }}
+          className="relative"
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-6">
-            {t('agrobank.badge')}
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-            {t('agrobank.title')}
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            {t('agrobank.description')}
-          </p>
-        </motion.div>
+          <CarouselContent className="-mr-4 ml-[max(1.25rem,calc(50vw-672px+1rem))] 2xl:ml-[max(8rem,calc(50vw-700px+1rem))]">
+            {SLIDES.map((slide) => (
+              <CarouselItem key={slide.id} className="pl-4 md:max-w-[420px]">
+                <Link
+                  href={slide.href}
+                  className="group flex flex-col"
+                >
+                  {/* Image */}
+                  <div className="flex aspect-[3/2] overflow-hidden rounded-2xl">
+                    <div className="relative h-full w-full flex-1 origin-bottom transition-transform duration-500 group-hover:scale-[1.04]">
+                      <Image
+                        src={slide.image}
+                        alt={t(slide.titleKey)}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 768px) 90vw, 420px"
+                        loading="lazy"
+                      />
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-transparent" />
+                    </div>
+                  </div>
 
-        {/* Big bold stats Shopify capital section style */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              className="text-center"
-              initial={{ y: 40, opacity: 0 }}
-              animate={isVisible ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.1 * i, ease: EASE }}
-            >
-              <div className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-gradient tracking-tight mb-3">
-                {stat.value}
-              </div>
-              <div className="text-gray-500 text-sm uppercase tracking-wider font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  {/* Text */}
+                  <h3 className="mt-5 mb-2 line-clamp-2 text-lg font-semibold text-white transition-colors group-hover:text-emerald-400 md:text-xl lg:text-2xl">
+                    {t(slide.titleKey)}
+                  </h3>
+                  <p className="mb-6 line-clamp-2 text-sm text-gray-400 md:text-base">
+                    {t(slide.descKey)}
+                  </p>
+                  <div className="flex items-center text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                    En savoir plus
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
 
-        {/* Feature cards 4 AgroBank features */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { titleKey: 'agrobank.features.secure.title', descKey: 'agrobank.features.secure.description', icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
-            { titleKey: 'agrobank.features.analytics.title', descKey: 'agrobank.features.analytics.description', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
-            { titleKey: 'agrobank.features.mobile.title', descKey: 'agrobank.features.mobile.description', icon: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z' },
-            { titleKey: 'agrobank.features.contracts.title', descKey: 'agrobank.features.contracts.description', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
-          ].map((feat, i) => (
-            <motion.div
-              key={feat.titleKey}
-              className="glass-card rounded-3xl p-6 group transition-all duration-500"
-              initial={{ y: 30, opacity: 0 }}
-              animate={isVisible ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.4 + 0.1 * i, ease: EASE }}
-            >
-              <div className="w-12 h-12 bg-emerald-900/50 rounded-xl flex items-center justify-center border border-emerald-700/40 mb-5 group-hover:bg-emerald-900/80 transition-colors">
-                <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feat.icon} />
-                </svg>
-              </div>
-              <h3 className="font-heading text-lg font-bold text-white mb-2">{t(feat.titleKey)}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{t(feat.descKey)}</p>
-            </motion.div>
-          ))}
-        </div>
+      {/* Footer trust */}
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 mt-12">
+        <p className="text-center text-xs text-gray-600 tracking-wide">
+          {t('agrobank.cta.footer')}
+        </p>
       </div>
     </section>
   );
