@@ -1,374 +1,189 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
+import SectionHeader from '@/components/ui/SectionHeader';
+import StatGrid from '@/components/ui/StatGrid';
 
-const testimonials = [
-  {
-    id: 1,
-    quote: "REVOLUTIONARY PLATFORM",
-    description: "I optimized my crop yield by 85% in just 3 weeks using advanced data analytics - exceptional results",
-    author: "Ngozi Mbeki",
-    role: "Cassava Producer",
-    avatar: "/farmers/cassava1.jpeg"
-  },
-  {
-    id: 2,
-    quote: "GAME-CHANGING TECHNOLOGY",
-    description: "Finally discovered a platform where supply chain operations function with precision timing and complete transparency",
-    author: "Aminatou Bello",
-    role: "Agricultural Distributor",
-    avatar: "/farmers/images1.jpeg"
-  },
-  {
-    id: 3,
-    quote: "NEXT-LEVEL SOLUTION",
-    description: "Farm-to-market delivery time reduced by 75% with complete digital tracking and automated processing systems",
-    author: "Kwame Asante",
-    role: "Livestock Farmer",
-    avatar: "/farmers/farms2.jpeg"
-  },
-  {
-    id: 4,
-    quote: "CUTTING-EDGE INNOVATION",
-    description: "Advanced marketplace integration increased my profit margins by 90% through intelligent pricing algorithms",
-    author: "Fatima Njoya",
-    role: "Palm Oil Producer", 
-    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
-  },
-  {
-    id: 5,
-    quote: "BREAKTHROUGH PLATFORM",
-    description: "Real-time market analysis and predictive modeling transformed my agricultural business operations completely",
-    author: "Amadou Tchoupo",
-    role: "Coffee Plantation Owner",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
-  }
+const avatars = [
+  '/farmers/cassava1.jpeg',
+  '/farmers/images1.jpeg',
+  '/farmers/farms2.jpeg',
+  '/farmers/cassava.jpeg',
+  '/farmers/poivrons.jpeg',
 ];
 
+const DRAG_THRESHOLD = 50;
+
 export default function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useLanguage();
+  const { ref, isVisible } = useAnimateOnScroll(0.2);
+  const [current, setCurrent] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
-    
-    return () => clearInterval(interval);
-  }, []);
+  const testimonials = Array.from({ length: 5 }, (_, i) => ({
+    id: i + 1,
+    quote: t(`testimonials.${i + 1}.quote`),
+    description: t(`testimonials.${i + 1}.description`),
+    author: t(`testimonials.${i + 1}.author`),
+    role: t(`testimonials.${i + 1}.role`),
+    avatar: avatars[i],
+  }));
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-        staggerChildren: 0.2,
-      },
-    },
-  } as const;
+  const stats = [
+    { value: '5,000+', label: t('testimonials.stats.users') },
+    { value: '95%', label: t('testimonials.stats.satisfaction') },
+    { value: '15+', label: t('testimonials.stats.countries') },
+    { value: '24/7', label: t('testimonials.stats.support') },
+  ];
 
-  const titleVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: -30,
-      scale: 0.9
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.23, 1, 0.32, 1]
-      }
-    }
-  } as const;
+  const paginate = (direction: number) => {
+    setCurrent((prev) => {
+      const next = prev + direction;
+      if (next < 0) return testimonials.length - 1;
+      if (next >= testimonials.length) return 0;
+      return next;
+    });
+  };
 
-  const subtitleVariants = {
-    hidden: { 
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 400 : -400,
       opacity: 0,
-      y: 20
-    },
-    visible: {
+    }),
+    center: {
+      x: 0,
       opacity: 1,
-      y: 0,
-      transition: { 
-        duration: 0.8, 
-        delay: 0.3,
-        ease: [0.23, 1, 0.32, 1]
-      }
-    }
-  } as const;
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? -400 : 400,
+      opacity: 0,
+    }),
+  };
 
-  const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.8,
-      y: 40
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.23, 1, 0.32, 1]
-      }
+  const [direction, setDirection] = useState(0);
+
+  const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
+    if (info.offset.x < -DRAG_THRESHOLD) {
+      setDirection(1);
+      paginate(1);
+    } else if (info.offset.x > DRAG_THRESHOLD) {
+      setDirection(-1);
+      paginate(-1);
     }
-  } as const;
+  };
+
+  const goToSlide = (index: number) => {
+    setDirection(index > current ? 1 : -1);
+    setCurrent(index);
+  };
 
   return (
-    <div 
-      className="w-full py-20 px-6 overflow-hidden rounded-3xl relative"
-      style={{
-        background: `
-          radial-gradient(ellipse at top, rgba(0, 232, 52, 0.05) 0%, transparent 50%),
-          radial-gradient(ellipse at bottom, rgba(0, 232, 52, 0.03) 0%, transparent 50%),
-          linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%)
-        `
-      }}
-    >
-      {/* Grille cyberpunk en arrière-plan */}
-      <div className="absolute inset-0 opacity-5">
-        <div 
-          className="w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 232, 52, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 232, 52, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px'
-          }}
+    <section className="py-24 md:py-32 bg-gray-950 bg-geo-subtle" ref={ref} id="testimonials">
+      <div className="max-w-7xl mx-auto px-6">
+        <SectionHeader
+          title={t('testimonials.title')}
+          description={t('testimonials.description')}
+          animated
+          isVisible={isVisible}
+          variants={staggerChildrenVariants}
         />
-      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div 
-          className="text-center mb-16"
-          variants={containerVariants}
+        {/* Carousel */}
+        <motion.div
+          className="relative mb-12 overflow-hidden"
+          variants={fadeUpVariants}
           initial="hidden"
-          animate="visible"
+          animate={isVisible ? 'visible' : 'hidden'}
         >
-          <div className="bg-gradient-to-r from-black via-gray-900 to-black border border-[#00E834] px-8 py-4 rounded-2xl shadow-lg backdrop-blur-sm mb-8 inline-block">
-            <div className="flex items-center justify-center space-x-4">
-              <div className="w-4 h-4 bg-[#00E834] rounded-full animate-pulse shadow-lg">
-                <div className="w-full h-full bg-[#00E834] rounded-full animate-ping opacity-75"></div>
-              </div>
-              <span className="text-[#00E834] font-black text-lg tracking-wider">USER TESTIMONIALS</span>
-            </div>
+          <div className="relative w-full max-w-3xl mx-auto min-h-[320px] flex items-center justify-center">
+            <AnimatePresence initial={false} mode="popLayout" custom={direction}>
+              <motion.div
+                key={current}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                className="absolute w-full cursor-grab active:cursor-grabbing"
+              >
+                <div className="glass-card rounded-3xl p-10 md:p-12 shadow-2xl">
+                  <div className="mb-8">
+                    <svg
+                      className="w-10 h-10 text-emerald-500 mb-4 opacity-60"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M11.3 2.6C6.1 5.1 3 9.3 3 14c0 3.3 2.4 6 5.4 6 2.8 0 5.1-2.2 5.1-5s-2.3-5-5.1-5c-.5 0-1 .1-1.4.2C7.6 7 9.8 4.6 13 3l-1.7-.4zM22.2 2.6C17 5.1 13.9 9.3 13.9 14c0 3.3 2.4 6 5.4 6 2.8 0 5.1-2.2 5.1-5s-2.3-5-5.1-5c-.5 0-1 .1-1.4.2.6-3.2 2.8-5.6 6-7.2l-1.7-.4z" />
+                    </svg>
+                    <h3 className="font-semibold text-xl md:text-2xl text-white mb-4 leading-snug">
+                      {testimonials[current].quote}
+                    </h3>
+                    <p className="text-gray-400 leading-relaxed text-base md:text-lg">
+                      {testimonials[current].description}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-emerald-500/40">
+                      <Image
+                        src={testimonials[current].avatar}
+                        alt={testimonials[current].author}
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-cover"
+                        sizes="64px"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white text-lg">
+                        {testimonials[current].author}
+                      </p>
+                      <p className="text-emerald-400 text-sm">
+                        {testimonials[current].role}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          <motion.h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight"
-            variants={titleVariants}
-            style={{ 
-              color: 'transparent',
-              backgroundImage: 'linear-gradient(45deg, #00E834, #FFFFFF, #00E834)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              textShadow: '0 0 30px rgba(0, 232, 52, 0.5)'
-            }}
-          >
-            OUR MEMBERS
-            <br />
-            <span className="text-white">SPEAK</span>
-          </motion.h2>
-          <motion.p 
-            className="text-xl md:text-2xl text-gray-400 font-bold tracking-wide"
-            variants={subtitleVariants}
-          >
-            TRUSTED BY 
-            <span className="text-[#00E834]"> 10,000+ AGRICULTURAL PROFESSIONALS</span>
-          </motion.p>
+          {/* Navigation Dots */}
+          <div className="flex justify-center space-x-3 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === current
+                    ? 'bg-emerald-500 scale-125'
+                    : 'bg-gray-700 hover:bg-gray-600'
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              className="bg-gradient-to-br from-black/80 via-gray-900/60 to-black/80 border border-[#00E834]/30 p-8 rounded-2xl backdrop-blur-md relative overflow-hidden"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              style={{ 
-                animationDelay: `${index * 0.1}s` 
-              }}
-              whileHover={{
-                y: -8,
-                scale: 1.02,
-                borderColor: '#00E834',
-                boxShadow: '0 20px 40px rgba(0, 232, 52, 0.2)',
-                transition: { duration: 0.3 }
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00E834]/10 to-transparent"></div>
-              
-              <motion.div
-                className="relative z-10"
-                animate={{
-                  y: activeIndex === index ? -4 : 0,
-                  scale: activeIndex === index ? 1.02 : 1
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="flex items-center mb-6">
-                  <div className="w-3 h-3 bg-[#00E834] rounded-full mr-3 shadow-lg shadow-[#00E834]/50">
-                    <div className="w-full h-full bg-[#00E834] rounded-full animate-ping opacity-50"></div>
-                  </div>
-                  <h3 className="font-black text-lg text-[#00E834] tracking-wider">{testimonial.quote}</h3>
-                </div>
-                <p className="text-white/90 text-base leading-relaxed mb-8 font-medium">{testimonial.description}</p>
-              </motion.div>
-              
-              <div className="flex items-center space-x-4 relative z-10">
-                <motion.div 
-                  className="w-16 h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-[#00E834] to-green-600 p-1 shadow-lg"
-                  animate={{
-                    scale: activeIndex === index ? 1.1 : 1,
-                    boxShadow: activeIndex === index ? '0 0 0 3px rgba(0, 232, 52, 0.4)' : '0 0 0 0px rgba(0, 232, 52, 0)'
-                  }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="w-full h-full rounded-xl overflow-hidden bg-black">
-                    <img
-                      src={testimonial.avatar} 
-                      alt={testimonial.author} 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </motion.div>
-                <div>
-                  <p className="font-black text-white text-lg tracking-wide">{testimonial.author}</p>
-                  <p className="text-[#00E834] text-sm font-bold tracking-wider">{testimonial.role}</p>
-                </div>
-              </div>
-
-              {/* Effet lumineux pour la carte active */}
-              {activeIndex === index && (
-                <motion.div
-                  className="absolute top-0 left-0 right-0 h-px bg-[#00E834] shadow-lg shadow-[#00E834]/50"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.5 }}
-                />
-              )}
-
-              {/* Lignes de scan */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E834] to-transparent opacity-50"></div>
-            </motion.div>
-          ))}
-        </div>
-        
-        <motion.div 
-          className="flex justify-center mt-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-        >
-          {testimonials.map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`mx-2 w-4 h-4 rounded-full transition-all duration-500 relative ${
-                activeIndex === index ? 'bg-[#00E834] scale-125' : 'bg-gray-700'
-              }`}
-              whileHover={{ scale: 1.3 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label={`Go to testimonial ${index + 1}`}
-            >
-              {activeIndex === index && (
-                <div className="absolute inset-0 bg-[#00E834] rounded-full animate-ping opacity-50"></div>
-              )}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Statistics Section */}
-        <motion.div 
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          {[
-            { value: '10,000+', label: 'ACTIVE USERS' },
-            { value: '98%', label: 'SATISFACTION RATE' },
-            { value: '45+', label: 'COUNTRIES' },
-            { value: '24/7', label: 'SUPPORT' }
-          ].map((stat, index) => (
-            <motion.div 
-              key={index} 
-              className="text-center p-6 rounded-2xl bg-gradient-to-br from-black/60 to-gray-900/40 border border-[#00E834]/30 backdrop-blur-sm relative overflow-hidden"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 1.4 + index * 0.1 }}
-              whileHover={{ 
-                scale: 1.05, 
-                borderColor: '#00E834' 
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00E834]/10 to-transparent"></div>
-              <div className="relative z-10">
-                <div className="text-3xl md:text-4xl font-black text-[#00E834] mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm md:text-base text-white font-bold tracking-wider">
-                  {stat.label}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.6 }}
-        >
-          <motion.button
-            className="bg-gradient-to-r from-[#00E834] to-green-600 hover:from-green-600 hover:to-[#00E834] text-black px-12 py-4 rounded-2xl font-black text-lg tracking-wide border border-green-400 shadow-lg"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            JOIN OUR COMMUNITY
-          </motion.button>
-        </motion.div>
+        {/* Stats */}
+        <StatGrid
+          stats={stats}
+          variant="dark"
+          animated
+          isVisible={isVisible}
+          containerVariants={staggerChildrenVariants}
+          itemVariants={fadeUpVariants}
+        />
       </div>
-
-      {/* Particules flottantes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-[#00E834] rounded-full opacity-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
-            animate={{
-              y: [0, -50, 0],
-              x: [0, Math.sin(i) * 30, 0],
-              opacity: [0.3, 0.7, 0.3],
-              scale: [1, 1.3, 1]
-            }}
-            transition={{
-              duration: 8 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.4,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Lignes d'énergie */}
-      <div className="absolute top-1/4 left-10 w-32 h-px bg-gradient-to-r from-transparent via-[#00E834] to-transparent opacity-60"></div>
-      <div className="absolute bottom-1/4 right-10 w-32 h-px bg-gradient-to-r from-transparent via-[#00E834] to-transparent opacity-60"></div>
-      <div className="absolute top-1/2 left-5 w-px h-24 bg-gradient-to-b from-transparent via-[#00E834] to-transparent opacity-40"></div>
-      <div className="absolute top-1/2 right-5 w-px h-24 bg-gradient-to-b from-transparent via-[#00E834] to-transparent opacity-40"></div>
-    </div>
+    </section>
   );
 }

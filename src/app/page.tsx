@@ -1,69 +1,53 @@
-'use client'
+import Hero from '@/components/Hero';
+import ScrollExpansionHero from '@/components/ScrollExpansionHero';
+import Partners from '@/components/Partners';
+import VideoShowcase from '@/components/VideoShowcase';
+import MerchantShowcase from '@/components/MerchantShowcase';
+import FeatureHighlight from '@/components/FeatureHighlight';
+import CapabilitiesGrid from '@/components/CapabilitiesGrid';
+import ConversionStats from '@/components/ConversionStats';
+import SuccessStories from '@/components/SuccessStories';
+import OnboardingSteps from '@/components/OnboardingSteps';
+import CapitalStats from '@/components/CapitalStats';
+import FAQ from '@/components/FAQ';
+import FinalCTA from '@/components/FinalCTA';
+import { Feature108 } from '@/components/ui/shadcnblocks-com-feature108';
 
-const AgroBankFintechComponent = dynamic(() => import('@/components/AgroBank'), {
-  ssr: false,
-});
-import { useEffect } from 'react'
-import Hero from '@/components/Hero'
-import Partners from '@/components/Partners'
-import SecureTrusted from '@/components/SecureTrusted'
-import CuttingEdgeFeatures from '@/components/CuttingEdgeFeatures'
-import HowProducers from '@/components/HowProducers'
-import HowBuyersGet from '@/components/HowBuyersGet'
-import AppScreens from '@/components/AppScreens'
-import Testimonials from '@/components/Testimonials'
-import FAQ from '@/components/FAQ'
-import ReadyToTransform from '@/components/ReadyToTransform'
-import FarmsMarketHero from '@/components/FarmsMarketHero'
-
-import SupplyChainComponent from '@/components/SupplyChainComponent'
-import BuyersSection from '@/components/BuyersSection'
-import dynamic from 'next/dynamic';
-import TransporterProcess from '@/components/HowTransporter';
-//import BuyersSection from '@/components/BuyersSection'
+function SectionDivider() {
+  return <div className="section-divider mx-auto max-w-7xl" />;
+}
 
 export default function Home() {
-  useEffect(() => {
-    // Observer for scroll animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Target all elements with fade-in-on-scroll class
-    document.querySelectorAll('.fade-in-on-scroll').forEach((el) => {
-      observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   return (
-    <main className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Hero />
+    {/* <ScrollExpansionHero /> */} 
       <Partners />
-      <FarmsMarketHero/>
-      <SecureTrusted />
-      {/*<Stats />*/}
-      <CuttingEdgeFeatures />
-      <HowProducers />
-      <HowBuyersGet />
-      <TransporterProcess />
-      <AppScreens />
-      <AgroBankFintechComponent />
-      <SupplyChainComponent />
-      <BuyersSection />
-      <Testimonials />
+      <VideoShowcase />
+      <SectionDivider />
+      <div id="marketplace">
+        <MerchantShowcase />
+      </div>
+      <SectionDivider />
+      <div id="features">
+        <FeatureHighlight />
+      </div>
+      <SectionDivider />
+      <CapabilitiesGrid />
+      <SectionDivider />
+      <ConversionStats />
+      <SectionDivider />
+      <SuccessStories />
+      <SectionDivider />
+      <OnboardingSteps />
+      <SectionDivider />
+      <CapitalStats />
+
+
+
       <FAQ />
-      <ReadyToTransform />
-    </main>
-  )
+      <SectionDivider />
+      <FinalCTA />
+    </div>
+  );
 }
