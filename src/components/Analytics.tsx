@@ -14,7 +14,9 @@ import { GoogleAnalytics } from '@next/third-parties/google';
  * `storage` key, so consent is picked up live (same tab + other tabs) without
  * a reload. `@next/third-parties` tracks client-side route changes on its own.
  */
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// GA4 measurement ID. Public by design (shipped to the browser). Overridable
+// via NEXT_PUBLIC_GA_ID; set it to an empty string to disable analytics.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-6XTVB4X9BL';
 const CONSENT_KEY = 'cookiesAccepted';
 
 export default function Analytics() {
