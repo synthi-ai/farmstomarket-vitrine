@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { APPS } from '@/data/site';
+import { buttonVariants } from '@/components/ui/button';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
@@ -50,8 +52,10 @@ export default function FeatureHighlight() {
             </div>
 
             <a
-              href="#signup"
-              className="font-cta inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold tracking-[2px] uppercase px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
+              href={APPS.googlePlay.pro}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: 'cta', size: 'cta-lg' })}
             >
               {t('features.cta.button')}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

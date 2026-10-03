@@ -1,20 +1,17 @@
-'use client';
-
 import Image from 'next/image';
-import { useLanguage } from '@/contexts/LanguageContext';
+import type { TFunction } from '@/i18n/get-dictionary';
 import { BlurFade } from '@/components/ui/magicui/blur-fade';
 import { BorderBeam } from '@/components/ui/magicui/border-beam';
+import { STATS } from '@/data/site';
 
-export default function SuccessStories() {
-  const { t } = useLanguage();
-
+export default function SuccessStories({ t }: { t: TFunction }) {
   const stories = [
     {
       image: '/farmers/2.jpeg',
       quote: t('testimonials.1.description'),
       author: t('testimonials.1.author'),
       role: t('testimonials.1.role'),
-      stat: '+45%',
+      stat: STATS.producerRevenue,
       statLabel: t('persona.producer.videoHero.statLabel'),
       tier: t('howitworks.tab.producers'),
     },
@@ -23,7 +20,7 @@ export default function SuccessStories() {
       quote: t('testimonials.2.description'),
       author: t('testimonials.2.author'),
       role: t('testimonials.2.role'),
-      stat: '-25%',
+      stat: STATS.buyerCost,
       statLabel: t('persona.customer.videoHero.statLabel'),
       tier: t('howitworks.tab.buyers'),
     },
@@ -32,7 +29,7 @@ export default function SuccessStories() {
       quote: t('testimonials.3.description'),
       author: t('testimonials.3.author'),
       role: t('testimonials.3.role'),
-      stat: '98%',
+      stat: STATS.onTimeDelivery,
       statLabel: t('persona.transporter.videoHero.statLabel'),
       tier: t('howitworks.tab.transporters'),
     },
@@ -55,7 +52,7 @@ export default function SuccessStories() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stories.map((story, i) => (
-            <BlurFade key={story.author} inView delay={0.1 * i}>
+            <BlurFade key={`${story.author}-${story.tier}`} inView delay={0.1 * i}>
               <div className="relative glass-card rounded-3xl overflow-hidden flex flex-col will-change-transform transition-transform duration-300 hover:-translate-y-1">
                 {/* Border beam on hover */}
                 <BorderBeam

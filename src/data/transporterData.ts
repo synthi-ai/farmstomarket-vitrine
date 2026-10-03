@@ -1,4 +1,5 @@
 import type { PersonaPageData } from '@/types/persona';
+import { APPS, CONTACT, STATS } from './site';
 
 export const transporterData: PersonaPageData = {
   slug: 'transporter',
@@ -7,7 +8,7 @@ export const transporterData: PersonaPageData = {
     titleKey: 'persona.transporter.videoHero.title',
     highlightKey: 'persona.transporter.videoHero.highlight',
     descKey: 'persona.transporter.videoHero.desc',
-    statValue: '97%',
+    statValue: STATS.transporterReliability,
     statLabelKey: 'persona.transporter.videoHero.statLabel',
   },
   hero: {
@@ -42,8 +43,8 @@ export const transporterData: PersonaPageData = {
     titleKey: 'persona.transporter.cta.title',
     descKey: 'persona.transporter.cta.desc',
     primaryKey: 'persona.transporter.cta.primary',
-    primaryHref: '#',
+    primaryHref: APPS.googlePlay.buyer,
     secondaryKey: 'persona.transporter.cta.secondary',
-    secondaryHref: '#',
+    secondaryHref: `mailto:${CONTACT.email}`,
   },
 };

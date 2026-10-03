@@ -1,4 +1,5 @@
 import type { PersonaPageData } from '@/types/persona';
+import { APPS, CONTACT, STATS } from './site';
 
 export const producerData: PersonaPageData = {
   slug: 'producer',
@@ -7,7 +8,7 @@ export const producerData: PersonaPageData = {
     titleKey: 'persona.producer.videoHero.title',
     highlightKey: 'persona.producer.videoHero.highlight',
     descKey: 'persona.producer.videoHero.desc',
-    statValue: '+200%',
+    statValue: STATS.producerStat,
     statLabelKey: 'persona.producer.videoHero.statLabel',
   },
   hero: {
@@ -42,8 +43,8 @@ export const producerData: PersonaPageData = {
     titleKey: 'persona.producer.cta.title',
     descKey: 'persona.producer.cta.desc',
     primaryKey: 'persona.producer.cta.primary',
-    primaryHref: '#',
+    primaryHref: APPS.googlePlay.buyer,
     secondaryKey: 'persona.producer.cta.secondary',
-    secondaryHref: '#',
+    secondaryHref: `mailto:${CONTACT.email}`,
   },
 };

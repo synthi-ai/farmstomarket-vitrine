@@ -2,10 +2,12 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/LocaleLink';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ArrowRight, ChevronRight, Check, ChevronLeft, Star, Pause, Play } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { buttonVariants } from '@/components/ui/button';
+import type { TranslationKey } from '@/types/i18n';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -19,6 +21,7 @@ function useReveal(threshold = 0.12) {
    HERO
 ───────────────────────────────────────── */
 function Hero() {
+  const { t } = useLanguage();
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-20">
       {/* Geo pattern mask */}
@@ -38,8 +41,8 @@ function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
             >
-              The bank for{' '}
-              <span className="text-gradient">every link in the agri-chain.</span>
+              {t('agrobankPage.hero.headline')}{' '}
+              <span className="text-gradient">{t('agrobankPage.hero.headlineAccent')}</span>
             </motion.h1>
 
             {/* Desc */}
@@ -49,10 +52,7 @@ function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.22, ease: EASE }}
             >
-              Farming, livestock, fishing, processing, transport, export 
-              AgroBank provides every financial service across the entire
-              agro-pastoral value chain. A fully licensed digital bank,
-              natively connected to the FarmsToMarket ecosystem.
+              {t('agrobankPage.hero.desc')}
             </motion.p>
 
             {/* CTAs */}
@@ -64,16 +64,16 @@ function Hero() {
             >
               <a
                 href="#open"
-                className="font-cta inline-flex items-center gap-2 rounded-full bg-emerald-500 px-7 py-3.5 text-[13px] font-bold uppercase tracking-[1.5px] text-black transition-all hover:bg-emerald-400 hover:shadow-xl hover:shadow-emerald-500/20"
+                className={buttonVariants({ variant: 'cta', size: 'cta' })}
               >
-                Open your account
+                {t('agrobankPage.hero.ctaPrimary')}
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="#how-it-works"
                 className="inline-flex items-center gap-1.5 text-[14px] font-medium text-gray-400 transition-colors hover:text-white"
               >
-                How it works <ChevronRight className="h-4 w-4" />
+                {t('agrobankPage.hero.ctaSecondary')} <ChevronRight className="h-4 w-4" />
               </a>
             </motion.div>
 
@@ -83,7 +83,7 @@ function Hero() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.55 }}
             >
-              No branch visit required · Starts in 2 minutes · Available in 15 countries
+              {t('agrobankPage.hero.trust')}
             </motion.p>
           </div>
 
@@ -190,6 +190,7 @@ function KiliwaLogo() {
 }
 
 function PartnersBar() {
+  const { t } = useLanguage();
   const { ref, inView } = useReveal();
   return (
     <div ref={ref} className="border-y border-gray-800/50 bg-gray-900/30 py-9">
@@ -201,7 +202,7 @@ function PartnersBar() {
           transition={{ duration: 0.8, ease: EASE }}
         >
           <p className="shrink-0 text-[12px] text-gray-600">
-            Integrated with
+            {t('agrobankPage.partners.integrated')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-10 opacity-70">
             <OrangeMoneyLogo />
@@ -386,13 +387,13 @@ function HowItWorks() {
           transition={{ duration: 0.8, ease: EASE }}
         >
           <span className="mb-4 inline-block font-mono text-[10px] uppercase tracking-[3px] text-emerald-400">
-            Getting started
+            {t('agrobankPage.how.eyebrow')}
           </span>
           <h2 className="font-heading text-[44px] font-bold leading-[1.06] tracking-[-0.5px] text-white lg:text-[52px]">
-            Up and running in minutes.
+            {t('agrobankPage.how.title')}
           </h2>
           <p className="mt-5 text-[17px] text-gray-400">
-            No paperwork. No queues. Just your phone and your farm identity.
+            {t('agrobankPage.how.desc')}
           </p>
         </motion.div>
 
@@ -541,71 +542,21 @@ function AutoMockup() {
    STORY SECTION
 ───────────────────────────────────────── */
 const CHAPTERS = [
-  {
-    num: '01',
-    title: 'Meet Fatima',
-    caption: 'Palm oil cooperative leader · Cameroon',
-    narrative:
-      'Fatima runs a 12-member palm oil cooperative. Her buyers pay by cash, 30 to 45 days late. She has no bank account, no credit history, no insurance. One bad season could wipe out everything her cooperative built.',
-    mockup: '/Mockups/mockup 01.png',
-  },
-  {
-    num: '02',
-    title: 'She downloads AgroBank',
-    caption: '3 minutes · Phone number + national ID',
-    narrative:
-      'Fatima registers with her phone number and uploads her national ID. No branch visit. No paper forms. Her farm profile cooperative size, crop types, operating zone is captured in the onboarding flow.',
-    mockup: '/Mockups/mockup 02.png',
-  },
-  {
-    num: '03',
-    title: 'AgroWallet is live',
-    caption: 'Linked to her FarmsToMarket profile',
-    narrative:
-      'Her AgroWallet is active. Balance: €0 but her farm identity is now on the blockchain. She can receive payments from any buyer on FarmsToMarket, send money to suppliers, and build her financial history from the very first transaction.',
-    mockup: '/Mockups/mockup 03.png',
-  },
-  {
-    num: '04',
-    title: 'First sale paid instantly',
-    caption: 'Buyer pays · €840 · 2.1t palm oil',
-    narrative:
-      'A verified buyer on FarmsToMarket purchases 2.1 tonnes of palm oil. The moment the buyer confirms delivery, €840 hits Fatima\'s AgroWallet. Not in 45 days. Instantly. She reinvests the same afternoon.',
-    mockup: '/Mockups/mockup 04.png',
-  },
-  {
-    num: '05',
-    title: 'AgroCredit unlocks',
-    caption: 'Scored on her trading history · Not collateral',
-    narrative:
-      'After her first three trades, AgroBank\'s AI scores her creditworthiness not on collateral or a bank statement, but on her verified trading history. She applies for €1,500 to buy improved seedlings. Approved in 28 hours.',
-    mockup: '/Mockups/mockup 11.png',
-  },
-  {
-    num: '06',
-    title: 'Harvest insured',
-    caption: 'Satellite-indexed · Coverage: €2,400',
-    narrative:
-      'She activates AgroInsure for the incoming season. A satellite tracks her plantation coordinates. If drought or flooding is detected, AgroBank pays automatically no inspector, no paperwork. Coverage: €2,400 against total loss.',
-    mockup: '/Mockups/mockup 12.png',
-  },
-  {
-    num: '07',
-    title: 'She trades on the exchange',
-    caption: 'Real-time commodity pricing · Smart escrow',
-    narrative:
-      'With her financial identity established, Fatima lists her next harvest directly on the AgroBank commodity exchange. Real-time pricing. Verified buyers. The moment a deal is struck, smart contract escrow locks the funds until delivery is confirmed.',
-    mockup: '/Mockups/mockup 16.png',
-  },
-  {
-    num: '08',
-    title: 'A new season begins',
-    caption: 'Cooperative doubled · Credit history built',
-    narrative:
-      'One year later. Fatima\'s cooperative has doubled from 12 to 24 members every one of them with an AgroWallet. Her credit score is strong enough for a €12,000 equipment loan. She no longer waits 45 days. She never will again.',
-    mockup: '/Mockups/mockup 13.png',
-  },
-] as const;
+  { num: '01', titleKey: 'agrobankPage.story.c1.title', captionKey: 'agrobankPage.story.c1.caption', narrativeKey: 'agrobankPage.story.c1.narrative', mockup: '/Mockups/mockup 01.png' },
+  { num: '02', titleKey: 'agrobankPage.story.c2.title', captionKey: 'agrobankPage.story.c2.caption', narrativeKey: 'agrobankPage.story.c2.narrative', mockup: '/Mockups/mockup 02.png' },
+  { num: '03', titleKey: 'agrobankPage.story.c3.title', captionKey: 'agrobankPage.story.c3.caption', narrativeKey: 'agrobankPage.story.c3.narrative', mockup: '/Mockups/mockup 03.png' },
+  { num: '04', titleKey: 'agrobankPage.story.c4.title', captionKey: 'agrobankPage.story.c4.caption', narrativeKey: 'agrobankPage.story.c4.narrative', mockup: '/Mockups/mockup 04.png' },
+  { num: '05', titleKey: 'agrobankPage.story.c5.title', captionKey: 'agrobankPage.story.c5.caption', narrativeKey: 'agrobankPage.story.c5.narrative', mockup: '/Mockups/mockup 11.png' },
+  { num: '06', titleKey: 'agrobankPage.story.c6.title', captionKey: 'agrobankPage.story.c6.caption', narrativeKey: 'agrobankPage.story.c6.narrative', mockup: '/Mockups/mockup 12.png' },
+  { num: '07', titleKey: 'agrobankPage.story.c7.title', captionKey: 'agrobankPage.story.c7.caption', narrativeKey: 'agrobankPage.story.c7.narrative', mockup: '/Mockups/mockup 16.png' },
+  { num: '08', titleKey: 'agrobankPage.story.c8.title', captionKey: 'agrobankPage.story.c8.caption', narrativeKey: 'agrobankPage.story.c8.narrative', mockup: '/Mockups/mockup 13.png' },
+] as const satisfies readonly {
+  num: string;
+  titleKey: TranslationKey;
+  captionKey: TranslationKey;
+  narrativeKey: TranslationKey;
+  mockup: string;
+}[];
 
 const CHAPTER_DURATION = 5000;
 
@@ -670,13 +621,13 @@ function StorySection() {
               transition={{ duration: 0.9, ease: EASE }}
             >
               <p className="mb-3 font-mono text-[10px] uppercase tracking-[3px] text-emerald-400">
-                AgroBank in action
+                {t('agrobankPage.storyIntro.eyebrow')}
               </p>
               <h2 className="font-heading mb-3 text-[36px] font-bold leading-[1.08] tracking-[-0.5px] text-white lg:text-[42px]">
-                One year inside AgroBank.
+                {t('agrobankPage.storyIntro.title')}
               </h2>
               <p className="mb-12 text-[15px] text-gray-500">
-                Follow Fatima cooperative leader, Cameroon through her first complete financial journey.
+                {t('agrobankPage.storyIntro.desc')}
               </p>
 
               {/* Chapter list */}
@@ -709,7 +660,7 @@ function StorySection() {
                       {i < active ? '✓' : ch.num}
                     </span>
                     <span className={`transition-colors duration-200 ${i === active ? 'text-white' : 'text-gray-600 group-hover:text-gray-400'}`}>
-                      <span className="block text-[13px] font-semibold leading-tight">{ch.title}</span>
+                      <span className="block text-[13px] font-semibold leading-tight">{t(ch.titleKey)}</span>
                       {i === active && (
                         <motion.span
                           className="block text-[11px] text-emerald-400 mt-0.5"
@@ -717,7 +668,7 @@ function StorySection() {
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
                         >
-                          {ch.caption}
+                          {t(ch.captionKey)}
                         </motion.span>
                       )}
                     </span>
@@ -730,7 +681,7 @@ function StorySection() {
                 <button
                   onClick={() => setPlaying((p) => !p)}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 text-gray-400 transition-all hover:border-emerald-500/50 hover:text-emerald-400"
-                  aria-label={playing ? 'Pause' : 'Play'}
+                  aria-label={playing ? t('agrobankPage.controls.pause') : t('agrobankPage.controls.play')}
                 >
                   {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </button>
@@ -768,7 +719,7 @@ function StorySection() {
                   >
                     <Image
                       src={chapter.mockup}
-                      alt={chapter.title}
+                      alt={t(chapter.titleKey)}
                       width={340}
                       height={680}
                       className="h-full w-auto max-h-[640px] object-contain drop-shadow-2xl"
@@ -791,13 +742,13 @@ function StorySection() {
                     className="rounded-2xl border border-gray-800/60 bg-gray-950/90 p-6 backdrop-blur-xl"
                   >
                     <p className="mb-1 font-mono text-[10px] uppercase tracking-[2px] text-emerald-400">
-                      {chapter.caption}
+                      {t(chapter.captionKey)}
                     </p>
                     <h3 className="font-heading mb-2 text-[17px] font-bold text-white">
-                      {chapter.title}
+                      {t(chapter.titleKey)}
                     </h3>
                     <p className="text-[13px] leading-relaxed text-gray-400">
-                      {chapter.narrative}
+                      {t(chapter.narrativeKey)}
                     </p>
                   </motion.div>
                 </AnimatePresence>
@@ -820,20 +771,16 @@ function StorySection() {
               transition={{ duration: 0.85, ease: EASE }}
             >
               <p className="mb-5 font-mono text-[10px] uppercase tracking-[3px] text-emerald-400">
-                Automatic setup
+                {t('agrobankPage.auto.eyebrow')}
               </p>
               <h2 className="font-heading mb-6 text-[40px] font-bold leading-[1.06] tracking-[-0.5px] text-white lg:text-[48px]">
-                Your AgroBank account opens automatically.
+                {t('agrobankPage.auto.title')}
               </h2>
               <p className="mb-4 text-[17px] leading-[1.7] text-gray-400">
-                Already using <span className="font-semibold text-white">FarmsToMarket</span> or{' '}
-                <span className="font-semibold text-white">FarmsToMarket Pro</span>?
-                Complete your KYC · KYA · farm verification once your full AgroBank suite
-                activates instantly. No separate registration. No branch visit.
+                {t('agrobankPage.auto.desc')}
               </p>
               <p className="mb-10 text-[15px] text-gray-500">
-                Wallet · Credit scoring · Insurance · Commodity trading all unlocked the moment your
-                profile is verified on either app.
+                {t('agrobankPage.auto.desc2')}
               </p>
 
               {/* App download buttons */}
@@ -852,7 +799,7 @@ function StorySection() {
                     <path d="M14.48 12l2.26 2.26-11.56 6.8a2 2 0 01-2-.1L14.48 12z" fill="#34A853"/>
                   </svg>
                   <div className="text-left leading-tight">
-                    <span className="block text-[10px] text-gray-500">Get it on</span>
+                    <span className="block text-[10px] text-gray-500">{t('agrobankPage.auto.getItOn')}</span>
                     <span className="block text-[13px] font-semibold text-white">FarmsToMarket</span>
                   </div>
                 </a>
@@ -870,14 +817,14 @@ function StorySection() {
                     <path d="M14.48 12l2.26 2.26-11.56 6.8a2 2 0 01-2-.1L14.48 12z" fill="#34A853"/>
                   </svg>
                   <div className="text-left leading-tight">
-                    <span className="block text-[10px] text-gray-500">Get it on</span>
+                    <span className="block text-[10px] text-gray-500">{t('agrobankPage.auto.getItOn')}</span>
                     <span className="block text-[13px] font-semibold text-white">FarmsToMarket Pro</span>
                   </div>
                 </a>
               </div>
 
               <p className="mt-6 text-[11px] text-gray-700">
-                Requires: KYC · KYA · Farm / Business verification · Minimum 1 completed profile field
+                {t('agrobankPage.auto.requires')}
               </p>
             </motion.div>
 
@@ -923,7 +870,7 @@ function StorySection() {
           className="inline-flex items-center gap-1.5 text-sm text-gray-700 transition-colors hover:text-emerald-400"
         >
           <ChevronLeft className="h-4 w-4" />
-          Back to FarmsToMarket
+          {t('agrobankPage.back')}
         </Link>
       </div>
     </>
@@ -934,6 +881,7 @@ function StorySection() {
    PAGE
 ───────────────────────────────────────── */
 export default function AgrobankPage() {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen bg-gray-950">
 
@@ -943,94 +891,94 @@ export default function AgrobankPage() {
       {/* ── 1. Accounts & Cards ── */}
       <ProductSection
         id="banking"
-        label="Accounts & Cards"
+        label={t('agrobankPage.banking.label')}
         headline={
           <>
-            A real bank account,{' '}
-            <span className="text-gradient">no branch required.</span>
+            {t('agrobankPage.banking.headline')}{' '}
+            <span className="text-gradient">{t('agrobankPage.banking.headlineAccent')}</span>
           </>
         }
-        desc="AgroBank is a fully licensed digital bank serving the entire agro-pastoral sector farmers, breeders, fishermen, processors, traders, cooperatives and agri-SMEs. One account. Every financial service. On your phone."
+        desc={t('agrobankPage.banking.desc')}
         bullets={[
-          'Personal & business current accounts (IBAN)',
-          'Interest-bearing savings accounts up to 7% p.a.',
-          'Prepaid Visa card physical or virtual',
-          'SEPA, SWIFT and mobile money transfers',
-          'Multi-currency: XOF, GHS, NGN, KES, EUR',
+          t('agrobankPage.banking.b1'),
+          t('agrobankPage.banking.b2'),
+          t('agrobankPage.banking.b3'),
+          t('agrobankPage.banking.b4'),
+          t('agrobankPage.banking.b5'),
         ]}
-        ctaLabel="Open a bank account"
+        ctaLabel={t('agrobankPage.banking.cta')}
         mockup="/Mockups/mockup 03.png"
-        mockupAlt="AgroBank accounts"
+        mockupAlt={t('agrobankPage.banking.alt')}
       />
 
       {/* ── 2. Payments ── */}
       <ProductSection
         id="payments"
-        label="Payments & Transfers"
+        label={t('agrobankPage.payments.label')}
         headline={
           <>
-            Instant money movement,{' '}
-            <span className="text-gradient">across every link of the chain.</span>
+            {t('agrobankPage.payments.headline')}{' '}
+            <span className="text-gradient">{t('agrobankPage.payments.headlineAccent')}</span>
           </>
         }
-        desc="From the field to the processor, from the breeder to the butcher, from the fishing cooperative to the export dock AgroBank moves money instantly at every step of the agro-pastoral value chain, online or fully offline."
+        desc={t('agrobankPage.payments.desc')}
         bullets={[
-          'Peer-to-peer transfers in under 5 seconds',
-          'QR & NFC payments works offline in rural zones',
-          'Mobile money interoperability (Orange, MTN, Wave, M-Pesa…)',
-          'Cross-border remittances at interbank exchange rates',
-          'Automatic settlement for every FarmsToMarket trade',
+          t('agrobankPage.payments.b1'),
+          t('agrobankPage.payments.b2'),
+          t('agrobankPage.payments.b3'),
+          t('agrobankPage.payments.b4'),
+          t('agrobankPage.payments.b5'),
         ]}
-        ctaLabel="Explore payments"
+        ctaLabel={t('agrobankPage.payments.cta')}
         mockup="/Mockups/mockup 11.png"
-        mockupAlt="AgroBank payments"
+        mockupAlt={t('agrobankPage.payments.alt')}
         reverse
       />
 
       {/* ── 3. AgroCredit ── */}
       <ProductSection
         id="agrocredit"
-        label="AgroCredit Agro-Pastoral Finance"
+        label={t('agrobankPage.credit.label')}
         headline={
           <>
-            Credit built around{' '}
-            <span className="text-gradient">your production cycle.</span>
+            {t('agrobankPage.credit.headline')}{' '}
+            <span className="text-gradient">{t('agrobankPage.credit.headlineAccent')}</span>
           </>
         }
-        desc="Whether you grow cassava, raise cattle, run a fish farm or operate a processing unit AgroCredit finances every activity in the agro-pastoral chain with repayment schedules that follow your real cash flow, not a bank calendar."
+        desc={t('agrobankPage.credit.desc')}
         bullets={[
-          'Micro-loans from €50 to SME financing up to €500K',
-          'Scored on your production & trading history, not collateral',
-          'Livestock & aquaculture-specific loan products',
-          'Supply chain financing for processors and exporters',
-          '0% interest for first-time borrowers under €200',
+          t('agrobankPage.credit.b1'),
+          t('agrobankPage.credit.b2'),
+          t('agrobankPage.credit.b3'),
+          t('agrobankPage.credit.b4'),
+          t('agrobankPage.credit.b5'),
         ]}
-        ctaLabel="Apply for AgroCredit"
+        ctaLabel={t('agrobankPage.credit.cta')}
         mockup="/Mockups/mockup 06.png"
-        mockupAlt="AgroCredit"
+        mockupAlt={t('agrobankPage.credit.alt')}
       />
 
       {/* ── 4. Insurance & Trading ── */}
       <ProductSection
         id="agroinsure"
-        label="AgroInsure & Commodity Exchange"
+        label={t('agrobankPage.insure.label')}
         headline={
           <>
-            Protect every asset.{' '}
-            <span className="text-gradient">Trade every commodity.</span>
+            {t('agrobankPage.insure.headline')}{' '}
+            <span className="text-gradient">{t('agrobankPage.insure.headlineAccent')}</span>
           </>
         }
-        desc="From crop disease to livestock mortality, from drought to flooding AgroInsure covers the full agro-pastoral spectrum with satellite and IoT-indexed automatic detection and payout. Paired with a real-time commodity exchange for grains, livestock, fish and processed goods."
+        desc={t('agrobankPage.insure.desc')}
         bullets={[
-          'Crop, livestock and aquaculture insurance coverage',
-          'Satellite + IoT-indexed automatic payout within 5 days',
-          'Real-time commodity exchange: grains, livestock, fish, inputs',
-          'Automated escrow & smart contracts on every trade',
-          'Export documentation and trade finance support',
+          t('agrobankPage.insure.b1'),
+          t('agrobankPage.insure.b2'),
+          t('agrobankPage.insure.b3'),
+          t('agrobankPage.insure.b4'),
+          t('agrobankPage.insure.b5'),
         ]}
-        ctaLabel="Discover AgroInsure"
+        ctaLabel={t('agrobankPage.insure.cta')}
         mockup="/Mockups/mockup 16.png"
-        mockupAlt="AgroInsure and trading"
+        mockupAlt={t('agrobankPage.insure.alt')}
         reverse
       />
 

@@ -1,4 +1,5 @@
 import type { PersonaPageData } from '@/types/persona';
+import { APPS, CONTACT, STATS } from './site';
 
 export const customerData: PersonaPageData = {
   slug: 'customer',
@@ -7,7 +8,7 @@ export const customerData: PersonaPageData = {
     titleKey: 'persona.customer.videoHero.title',
     highlightKey: 'persona.customer.videoHero.highlight',
     descKey: 'persona.customer.videoHero.desc',
-    statValue: '25%',
+    statValue: STATS.buyerStat,
     statLabelKey: 'persona.customer.videoHero.statLabel',
   },
   hero: {
@@ -42,8 +43,8 @@ export const customerData: PersonaPageData = {
     titleKey: 'persona.customer.cta.title',
     descKey: 'persona.customer.cta.desc',
     primaryKey: 'persona.customer.cta.primary',
-    primaryHref: '#',
+    primaryHref: APPS.googlePlay.buyer,
     secondaryKey: 'persona.customer.cta.secondary',
-    secondaryHref: '#',
+    secondaryHref: `mailto:${CONTACT.email}`,
   },
 };

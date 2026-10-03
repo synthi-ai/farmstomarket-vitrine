@@ -7,6 +7,9 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
 import { fadeUpVariants, staggerChildrenVariants } from '@/animations/variants';
 import SectionHeader from '@/components/ui/SectionHeader';
+import { buttonVariants } from '@/components/ui/button';
+import { CONTACT } from '@/data/site';
+import type { TranslationKey } from '@/types/i18n';
 
 type Category = 'PRICING' | 'SECURITY' | 'DELIVERY' | 'QUALITY';
 
@@ -23,11 +26,18 @@ function getCategoryStyle(categoryKey: string): string {
   return CATEGORY_STYLES[categoryKey as Category] ?? DEFAULT_STYLE;
 }
 
-const FAQ_ITEMS = Array.from({ length: 8 }, (_, i) => ({
-  id: i + 1,
-  questionKey: `faq.${i + 1}.question`,
-  answerKey: `faq.${i + 1}.answer`,
-  categoryKey: `faq.${i + 1}.category`,
+interface FaqItem {
+  id: number;
+  questionKey: TranslationKey;
+  answerKey: TranslationKey;
+  categoryKey: TranslationKey;
+}
+
+const FAQ_ITEMS: FaqItem[] = [1, 2, 3, 4, 5, 6, 7, 8].map((id) => ({
+  id,
+  questionKey: `faq.${id}.question` as TranslationKey,
+  answerKey: `faq.${id}.answer` as TranslationKey,
+  categoryKey: `faq.${id}.category` as TranslationKey,
 }));
 
 export default function FAQ() {
@@ -128,8 +138,8 @@ export default function FAQ() {
             </div>
 
             <motion.a
-              href="#contact"
-              className="font-cta inline-flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-4 font-bold text-black tracking-[2px] uppercase transition-all duration-300 hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 whitespace-nowrap"
+              href={`mailto:${CONTACT.email}`}
+              className={buttonVariants({ variant: 'cta', size: 'cta-lg', className: 'whitespace-nowrap' })}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

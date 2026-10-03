@@ -3,8 +3,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from '@/components/LocaleLink';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { buttonVariants } from '@/components/ui/button';
+import { APPS } from '@/data/site';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -15,9 +18,9 @@ const ROTATING_PHRASES = [
 ] as const;
 
 const MOCKUP_SLIDES = [
-  '/bg/1pmem.png',
-  '/Mockups/mockup 11.png'
-];
+  { src: '/bg/1pmem.png', altKey: 'hero.slide.mockup1' },
+  { src: '/Mockups/mockup 11.png', altKey: 'hero.slide.mockup2' },
+] as const;
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -104,12 +107,20 @@ export default function Hero() {
               className="flex flex-wrap items-center gap-3"
             >
               <a
-                href="#demo"
-                className="font-heading inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-medium text-white/80 backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                href={APPS.googlePlay.buyer}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({ variant: 'cta', size: 'cta' })}
               >
+                {t('hero.startFree')}
                 <ArrowRight className="h-4 w-4" />
-                {t('hero.watchDemo')}
               </a>
+              <Link
+                href="/apps"
+                className={buttonVariants({ variant: 'cta-outline', size: 'cta' })}
+              >
+                {t('hero.seeApps')}
+              </Link>
             </motion.div>
 
             <motion.p
@@ -134,7 +145,7 @@ export default function Hero() {
             <div className="relative z-10 translate-x-28">
               {/* All images stacked — crossfade, no blank frame */}
               <div className="relative w-[560px] h-[700px] rounded-3xl overflow-hidden">
-                {MOCKUP_SLIDES.map((src, i) => (
+                {MOCKUP_SLIDES.map(({ src, altKey }, i) => (
                   <motion.div
                     key={src}
                     className="absolute inset-0"
@@ -143,7 +154,7 @@ export default function Hero() {
                   >
                     <Image
                       src={src}
-                      alt={`FarmsToMarket ${i + 1}`}
+                      alt={t(altKey)}
                       fill
                       className="object-cover object-center"
                       sizes="560px"
@@ -159,7 +170,7 @@ export default function Hero() {
                   <button
                     key={i}
                     onClick={() => setActiveMockup(i)}
-                    aria-label={`Mockup ${i + 1}`}
+                    aria-label={t('hero.slide.dot', { index: i + 1 })}
                     className={`h-2 rounded-full transition-all duration-300 ${
                       i === activeMockup
                         ? 'w-6 bg-emerald-500'

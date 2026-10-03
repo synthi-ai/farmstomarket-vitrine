@@ -3,111 +3,123 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/LocaleLink';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { STATS, storeShot } from '@/data/site';
+import type { TranslationKey } from '@/types/i18n';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-interface Feature { title: string; desc: string }
+interface Feature {
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
+}
+
 interface Solution {
-  index: string; tab: string; sub: string; headline: string;
-  description: string; ctaLabel: string; ctaHref: string;
-  bg: string; screen: string; metric: string; metricLabel: string;
+  index: string;
+  tabKey: TranslationKey;
+  subKey: TranslationKey;
+  headlineKey: TranslationKey;
+  descKey: TranslationKey;
+  ctaLabelKey: TranslationKey;
+  ctaHref: string;
+  bg: string;
+  screen: string;
+  metric: string;
+  metricLabelKey: TranslationKey;
   features: Feature[];
 }
 
 const SOLUTIONS: Solution[] = [
   {
-    index: '01', tab: 'Producers', sub: 'Smallholders and Cooperatives',
-    headline: 'Turn your harvest into guaranteed income.',
-    description: 'FarmsToMarket eliminates every middleman between your field and your buyer. List your produce in under two minutes, receive real bids in real time, and collect payment directly to your mobile wallet the moment your delivery is confirmed.',
-    ctaLabel: 'Explore Producer solutions', ctaHref: '/producer',
-    bg: '/farmers/2.jpeg', screen: '/F2M - Store App Listing/EN/PNG/A1.png',
-    metric: '50K+', metricLabel: 'verified buyers connected across 15+ countries',
+    index: '01', tabKey: 'solutions.producer.tab', subKey: 'solutions.producer.sub',
+    headlineKey: 'solutions.producer.headline', descKey: 'solutions.producer.desc',
+    ctaLabelKey: 'solutions.producer.cta', ctaHref: '/producer',
+    bg: '/farmers/2.jpeg', screen: 'A1', metric: STATS.buyersConnected,
+    metricLabelKey: 'solutions.producer.metricLabel',
     features: [
-      { title: 'Smart Harvest Calendar', desc: 'AI scheduling driven by soil data and live market demand' },
-      { title: 'Direct Buyer Marketplace', desc: 'Post listings in under 2 minutes, receive competitive bids instantly' },
-      { title: 'Mobile Price Alerts', desc: 'Daily fair-market prices pushed to your handset before harvest' },
-      { title: 'Instant Mobile Payment', desc: 'XAF transferred within 24h of validated delivery confirmation' },
+      { titleKey: 'solutions.producer.f1.t', descKey: 'solutions.producer.f1.d' },
+      { titleKey: 'solutions.producer.f2.t', descKey: 'solutions.producer.f2.d' },
+      { titleKey: 'solutions.producer.f3.t', descKey: 'solutions.producer.f3.d' },
+      { titleKey: 'solutions.producer.f4.t', descKey: 'solutions.producer.f4.d' },
     ],
   },
   {
-    index: '02', tab: 'Buyers', sub: 'Distributors and Wholesalers',
-    headline: 'Source with confidence. Pay securely. Receive reliably.',
-    description: 'Replace fragile supplier networks with a single verified platform. Browse thousands of graded producer profiles, lock in volume and price before harvest through digital forward contracts, and let our escrow engine protect every franc you commit.',
-    ctaLabel: 'Explore Buyer solutions', ctaHref: '/customer',
-    bg: '/farmers/cassava.jpeg', screen: '/F2M - Store App Listing/EN/PNG/A2.png',
-    metric: '25%', metricLabel: 'average reduction in procurement cost within 90 days',
+    index: '02', tabKey: 'solutions.buyer.tab', subKey: 'solutions.buyer.sub',
+    headlineKey: 'solutions.buyer.headline', descKey: 'solutions.buyer.desc',
+    ctaLabelKey: 'solutions.buyer.cta', ctaHref: '/customer',
+    bg: '/farmers/cassava.jpeg', screen: 'A2', metric: STATS.buyerCost,
+    metricLabelKey: 'solutions.buyer.metricLabel',
     features: [
-      { title: 'Verified Producer Profiles', desc: 'Ratings, traceability data and geo-location per supplier' },
-      { title: 'Forward Contracting', desc: 'Secure volume and price weeks before harvest' },
-      { title: 'Escrow Protection', desc: '45% on order, 55% on delivery, funds held until you validate' },
-      { title: 'Live Inventory Feed', desc: 'Real-time stock levels from producers in your target region' },
+      { titleKey: 'solutions.buyer.f1.t', descKey: 'solutions.buyer.f1.d' },
+      { titleKey: 'solutions.buyer.f2.t', descKey: 'solutions.buyer.f2.d' },
+      { titleKey: 'solutions.buyer.f3.t', descKey: 'solutions.buyer.f3.d' },
+      { titleKey: 'solutions.buyer.f4.t', descKey: 'solutions.buyer.f4.d' },
     ],
   },
   {
-    index: '03', tab: 'Transporters', sub: 'Carriers and Logistics Providers',
-    headline: 'More loads. Fairer rates. Zero dead miles.',
-    description: 'Stop driving empty. Our intelligent load-matching engine scans nearby agricultural cargo in real time, pairs you with a verified shipment, pre-agrees the rate before departure, and releases payment the second a digital delivery confirmation is signed.',
-    ctaLabel: 'Explore Transporter solutions', ctaHref: '/transporter',
-    bg: '/farmers/farms2.jpeg', screen: '/F2M - Store App Listing/EN/PNG/A3.png',
-    metric: '98%', metricLabel: 'on-time delivery rate across all active routes',
+    index: '03', tabKey: 'solutions.transporter.tab', subKey: 'solutions.transporter.sub',
+    headlineKey: 'solutions.transporter.headline', descKey: 'solutions.transporter.desc',
+    ctaLabelKey: 'solutions.transporter.cta', ctaHref: '/transporter',
+    bg: '/farmers/farms2.jpeg', screen: 'A3', metric: STATS.onTimeDelivery,
+    metricLabelKey: 'solutions.transporter.metricLabel',
     features: [
-      { title: 'Smart Load Matching', desc: 'Paired with agricultural cargo nearby in under 5 minutes' },
-      { title: 'Route Optimisation', desc: 'GPS routing with live traffic and road condition alerts' },
-      { title: 'Digital Waybill', desc: 'Paperless proof of delivery accepted across the entire network' },
-      { title: 'Guaranteed Payout', desc: 'Payment auto-released upon digital delivery confirmation' },
+      { titleKey: 'solutions.transporter.f1.t', descKey: 'solutions.transporter.f1.d' },
+      { titleKey: 'solutions.transporter.f2.t', descKey: 'solutions.transporter.f2.d' },
+      { titleKey: 'solutions.transporter.f3.t', descKey: 'solutions.transporter.f3.d' },
+      { titleKey: 'solutions.transporter.f4.t', descKey: 'solutions.transporter.f4.d' },
     ],
   },
   {
-    index: '04', tab: 'AgroBank', sub: 'Microfinance and Agricultural Credit',
-    headline: 'Agricultural finance, finally built for the field.',
-    description: 'Traditional banks exclude the 80% of African farmers who lack collateral or a credit record. AgroBank uses verified transaction history and crop data to score creditworthiness and disburse funds directly to a mobile wallet within 48 hours.',
-    ctaLabel: 'Explore AgroBank solutions', ctaHref: '/agrobank',
-    bg: '/farmers/8.jpg', screen: '/F2M - Store App Listing/EN/PNG/A4.png',
-    metric: '72.9K+', metricLabel: 'transactions processed securely on the network',
+    index: '04', tabKey: 'solutions.agrobank.tab', subKey: 'solutions.agrobank.sub',
+    headlineKey: 'solutions.agrobank.headline', descKey: 'solutions.agrobank.desc',
+    ctaLabelKey: 'solutions.agrobank.cta', ctaHref: '/agrobank',
+    bg: '/farmers/8.jpg', screen: 'A4', metric: STATS.transactionsProcessed,
+    metricLabelKey: 'solutions.agrobank.metricLabel',
     features: [
-      { title: 'Mobile Credit Scoring', desc: 'Creditworthiness assessed on transaction history, not collateral' },
-      { title: 'Instant Microloan', desc: 'Approved and disbursed to mobile wallet in 48h' },
-      { title: 'Harvest Insurance', desc: 'Per-crop coverage against drought, flooding and price collapse' },
-      { title: 'Digital Savings Wallet', desc: 'Automated savings triggered on every completed transaction' },
+      { titleKey: 'solutions.agrobank.f1.t', descKey: 'solutions.agrobank.f1.d' },
+      { titleKey: 'solutions.agrobank.f2.t', descKey: 'solutions.agrobank.f2.d' },
+      { titleKey: 'solutions.agrobank.f3.t', descKey: 'solutions.agrobank.f3.d' },
+      { titleKey: 'solutions.agrobank.f4.t', descKey: 'solutions.agrobank.f4.d' },
     ],
   },
   {
-    index: '05', tab: 'Marketplace', sub: 'Trading Platform and Commodity Exchange',
-    headline: 'The African agricultural marketplace, live and transparent.',
-    description: 'A single digital floor where producers post offers, buyers place orders, and prices are set by real supply and demand. From cassava and cocoa to livestock and palm oil, every commodity is live, graded, and traceable to source.',
-    ctaLabel: 'Explore Marketplace solutions', ctaHref: '/customer',
-    bg: '/farmers/poivrons.jpeg', screen: '/F2M - Store App Listing/EN/PNG/A5.png',
-    metric: '40+', metricLabel: 'commodity categories actively traded every day',
+    index: '05', tabKey: 'solutions.marketplace.tab', subKey: 'solutions.marketplace.sub',
+    headlineKey: 'solutions.marketplace.headline', descKey: 'solutions.marketplace.desc',
+    ctaLabelKey: 'solutions.marketplace.cta', ctaHref: '/customer',
+    bg: '/farmers/poivrons.jpeg', screen: 'A5', metric: STATS.commodityCategories,
+    metricLabelKey: 'solutions.marketplace.metricLabel',
     features: [
-      { title: 'Live Commodity Prices', desc: 'Real-time price feed across 40+ agricultural categories' },
-      { title: 'Bulk Order Management', desc: 'Multi-supplier RFQ tools for volume procurement' },
-      { title: 'Export Documentation', desc: 'Auto-generated phytosanitary certificates and customs forms' },
-      { title: 'Trade Finance Tools', desc: 'Invoice factoring and buyer credit for verified traders' },
+      { titleKey: 'solutions.marketplace.f1.t', descKey: 'solutions.marketplace.f1.d' },
+      { titleKey: 'solutions.marketplace.f2.t', descKey: 'solutions.marketplace.f2.d' },
+      { titleKey: 'solutions.marketplace.f3.t', descKey: 'solutions.marketplace.f3.d' },
+      { titleKey: 'solutions.marketplace.f4.t', descKey: 'solutions.marketplace.f4.d' },
     ],
   },
   {
-    index: '06', tab: 'AI and Analytics', sub: 'Intelligence Layer and Decision Tools',
-    headline: 'Know what to grow. Know when. Know the price.',
-    description: 'Our intelligence layer processes satellite imagery, soil sensor data, historical price curves and live order books to give every actor a decision edge. Farmers plan harvests. Buyers hedge supply. Lenders score risk from one dashboard.',
-    ctaLabel: 'Explore Analytics solutions', ctaHref: '/producer',
-    bg: '/farmers/cassava1.jpeg', screen: '/F2M - Store App Listing/EN/PNG/B1.png',
-    metric: '98.2%', metricLabel: 'forecast accuracy on primary commodity yield models',
+    index: '06', tabKey: 'solutions.analytics.tab', subKey: 'solutions.analytics.sub',
+    headlineKey: 'solutions.analytics.headline', descKey: 'solutions.analytics.desc',
+    ctaLabelKey: 'solutions.analytics.cta', ctaHref: '/producer',
+    bg: '/farmers/cassava1.jpeg', screen: 'B1', metric: STATS.forecastAccuracy,
+    metricLabelKey: 'solutions.analytics.metricLabel',
     features: [
-      { title: 'Yield Forecasting', desc: 'Predict harvest volume 6 weeks ahead with satellite and soil data' },
-      { title: 'Demand Prediction', desc: 'Identify under-supplied crops in your target market before planting' },
-      { title: 'Price Trend Analysis', desc: '12-month commodity models by region, variety and grade' },
-      { title: 'Carbon Dashboard', desc: 'Track and certify your agricultural carbon sequestration per hectare' },
+      { titleKey: 'solutions.analytics.f1.t', descKey: 'solutions.analytics.f1.d' },
+      { titleKey: 'solutions.analytics.f2.t', descKey: 'solutions.analytics.f2.d' },
+      { titleKey: 'solutions.analytics.f3.t', descKey: 'solutions.analytics.f3.d' },
+      { titleKey: 'solutions.analytics.f4.t', descKey: 'solutions.analytics.f4.d' },
     ],
   },
 ];
 
 export default function VideoShowcase() {
   const { ref, isVisible } = useAnimateOnScroll(0.05);
+  const { t, language } = useLanguage();
   const [active, setActive] = useState(0);
   const sol = SOLUTIONS[active];
+  const tab = t(sol.tabKey);
+  const metricVars = { countries: STATS.countries };
   const prev = () => setActive((a) => (a - 1 + SOLUTIONS.length) % SOLUTIONS.length);
   const next = () => setActive((a) => (a + 1) % SOLUTIONS.length);
 
@@ -122,8 +134,8 @@ export default function VideoShowcase() {
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE }}
         >
-          High-impact solutions,{' '}
-          <span className="text-gradient">powered by African agriculture.</span>
+          {t('solutions.title.a')}{' '}
+          <span className="text-gradient">{t('solutions.title.b')}</span>
         </motion.h2>
 
         <motion.div
@@ -135,13 +147,13 @@ export default function VideoShowcase() {
           <div className="mb-6 flex gap-2 overflow-x-auto pb-1 lg:hidden">
             {SOLUTIONS.map((s, i) => (
               <button
-                key={s.tab}
+                key={s.tabKey}
                 onClick={() => setActive(i)}
                 className={`shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
                   i === active ? 'bg-emerald-500 text-black' : 'border border-gray-700 text-gray-400'
                 }`}
               >
-                {s.tab}
+                {t(s.tabKey)}
               </button>
             ))}
           </div>
@@ -153,7 +165,7 @@ export default function VideoShowcase() {
             <div className="hidden shrink-0 border-r border-gray-800/60 lg:flex lg:w-[240px] lg:flex-col">
               {SOLUTIONS.map((s, i) => (
                 <button
-                  key={s.tab}
+                  key={s.tabKey}
                   onClick={() => setActive(i)}
                   className={`relative flex flex-1 flex-col justify-center gap-1 px-7 text-left transition-all duration-200 ${
                     i === active ? 'bg-gray-950/80' : 'hover:bg-gray-950/40'
@@ -170,7 +182,7 @@ export default function VideoShowcase() {
                     {s.index}
                   </span>
                   <span className={`text-[14px] font-semibold leading-tight ${i === active ? 'text-white' : 'text-gray-500'}`}>
-                    {s.tab}
+                    {t(s.tabKey)}
                   </span>
                 </button>
               ))}
@@ -191,22 +203,22 @@ export default function VideoShowcase() {
                   <div className="flex w-full shrink-0 flex-col overflow-y-auto bg-gray-950 px-6 py-10 sm:px-10 lg:w-[560px] lg:px-12 lg:py-12 xl:w-[640px] xl:px-14">
                     <div className="my-auto max-w-[480px]">
                       <span className="mb-5 block text-[11px] font-bold uppercase tracking-[3px] text-emerald-400">
-                        {sol.sub}
+                        {t(sol.subKey)}
                       </span>
 
                       <h3 className="font-heading mb-5 text-[26px] font-bold leading-[1.15] text-white sm:text-[30px] lg:text-[34px] xl:text-[38px]">
-                        {sol.headline}
+                        {t(sol.headlineKey)}
                       </h3>
 
                       <p className="mb-7 text-[15px] leading-[1.7] text-gray-400 lg:text-[16px]">
-                        {sol.description}
+                        {t(sol.descKey)}
                       </p>
 
                       <Link
                         href={sol.ctaHref}
                         className="group mb-10 inline-flex w-fit items-center gap-2 text-[14px] font-semibold text-emerald-400 transition-colors hover:text-emerald-300 lg:text-[15px]"
                       >
-                        {sol.ctaLabel}
+                        {t(sol.ctaLabelKey)}
                         <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                       </Link>
 
@@ -216,17 +228,17 @@ export default function VideoShowcase() {
                             {sol.metric}
                           </span>
                           <span className="mt-1.5 block text-[13px] leading-snug text-gray-500">
-                            {sol.metricLabel}
+                            {t(sol.metricLabelKey, metricVars)}
                           </span>
                         </div>
 
                         <ul className="space-y-3">
                           {sol.features.map((f) => (
-                            <li key={f.title} className="flex items-start gap-3">
+                            <li key={f.titleKey} className="flex items-start gap-3">
                               <span className="mt-[3px] h-[6px] w-[6px] shrink-0 rounded-full bg-emerald-500" />
                               <span className="text-[13px] leading-snug">
-                                <span className="font-semibold text-white">{f.title}</span>
-                                <span className="text-gray-500">  {f.desc}</span>
+                                <span className="font-semibold text-white">{t(f.titleKey)}</span>
+                                <span className="text-gray-500">  {t(f.descKey)}</span>
                               </span>
                             </li>
                           ))}
@@ -248,7 +260,7 @@ export default function VideoShowcase() {
                       >
                         <Image
                           src={sol.bg}
-                          alt={sol.tab}
+                          alt={t('solutions.alt.bg', { sub: t(sol.subKey) })}
                           fill
                           className="object-cover object-center"
                           sizes="(max-width: 1024px) 100vw, 750px"
@@ -269,8 +281,8 @@ export default function VideoShowcase() {
                         className="pointer-events-none absolute bottom-5 right-5 z-10 sm:bottom-8 sm:right-8"
                       >
                         <Image
-                          src={sol.screen}
-                          alt={`${sol.tab} app`}
+                          src={storeShot(sol.screen, language)}
+                          alt={t('solutions.alt.screen', { tab })}
                           width={280}
                           height={560}
                           className="w-[130px] object-contain drop-shadow-2xl sm:w-[190px] lg:w-[260px]"
@@ -292,7 +304,7 @@ export default function VideoShowcase() {
                 <button
                   key={i}
                   onClick={() => setActive(i)}
-                  aria-label={`Solution ${i + 1}`}
+                  aria-label={t('solutions.nav.dot', { index: i + 1 })}
                   className={`rounded-full transition-all duration-300 ${
                     i === active ? 'h-[6px] w-7 bg-emerald-500' : 'h-[6px] w-[6px] bg-gray-700 hover:bg-gray-500'
                   }`}
@@ -300,10 +312,10 @@ export default function VideoShowcase() {
               ))}
             </div>
             <div className="flex gap-2">
-              <button onClick={prev} aria-label="Previous" className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-800 text-gray-500 transition-all hover:border-emerald-500/40 hover:text-emerald-400">
+              <button onClick={prev} aria-label={t('solutions.nav.prev')} className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-800 text-gray-500 transition-all hover:border-emerald-500/40 hover:text-emerald-400">
                 <ChevronLeft className="h-4 w-4" />
               </button>
-              <button onClick={next} aria-label="Next" className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-800 text-gray-500 transition-all hover:border-emerald-500/40 hover:text-emerald-400">
+              <button onClick={next} aria-label={t('solutions.nav.next')} className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-800 text-gray-500 transition-all hover:border-emerald-500/40 hover:text-emerald-400">
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>

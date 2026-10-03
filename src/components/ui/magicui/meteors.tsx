@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useMemo } from "react"
 import { cn } from "@/lib/utils"
 
 interface MeteorsProps {
@@ -13,6 +13,18 @@ interface MeteorsProps {
   className?: string
 }
 
+/**
+ * Deterministic pseudo-random in [0, 1) seeded by `seed`.
+ *
+ * The meteors must render identically on the server and on the client:
+ * `Math.random()` (or a `window.innerWidth` read) would produce a different
+ * DOM after hydration and re-randomise the animation on every prop change.
+ */
+function pseudoRandom(seed: number): number {
+  const x = Math.sin(seed * 12.9898) * 43758.5453
+  return x - Math.floor(x)
+}
+
 export const Meteors = ({
   number = 12,
   minDelay = 0.2,
@@ -22,17 +34,16 @@ export const Meteors = ({
   angle = 215,
   className,
 }: MeteorsProps) => {
-  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>([])
-
-  useEffect(() => {
-    const styles = [...new Array(number)].map(() => ({
-      top: "-5%",
-      left: `calc(0% + ${Math.floor(Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1200))}px)`,
-      animationDelay: `${Math.random() * (maxDelay - minDelay) + minDelay}s`,
-      animationDuration: `${Math.floor(Math.random() * (maxDuration - minDuration) + minDuration)}s`,
-    }))
-    setMeteorStyles(styles)
-  }, [number, minDelay, maxDelay, minDuration, maxDuration])
+  const meteorStyles = useMemo<Array<React.CSSProperties>>(
+    () =>
+      [...new Array(number)].map((_, i) => ({
+        top: "-5%",
+        left: `${Math.floor(pseudoRandom(i + 1) * 100)}%`,
+        animationDelay: `${(pseudoRandom(i + 2) * (maxDelay - minDelay) + minDelay).toFixed(2)}s`,
+        animationDuration: `${(pseudoRandom(i + 3) * (maxDuration - minDuration) + minDuration).toFixed(2)}s`,
+      })),
+    [number, minDelay, maxDelay, minDuration, maxDuration]
+  )
 
   return (
     <>

@@ -1,52 +1,65 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useCallback, useContext, useMemo } from 'react';
 import { en } from '@/i18n/en';
 import { fr } from '@/i18n/fr';
+import { LANGUAGES, type Language, type TranslationKey } from '@/types/i18n';
 
-export type Language = 'en' | 'fr';
+export { LANGUAGES, type Language };
 
-interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
-}
+/* ──────────────────────────────────────────────────────────────
+   Client translation.
 
-const translations: Record<Language, Record<string, string>> = { en, fr };
+   The active language now comes from the URL (`/[lang]/…`) and is
+   passed down by `app/[lang]/layout.tsx`. This provider is a thin,
+   stateless derivation of that prop — no `localStorage`, no
+   `useSyncExternalStore`, no hydration dance — so interactive client
+   islands (Navbar, Hero, FAQ…) keep calling `useLanguage()` / `t()`
+   exactly as before.
+────────────────────────────────────────────────────────────── */
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+/** Typed so that `fr.ts` must cover every key of `en.ts`. */
+const DICTIONARIES: Record<Language, Record<TranslationKey, string>> = { en, fr };
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+const TOKEN = /\{(\w+)\}/g;
 
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'fr')) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync from localStorage; cannot read during render due to SSR
-      setLanguage(savedLanguage);
-    }
-  }, []);
-
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem('language', lang);
-  };
-
-  const t = (key: string): string => {
-    return translations[language][key] || key;
-  };
-
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
+function interpolate(template: string, vars?: Record<string, string | number>): string {
+  if (!vars) return template;
+  return template.replace(TOKEN, (match, token: string) =>
+    token in vars ? String(vars[token]) : match,
   );
 }
 
-export function useLanguage() {
+interface LanguageContextValue {
+  language: Language;
+  /** Looks up `key` and replaces every `{token}` with the matching entry of `vars`. */
+  t: (key: TranslationKey, vars?: Record<string, string | number>) => string;
+}
+
+const LanguageContext = createContext<LanguageContextValue | null>(null);
+
+export function LanguageProvider({
+  lang,
+  children,
+}: {
+  lang: Language;
+  children: React.ReactNode;
+}) {
+  const t = useCallback(
+    (key: TranslationKey, vars?: Record<string, string | number>) =>
+      interpolate(DICTIONARIES[lang][key] ?? key, vars),
+    [lang],
+  );
+
+  const value = useMemo<LanguageContextValue>(() => ({ language: lang, t }), [lang, t]);
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+export function useLanguage(): LanguageContextValue {
   const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+  if (context === null) {
+    throw new Error('useLanguage() must be called inside a <LanguageProvider>.');
   }
   return context;
 }

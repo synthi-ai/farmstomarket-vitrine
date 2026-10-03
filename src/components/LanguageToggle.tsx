@@ -1,17 +1,26 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { swapLocale } from '@/i18n/routing';
+import type { Language } from '@/types/i18n';
 
 interface LanguageToggleProps {
   variant?: 'light' | 'dark';
 }
 
 export default function LanguageToggle({ variant = 'light' }: LanguageToggleProps) {
-  const { language, setLanguage } = useLanguage();
+  const { language } = useLanguage();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const next: Language = language === 'en' ? 'fr' : 'en';
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'fr' : 'en');
+    // Remember the preference so the middleware can honour it on the next visit.
+    document.cookie = `ftm_lang=${next}; path=/; max-age=31536000; samesite=lax`;
+    router.push(swapLocale(pathname ?? '/', next));
   };
 
   const isDark = variant === 'dark';

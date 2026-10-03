@@ -4,11 +4,20 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { APPS } from '@/data/site';
+import { buttonVariants } from '@/components/ui/button';
 import { useAnimateOnScroll } from '@/hooks/useAnimation';
+import type { TranslationKey } from '@/types/i18n';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-const STEPS = [
+interface Step {
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
+  mockup: string;
+}
+
+const STEPS: Step[] = [
   { titleKey: 'producers.step1.title', descKey: 'producers.step1.description', mockup: '/Mockups/mockup 06.png' },
   { titleKey: 'producers.step2.title', descKey: 'producers.step2.description', mockup: '/Mockups/mockup 20.png' },
   { titleKey: 'producers.step3.title', descKey: 'producers.step3.description', mockup: '/Mockups/mockup 09.png' },
@@ -20,7 +29,11 @@ export default function OnboardingSteps() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 bg-gray-900 bg-geo-subtle overflow-hidden">
+    <section
+      id="onboarding"
+      ref={ref}
+      className="relative py-28 md:py-36 bg-gray-900 bg-geo-subtle overflow-hidden"
+    >
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -84,8 +97,10 @@ export default function OnboardingSteps() {
             {/* CTA */}
             <div className="pt-6">
               <a
-                href="#signup"
-                className="font-cta inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold tracking-[2px] uppercase px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-emerald-500/25"
+                href={APPS.googlePlay.pro}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({ variant: 'cta', size: 'cta-lg' })}
               >
                 {t('hero.startFree')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

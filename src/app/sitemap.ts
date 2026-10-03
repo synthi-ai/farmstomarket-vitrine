@@ -1,44 +1,39 @@
 import type { MetadataRoute } from 'next';
+import { NAV_LINKS, SITE } from '@/data/site';
+import { LANGUAGES } from '@/types/i18n';
 
-const BASE_URL = 'https://farmstomarket.io';
+interface Entry {
+  /** Path after the locale segment. `''` for the home page. */
+  path: string;
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'];
+  priority: number;
+}
+
+const ROUTES: Entry[] = [
+  { path: '', changeFrequency: 'weekly', priority: 1 },
+  { path: NAV_LINKS.producer, changeFrequency: 'monthly', priority: 0.9 },
+  { path: NAV_LINKS.customer, changeFrequency: 'monthly', priority: 0.9 },
+  { path: NAV_LINKS.transporter, changeFrequency: 'monthly', priority: 0.9 },
+  { path: NAV_LINKS.agrobank, changeFrequency: 'monthly', priority: 0.8 },
+  { path: NAV_LINKS.apps, changeFrequency: 'weekly', priority: 0.8 },
+  { path: NAV_LINKS.about, changeFrequency: 'monthly', priority: 0.6 },
+  { path: NAV_LINKS.privacy, changeFrequency: 'yearly', priority: 0.2 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/producer`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/customer`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/transporter`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/agrobank`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-  ];
+  const lastModified = new Date();
+
+  return ROUTES.flatMap(({ path, changeFrequency, priority }) =>
+    LANGUAGES.map((lang) => ({
+      url: `${SITE.url}/${lang}${path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: Object.fromEntries(
+          LANGUAGES.map((l) => [l, `${SITE.url}/${l}${path}`]),
+        ),
+      },
+    })),
+  );
 }

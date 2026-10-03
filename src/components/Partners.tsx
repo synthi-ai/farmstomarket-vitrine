@@ -1,43 +1,46 @@
-'use client';
-
 import Image from 'next/image';
+import type { TFunction } from '@/i18n/get-dictionary';
 
-const PARTNERS = [
-  { name: 'SYNTHI', src: '/farmers/LogoSYNTHI.png', useImage: true },
-  { name: 'Orange Money', useImage: false },
-  { name: 'MTN MoMo', useImage: false },
-  { name: 'FAO Cameroun', useImage: false },
-  { name: 'AfDB', useImage: false },
-  { name: 'GIZ', useImage: false },
-  { name: 'MINADER', useImage: false },
-  { name: 'WFP Africa', useImage: false },
+interface Partner {
+  name: string;
+  src?: string;
+}
+
+const PARTNERS: Partner[] = [
+  { name: 'SYNTHI', src: '/farmers/LogoSYNTHI.png' },
+  { name: 'MTN MoMo', src: '/partners/mtn-momo.png' },
+  { name: 'Orange Money' },
+  { name: 'FAO Cameroun' },
+  { name: 'AfDB' },
+  { name: 'GIZ' },
+  { name: 'MINADER' },
+  { name: 'WFP Africa' },
 ];
 
-const ALL = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS];
+const LOOP = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS];
 
-export default function Partners() {
+export default function Partners({ t }: { t: TFunction }) {
   return (
     <section
       className="border-t border-gray-800/30 bg-gray-950 py-12 overflow-hidden"
-      aria-label="Trusted partners and organisations"
+      aria-label={t('partners.ariaLabel')}
     >
       <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-gray-500">
-        Trusted by leading agricultural organisations
+        {t('partners.label')}
       </p>
 
       <div className="relative">
-        {/* Fade edges */}
         <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-24 bg-gradient-to-r from-gray-950 to-transparent" aria-hidden="true" />
         <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-24 bg-gradient-to-l from-gray-950 to-transparent" aria-hidden="true" />
 
-        {/* pause on hover AND keyboard focus */}
         <div className="flex animate-marquee w-max items-center focus-within:[animation-play-state:paused] hover:[animation-play-state:paused]">
-          {ALL.map((partner, i) => (
+          {LOOP.map((partner, i) => (
             <div
               key={`${partner.name}-${i}`}
               className="flex-shrink-0 px-10 flex items-center justify-center"
+              aria-hidden={i >= PARTNERS.length}
             >
-              {partner.useImage && partner.src ? (
+              {partner.src ? (
                 <Image
                   src={partner.src}
                   alt={partner.name}

@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/LocaleLink';
 import { useLanguage } from '@/contexts/LanguageContext';
+import type { TranslationKey } from '@/types/i18n';
 import { BlurFade } from '@/components/ui/magicui/blur-fade';
 import { Meteors } from '@/components/ui/magicui/meteors';
 import { AnimatedGradientText } from '@/components/ui/magicui/animated-gradient-text';
@@ -15,7 +16,15 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel';
 
-const SLIDES = [
+interface Slide {
+  id: string;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
+  href: string;
+  image: string;
+}
+
+const SLIDES: Slide[] = [
   {
     id: 'secure',
     titleKey: 'agrobank.features.secure.title',

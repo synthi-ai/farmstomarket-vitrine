@@ -1,6 +1,5 @@
-'use client';
-
-import { useLanguage } from '@/contexts/LanguageContext';
+import type { TranslationKey } from '@/types/i18n';
+import type { TFunction } from '@/i18n/get-dictionary';
 import { BlurFade } from '@/components/ui/magicui/blur-fade';
 import { MagicCard } from '@/components/ui/magicui/magic-card';
 import { AnimatedGradientText } from '@/components/ui/magicui/animated-gradient-text';
@@ -12,10 +11,8 @@ const ICON_PATHS = [
   'M13 10V3L4 14h7v7l9-11h-7z',
 ];
 
-export default function CapabilitiesGrid() {
-  const { t } = useLanguage();
-
-  const capabilities = [
+export default function CapabilitiesGrid({ t }: { t: TFunction }) {
+  const capabilities: { icon: string; titleKey: TranslationKey; descKey: TranslationKey }[] = [
     { icon: ICON_PATHS[0], titleKey: 'platform.card1.title', descKey: 'platform.card1.description' },
     { icon: ICON_PATHS[1], titleKey: 'platform.card3.title', descKey: 'platform.card3.description' },
     { icon: ICON_PATHS[2], titleKey: 'features.payments.title', descKey: 'features.payments.description' },

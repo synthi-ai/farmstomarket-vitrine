@@ -1,13 +1,9 @@
-'use client';
-
 import Image from 'next/image';
-import { useLanguage } from '@/contexts/LanguageContext';
+import type { TFunction } from '@/i18n/get-dictionary';
 import { BlurFade } from '@/components/ui/magicui/blur-fade';
 import { NumberTicker } from '@/components/ui/magicui/number-ticker';
 
-export default function ConversionStats() {
-  const { t } = useLanguage();
-
+export default function ConversionStats({ t }: { t: TFunction }) {
   const stats = [
     { value: 50, suffix: 'K+', label: t('showcase.stat.users') },
     { value: 72.9, suffix: 'K+', label: t('showcase.stat.transactions'), decimalPlaces: 1 },

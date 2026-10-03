@@ -20,12 +20,20 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        // ─── Brand CTA (Figma charter: emerald pill, Plus Jakarta, uppercase) ───
+        cta: "font-cta rounded-full bg-emerald-500 font-bold uppercase tracking-[1.5px] text-black hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950",
+        "cta-outline":
+          "font-heading rounded-full border border-white/20 bg-white/5 font-medium text-white/80 backdrop-blur-sm hover:border-white/40 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
+        // ─── CTA paddings (height driven by padding, not fixed) ───
+        cta: "px-7 py-3.5 text-[13px]",
+        "cta-sm": "px-5 py-2 text-[13px]",
+        "cta-lg": "px-8 py-4 text-sm",
       },
     },
     defaultVariants: {

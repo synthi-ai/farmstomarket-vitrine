@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from '@/components/LocaleLink';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function CookieBanner() {
@@ -27,7 +28,7 @@ export default function CookieBanner() {
         <div className="flex items-center space-x-3">
           <p className="text-white text-sm">
             {t('cookies.message')}
-            <a href="/privacy" className="text-emerald-400 hover:underline ml-1">{t('cookies.learnMore')}</a>
+            <Link href="/privacy" className="text-emerald-400 hover:underline ml-1">{t('cookies.learnMore')}</Link>
           </p>
         </div>
         <div className="flex space-x-3">

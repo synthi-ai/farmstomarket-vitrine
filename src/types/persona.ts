@@ -1,54 +1,68 @@
+import type { TranslationKey } from '@/types/i18n';
+
+export type PersonaIconKey =
+  | 'chart'
+  | 'shield'
+  | 'zap'
+  | 'truck'
+  | 'wallet'
+  | 'globe'
+  | 'users'
+  | 'lock'
+  | 'trending'
+  | 'smartphone';
+
 export interface PersonaBenefit {
-  iconKey: 'chart' | 'shield' | 'zap' | 'truck' | 'wallet' | 'globe' | 'users' | 'lock' | 'trending' | 'smartphone';
-  titleKey: string;
-  descKey: string;
+  iconKey: PersonaIconKey;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
 }
 
 export interface PersonaStep {
   number: string;
-  titleKey: string;
-  descKey: string;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
   img: string;
 }
 
 export interface PersonaFeature {
-  titleKey: string;
-  descKey: string;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
   img: string;
 }
 
 export interface PersonaTestimonial {
-  quoteKey: string;
-  authorKey: string;
-  roleKey: string;
+  quoteKey: TranslationKey;
+  authorKey: TranslationKey;
+  roleKey: TranslationKey;
   avatar: string;
 }
 
 export interface PersonaCta {
-  titleKey: string;
-  descKey: string;
-  primaryKey: string;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
+  primaryKey: TranslationKey;
   primaryHref: string;
-  secondaryKey: string;
+  secondaryKey: TranslationKey;
   secondaryHref: string;
 }
 
 export interface PersonaVideoHero {
-  badgeKey: string;
-  titleKey: string;
-  highlightKey: string;
-  descKey: string;
+  badgeKey: TranslationKey;
+  titleKey: TranslationKey;
+  highlightKey: TranslationKey;
+  descKey: TranslationKey;
   statValue: string;
-  statLabelKey: string;
+  statLabelKey: TranslationKey;
 }
 
 export interface PersonaPageData {
-  slug: string;
+  slug: 'producer' | 'customer' | 'transporter';
   videoHero: PersonaVideoHero;
   hero: {
-    titleKey: string;
-    highlightKey: string;
-    descKey: string;
+    titleKey: TranslationKey;
+    highlightKey: TranslationKey;
+    descKey: TranslationKey;
   };
   benefits: PersonaBenefit[];
   steps: PersonaStep[];

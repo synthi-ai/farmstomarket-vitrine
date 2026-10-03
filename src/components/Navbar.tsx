@@ -4,9 +4,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, Wheat, ShoppingBasket, Truck, Landmark, BarChart3, Layers, HelpCircle, Smartphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/LocaleLink';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
+import { APPS, NAV_LINKS } from '@/data/site';
+import { buttonVariants } from '@/components/ui/button';
+import type { TranslationKey } from '@/types/i18n';
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -68,7 +71,7 @@ export default function Navbar() {
           <Link href="/" className="flex-shrink-0 z-10">
             <Image
               src="/logo/logo.svg"
-              alt="Farms to Market"
+              alt={t('brand.logoAlt')}
               width={160}
               height={40}
               className="h-8 w-auto lg:h-9"
@@ -159,7 +162,7 @@ export default function Navbar() {
                     role="menu"
                   >
                     <p className="mb-2 px-2 pt-1 text-[10px] font-semibold uppercase tracking-[2px] text-gray-600">
-                      Who is it for
+                      {t('nav.whoIsItFor')}
                     </p>
                     <div className="grid grid-cols-2 gap-1">
                       {SOLUTIONS.map(({ key, descKey, href, Icon }) => (
@@ -186,7 +189,7 @@ export default function Navbar() {
                         className="flex items-center justify-between rounded-xl px-3 py-2 text-[12px] font-medium text-emerald-400 transition-all hover:bg-emerald-500/5"
                         onClick={() => setOpenMenu(null)}
                       >
-                        See all solutions
+                        {t('nav.seeAllSolutions')}
                         <ChevronDown className="-rotate-90 h-3 w-3" />
                       </Link>
                     </div>
@@ -203,7 +206,7 @@ export default function Navbar() {
               {t('nav.testimonials')}
             </Link>
 
-            <Link href="/about" className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
+            <Link href={NAV_LINKS.about} className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
               {t('nav.about')}
             </Link>
           </nav>
@@ -211,18 +214,14 @@ export default function Navbar() {
           {/* Actions — right */}
           <div className="ml-auto hidden items-center gap-2 lg:flex z-10">
             <LanguageToggle variant="dark" />
-            <Link
-              href="#login"
-              className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white"
+            <a
+              href={APPS.googlePlay.pro}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: 'cta', size: 'cta-sm' })}
             >
-              {t('nav.login')}
-            </Link>
-            <Link
-              href="#signup"
-              className="font-cta rounded-full bg-emerald-500 px-5 py-2 text-[13px] font-bold text-black tracking-[1.5px] uppercase transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
-            >
-              {t('nav.signup')}
-            </Link>
+              {t('nav.getApp')}
+            </a>
           </div>
 
           {/* Hamburger — mobile */}
@@ -230,7 +229,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="ml-auto lg:hidden p-2"
             aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileOpen ? t('nav.closeMenu') : t('nav.openMenu')}
           >
             {mobileOpen ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
           </button>
@@ -249,9 +248,9 @@ export default function Navbar() {
           >
             <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800/50">
               <Link href="/" onClick={() => setMobileOpen(false)}>
-                <Image src="/logo/logo.svg" alt="Farms to Market" width={140} height={36} className="h-8 w-auto" />
+                <Image src="/logo/logo.svg" alt={t('brand.logoAlt')} width={140} height={36} className="h-8 w-auto" />
               </Link>
-              <button onClick={() => setMobileOpen(false)} aria-label="Close menu">
+              <button onClick={() => setMobileOpen(false)} aria-label={t('nav.closeMenu')}>
                 <X className="h-5 w-5 text-white" />
               </button>
             </div>
@@ -324,11 +323,13 @@ export default function Navbar() {
                   )}
                 </AnimatePresence>
 
-                {[
-                  { key: 'nav.marketplace', href: '/#marketplace' },
-                  { key: 'nav.testimonials', href: '/#testimonials' },
-                  { key: 'nav.about', href: '/about' },
-                ].map(({ key, href }) => (
+                {(
+                  [
+                    { key: 'nav.marketplace', href: '/#marketplace' },
+                    { key: 'nav.testimonials', href: '/#testimonials' },
+                    { key: 'nav.about', href: NAV_LINKS.about },
+                  ] as { key: TranslationKey; href: string }[]
+                ).map(({ key, href }) => (
                   <Link key={key} href={href} onClick={() => setMobileOpen(false)}
                     className="rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04] hover:text-white">
                     {t(key)}
@@ -337,14 +338,15 @@ export default function Navbar() {
               </nav>
 
               <div className="mt-8 space-y-2">
-                <Link href="#signup" onClick={() => setMobileOpen(false)}
-                  className="font-cta block w-full rounded-full bg-emerald-500 py-3.5 text-center text-[13px] font-bold text-black tracking-[1.5px] uppercase hover:bg-emerald-400">
-                  {t('nav.signup')}
-                </Link>
-                <Link href="#login" onClick={() => setMobileOpen(false)}
-                  className="block w-full rounded-full border border-gray-700 py-3.5 text-center text-[13px] font-medium text-gray-300 hover:bg-gray-800/50">
-                  {t('nav.login')}
-                </Link>
+                <a
+                  href={APPS.googlePlay.pro}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className={buttonVariants({ variant: 'cta', size: 'cta', className: 'block w-full text-center' })}
+                >
+                  {t('nav.getApp')}
+                </a>
                 <div className="flex justify-center pt-2">
                   <LanguageToggle variant="dark" />
                 </div>
