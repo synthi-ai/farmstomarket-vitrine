@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import BackToTop from '@/components/BackToTop';
 import CookieBanner from '@/components/CookieBanner';
 import SkipToContent from '@/components/SkipToContent';
+import Analytics from '@/components/Analytics';
 import '../globals.css';
 import localFont from 'next/font/local';
 import { Urbanist, Plus_Jakarta_Sans } from 'next/font/google';
@@ -216,6 +217,7 @@ export default async function RootLayout({
           <Footer />
           <CookieBanner />
           <BackToTop />
+          <Analytics />
         </LanguageProvider>
       </body>
     </html>

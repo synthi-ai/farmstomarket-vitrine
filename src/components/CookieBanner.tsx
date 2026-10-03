@@ -17,6 +17,8 @@ export default function CookieBanner() {
 
   const accept = (type: 'all' | 'essential') => {
     localStorage.setItem('cookiesAccepted', type);
+    // Let the consent-gated analytics loader react immediately (no reload).
+    window.dispatchEvent(new Event('ftm:consent'));
     setVisible(false);
   };
 
