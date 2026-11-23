@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project-local tooling & notes (not part of the app)
+docs/
+graphify-out/
+.claude/
+.agents/
