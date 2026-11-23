@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
-import { NAV_LINKS, SITE } from '@/data/site';
+import { SITE } from '@/data/site';
 import { LANGUAGES } from '@/types/i18n';
+import { ORDER } from '@/content/solutions';
 
 interface Entry {
   /** Path after the locale segment. `''` for the home page. */
@@ -11,13 +12,12 @@ interface Entry {
 
 const ROUTES: Entry[] = [
   { path: '', changeFrequency: 'weekly', priority: 1 },
-  { path: NAV_LINKS.producer, changeFrequency: 'monthly', priority: 0.9 },
-  { path: NAV_LINKS.customer, changeFrequency: 'monthly', priority: 0.9 },
-  { path: NAV_LINKS.transporter, changeFrequency: 'monthly', priority: 0.9 },
-  { path: NAV_LINKS.agrobank, changeFrequency: 'monthly', priority: 0.8 },
-  { path: NAV_LINKS.apps, changeFrequency: 'weekly', priority: 0.8 },
-  { path: NAV_LINKS.about, changeFrequency: 'monthly', priority: 0.6 },
-  { path: NAV_LINKS.privacy, changeFrequency: 'yearly', priority: 0.2 },
+  ...ORDER.map((slug) => ({
+    path: `/solutions/${slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  })),
+  { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

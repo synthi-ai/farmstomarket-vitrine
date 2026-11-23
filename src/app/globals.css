@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* ─── Figma brand color: override emerald palette with #00E834 ─── */
+/* ─── Brand color: #00E834 mapped onto the emerald scale ─── */
 @theme {
   --color-emerald-50:  #e6fde8;
   --color-emerald-100: #ccfbd1;
@@ -14,207 +14,67 @@
   --color-emerald-800: #005d15;
   --color-emerald-900: #003a0d;
   --color-emerald-950: #001d07;
+  --font-urbanist: 'Urbanist', sans-serif;
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* ─── Font family utilities (next/font variables injected at runtime) ─── */
-@utility font-heading {
+/* ─── Base (from the design's helmet <style>) ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #040405;
   font-family: var(--font-urbanist), 'Urbanist', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-@utility font-cta {
-  font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif;
+* {
+  box-sizing: border-box;
 }
 
-/* ─── Topo background pattern ─── */
-.bg-topo {
-  background-image: url('/bg/bg_topo.png');
-  background-repeat: repeat;
-  background-size: 600px auto;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-.bg-topo-subtle {
-  position: relative;
+a {
+  color: #00801d;
+  text-decoration: none;
 }
 
-.bg-topo-subtle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/bg/bg_topo.png');
-  background-repeat: repeat;
-  background-size: 600px auto;
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 0;
+a:hover {
+  color: #00a525;
 }
 
-/* ─── Geo geometric pattern (Figma calque) ─── */
-.bg-geo {
-  background-image: url('/bg/geo.png');
-  background-repeat: repeat;
-  background-size: 400px auto;
+button {
+  font-family: inherit;
 }
 
-.bg-geo-subtle {
-  position: relative;
+/* Hide horizontal scrollbars on snap/marquee rows */
+.f2m-noscrollbar {
+  scrollbar-width: none;
+}
+.f2m-noscrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-.bg-geo-subtle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/bg/geo.png');
-  background-repeat: repeat;
-  background-size: 400px auto;
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 0;
+/* Hover lift used by bento / feature cards */
+.f2m-hover-lift {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s ease,
+    border-color 0.3s ease;
+}
+.f2m-hover-lift:hover {
+  transform: translateY(-4px);
 }
 
-/* ─── Infinite marquee ─── */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.f2m-footlink {
+  transition: color 0.2s ease;
 }
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-/* ─── Rotating words ─── */
-@keyframes word-rotate-in {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes word-rotate-out {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-}
-
-/* ─── Animated gradient hero background ─── */
-@keyframes hero-gradient {
-  0% {
-    background-position: 0% 88%;
-  }
-  50% {
-    background-position: 100% 13%;
-  }
-  100% {
-    background-position: 0% 88%;
-  }
-}
-
-.anim-hero-gradient {
-  background: linear-gradient(
-    135deg,
-    #003a0d,
-    #1a1a2e,
-    #005d15,
-    #1a1a2e,
-    #003a0d
-  );
-  background-size: 800% 800%;
-  animation: hero-gradient 30s ease infinite;
-}
-
-/* ─── Smooth scroll indicator pulse ─── */
-@keyframes scroll-pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(6px);
-  }
-}
-
-.animate-scroll-pulse {
-  animation: scroll-pulse 2s ease-in-out infinite;
-}
-
-/* ─── Gradient text utility (uses Figma primary #00E834) ─── */
-.text-gradient {
-  background: linear-gradient(135deg, #00e834 0%, #33ed47 50%, #99ff99 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ─── Glass card ─── */
-.glass-card {
-  background: rgba(17, 24, 39, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(55, 65, 81, 0.5);
-}
-
-.glass-card:hover {
-  background: rgba(17, 24, 39, 0.8);
-  border-color: rgba(0, 232, 52, 0.3);
-}
-
-/* ─── Section divider gradient ─── */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 232, 52, 0.3) 50%,
-    transparent 100%
-  );
-}
-
-/* ─── Magic UI: shimmer sweep ─── */
-@keyframes shimmer {
-  from { transform: translateX(-200%); }
-  to   { transform: translateX(200%);  }
-}
-
-/* ─── Magic UI: animated gradient text ─── */
-@keyframes gradient {
-  to { background-position: var(--bg-size, 300%) 0; }
-}
-.animate-gradient {
-  animation: gradient 8s linear infinite;
-}
-
-/* ─── Magic UI: meteor effect ─── */
-@keyframes meteor-effect {
-  0%   { transform: rotate(var(--meteor-angle, 215deg)) translateX(0); opacity: 1; }
-  70%  { opacity: 1; }
-  100% { transform: rotate(var(--meteor-angle, 215deg)) translateX(-600px); opacity: 0; }
-}
-.animate-meteor {
-  animation: meteor-effect linear infinite;
-  animation-duration: inherit;
-  animation-delay: inherit;
-}
-
-/* ─── Marquee: pause on hover OR keyboard focus ─── */
-.animate-marquee:hover,
-.animate-marquee:focus-within {
-  animation-play-state: paused;
+.f2m-footlink:hover {
+  color: #00e834;
 }
 
 /* ─── prefers-reduced-motion: cut all motion ─── */

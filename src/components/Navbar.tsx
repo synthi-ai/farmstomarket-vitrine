@@ -1,360 +1,316 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, Wheat, ShoppingBasket, Truck, Landmark, BarChart3, Layers, HelpCircle, Smartphone } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import Link from '@/components/LocaleLink';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageToggle from './LanguageToggle';
-import { APPS, NAV_LINKS } from '@/data/site';
-import { buttonVariants } from '@/components/ui/button';
-import type { TranslationKey } from '@/types/i18n';
+import { swapLocale, withLocale } from '@/i18n/routing';
+import type { Language } from '@/types/i18n';
+import { ScrollProgress, JAKARTA } from '@/components/f2m/primitives';
+import { T, CHAPTERS } from '@/content/home';
+import { SOLUTIONS, ORDER, type SolutionKey } from '@/content/solutions';
 
-const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+const LOGO = '/assets/logo.png';
 
-const SOLUTIONS = [
-  { key: 'nav.producer', descKey: 'nav.producer.desc', href: '/producer', Icon: Wheat },
-  { key: 'nav.customer', descKey: 'nav.customer.desc', href: '/customer', Icon: ShoppingBasket },
-  { key: 'nav.transporter', descKey: 'nav.transporter.desc', href: '/transporter', Icon: Truck },
-  { key: 'nav.agrobank', descKey: 'nav.agrobank.desc', href: '/agrobank', Icon: Landmark },
-] as const;
-
-const PLATFORM = [
-  { key: 'nav.features', href: '/#features', Icon: Layers },
-  { key: 'nav.howItWorks', href: '/#onboarding', Icon: HelpCircle },
-  { key: 'nav.analytics', href: '/#solutions', Icon: BarChart3 },
-  { key: 'nav.mobileApp', href: '/apps', Icon: Smartphone },
-] as const;
+/** Cropped logo lockup (the PNG has transparent padding baked in). */
+function Logo({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      style={{ position: 'relative', display: 'block', flex: 'none', width: 118, height: 44, overflow: 'hidden' }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={LOGO}
+        alt={label}
+        style={{ position: 'absolute', top: -30, left: -30, height: 104, width: 'auto', maxWidth: 'none' }}
+      />
+    </a>
+  );
+}
 
 export default function Navbar() {
-  const { t } = useLanguage();
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<'solutions' | 'platform' | null>(null);
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
-  const [mobilePlatformOpen, setMobilePlatformOpen] = useState(false);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { language } = useLanguage();
+  const pathname = usePathname() ?? '/';
+  const router = useRouter();
+  const t = T[language];
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const home = withLocale(language, '/');
+  const isHome = pathname === home || pathname === `/${language}`;
+  const solutionsMatch = pathname.match(/\/solutions\/([^/]+)/);
+  const isSolutions = !!solutionsMatch;
+  const currentKey = (solutionsMatch?.[1] ?? 'producteurs') as SolutionKey;
 
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
-
-  const openWith = (menu: 'solutions' | 'platform') => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpenMenu(menu);
-  };
-  const scheduleClose = () => {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
+  const next: Language = language === 'en' ? 'fr' : 'en';
+  const toggleLang = () => {
+    document.cookie = `ftm_lang=${next}; path=/; max-age=31536000; samesite=lax`;
+    router.push(swapLocale(pathname, next));
   };
 
   return (
     <>
+      <ScrollProgress />
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-gray-950/95 shadow-lg shadow-black/10 backdrop-blur-xl border-b border-gray-800/40'
-            : 'bg-transparent'
-        }`}
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 50,
+          background: 'rgba(255,255,255,0.86)',
+          backdropFilter: 'saturate(1.6) blur(18px)',
+          WebkitBackdropFilter: 'saturate(1.6) blur(18px)',
+          borderBottom: '1px solid #EEF0F4',
+        }}
       >
-        {/* ── desktop ── */}
-        <div className="relative mx-auto flex max-w-7xl items-center px-5 py-3.5 lg:px-8">
+        <div
+          style={{
+            maxWidth: 1320,
+            margin: '0 auto',
+            padding: '8px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 20,
+          }}
+        >
+          <Logo href={home} label="Farms to Market" />
 
-          {/* Logo — left */}
-          <Link href="/" className="flex-shrink-0 z-10">
-            <Image
-              src="/logo/logo.svg"
-              alt={t('brand.logoAlt')}
-              width={160}
-              height={40}
-              className="h-8 w-auto lg:h-9"
-              priority
-            />
-          </Link>
+          {isHome ? <ChapterNav labels={t.nav} lang={language} /> : null}
+          {isSolutions ? <SolutionsHomeLink lang={language} label={SOLUTIONS[language].ui.home} /> : null}
 
-          {/* Nav — truly centered via absolute */}
-          <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-0.5 lg:flex">
-
-            {/* Platform dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => openWith('platform')}
-              onMouseLeave={scheduleClose}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button
+              onClick={toggleLang}
+              aria-label="Language"
+              style={{
+                border: '1px solid #C1C5D0',
+                background: '#FFFFFF',
+                cursor: 'pointer',
+                fontWeight: 700,
+                fontSize: 13,
+                width: 44,
+                height: 40,
+                borderRadius: 10,
+                color: '#040405',
+              }}
             >
-              <button
-                className={`flex items-center gap-1 rounded-md px-3.5 py-2 text-[13px] font-medium transition-colors ${
-                  openMenu === 'platform' ? 'text-white' : 'text-gray-400 hover:text-white'
-                }`}
-                onClick={() => setOpenMenu(openMenu === 'platform' ? null : 'platform')}
-                aria-expanded={openMenu === 'platform'}
-                aria-haspopup="true"
-              >
-                {t('nav.platform')}
-                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${openMenu === 'platform' ? 'rotate-180' : ''}`} />
-              </button>
-
-              <AnimatePresence>
-                {openMenu === 'platform' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                    transition={{ duration: 0.15, ease: EASE }}
-                    onMouseEnter={() => openWith('platform')}
-                    onMouseLeave={scheduleClose}
-                    className="absolute left-1/2 top-full mt-2 w-[220px] -translate-x-1/2 rounded-2xl border border-gray-800/60 bg-gray-950/98 py-2 shadow-2xl shadow-black/30 backdrop-blur-xl"
-                    role="menu"
-                  >
-                    {PLATFORM.map(({ key, href, Icon }) => (
-                      <Link
-                        key={key}
-                        href={href}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[13px] text-gray-400 transition-all hover:bg-white/[0.04] hover:text-white"
-                        onClick={() => setOpenMenu(null)}
-                        role="menuitem"
-                      >
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                          <Icon className="h-3.5 w-3.5 text-emerald-400" />
-                        </span>
-                        {t(key)}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Solutions dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => openWith('solutions')}
-              onMouseLeave={scheduleClose}
-            >
-              <button
-                className={`flex items-center gap-1 rounded-md px-3.5 py-2 text-[13px] font-medium transition-colors ${
-                  openMenu === 'solutions' ? 'text-white' : 'text-gray-400 hover:text-white'
-                }`}
-                onClick={() => setOpenMenu(openMenu === 'solutions' ? null : 'solutions')}
-                aria-expanded={openMenu === 'solutions'}
-                aria-haspopup="true"
-              >
-                {t('nav.solutions')}
-                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${openMenu === 'solutions' ? 'rotate-180' : ''}`} />
-              </button>
-
-              <AnimatePresence>
-                {openMenu === 'solutions' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                    transition={{ duration: 0.15, ease: EASE }}
-                    onMouseEnter={() => openWith('solutions')}
-                    onMouseLeave={scheduleClose}
-                    className="absolute left-1/2 top-full mt-2 w-[420px] -translate-x-1/2 rounded-2xl border border-gray-800/60 bg-gray-950/98 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl"
-                    role="menu"
-                  >
-                    <p className="mb-2 px-2 pt-1 text-[10px] font-semibold uppercase tracking-[2px] text-gray-600">
-                      {t('nav.whoIsItFor')}
-                    </p>
-                    <div className="grid grid-cols-2 gap-1">
-                      {SOLUTIONS.map(({ key, descKey, href, Icon }) => (
-                        <Link
-                          key={key}
-                          href={href}
-                          className="group flex items-start gap-3 rounded-xl p-3 transition-all hover:bg-white/[0.04]"
-                          onClick={() => setOpenMenu(null)}
-                          role="menuitem"
-                        >
-                          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 transition-colors group-hover:bg-emerald-500/20">
-                            <Icon className="h-4 w-4 text-emerald-400" />
-                          </span>
-                          <span>
-                            <span className="block text-[13px] font-semibold text-white">{t(key)}</span>
-                            <span className="mt-0.5 block text-[11px] leading-snug text-gray-500">{t(descKey)}</span>
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="mt-2 border-t border-gray-800/60 pt-2">
-                      <Link
-                        href="/#solutions"
-                        className="flex items-center justify-between rounded-xl px-3 py-2 text-[12px] font-medium text-emerald-400 transition-all hover:bg-emerald-500/5"
-                        onClick={() => setOpenMenu(null)}
-                      >
-                        {t('nav.seeAllSolutions')}
-                        <ChevronDown className="-rotate-90 h-3 w-3" />
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <Link href="/#marketplace" className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
-              {t('nav.marketplace')}
-            </Link>
-
-            <Link href="/#testimonials" className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
-              {t('nav.testimonials')}
-            </Link>
-
-            <Link href={NAV_LINKS.about} className="rounded-md px-3.5 py-2 text-[13px] font-medium text-gray-400 transition-colors hover:text-white">
-              {t('nav.about')}
-            </Link>
-          </nav>
-
-          {/* Actions — right */}
-          <div className="ml-auto hidden items-center gap-2 lg:flex z-10">
-            <LanguageToggle variant="dark" />
+              {t.langSwitch}
+            </button>
             <a
-              href={APPS.googlePlay.pro}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonVariants({ variant: 'cta', size: 'cta-sm' })}
+              href={isSolutions ? '#cta' : '#rejoindre'}
+              style={{
+                background: '#040405',
+                color: '#FFFFFF',
+                fontWeight: 700,
+                fontSize: 14,
+                padding: '11px 16px',
+                borderRadius: 10,
+                whiteSpace: 'nowrap',
+              }}
             >
-              {t('nav.getApp')}
+              {isSolutions ? SOLUTIONS[language].ui.join : t.headerCta}
             </a>
+            {isHome ? <MobileMenu labels={t.nav} /> : null}
           </div>
-
-          {/* Hamburger — mobile */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="ml-auto lg:hidden p-2"
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? t('nav.closeMenu') : t('nav.openMenu')}
-          >
-            {mobileOpen ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
-          </button>
         </div>
+
+        {isSolutions ? <SolutionsTabs lang={language} current={currentKey} /> : null}
       </header>
-
-      {/* ── Mobile menu ── */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.28, ease: EASE }}
-            className="fixed inset-0 z-50 bg-gray-950 lg:hidden overflow-y-auto"
-          >
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800/50">
-              <Link href="/" onClick={() => setMobileOpen(false)}>
-                <Image src="/logo/logo.svg" alt={t('brand.logoAlt')} width={140} height={36} className="h-8 w-auto" />
-              </Link>
-              <button onClick={() => setMobileOpen(false)} aria-label={t('nav.closeMenu')}>
-                <X className="h-5 w-5 text-white" />
-              </button>
-            </div>
-
-            <div className="flex flex-col px-5 pb-8 pt-4">
-              <nav className="flex flex-col gap-1">
-
-                {/* Platform accordion */}
-                <button
-                  onClick={() => setMobilePlatformOpen((o) => !o)}
-                  className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04]"
-                >
-                  {t('nav.platform')}
-                  <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${mobilePlatformOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {mobilePlatformOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="ml-4 flex flex-col gap-1 border-l border-gray-800 pl-4 pb-2">
-                        {PLATFORM.map(({ key, href, Icon }) => (
-                          <Link key={key} href={href} onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-2.5 rounded-lg px-2 py-2.5 text-[14px] text-gray-400 hover:text-white">
-                            <Icon className="h-4 w-4 text-emerald-400" />
-                            {t(key)}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Solutions accordion */}
-                <button
-                  onClick={() => setMobileSolutionsOpen((o) => !o)}
-                  className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04]"
-                >
-                  {t('nav.solutions')}
-                  <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {mobileSolutionsOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="ml-4 flex flex-col gap-1 border-l border-gray-800 pl-4 pb-2">
-                        {SOLUTIONS.map(({ key, descKey, href, Icon }) => (
-                          <Link key={key} href={href} onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-2.5 rounded-lg px-2 py-2.5 hover:bg-white/[0.04]">
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                              <Icon className="h-3.5 w-3.5 text-emerald-400" />
-                            </span>
-                            <span>
-                              <span className="block text-[14px] font-semibold text-white">{t(key)}</span>
-                              <span className="block text-[11px] text-gray-500">{t(descKey)}</span>
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {(
-                  [
-                    { key: 'nav.marketplace', href: '/#marketplace' },
-                    { key: 'nav.testimonials', href: '/#testimonials' },
-                    { key: 'nav.about', href: NAV_LINKS.about },
-                  ] as { key: TranslationKey; href: string }[]
-                ).map(({ key, href }) => (
-                  <Link key={key} href={href} onClick={() => setMobileOpen(false)}
-                    className="rounded-xl px-3 py-3 text-[15px] font-medium text-gray-200 hover:bg-white/[0.04] hover:text-white">
-                    {t(key)}
-                  </Link>
-                ))}
-              </nav>
-
-              <div className="mt-8 space-y-2">
-                <a
-                  href={APPS.googlePlay.pro}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className={buttonVariants({ variant: 'cta', size: 'cta', className: 'block w-full text-center' })}
-                >
-                  {t('nav.getApp')}
-                </a>
-                <div className="flex justify-center pt-2">
-                  <LanguageToggle variant="dark" />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
+  );
+}
+
+/* ── Home: chapter nav with scroll-driven active highlight ───── */
+function ChapterNav({ labels, lang }: { labels: readonly string[]; lang: Language }) {
+  const [active, setActive] = useState('');
+  const [wide, setWide] = useState(true);
+
+  useEffect(() => {
+    const onResize = () => setWide(window.innerWidth >= 1180);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive((e.target as HTMLElement).dataset.chapter ?? '');
+        }),
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    document.querySelectorAll('[data-chapter]').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [lang]);
+
+  if (!wide) return null;
+  return (
+    <nav style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      {labels.map((label, i) => (
+        <a
+          key={label}
+          href={`#${CHAPTERS[i]}`}
+          style={{
+            fontWeight: 600,
+            fontSize: 14,
+            padding: '10px 11px',
+            borderRadius: 8,
+            color: active === CHAPTERS[i] ? '#040405' : '#58617B',
+            transition: 'color .3s ease',
+          }}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+/* ── Home: mobile hamburger menu (<1180px) ──────────────────── */
+function MobileMenu({ labels }: { labels: readonly string[] }) {
+  const [open, setOpen] = useState(false);
+  const [narrow, setNarrow] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => setNarrow(window.innerWidth < 1180);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  if (!narrow) return null;
+  return (
+    <>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-label="Menu"
+        aria-expanded={open}
+        style={{
+          border: 0,
+          background: '#EEF0F4',
+          cursor: 'pointer',
+          width: 44,
+          height: 40,
+          borderRadius: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 5,
+        }}
+      >
+        <span style={{ width: 18, height: 2, background: '#040405' }} />
+        <span style={{ width: 18, height: 2, background: '#040405' }} />
+      </button>
+      {open ? (
+        <nav
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: '100%',
+            borderTop: '1px solid #EEF0F4',
+            background: '#FFFFFF',
+            padding: '8px 24px 24px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {labels.map((label, i) => (
+            <a
+              key={label}
+              href={`#${CHAPTERS[i]}`}
+              onClick={() => setOpen(false)}
+              style={{
+                display: 'flex',
+                gap: 14,
+                alignItems: 'baseline',
+                fontFamily: JAKARTA,
+                fontWeight: 700,
+                fontSize: 22,
+                letterSpacing: '-0.02em',
+                padding: '14px 0',
+                borderBottom: '1px solid #EEF0F4',
+                color: '#040405',
+              }}
+            >
+              <span style={{ fontSize: 13, color: '#00801D' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              {label}
+            </a>
+          ))}
+        </nav>
+      ) : null}
+    </>
+  );
+}
+
+/* ── Solutions: "Home" link in the top bar ──────────────────── */
+function SolutionsHomeLink({ lang, label }: { lang: Language; label: string }) {
+  return (
+    <a
+      href={withLocale(lang, '/')}
+      style={{ marginLeft: 'auto', fontWeight: 600, fontSize: 14, padding: '10px 11px', color: '#58617B' }}
+    >
+      {label}
+    </a>
+  );
+}
+
+/* ── Solutions: horizontal tab bar ──────────────────────────── */
+function SolutionsTabs({ lang, current }: { lang: Language; current: SolutionKey }) {
+  const pages = SOLUTIONS[lang].pages;
+  return (
+    <nav
+      className="f2m-noscrollbar"
+      style={{
+        maxWidth: 1320,
+        margin: '0 auto',
+        padding: '0 24px',
+        display: 'flex',
+        gap: 4,
+        overflowX: 'auto',
+      }}
+    >
+      {ORDER.map((key) => {
+        const on = key === current;
+        return (
+          <a
+            key={key}
+            href={withLocale(lang, `/solutions/${key}`)}
+            style={{
+              flex: 'none',
+              minHeight: 44,
+              padding: '0 12px',
+              fontWeight: 700,
+              fontSize: 14,
+              color: on ? '#040405' : '#58617B',
+              borderBottom: `2px solid ${on ? '#00E834' : 'transparent'}`,
+              transition: 'color .3s ease, border-color .3s ease',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            {pages[key].nav}
+            {key === 'faroya' ? (
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#006116',
+                  background: '#E6FDEB',
+                  padding: '3px 6px',
+                  borderRadius: 5,
+                }}
+              >
+                β
+              </span>
+            ) : null}
+          </a>
+        );
+      })}
+    </nav>
   );
 }
